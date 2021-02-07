@@ -1,0 +1,62 @@
+.inbox {
+	position: relative;
+	flex-grow: 1;
+	margin: 0.7em;
+	--border-color: rgb(204, 204, 204);
+	--text-color-second: var(--text-color);
+	--color-primary: rgb(248, 205, 205);
+	--text-color: var(--border-color);
+	--elevation-8dp-color: #424242;
+}
+
+.inbox-text {
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 100%;
+	border: 1px solid var(--border-color);
+	background: transparent;
+	padding: 0.5em;
+	border-radius: 0.25em;
+	box-sizing: border-box;
+	outline: none;
+	font-size: 1em;
+	color: var(--text-color);
+	font-weight: 300;
+}
+
+.inbox-placeholder {
+	position: absolute;
+	top: 0.5em;
+	left: 0.5em;
+	display: inline-block;
+	font-size: 1em;
+	color: var(--text-color-second);
+	background: var(--elevation-8dp-color);
+	font-weight: 300;
+	transition: 0.3s;
+	pointer-events: none;
+}
+
+.inbox-text:focus {
+	color: var(--color-primary);
+	border-color: var(--color-primary);
+}
+
+.inbox-text:focus~.inbox-placeholder {
+	color: var(--color-primary);
+}
+
+.inbox-text:focus~.inbox-placeholder, .inbox-text:valid~.inbox-placeholder, .inbox-text:invalid:not(:placeholder-shown)~.inbox-placeholder, .inbox-text:disabled~.inbox-placeholder {
+	transform: translateX(0.5em) translateY(-1em);
+	font-size: 0.8em;
+}
+
+.inbox-text:invalid:not(:placeholder-shown) {
+	color: var(--color-error);
+	border-color: var(--color-error);
+}
+
+.inbox-text:invalid:not(:placeholder-shown)~.inbox-placeholder {
+	color: var(--color-error);
+}

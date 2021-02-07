@@ -6,10 +6,13 @@ h1 {
 }
 
 body {
-    background-image: url('../shared//static/img/bgr.png');
     height: 100vh;
+    font-family: Roboto, Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    background-image: url('../shared//static/img/bgr.png');
+    background-size: cover;
 }
 
 #root {
     height: inherit;
+    display: flex;
 }

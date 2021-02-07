@@ -8,18 +8,6 @@ class App extends Component {
     return (
       <React.Fragment>
         <Router>
-          <ul>
-            <li>
-              <Link to='/'>home</Link>
-            </li>
-            <li>
-              <Link to='/users'>users</Link>
-            </li>
-            <li>
-              <Link to='/about'>about</Link>
-            </li>
-          </ul>
-
           <Switch>
             <Route path='/users'>users</Route>
 

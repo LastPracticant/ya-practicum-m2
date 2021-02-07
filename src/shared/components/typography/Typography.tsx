@@ -8,7 +8,7 @@ interface IProps {
   style?: React.CSSProperties
 }
 
-const Typography: FC<IProps> = memo(
+export const Typography: FC<IProps> = memo(
   ({ variant = 'body', color = 'default', children, style }) => {
     const styleComponent = {
       ...Theme.typography[variant as TVariant],
@@ -18,4 +18,3 @@ const Typography: FC<IProps> = memo(
     return <p style={styleComponent}>{children}</p>
   }
 )
-export default Typography

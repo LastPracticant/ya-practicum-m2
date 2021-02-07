@@ -1,7 +1,7 @@
 import React, { FC, memo } from 'react'
 import Theme from '../../styles/theme/Theme'
 
-const Paper: FC<{ style: React.CSSProperties }> = memo(
+export const Paper: FC<{ style: React.CSSProperties }> = memo(
   ({ children, style }) => {
     return (
       <div
@@ -17,4 +17,3 @@ const Paper: FC<{ style: React.CSSProperties }> = memo(
     )
   }
 )
-export default Paper
