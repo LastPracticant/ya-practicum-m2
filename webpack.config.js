@@ -1,5 +1,6 @@
 const path = require("path")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
+const StylelintPlugin = require('stylelint-webpack-plugin')
 
 module.exports = {
     entry: "./src/index.tsx",
@@ -39,7 +40,8 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-        template: "./www/index.html"
-        })
+            template: "./www/index.html"
+        }),
+        new StylelintPlugin()
     ]
 }
