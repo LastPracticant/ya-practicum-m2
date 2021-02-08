@@ -17,6 +17,8 @@ html {
 
 body {
 	line-height: 1;
+	height: 100vh;
+    font-family: Roboto, Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 ol, ul {
