@@ -20,12 +20,12 @@
         "baseUrl": ".",
         "outDir": "./dist",
         "paths": {
-            "*": ["./src/*"]
+            "*": ["./client/*"]
         },
         "typeRoots": ["typings/**/*.d.ts", "node_modules/@types"],
     },
     "include": [
-        "src",
+        "client",
         "typings/**/*.d.ts",
         "./node_modules/@types"
     ],

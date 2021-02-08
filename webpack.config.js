@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin")
 const StylelintPlugin = require('stylelint-webpack-plugin')
 
 module.exports = {
-    entry: "./src/index.tsx",
+    entry: "./client/index.tsx",
     output: {
         path: path.join(__dirname, "/dist"),
         filename: "bundle.js"
@@ -21,7 +21,7 @@ module.exports = {
         {
             test: /\.css$/,
             use: [
-                "style-loader", 
+                "style-loader",
                 "css-loader",
                 {
                     loader: "postcss-loader",
