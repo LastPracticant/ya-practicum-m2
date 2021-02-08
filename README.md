@@ -96,6 +96,8 @@ export const MyComponent:FC<MyComponentProps> = (props) => {
   return <div>component content</div>
 }
 ```
+# Правила оформления кода на React (для ознакомления)
+https://netology-university.bitbucket.io/codestyle/react/
 
 # Чистый код (следует воспринимать как рекомендацию)
 
