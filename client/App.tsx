@@ -1,3 +1,4 @@
+import { Signup } from 'pages/Signup';
 import React from 'react';
 import {
     BrowserRouter,
@@ -9,34 +10,31 @@ import {
 import './App.css';
 
 export const App: React.FC = () => (
-	<div>
-		<h1>
-			<span>Мой</span>
-			<b>апп.</b>
-		</h1>
+	<BrowserRouter>
+		<div>
+			<Switch>
+				<Route exact path="/">
+					<Signup />
+				</Route>
 
-		<BrowserRouter>
-			<div>
-				<Switch>
-					<Route exact path="/">
-						home
-					</Route>
+				<Route exact path="/">
+					home
+				</Route>
 
-					<Route path="/users">
-						users
-					</Route>
+				<Route path="/users">
+					users
+				</Route>
 
-					<Route path="/about">
-						about
-					</Route>
-				</Switch>
-			</div>
+				<Route path="/about">
+					about
+				</Route>
+			</Switch>
+		</div>
 
-			<ul>
-				<li><Link to="/">home</Link></li>
-				<li><Link to="/users">users</Link></li>
-				<li><Link to="/about">about</Link></li>
-			</ul>
-		</BrowserRouter>
-	</div>
+		<ul>
+			<li><Link to="/">home</Link></li>
+			<li><Link to="/users">users</Link></li>
+			<li><Link to="/about">about</Link></li>
+		</ul>
+	</BrowserRouter>
 );

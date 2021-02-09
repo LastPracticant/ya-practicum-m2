@@ -13,5 +13,13 @@
         "react/jsx-indent": [1, "tab", { "checkAttributes": true, "indentLogicalExpressions": true }],
         "arrow-body-style": ["warn", "as-needed"],
         "no-tabs": ["error", { "allowIndentationTabs": true }]
+    },
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [".js", ".jsx", ".ts", ".tsx"],
+                "paths": ["./client"]
+            }
+        }
     }
 }
