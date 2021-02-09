@@ -17,19 +17,9 @@
         "skipLibCheck": true,
         "declaration": false,
         "sourceMap": false,
-        "baseUrl": ".",
+        "rootDir": "./",
         "outDir": "./dist",
-        "paths": {
-            "*": ["./client/*"]
-        },
-        "typeRoots": ["typings/**/*.d.ts", "node_modules/@types"],
+        "baseUrl": "./client"
     },
-    "include": [
-        "client",
-        "typings/**/*.d.ts",
-        "./node_modules/@types"
-    ],
-    "exclude": [
-        "**/*.js"
-    ]
+    "include": ["./client"]
 }
