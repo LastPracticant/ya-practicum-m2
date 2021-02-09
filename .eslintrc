@@ -3,7 +3,7 @@
         "airbnb-typescript"
     ],
     "parserOptions": {
-        "project": "./tsconfig.json"
+        "project": "./tsconfig.eslint.json"
     },
     "rules": {
         "linebreak-style": "off",
@@ -12,7 +12,9 @@
         "import/prefer-default-export": "off",
         "react/jsx-indent": [1, "tab", { "checkAttributes": true, "indentLogicalExpressions": true }],
         "arrow-body-style": ["warn", "as-needed"],
-        "no-tabs": ["error", { "allowIndentationTabs": true }]
+        "no-tabs": ["error", { "allowIndentationTabs": true }],
+        "react/prop-types": "off",
+        "react/jsx-indent-props": [2, "tab"]
     },
     "settings": {
         "import/resolver": {

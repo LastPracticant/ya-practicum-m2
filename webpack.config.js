@@ -10,7 +10,7 @@ module.exports = {
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
-        modules: [path.resolve(__dirname, 'src'), 'node_modules'],
+        modules: [path.resolve(__dirname, 'client'), 'node_modules'],
     },
     module: {
         rules: [
@@ -38,6 +38,9 @@ module.exports = {
                 ],
             },
         ],
+    },
+    devServer: {
+        historyApiFallback: true,
     },
     plugins: [
         new HtmlWebpackPlugin({
