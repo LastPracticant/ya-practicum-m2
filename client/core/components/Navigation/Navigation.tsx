@@ -8,7 +8,7 @@ const NavigationLink: React.FC<RouteValueProps> = ({ path, title }) => (
 	<li><Link to={path}>{title}</Link></li>
 );
 
-export const Navigation: React.FC = () => {
+export const Navigation: React.FC = React.memo(() => {
     const menuList = Object.keys(ROUTES).map((key) => (
 	<NavigationLink
 		key={ROUTES[key].title}
@@ -22,4 +22,4 @@ export const Navigation: React.FC = () => {
 		{menuList}
 	</ul>
     );
-};
+});

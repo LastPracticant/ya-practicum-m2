@@ -5,7 +5,7 @@ import {
     BrowserRouter,
 } from 'react-router-dom';
 import { Routing } from 'routing/Routing';
-import { Navigation } from 'core/Navigation';
+import { Navigation } from 'core/components';
 
 export const App: React.FC = () => (
 	<BrowserRouter>
