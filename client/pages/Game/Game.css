@@ -1,0 +1,33 @@
+.game {
+    &__overlay {
+        overflow: auto;
+    }
+
+    canvas {
+        border-radius: var(--space-sm);
+    }
+}
+
+.game-start {
+    &__help {
+        margin-bottom: var(--space-lg);
+
+        h3 {
+            font-style: normal;
+            font-weight: 500;
+            font-size: 20px;
+            line-height: 24px;
+            letter-spacing: 0.15px;
+            text-decoration-line: underline;
+            color: #fff;
+            margin-bottom: var(--space-sm);
+        }
+
+        p {
+            font-size: 14px;
+            line-height: 20px;
+            letter-spacing: 0.25px;
+            color: #cecece;
+        }
+    }
+}

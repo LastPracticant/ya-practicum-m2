@@ -19,7 +19,7 @@ export const Paper: FC<PaperProps> = memo(
             className={classnames(
                 'paper',
                 className,
-                `paper_${sizes}`,
+                `paper_sizes_${sizes}`,
                 `paper_theme_${theme}`,
             )}
             {...props}

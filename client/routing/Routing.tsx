@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { UiKit } from 'client/shared/UiKit';
 import {
     Forum,
     Game,
@@ -10,6 +9,7 @@ import {
     Signup,
     ErrorPage,
     Home,
+    GameStart,
 } from '../pages';
 
 import { ROUTES } from './Routing.config';
@@ -36,6 +36,10 @@ export const Routing: React.FC = () => (
             <Forum title={ROUTES.FORUM.title} />
         </Route>
 
+        <Route path={ROUTES.GAME_START.path}>
+            <GameStart title={ROUTES.GAME_START.title} />
+        </Route>
+
         <Route path={ROUTES.GAME.path}>
             <Game title={ROUTES.GAME.title} />
         </Route>
@@ -44,9 +48,6 @@ export const Routing: React.FC = () => (
             <Leaderboard title={ROUTES.LEADERBOARD.title} />
         </Route>
 
-        <Route path={ROUTES.UIKIT.path}>
-            <UiKit title={ROUTES.UIKIT.title} />
-        </Route>
         <Route>
             <ErrorPage errorCode="404" />
         </Route>

@@ -22,6 +22,10 @@ export const useCanvas = (drawCanvas: DrawCanvasFn, resources?: string | string[
         let keyPress: string | null;
         const handleHeroAction = (e: KeyboardEvent) => {
             keyPress = e.code;
+
+            if ([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+                e.preventDefault();
+            }
         };
         document.addEventListener('keydown', handleHeroAction, false);
 
