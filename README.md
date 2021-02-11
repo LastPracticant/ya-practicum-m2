@@ -1,3 +1,6 @@
+# deploy
+https://last-practicant.herokuapp.com/
+
 # Об игре
 ## Название игры
 Последний практикант
