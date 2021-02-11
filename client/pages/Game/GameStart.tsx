@@ -21,19 +21,22 @@ export const GameStart: React.FC<PageComponentProps> = React.memo(() => {
                 <NivelatorXY>
                     <div>
                         <div className="game-start__help">
-                            <h3>Управление в игре</h3>
-                            <p>Прыгнуть - стрелка вверх</p>
-                            <p>Присесть - стрелка вниз</p>
-                        </div>
+                            <h3>Управление</h3>
 
-                        <Button
-                            variant="contained"
-                            color="secondary"
-                            onClick={handleGameStart}
-                            className="game-start__toggle"
-                        >
-                            Начать игру
-                        </Button>
+                            <div className="game-start__control">
+                                <p>Прыгнуть - стрелка вверх</p>
+                                <p>Присесть - стрелка вниз</p>
+                            </div>
+
+                            <Button
+                                variant="contained"
+                                color="secondary"
+                                onClick={handleGameStart}
+                                className="game-start__toggle"
+                            >
+                                Начать игру
+                            </Button>
+                        </div>
                     </div>
                 </NivelatorXY>
             </Paper>

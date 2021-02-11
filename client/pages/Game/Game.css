@@ -8,9 +8,10 @@
     }
 }
 
-.game-start {
+.game-start,
+.game-over {
     &__help {
-        margin-bottom: var(--space-lg);
+        text-align: center;
 
         h3 {
             font-style: normal;
@@ -28,6 +29,26 @@
             line-height: 20px;
             letter-spacing: 0.25px;
             color: #cecece;
+        }
+    }
+
+    &__control {
+        margin-bottom: var(--space-lg);
+        text-align: left;
+    }
+}
+
+.game-over {
+    &__help {
+        a {
+            color: #fff;
+        }
+    }
+
+    &__banner {
+        img {
+            width: 100%;
+            height: auto;
         }
     }
 }

@@ -10,6 +10,7 @@ import {
     ErrorPage,
     Home,
     GameStart,
+    GameOver,
 } from '../pages';
 
 import { ROUTES } from './Routing.config';
@@ -38,6 +39,10 @@ export const Routing: React.FC = () => (
 
         <Route path={ROUTES.GAME_START.path}>
             <GameStart title={ROUTES.GAME_START.title} />
+        </Route>
+
+        <Route path={ROUTES.GAME_OVER.path}>
+            <GameOver title={ROUTES.GAME_OVER.title} />
         </Route>
 
         <Route path={ROUTES.GAME.path}>
