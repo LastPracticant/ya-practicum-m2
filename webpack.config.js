@@ -41,14 +41,15 @@ module.exports = {
     },
     devServer: {
         historyApiFallback: true,
+        port: process.env.PORT || 3000,
     },
     plugins: [
+        new HtmlWebpackPlugin({
+            template: './www/index.html',
+        }),
         new StylelintPlugin({
             configFile: path.resolve(__dirname, './.stylelintrc.json'),
             context: path.resolve(__dirname, './client'),
-        }),
-        new HtmlWebpackPlugin({
-            template: './www/index.html',
         }),
     ],
 };
