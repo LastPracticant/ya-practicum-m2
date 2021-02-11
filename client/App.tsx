@@ -4,8 +4,8 @@ import React from 'react';
 import {
     BrowserRouter,
 } from 'react-router-dom';
-import { Routing } from 'routing/Routing';
-import { Navigation } from 'core/components';
+import { Routing } from 'client/routing/Routing';
+import { Navigation } from 'client/core/components';
 
 export const App: React.FC = () => (
 	<BrowserRouter>

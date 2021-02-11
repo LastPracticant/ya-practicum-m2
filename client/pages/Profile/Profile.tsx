@@ -1,5 +1,5 @@
 import React from 'react';
-import { PageComponentProps } from 'shared/types';
+import { PageComponentProps } from 'client/shared/types';
 
 export const Profile: React.FC<PageComponentProps> = ({ title }) => (
 	<div>

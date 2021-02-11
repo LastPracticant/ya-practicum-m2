@@ -10,7 +10,9 @@ module.exports = {
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
-        modules: [path.resolve(__dirname, './client'), './node_modules'],
+        alias: {
+            client: path.resolve(__dirname, './client/'),
+        },
     },
     module: {
         rules: [
