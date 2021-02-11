@@ -10,13 +10,16 @@
         "indent": "off",
         "@typescript-eslint/indent": ["warn", 4, { "ignoredNodes": ["JSXElement *", "JSXElement"]}],
         "import/prefer-default-export": "off",
-        "react/jsx-indent": "off",
         "arrow-body-style": ["warn", "as-needed"],
         "no-tabs": ["error", { "allowIndentationTabs": true }],
         "react/prop-types": "off",
+        "react/jsx-indent": "off",
         "react/jsx-indent-props": "off",
+        "react/jsx-closing-tag-location": "off",
         "class-methods-use-this": "off",
         "no-underscore-dangle": "off",
-        "react/jsx-props-no-spreading": "off"
+        "react/jsx-props-no-spreading": "off",
+        "consistent-return": "off",
+        "no-plusplus": "off"
     }
 }
