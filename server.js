@@ -3,14 +3,14 @@ const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 8000;
+const patternForStatic = new RegExp('.(js|css)$', 'g');
 
-app.get('*', (req, res) => {
-    const patternForStatic = new RegExp('.(js|css)$', 'g');
-    if (patternForStatic.test(req.path)) {
-        res.sendFile(path.join(__dirname, `/dist/${req.path}`));
-    } else {
-        res.sendFile(path.join(__dirname, '/dist/index.html'));
-    }
+app.get(patternForStatic, (req, res) => {
+    res.sendFile(path.join(__dirname, `/dist/${req.path}`));
+});
+
+app.get('*', (_, res) => {
+    res.sendFile(path.join(__dirname, '/dist/index.html'));
 });
 
 app.listen(PORT, () => {
