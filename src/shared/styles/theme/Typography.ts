@@ -45,7 +45,7 @@ const typography: TTypography = {
   },
   body: {
     fontFamily,
-    fontSize: '1.rem',
+    fontSize: '1rem',
     fontWeight: 400,
     lineHeight: 1.5,
     margin
@@ -53,8 +53,8 @@ const typography: TTypography = {
   overline: {
     fontFamily,
     fontSize: '0.75rem',
-    fontWeight: 400,
-    lineHeight: 2.66,
+    fontWeight: 300,
+    lineHeight: 1,
     margin
   }
 }
