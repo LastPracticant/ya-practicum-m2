@@ -11,6 +11,11 @@ module.exports = {
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
         modules: [path.resolve(__dirname, 'client'), 'node_modules'],
+        alias: {
+            'SharedStyles': path.resolve(__dirname, 'client/shared/styles'),
+            'SharedComponents': path.resolve(__dirname, 'client/shared/components')
+
+        }
     },
     module: {
         rules: [

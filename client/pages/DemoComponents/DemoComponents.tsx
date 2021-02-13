@@ -5,9 +5,11 @@ import {
     TextField,
     Paper,
     Button
-} from '../../../src/shared/components/index'
+} from 'SharedComponents'
 import { useForm } from 'react-hook-form'
-import Theme from '../../../src/shared/styles/theme/Theme'
+// import Theme from '../../../src/shared/styles/theme/Theme'
+import Theme from 'SharedStyles/theme/Theme'
+
 
 export const DemoComponents: React.FC<PageComponentProps> = ({ title }) => {
     const { register, handleSubmit, errors } = useForm() // initialize the hook
