@@ -5,11 +5,11 @@ import {
     BrowserRouter,
 } from 'react-router-dom';
 import { Routing } from 'routing/Routing';
-// import { Navigation } from 'core/components';
+import { Navigation } from 'core/components';
 
 export const App: React.FC = () => (
 	<BrowserRouter>
-		{/* <Navigation /> */}
+		<Navigation />
 		<Routing />
 	</BrowserRouter>
 );
