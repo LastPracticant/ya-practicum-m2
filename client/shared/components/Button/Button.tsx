@@ -1,9 +1,7 @@
 import React, { FC, memo } from 'react'
 import { createUseStyles } from 'react-jss'
-import Theme from '../../styles/theme/Theme'
-// import Theme from 'SharedStyles/theme/Theme'
-import { Typography } from '../typography/Typography'
-import { IconProps } from '../Icon'
+import Theme from 'SharedStyles/theme/Theme'
+import { Typography, IconProps } from '../index'
 
 const useStyles = createUseStyles({
     'YlpButton-root': {
@@ -39,7 +37,7 @@ const useStyles = createUseStyles({
     },
     btnIcon: {
         display: 'flex',
-        alignItems: 'center',
+        alignItems: 'center'
     },
     btnCircle: {
         borderRadius: '100%'
@@ -51,16 +49,30 @@ interface ButtonProps {
     style?: React.CSSProperties
     icon?: React.FC<IconProps>
     text?: string
-    onClick?: ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void) | undefined
+    onClick?:
+        | ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void)
+        | undefined
     isCircle?: boolean
 }
 
 export const Button: FC<ButtonProps> = memo(
-    ({ children, style, variant = 'contained', onClick, icon = null, isCircle = false }) => {
+    ({
+        children,
+        style,
+        variant = 'contained',
+        onClick,
+        icon = null,
+        isCircle = false
+    }) => {
         const classes = useStyles()
         return (
             <button
-                className={[classes['YlpButton-root'], classes[variant], classes[icon && 'btnIcon'], classes[isCircle && 'btnCircle']].join(' ')}
+                className={[
+                    classes['YlpButton-root'],
+                    classes[variant],
+                    classes[icon && 'btnIcon'],
+                    classes[isCircle && 'btnCircle']
+                ].join(' ')}
                 style={style}
                 onClick={onClick}
             >

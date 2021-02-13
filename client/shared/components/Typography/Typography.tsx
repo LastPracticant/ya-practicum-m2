@@ -1,5 +1,5 @@
 import React, { FC, memo } from 'react'
-import Theme from '../../styles/theme/Theme'
+import Theme from 'SharedStyles/theme/Theme'
 import { TVariant, TColor } from '../../styles/theme/Types'
 import { createUseStyles } from 'react-jss'
 

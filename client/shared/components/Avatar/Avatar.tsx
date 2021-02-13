@@ -1,19 +1,18 @@
 import React, { FC, memo } from 'react'
 import { createUseStyles } from 'react-jss'
-import Theme from '../../styles/theme/Theme'
 import { Icon } from '../Icon'
-// import Theme from 'SharedStyles/theme/Theme'
+import Theme from 'SharedStyles/theme/Theme'
 
 const useStyles = createUseStyles({
     'YlpAvatar-root': {
         borderRadius: '100%',
         padding: 8,
-        backgroundColor: Theme.colors.dark,
+        backgroundColor: Theme.colors.dark
     }
 })
 
 interface ListItemAvatarProps {
-    style?: React.CSSProperties,
+    style?: React.CSSProperties
     type?: string
 }
 

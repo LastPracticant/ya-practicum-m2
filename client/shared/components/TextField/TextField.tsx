@@ -1,8 +1,7 @@
 import React, { FC, memo } from 'react'
 import { createUseStyles } from 'react-jss'
-import Theme from '../../styles/theme/Theme'
-// import Theme from 'SharedStyles/theme/Theme'
-import { Typography } from '../Typography'
+import Theme from 'SharedStyles/theme/Theme'
+import { Typography } from '../index'
 
 const useStyles = createUseStyles({
     'YlpListTextField-root': {
@@ -24,7 +23,9 @@ const useStyles = createUseStyles({
             backgroundColor: Theme.backgroundColor,
             ...Theme.typography['body'],
             '&:not(:placeholder-shown) ~ label': {
-                transform: `translateX(${Theme.space(2)}px) translateY(-${Theme.space(4.5)}px)`,
+                transform: `translateX(${Theme.space(
+                    2
+                )}px) translateY(-${Theme.space(4.5)}px)`,
                 fontSize: '0.8rem',
                 lineHeight: 1
             },

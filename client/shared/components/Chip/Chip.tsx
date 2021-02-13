@@ -1,10 +1,7 @@
 import React, { FC, memo } from 'react'
 import { createUseStyles } from 'react-jss'
-import Theme from '../../styles/theme/Theme'
-// import Theme from 'SharedStyles/theme/Theme'
-import { Typography } from '../typography/Typography'
-import { Icon } from '../Icon'
-import { Button } from '../Button'
+import Theme from 'SharedStyles/theme/Theme'
+import { Button, Icon, Typography } from '../index'
 
 const useStyles = createUseStyles({
     'YlpChip-root': {

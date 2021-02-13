@@ -1,8 +1,7 @@
 import React, { FC, memo } from 'react'
 import { createUseStyles } from 'react-jss'
-import Theme from '../../styles/theme/Theme'
-// import Theme from 'SharedStyles/theme/Theme'
-import { Typography } from '../Typography'
+import Theme from 'SharedStyles/theme/Theme'
+import { Typography } from '../index'
 
 const useStyles = createUseStyles({
     'YlpListItemText-root': {

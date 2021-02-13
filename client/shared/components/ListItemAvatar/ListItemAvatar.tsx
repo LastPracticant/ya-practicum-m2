@@ -1,8 +1,7 @@
 import React, { FC, memo } from 'react'
 import { createUseStyles } from 'react-jss'
-import Theme from '../../styles/theme/Theme'
-import { Avatar } from '../Avatar'
-// import Theme from 'SharedStyles/theme/Theme'
+import Theme from 'SharedStyles/theme/Theme'
+import { Avatar } from '../index'
 
 const useStyles = createUseStyles({
     'YlpListItemAvatar-root': {
