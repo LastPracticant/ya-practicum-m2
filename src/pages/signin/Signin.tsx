@@ -13,7 +13,7 @@ const Signin: FC = memo(() => {
   const [password, setPassword] = useState('12342')
 
   const variant: TVariant[] = ['h1', 'h2', 'h3', 'body', 'overline']
-  const color: TColor[] = ['primary', 'active', 'default']
+  const color: TColor[] = ['primary', 'dark', 'default']
 
   return (
     <React.Fragment>

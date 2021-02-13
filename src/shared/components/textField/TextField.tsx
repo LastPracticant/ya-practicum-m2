@@ -24,7 +24,7 @@ const useStyles = createUseStyles({
             backgroundColor: Theme.backgroundColor,
             ...Theme.typography['body'],
             '&:not(:placeholder-shown) ~ label': {
-                transform: 'translateX(0.5em) translateY(-1em)',
+                transform: 'translateX(0.5em) translateY(-1.3em)',
                 fontSize: '0.8rem',
                 lineHeight: 1
             },
@@ -38,7 +38,7 @@ const useStyles = createUseStyles({
         },
         '& label': {
             position: 'absolute',
-            top: '0.5rem',
+            top: '0.8rem',
             left: '0.5rem',
             fontSize: '1rem',
             color: Theme.colors.default,
@@ -66,7 +66,7 @@ type InputProps = React.DetailedHTMLProps<
 > & {
     label: string
     name: string
-    type: 'password' | 'text' | 'email' | 'file' | 'tel'
+    type: 'password' | 'text' | 'email' | 'file' | 'tel' | 'button'
     error: any | null
     register: () => RefReturn
     // ({ required }: { required?: boolean | string }) => RefReturn

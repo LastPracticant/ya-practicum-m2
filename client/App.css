@@ -1,9 +1,15 @@
-h1 {
-    color: #27aedb;
+/* h1 {
     text-align: center;
+} */
 
-    span {
-        background-color: red;
-        font-size: 14px;
-    }
+@import url('./shared/styles/normalize.css');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+body {
+    /* background-image: url('../shared//static/img/bgr.png'); */
+    background-size: cover;
+}
+
+#root {
+    height: inherit;
+    display: flex;
 }

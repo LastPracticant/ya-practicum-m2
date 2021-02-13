@@ -1,4 +1,5 @@
 import { Typography } from './Typography/Typography'
 import { Paper } from './Paper/Paper'
 import { TextField } from './TextField/TextField'
-export { Typography, Paper, TextField }
+import { Button } from './Button/Button'
+export { Typography, Paper, TextField, Button }
