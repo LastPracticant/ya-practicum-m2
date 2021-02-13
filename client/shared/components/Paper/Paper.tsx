@@ -1,19 +1,22 @@
 import React, { FC, memo } from 'react'
+import { createUseStyles } from 'react-jss'
 import Theme from '../../styles/theme/Theme'
 
-export const Paper: FC<{ style: React.CSSProperties }> = memo(
-  ({ children, style }) => {
-    return (
-      <div
-        style={{
-          background: Theme.backgroundColor,
-          borderRadius: Theme.radius,
-          boxShadow: Theme.shadow,
-          ...style
-        }}
-      >
-        {children}
-      </div>
-    )
-  }
+const useStyles = createUseStyles({
+    'YlpPaper-root': {
+        background: Theme.backgroundColor,
+        borderRadius: Theme.radius,
+        boxShadow: Theme.shadow
+    }
+})
+
+export const Paper: FC<{ style?: React.CSSProperties }> = memo(
+    ({ children, style }) => {
+        const classes = useStyles()
+        return (
+            <div className={classes['YlpPaper-root']} style={style}>
+                {children}
+            </div>
+        )
+    }
 )

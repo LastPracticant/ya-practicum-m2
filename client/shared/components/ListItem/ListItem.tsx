@@ -7,6 +7,7 @@ const useStyles = createUseStyles({
     'YlpListItem-root': {
         display: 'flex',
         padding: `${Theme.space(2)}px ${Theme.space(4)}px`,
+        alignItems: 'center',
         '&:hover': {
             backgroundColor: 'rgba(244, 143, 177, 0.3)'
         }

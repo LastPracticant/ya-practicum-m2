@@ -1,3 +1,4 @@
+export * from './Avatar'
 export * from './Paper'
 export * from './Typography'
 export * from './TextField'
@@ -9,3 +10,5 @@ export * from './ListItem'
 export * from './ListItemText'
 export * from './ListItemAvatar'
 export * from './ListItemIcon'
+export * from './Chip'
+

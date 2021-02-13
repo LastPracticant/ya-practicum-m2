@@ -4,15 +4,12 @@ import {
     Typography,
     TextField,
     Paper,
-    Button,
-    Divider,
-    ListItemText,
-    ListItemAvatar,
-    ListItem,
-    List,
-    Icon
+    ButtonDemo,
+    ChipDemo,
+    ListDemo,
+    IconDemo,
+    AvatarDemo
 } from '../../shared/components/index'
-// import { Typography, TextField, Paper, Button, Divider } from 'SharedComponents'
 
 import { useForm } from 'react-hook-form'
 // import Theme from '../../../src/shared/styles/theme/Theme'
@@ -28,8 +25,8 @@ export const DemoComponents: React.FC<PageComponentProps> = ({ title }) => {
         <Paper
             style={{
                 display: 'flex',
+                width: 500,
                 flexDirection: 'column',
-                width: 400,
                 margin: 'auto',
                 padding: Theme.space(2)
             }}
@@ -77,29 +74,13 @@ export const DemoComponents: React.FC<PageComponentProps> = ({ title }) => {
                     label={'Password'}
                     error={errors['password']}
                 />
-                <Divider />
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <Button>{'contained'}</Button>
-                    <Divider orientation='vertical' />
-                    <Button variant='outlined'>{'outlined'}</Button>
-                    <Divider orientation='vertical' />
-                    <Button variant='text'>{'text'}</Button>
-                </div>
+
+                <ButtonDemo />
             </form>
-            <List>
-                <ListItem>
-                    <ListItemAvatar type={'3d_rotation'} />
-                    <ListItemText>{'fdsfds'}</ListItemText>
-                </ListItem>
-                <ListItem>
-                    <ListItemAvatar type={'bookmark_added'} />
-                    <ListItemText>{'fdsfds'}</ListItemText>
-                </ListItem>
-                <ListItem>
-                    <ListItemAvatar type={'api'} />
-                    <ListItemText>{'fdsfds'}</ListItemText>
-                </ListItem>
-            </List>
+            <IconDemo />
+            <AvatarDemo />
+            <ChipDemo />
+            <ListDemo />
         </Paper>
     )
 }

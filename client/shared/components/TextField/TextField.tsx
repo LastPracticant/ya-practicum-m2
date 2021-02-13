@@ -2,10 +2,10 @@ import React, { FC, memo } from 'react'
 import { createUseStyles } from 'react-jss'
 import Theme from '../../styles/theme/Theme'
 // import Theme from 'SharedStyles/theme/Theme'
-import { Typography } from '../typography/Typography'
+import { Typography } from '../Typography'
 
 const useStyles = createUseStyles({
-    input: {
+    'YlpListTextField-root': {
         position: 'relative',
         flexGrow: 1,
         margin: Theme.space(4),
@@ -75,7 +75,7 @@ export const TextField: FC<InputProps> = memo(
     ({ label, name, type = 'text', register, error }) => {
         const classes = useStyles()
         return (
-            <div className={classes.input}>
+            <div className={classes['YlpListTextField-root']}>
                 <input
                     type={type}
                     name={name}

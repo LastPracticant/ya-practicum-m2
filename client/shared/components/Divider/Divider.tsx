@@ -32,6 +32,6 @@ export const Divider: FC<DividerProps> = memo(
             classes['YlpDivider-root'],
             classes[`YlpDivider-${orientation}`]
         ]
-        return <hr className={classNameList.join(' ')} />
+        return <hr className={classNameList.join(' ')} style={style} />
     }
 )

@@ -3,17 +3,18 @@ import { createUseStyles } from 'react-jss'
 import Theme from '../../styles/theme/Theme'
 // import Theme from 'SharedStyles/theme/Theme'
 import { Typography } from '../typography/Typography'
+import { IconProps } from '../Icon'
 
 const useStyles = createUseStyles({
-    rootButton: {
-        margin: Theme.space(4),
+    'YlpButton-root': {
         padding: Theme.space(2),
         borderRadius: Theme.radius,
         boxSizing: 'border-box',
         cursor: 'pointer',
         outline: 'none',
         transition: '0.5s',
-        background: 'transparent'
+        background: 'transparent',
+        height: '100%'
     },
     text: {
         border: '0px',
@@ -31,27 +32,40 @@ const useStyles = createUseStyles({
     },
     contained: {
         border: '0px',
-		backgroundColor: Theme.colors.primary,
+        backgroundColor: Theme.colors.primary,
         '&:hover': {
             backgroundColor: Theme.colors.dark
         }
+    },
+    btnIcon: {
+        display: 'flex',
+        alignItems: 'center',
+    },
+    btnCircle: {
+        borderRadius: '100%'
     }
 })
 
 interface ButtonProps {
     variant?: 'text' | 'outlined' | 'contained'
     style?: React.CSSProperties
+    icon?: React.FC<IconProps>
+    text?: string
+    onClick?: ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void) | undefined
+    isCircle?: boolean
 }
 
 export const Button: FC<ButtonProps> = memo(
-    ({ children, style, variant = 'contained' }) => {
+    ({ children, style, variant = 'contained', onClick, icon = null, isCircle = false }) => {
         const classes = useStyles()
         return (
             <button
-                className={[classes.rootButton, classes[variant]].join(' ')}
+                className={[classes['YlpButton-root'], classes[variant], classes[icon && 'btnIcon'], classes[isCircle && 'btnCircle']].join(' ')}
                 style={style}
+                onClick={onClick}
             >
                 <Typography variant='body'>{children}</Typography>
+                {icon}
             </button>
         )
     }

@@ -4,7 +4,7 @@ import Theme from '../../styles/theme/Theme'
 import { TColor } from '../../styles/theme/Types'
 
 
-interface IconProps {
+export interface IconProps {
     size?: 'small' | 'medium' | 'large'
     style?: React.CSSProperties,
     type?: string,
@@ -13,7 +13,7 @@ interface IconProps {
 
 export const Icon: FC<IconProps> = memo(
     ({ style, size = 'medium', type = 'face', color = 'contrastText' }) => {
-        const sizePx = size === 'medium' ? 8 : size === 'small' ? 4 : 12
+        const sizePx = size === 'medium' ? 8 : size === 'small' ? 6 : 10
 
         const useStyles = createUseStyles({
             root: {
