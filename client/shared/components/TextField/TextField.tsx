@@ -1,14 +1,14 @@
 import React, { FC, memo } from 'react'
 import { createUseStyles } from 'react-jss'
 import Theme from '../../styles/theme/Theme'
-
+// import Theme from 'SharedStyles/theme/Theme'
 import { Typography } from '../typography/Typography'
 
 const useStyles = createUseStyles({
     input: {
         position: 'relative',
         flexGrow: 1,
-        margin: '0.75rem',
+        margin: Theme.space(4),
         '& input': {
             position: 'relative',
             top: 0,
@@ -16,7 +16,7 @@ const useStyles = createUseStyles({
             width: '100%',
             border: `1px solid ${Theme.colors.default}`,
             background: 'transparent',
-            padding: '0.5rem',
+            padding: Theme.space(2),
             borderRadius: Theme.radius,
             boxSizing: 'border-box',
             outline: 'none',
@@ -24,7 +24,7 @@ const useStyles = createUseStyles({
             backgroundColor: Theme.backgroundColor,
             ...Theme.typography['body'],
             '&:not(:placeholder-shown) ~ label': {
-                transform: 'translateX(0.5em) translateY(-1.3em)',
+                transform: `translateX(${Theme.space(2)}px) translateY(-${Theme.space(4.5)}px)`,
                 fontSize: '0.8rem',
                 lineHeight: 1
             },
@@ -38,8 +38,8 @@ const useStyles = createUseStyles({
         },
         '& label': {
             position: 'absolute',
-            top: '0.8rem',
-            left: '0.5rem',
+            top: Theme.space(3.5),
+            left: Theme.space(2),
             fontSize: '1rem',
             color: Theme.colors.default,
             background: Theme.backgroundColor,
@@ -48,7 +48,7 @@ const useStyles = createUseStyles({
         },
         '& span': {
             color: Theme.colors.error,
-            marginLeft: '0.5rem'
+            marginLeft: Theme.space(2)
         }
     }
 })
@@ -69,7 +69,6 @@ type InputProps = React.DetailedHTMLProps<
     type: 'password' | 'text' | 'email' | 'file' | 'tel' | 'button'
     error: any | null
     register: () => RefReturn
-    // ({ required }: { required?: boolean | string }) => RefReturn
 }
 
 export const TextField: FC<InputProps> = memo(

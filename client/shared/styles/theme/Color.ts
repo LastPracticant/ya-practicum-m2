@@ -3,6 +3,7 @@ enum Color {
     'default',
     'dark',
     'light',
+    'contrastText',
     'error'
 }
 
@@ -14,6 +15,7 @@ const colors: TColors = {
     primary: '#f50057',
     light: '#ff4081',
     dark: '#c51162',
+    contrastText: '#fff',
     default: 'rgb(204, 204, 204)',
     error: 'red'
 }

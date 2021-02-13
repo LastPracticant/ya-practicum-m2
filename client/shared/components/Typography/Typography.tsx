@@ -15,7 +15,7 @@ export const Typography: FC<IProps> = memo(
         variant = 'body',
         children,
         style,
-        color = 'default',
+        color = 'contrastText',
         align = 'justify'
     }) => {
         const useStyles = createUseStyles({
