@@ -7,7 +7,7 @@ enum Color {
     'error'
 }
 
-type TColor = keyof typeof Color
+type ColorProps = keyof typeof Color
 
 type TColors = Record<keyof typeof Color, string>
 
@@ -20,4 +20,4 @@ const colors: TColors = {
     error: 'red'
 }
 
-export { colors, TColors, TColor }
+export { colors, TColors, ColorProps }

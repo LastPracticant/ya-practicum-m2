@@ -14,9 +14,9 @@ enum Variant {
   'overline'
 }
 
-type TVariant = keyof typeof Variant
+type TagTypography = keyof typeof Variant
 
-type TTypography = Record<TVariant, IFont>
+type TTypography = Record<TagTypography, IFont>
 
 const fontFamily: string = 'Roboto'
 
@@ -59,4 +59,4 @@ const typography: TTypography = {
   }
 }
 
-export { typography, TTypography, TVariant }
+export { typography, TTypography, TagTypography }

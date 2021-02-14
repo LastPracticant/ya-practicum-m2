@@ -1,6 +1,6 @@
 import React, { FC, memo } from 'react'
 import { createUseStyles } from 'react-jss'
-import Theme from 'SharedStyles/theme/Theme'
+import { Theme } from 'SharedStyles/theme'
 
 const useStyles = createUseStyles({
     'YlpPaper-root': {
@@ -10,13 +10,17 @@ const useStyles = createUseStyles({
     }
 })
 
-export const Paper: FC<{ style?: React.CSSProperties, className?: string }> = memo(
-    ({ children, style, className }) => {
-        const classes = useStyles()
-        return (
-            <div className={[classes['YlpPaper-root'], className].join(' ')} style={style}>
-                {children}
-            </div>
-        )
-    }
-)
+export const Paper: FC<{
+    style?: React.CSSProperties
+    className?: string
+}> = memo(({ children, style, className }) => {
+    const classes = useStyles()
+    return (
+        <div
+            className={[classes['YlpPaper-root'], className].join(' ')}
+            style={style}
+        >
+            {children}
+        </div>
+    )
+})

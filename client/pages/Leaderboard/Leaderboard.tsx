@@ -1,6 +1,6 @@
 import React from 'react'
 import { PageComponentProps } from 'shared/types'
-import Theme from 'SharedStyles/theme/Theme'
+import { Theme } from 'SharedStyles/theme'
 import {
     Typography,
     Paper,
@@ -9,7 +9,7 @@ import {
     ListItem,
     Chip,
     ListItemIcon
-} from '../../shared/components/index'
+} from 'SharedComponents/index'
 import { createUseStyles } from 'react-jss'
 
 const useStyles = createUseStyles({

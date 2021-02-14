@@ -1,10 +1,10 @@
 import React, { FC, memo } from 'react'
 import { createUseStyles } from 'react-jss'
-import Theme from 'SharedStyles/theme/Theme'
+import { Theme } from 'SharedStyles/theme'
 
 const useStyles = createUseStyles({
     'YlpList-root': {
-        padding: `${Theme.space(2)}px 0px`,
+        padding: `${Theme.space(2)}px 0px`
     }
 })
 

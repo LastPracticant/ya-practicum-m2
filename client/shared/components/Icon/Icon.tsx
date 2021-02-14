@@ -1,14 +1,12 @@
 import React, { FC, memo } from 'react'
 import { createUseStyles } from 'react-jss'
-import Theme from 'SharedStyles/theme/Theme'
-import { TColor } from '../../styles/theme/Types'
-
+import { Theme, ColorProps } from 'SharedStyles/theme'
 
 export interface IconProps {
     size?: 'small' | 'medium' | 'large'
-    style?: React.CSSProperties,
-    type?: string,
-    color?: TColor
+    style?: React.CSSProperties
+    type?: string
+    color?: ColorProps
 }
 
 export const Icon: FC<IconProps> = memo(

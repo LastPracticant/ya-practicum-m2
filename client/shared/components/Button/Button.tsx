@@ -1,6 +1,6 @@
 import React, { FC, memo } from 'react'
 import { createUseStyles } from 'react-jss'
-import Theme from 'SharedStyles/theme/Theme'
+import { Theme } from 'SharedStyles/theme'
 import { Typography, IconProps } from '../index'
 
 const useStyles = createUseStyles({

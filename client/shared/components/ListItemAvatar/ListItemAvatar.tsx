@@ -1,6 +1,6 @@
 import React, { FC, memo } from 'react'
 import { createUseStyles } from 'react-jss'
-import Theme from 'SharedStyles/theme/Theme'
+import { Theme } from 'SharedStyles/theme'
 import { Avatar } from '../index'
 
 const useStyles = createUseStyles({
@@ -8,12 +8,12 @@ const useStyles = createUseStyles({
         color: Theme.colors.dark,
         display: 'inline-flex',
         flexShrink: 0,
-        minWidth: Theme.space(14),
+        minWidth: Theme.space(14)
     }
 })
 
 interface ListItemAvatarProps {
-    style?: React.CSSProperties,
+    style?: React.CSSProperties
     type?: string
 }
 

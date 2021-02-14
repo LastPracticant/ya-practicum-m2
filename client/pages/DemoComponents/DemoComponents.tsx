@@ -9,10 +9,10 @@ import {
     ListDemo,
     IconDemo,
     AvatarDemo
-} from '../../shared/components/index'
+} from 'SharedComponents/index'
 
 import { useForm } from 'react-hook-form'
-import Theme from 'SharedStyles/theme/Theme'
+import { Theme } from 'SharedStyles/theme'
 
 export const DemoComponents: React.FC<PageComponentProps> = ({ title }) => {
     const { register, handleSubmit, errors } = useForm() // initialize the hook

@@ -1,4 +1,4 @@
-import { TColor } from './Color'
-import { TVariant } from './Typography'
+import { ColorProps } from './Color'
+import { TagTypography } from './Typography'
 
-export { TColor, TVariant }
+export { ColorProps, TagTypography }

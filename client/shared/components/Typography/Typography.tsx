@@ -1,16 +1,15 @@
 import React, { FC, memo } from 'react'
-import Theme from 'SharedStyles/theme/Theme'
-import { TVariant, TColor } from '../../styles/theme/Types'
+import { Theme, TagTypography, ColorProps } from 'SharedStyles/theme'
 import { createUseStyles } from 'react-jss'
 
-interface IProps {
-    variant?: TVariant
+interface TypographyProps {
+    variant?: TagTypography
     style?: React.CSSProperties
-    color?: TColor
+    color?: ColorProps
     align?: 'center' | 'left' | 'right' | 'justify'
 }
 
-export const Typography: FC<IProps> = memo(
+export const Typography: FC<TypographyProps> = memo(
     ({
         variant = 'body',
         children,
