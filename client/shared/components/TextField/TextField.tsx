@@ -67,14 +67,13 @@ HTMLInputElement
 > & {
     label: string
     name: string
-    type: 'password' | 'text' | 'email' | 'file' | 'tel' | 'button'
     error: any | null
     register: () => RefReturn
 };
 
 export const TextField: FC<InputProps> = memo(
     ({
-        label, name, type = 'text', register, error, onChange,
+        label, name, type, register, error, ...props,
     }) => {
         const classes = useStyles();
         return (
@@ -84,7 +83,7 @@ export const TextField: FC<InputProps> = memo(
                     name={name}
                     ref={register}
                     placeholder={' '}
-                    onChange={onChange}
+                    {...props}
                 />
                 <label htmlFor={name}>{label}</label>
                 {error && (

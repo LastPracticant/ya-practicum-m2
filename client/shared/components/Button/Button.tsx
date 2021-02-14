@@ -57,13 +57,13 @@ export const Button: FC<ButtonProps> = memo(
         icon = null,
         variant = 'contained',
         isCircle = false,
-        onClick,
         children,
-        style,
         type = 'button',
         className,
+        ...props
     }) => {
         const classes = useStyles();
+
         return (
             <button
                 type={type}
@@ -74,8 +74,7 @@ export const Button: FC<ButtonProps> = memo(
                     classes[isCircle && 'btnCircle'],
                     className,
                 )}
-                style={style}
-                onClick={onClick}
+                {...props}
             >
                 <Typography variant="body">{children}</Typography>
                 {icon}

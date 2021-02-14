@@ -4,14 +4,14 @@ import { createUseStyles } from 'react-jss';
 import classnames from 'classnames';
 
 interface TypographyProps extends React.HtmlHTMLAttributes<HTMLElement> {
-    variant?: TagTypography
+    type?: TagTypography
     color?: ColorProps
     align?: 'center' | 'left' | 'right' | 'justify'
 }
 
 export const Typography: FC<TypographyProps> = memo(
     ({
-        variant = 'body',
+        type = 'body',
         children,
         color = 'contrastText',
         align = 'justify',
@@ -24,9 +24,9 @@ export const Typography: FC<TypographyProps> = memo(
         });
 
         const classes = useStyles();
-        const clsList = classnames(classes[variant], classes.props, className);
+        const clsList = classnames(classes[type], classes.props, className);
 
-        switch (variant) {
+        switch (type) {
         case 'h1':
             return (
                     <h1 className={clsList} {...props}>

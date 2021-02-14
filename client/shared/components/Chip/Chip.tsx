@@ -44,7 +44,12 @@ interface ChipProps extends React.HtmlHTMLAttributes<HTMLElement> {
 
 export const Chip: FC<ChipProps> = memo(
     ({
-        children, style, variant = 'contained', icon = null, onClick, className,
+        children,
+        variant = 'contained',
+        icon = null,
+        onClick,
+        className,
+        ...props
     }) => {
         const classes = useStyles();
         return (
@@ -55,7 +60,7 @@ export const Chip: FC<ChipProps> = memo(
                     classes[icon && 'btnIcon'],
                     className,
                 )}
-                style={style}
+                {...props}
             >
                 <Typography variant="body">{children}</Typography>
                 {icon && (
