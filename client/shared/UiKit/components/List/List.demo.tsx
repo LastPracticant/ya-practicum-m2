@@ -1,42 +1,30 @@
 import React from 'react';
 import {
-    List,
-    ListItem,
-    ListItemAvatar,
-    ListItemIcon,
-    ListItemText,
-    Icon,
-    Button,
-    Divider,
-    Typography,
+    Avatar, Icon, Button, Divider,
 } from 'SharedComponents';
 
 export const ListDemo = () => (
     <>
         <Divider style={{ marginTop: 24 }} />
 
-        <Typography variant="h3" align="center">
-            List Items
-        </Typography>
-        <List>
-            <ListItem>
-                <ListItemAvatar type="3d_rotation" />
-                <ListItemText>
-                    List item avatar + text + button (icon)
-                </ListItemText>
+        <h3>List Items</h3>
+        <ul>
+            <li style={{ display: 'flex' }}>
+                <Avatar type="3d_rotation" />
+                <p>List item avatar + text + button (icon)</p>
                 <Button
                     variant="text"
                     isCircle
                     icon={<Icon type="face" size="small" />}
                 />
-            </ListItem>
-            <ListItem>
-                <ListItemIcon type="bookmark_added" />
-                <ListItemText>List item icon + text</ListItemText>
-            </ListItem>
-            <ListItem>
-                <ListItemText>List item text</ListItemText>
-            </ListItem>
-        </List>
+            </li>
+            <li>
+                <Icon type="bookmark_added" />
+                <p>List item icon + text</p>
+            </li>
+            <li>
+                <p>List item text</p>
+            </li>
+        </ul>
     </>
 );

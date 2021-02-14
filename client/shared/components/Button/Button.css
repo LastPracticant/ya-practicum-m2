@@ -1,0 +1,48 @@
+@import url('../../styles/theme.css');
+
+.Button {
+    cursor: pointer;
+    height: 100%;
+    outline: none;
+    padding: 8px;
+    background: transparent;
+    box-sizing: border-box;
+    transition: 0.5s;
+    border-radius: 8px;
+
+    &__text {
+        color: #f50057;
+        border: 0;
+
+        &:hover {
+            background-color: rgba(244, 143, 177, 0.3);
+        }
+    }
+
+    &__outlined {
+        color: #f50057;
+        border: 1px solid rgba(244, 143, 177, 0.5);
+
+        &:hover {
+            background-color: rgba(244, 143, 177, 0.3);
+        }
+    }
+
+    &__contained {
+        border: 0;
+        background-color: #f50057;
+
+        &:hover {
+            background-color: #c51162;
+        }
+    }
+
+    &__icon {
+        display: flex;
+        align-items: center;
+    }
+
+    &__circle {
+        border-radius: 100%;
+    }
+}

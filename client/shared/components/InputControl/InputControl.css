@@ -1,0 +1,56 @@
+@import url('../../styles/theme.css');
+
+.input-control {
+    margin: 16px;
+    position: relative;
+    flex-grow: 1;
+
+    & span {
+        color: red;
+        margin-left: 8px;
+    }
+
+    & label {
+        top: 14px;
+        left: 8px;
+        color: rgb(204, 204, 204);
+        position: absolute;
+        font-size: 1rem;
+        background: #424242;
+        transition: 0.3s;
+        pointer-events: none;
+    }
+
+    & input {
+        top: 0;
+        left: 0;
+        color: rgb(204, 204, 204);
+        width: 100%;
+        border: 1px solid rgb(204, 204, 204);
+        margin: 0;
+        outline: none;
+        padding: 8px;
+        position: relative;
+        font-size: 1rem;
+        background: transparent;
+        box-sizing: border-box;
+        line-height: 1.5;
+        border-radius: 8px;
+        background-color: #424242;
+
+        &:focus {
+            color: #f50057;
+            border-color: #f50057;
+
+            & ~ label {
+                color: #f50057;
+            }
+        }
+
+        &:not(:placeholder-shown) ~ label {
+            font-size: 0.8rem;
+            transform: translateX(8px) translateY(-18px);
+            line-height: 1;
+        }
+    }
+}

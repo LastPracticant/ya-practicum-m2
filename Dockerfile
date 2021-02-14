@@ -1,12 +1,8 @@
-FROM node:14
-
-COPY package*.json ./
-RUN npm install
-
-COPY . .
-
-RUN npm run build
-
-EXPOSE 8000
-
-CMD npm run start
+from node:
+    14
+    copy package*.json ./
+    run npm install
+    copy . .
+    run npm run build
+    expose 8000
+    cmd npm run start;node

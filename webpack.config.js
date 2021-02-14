@@ -34,6 +34,7 @@ module.exports = {
                         options: {
                             postcssOptions: {
                                 plugins: [
+                                    ['postcss-simple-vars'],
                                     ['postcss-preset-env'],
                                     ['postcss-nested'],
                                 ],

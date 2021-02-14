@@ -1,57 +1,38 @@
 import React from 'react';
 import { PageComponentProps } from 'client/shared/types';
-import { Theme } from 'SharedStyles/theme';
-import {
-    Typography,
-    Paper,
-    List,
-    ListItemText,
-    ListItem,
-    Chip,
-    ListItemIcon,
-} from 'SharedComponents';
-import { createUseStyles } from 'react-jss';
+import { Paper, Chip, Icon } from 'SharedComponents';
 
-const useStyles = createUseStyles({
-    root: {
-        display: 'flex',
-        width: 500,
-        flexDirection: 'column',
-        margin: 'auto',
-        padding: Theme.space(2),
-    },
-});
+export const Leaderboard: React.FC<PageComponentProps> = React.memo(
+    ({ title }) => {
+        const leaders = [
+            ['user1', '50000'],
+            ['user2', '35000'],
+            ['user3', '25000'],
+            ['You', '15000'],
+            ['User4', '7000'],
+        ];
 
-export const Leaderboard: React.FC<PageComponentProps> = React.memo(({ title }) => {
-    const classes = useStyles();
-
-    const leaders = [
-        ['user1', '50000'],
-        ['user2', '35000'],
-        ['user3', '25000'],
-        ['You', '15000'],
-        ['User4', '7000'],
-    ];
-
-    const getListLeaders = leaders.map(([name, count]) => (
-        <ListItem>
-            <ListItemIcon type="emoji_events" />
-            <ListItemText>{name}</ListItemText>
-            <Chip>{count}</Chip>
-        </ListItem>
-    ));
-    return (
-        <Paper className={classes.root}>
-            <Typography
-                variant="h1"
-                align="center"
-                style={{ marginBottom: 32 }}
+        const getListLeaders = leaders.map(([name, count]) => (
+            <li style={{ justifyContent: 'space-between' }}>
+                <Icon type="emoji_events" />
+                <p>{name}</p>
+                <Chip>{count}</Chip>
+            </li>
+        ));
+        return (
+            <Paper style={{
+                display: 'flex',
+                width: 500,
+                flexDirection: 'column',
+                margin: 'auto',
+                padding: 16,
+            }}
             >
-                {title}
-            </Typography>
-            <List>
-                {getListLeaders}
-            </List>
-        </Paper>
-    );
-});
+                <h1 style={{ marginBottom: 32, textAlign: 'center' }}>
+                    {title}
+                </h1>
+                <ul>{getListLeaders}</ul>
+            </Paper>
+        );
+    },
+);

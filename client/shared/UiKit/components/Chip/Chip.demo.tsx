@@ -1,12 +1,10 @@
 import React from 'react';
-import { Chip, Divider, Typography } from 'SharedComponents';
+import { Chip, Divider } from 'SharedComponents';
 
 export const ChipDemo = () => (
     <>
         <Divider style={{ marginTop: 24 }} />
-        <Typography variant="h3" align="center">
-            Chips
-        </Typography>
+        <h3>Chips</h3>
         <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
             <Chip variant="outlined" icon="add_circle_outline">
                 outlined + icon
