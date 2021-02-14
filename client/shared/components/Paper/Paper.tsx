@@ -10,11 +10,11 @@ const useStyles = createUseStyles({
     }
 })
 
-export const Paper: FC<{ style?: React.CSSProperties }> = memo(
-    ({ children, style }) => {
+export const Paper: FC<{ style?: React.CSSProperties, className?: string }> = memo(
+    ({ children, style, className }) => {
         const classes = useStyles()
         return (
-            <div className={classes['YlpPaper-root']} style={style}>
+            <div className={[classes['YlpPaper-root'], className].join(' ')} style={style}>
                 {children}
             </div>
         )

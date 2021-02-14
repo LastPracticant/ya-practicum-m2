@@ -12,7 +12,6 @@ import {
 } from '../../shared/components/index'
 
 import { useForm } from 'react-hook-form'
-// import Theme from '../../../src/shared/styles/theme/Theme'
 import Theme from 'SharedStyles/theme/Theme'
 
 export const DemoComponents: React.FC<PageComponentProps> = ({ title }) => {
