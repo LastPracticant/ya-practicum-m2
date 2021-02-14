@@ -1,5 +1,5 @@
 import React from 'react'
-import { PageComponentProps } from 'shared/types'
+import { PageComponentProps } from 'client/shared/types'
 import { Theme } from 'SharedStyles/theme'
 import {
     Typography,
@@ -9,7 +9,7 @@ import {
     ListItem,
     Chip,
     ListItemIcon
-} from 'SharedComponents/index'
+} from 'SharedComponents'
 import { createUseStyles } from 'react-jss'
 
 const useStyles = createUseStyles({

@@ -12,10 +12,10 @@ module.exports = {
         extensions: ['.tsx', '.ts', '.js'],
         modules: [path.resolve(__dirname, 'client'), 'node_modules'],
         alias: {
-            'SharedStyles': path.resolve(__dirname, 'client/shared/styles'),
-            'SharedComponents': path.resolve(__dirname, 'client/shared/components')
-
-        }
+            client: path.resolve(__dirname, './client/'),
+            SharedStyles: path.resolve(__dirname, 'client/shared/styles'),
+            SharedComponents: path.resolve(__dirname, 'client/shared/components'),
+        },
     },
     module: {
         rules: [
@@ -46,11 +46,15 @@ module.exports = {
     },
     devServer: {
         historyApiFallback: true,
+        port: process.env.PORT || 3000,
     },
     plugins: [
         new HtmlWebpackPlugin({
             template: './www/index.html',
         }),
-        new StylelintPlugin(),
+        new StylelintPlugin({
+            configFile: path.resolve(__dirname, './.stylelintrc.json'),
+            context: path.resolve(__dirname, './client'),
+        }),
     ],
 };

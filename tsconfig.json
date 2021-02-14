@@ -19,7 +19,10 @@
         "sourceMap": false,
         "rootDir": "./",
         "outDir": "./dist",
-        "baseUrl": "./client"
+        "baseUrl": "./",
+        "paths": {
+            "client/*": ["./client/*"],
+        }
     },
-    "include": ["./client"]
+    "include": ["./client", "./server"]
 }

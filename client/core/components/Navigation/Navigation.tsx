@@ -2,7 +2,7 @@ import React from 'react';
 import {
     Link,
 } from 'react-router-dom';
-import { ROUTES, RouteValueProps } from 'routing';
+import { ROUTES, RouteValueProps } from 'client/routing';
 
 const NavigationLink: React.FC<RouteValueProps> = ({ path, title }) => (
 	<li><Link to={path}>{title}</Link></li>
