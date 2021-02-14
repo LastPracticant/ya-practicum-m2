@@ -9,9 +9,9 @@ import {
     Signup,
     ErrorPage,
     Home,
-    DemoComponents
 } from '../pages'
 
+import { UiKit } from 'shared/UiKit'
 import { ROUTES } from './Routing.config'
 
 export const Routing: React.FC = () => (
@@ -44,8 +44,8 @@ export const Routing: React.FC = () => (
             <Leaderboard title={ROUTES.LEADERBOARD.title} />
         </Route>
 
-        <Route path={ROUTES.DEMO.path}>
-            <DemoComponents title={ROUTES.DEMO.title} />
+        <Route path={ROUTES.UIKIT.path}>
+            <UiKit title={ROUTES.UIKIT.title} />
         </Route>
         <Route>
             <ErrorPage errorCode='404' />

@@ -2,11 +2,6 @@
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 @import url('./shared/styles/normalize.css');
 
-body {
-    /* background-image: url('../shared//static/img/bgr.png'); */
-    background-size: cover;
-}
-
 #root {
     height: inherit;
     display: flex;
