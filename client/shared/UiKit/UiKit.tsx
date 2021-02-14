@@ -1,24 +1,26 @@
-import React from 'react'
-import { PageComponentProps } from 'shared/types'
+import React from 'react';
+import { PageComponentProps } from 'shared/types';
 import {
     Typography,
     TextField,
     Paper,
+} from 'SharedComponents';
+
+import { useForm } from 'react-hook-form';
+import { Theme } from 'SharedStyles/theme';
+import {
     ButtonDemo,
     ChipDemo,
     ListDemo,
     IconDemo,
-    AvatarDemo
-} from 'SharedComponents'
-
-import { useForm } from 'react-hook-form'
-import { Theme } from 'SharedStyles/theme'
+    AvatarDemo,
+} from './components';
 
 export const UiKit: React.FC<PageComponentProps> = ({ title }) => {
-    const { register, handleSubmit, errors } = useForm()
-    const onSubmit = data => {
-        console.log(data, errors)
-    }
+    const { register, handleSubmit, errors } = useForm();
+    const onSubmit = (data) => {
+        console.log(data, errors);
+    };
 
     return (
         <Paper
@@ -27,51 +29,51 @@ export const UiKit: React.FC<PageComponentProps> = ({ title }) => {
                 width: 500,
                 flexDirection: 'column',
                 margin: 'auto',
-                padding: Theme.space(2)
+                padding: Theme.space(2),
             }}
         >
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Typography
-                    variant='h1'
-                    align='center'
+                    variant="h1"
+                    align="center"
                     style={{ marginBottom: 32 }}
                 >
-                    Демо компоненты
+                    {title}
                 </Typography>
                 <TextField
-                    name='login'
+                    name="login"
                     register={register({
                         required: 'this is required',
                         maxLength: {
                             value: 2,
-                            message: 'Max length is 2'
-                        }
+                            message: 'Max length is 2',
+                        },
                     })}
-                    label={'Login'}
-                    error={errors['login']}
+                    label="Login"
+                    error={errors.login}
                     required
                 />
                 <TextField
-                    name='email'
+                    name="email"
                     register={register({
                         required: 'this is required',
                         pattern: {
                             value: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-                            message: 'Invalid email address'
-                        }
+                            message: 'Invalid email address',
+                        },
                     })}
-                    label={'Email'}
-                    error={errors['email']}
+                    label="Email"
+                    error={errors.email}
                     required
                 />
                 <TextField
-                    name='password'
+                    name="password"
                     register={register({
-                        required: 'this is required'
+                        required: 'this is required',
                     })}
-                    type={'password'}
-                    label={'Password'}
-                    error={errors['password']}
+                    type="password"
+                    label="Password"
+                    error={errors.password}
                 />
 
                 <ButtonDemo />
@@ -81,5 +83,5 @@ export const UiKit: React.FC<PageComponentProps> = ({ title }) => {
             <ChipDemo />
             <ListDemo />
         </Paper>
-    )
-}
+    );
+};

@@ -1,4 +1,4 @@
-import { ColorProps } from './Color'
-import { TagTypography } from './Typography'
+import { ColorProps } from './Color';
+import { TagTypography } from './Typography';
 
-export { ColorProps, TagTypography }
+export { ColorProps, TagTypography };

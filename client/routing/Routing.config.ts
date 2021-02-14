@@ -10,34 +10,34 @@ export interface RouteValueProps {
 export const ROUTES: RoutesProps = {
     HOME: {
         path: '/',
-        title: 'Главная'
+        title: 'Главная',
     },
     SIGNIN: {
         path: '/signin',
-        title: 'Вход'
+        title: 'Вход',
     },
     SIGNUP: {
         path: '/signup',
-        title: 'Регистрация'
+        title: 'Регистрация',
     },
     PROFILE: {
         path: '/profile',
-        title: 'Профиль'
+        title: 'Профиль',
     },
     FORUM: {
         path: '/forum',
-        title: 'Форум'
+        title: 'Форум',
     },
     GAME: {
         path: '/game',
-        title: 'Игра'
+        title: 'Игра',
     },
     LEADERBOARD: {
         path: '/leaderboard',
-        title: 'Таблица лидеров'
+        title: 'Таблица лидеров',
     },
     UIKIT: {
         path: '/uikit',
-        title: 'Компоненты'
-    }
-}
+        title: 'Компоненты',
+    },
+};

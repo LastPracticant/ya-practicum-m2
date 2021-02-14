@@ -1,5 +1,6 @@
-import React from 'react'
-import { Route, Switch } from 'react-router-dom'
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
+import { UiKit } from 'shared/UiKit';
 import {
     Forum,
     Game,
@@ -9,10 +10,9 @@ import {
     Signup,
     ErrorPage,
     Home,
-} from '../pages'
+} from '../pages';
 
-import { UiKit } from 'shared/UiKit'
-import { ROUTES } from './Routing.config'
+import { ROUTES } from './Routing.config';
 
 export const Routing: React.FC = () => (
     <Switch>
@@ -48,7 +48,7 @@ export const Routing: React.FC = () => (
             <UiKit title={ROUTES.UIKIT.title} />
         </Route>
         <Route>
-            <ErrorPage errorCode='404' />
+            <ErrorPage errorCode="404" />
         </Route>
     </Switch>
-)
+);

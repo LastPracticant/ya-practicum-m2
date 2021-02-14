@@ -1,6 +1,7 @@
-import React, { FC, memo } from 'react'
-import { createUseStyles } from 'react-jss'
-import { Theme } from 'SharedStyles/theme'
+import React, { FC, memo } from 'react';
+import { createUseStyles } from 'react-jss';
+import { Theme } from 'SharedStyles/theme';
+import classnames from 'classnames';
 
 const useStyles = createUseStyles({
     'YlpListItem-root': {
@@ -8,21 +9,20 @@ const useStyles = createUseStyles({
         padding: `${Theme.space(2)}px ${Theme.space(4)}px`,
         alignItems: 'center',
         '&:hover': {
-            backgroundColor: 'rgba(244, 143, 177, 0.3)'
-        }
-    }
-})
+            backgroundColor: 'rgba(244, 143, 177, 0.3)',
+        },
+    },
+});
 
-interface ListItemProps {
-    style?: React.CSSProperties
+interface ListItemProps extends React.HtmlHTMLAttributes<HTMLElement> {
 }
 
-export const ListItem: FC<ListItemProps> = memo(({ children, style }) => {
-    const classes = useStyles()
+export const ListItem: FC<ListItemProps> = memo(({ children, style, className }) => {
+    const classes = useStyles();
 
     return (
-        <li className={classes['YlpListItem-root']} style={style}>
+        <li className={classnames(classes['YlpListItem-root'], className)} style={style}>
             {children}
         </li>
-    )
-})
+    );
+});

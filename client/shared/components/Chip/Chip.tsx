@@ -1,7 +1,8 @@
-import React, { FC, memo } from 'react'
-import { createUseStyles } from 'react-jss'
-import { Theme } from 'SharedStyles/theme'
-import { Button, Icon, Typography } from '../index'
+import React, { FC, memo } from 'react';
+import { createUseStyles } from 'react-jss';
+import { Theme } from 'SharedStyles/theme';
+import { Button, Icon, Typography } from 'SharedComponents';
+import classnames from 'classnames';
 
 const useStyles = createUseStyles({
     'YlpChip-root': {
@@ -10,64 +11,62 @@ const useStyles = createUseStyles({
         boxSizing: 'border-box',
         outline: 'none',
         transition: '0.5s',
-        background: 'transparent'
+        background: 'transparent',
     },
     text: {
         border: '0px',
-        color: Theme.colors.primary
+        color: Theme.colors.primary,
     },
     outlined: {
         border: '1px solid rgba(244, 143, 177, 0.5)',
-        color: Theme.colors.primary
+        color: Theme.colors.primary,
     },
     contained: {
         border: '0px',
-        backgroundColor: Theme.colors.primary
+        backgroundColor: Theme.colors.primary,
     },
     btnIcon: {
         display: 'flex',
         alignItems: 'center',
         '& button': {
-            marginLeft: Theme.space(2)
+            marginLeft: Theme.space(2),
         },
         '& *': {
-            padding: 0
-        }
-    }
-})
+            padding: 0,
+        },
+    },
+});
 
-interface ChipProps {
+interface ChipProps extends React.HtmlHTMLAttributes<HTMLElement> {
     variant?: 'text' | 'outlined' | 'contained'
-    style?: React.CSSProperties
     icon?: string | null
-    onClick?:
-        | ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void)
-        | undefined
 }
 
 export const Chip: FC<ChipProps> = memo(
-    ({ children, style, variant = 'contained', icon = null, onClick }) => {
-        const classes = useStyles()
+    ({
+        children, style, variant = 'contained', icon = null, onClick, className,
+    }) => {
+        const classes = useStyles();
         return (
             <div
-                className={[
+                className={classnames(
                     classes['YlpChip-root'],
                     classes[variant],
-                    classes[icon && 'btnIcon']
-                ].join(' ')}
+                    classes[icon && 'btnIcon'],
+                    className,
+                )}
                 style={style}
-                onClick={onClick}
             >
-                <Typography variant='body'>{children}</Typography>
+                <Typography variant="body">{children}</Typography>
                 {icon && (
                     <Button
-                        variant='text'
+                        variant="text"
                         isCircle
                         onClick={onClick}
-                        icon={<Icon type={icon} size='small' />}
+                        icon={<Icon type={icon} size="small" />}
                     />
                 )}
             </div>
-        )
-    }
-)
+        );
+    },
+);

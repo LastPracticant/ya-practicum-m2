@@ -1,7 +1,7 @@
-import React, { FC, memo } from 'react'
-import { createUseStyles } from 'react-jss'
-import { Theme } from 'SharedStyles/theme'
-import { Typography } from '../index'
+import React, { FC, memo } from 'react';
+import { createUseStyles } from 'react-jss';
+import { Theme } from 'SharedStyles/theme';
+import { Typography } from 'SharedComponents';
 
 const useStyles = createUseStyles({
     'YlpListTextField-root': {
@@ -21,21 +21,21 @@ const useStyles = createUseStyles({
             outline: 'none',
             color: Theme.colors.default,
             backgroundColor: Theme.backgroundColor,
-            ...Theme.typography['body'],
+            ...Theme.typography.body,
             '&:not(:placeholder-shown) ~ label': {
                 transform: `translateX(${Theme.space(
-                    2
+                    2,
                 )}px) translateY(-${Theme.space(4.5)}px)`,
                 fontSize: '0.8rem',
-                lineHeight: 1
+                lineHeight: 1,
             },
             '&:focus': {
                 color: Theme.colors.primary,
                 borderColor: Theme.colors.primary,
                 '& ~ label': {
-                    color: Theme.colors.primary
-                }
-            }
+                    color: Theme.colors.primary,
+                },
+            },
         },
         '& label': {
             position: 'absolute',
@@ -45,36 +45,38 @@ const useStyles = createUseStyles({
             color: Theme.colors.default,
             background: Theme.backgroundColor,
             transition: '0.3s',
-            pointerEvents: 'none'
+            pointerEvents: 'none',
         },
         '& span': {
             color: Theme.colors.error,
-            marginLeft: Theme.space(2)
-        }
-    }
-})
+            marginLeft: Theme.space(2),
+        },
+    },
+});
 
 type RefReturn =
     | string
     | ((instance: HTMLInputElement | null) => void)
     | React.RefObject<HTMLInputElement>
     | null
-    | undefined
+    | undefined;
 
 type InputProps = React.DetailedHTMLProps<
-    React.InputHTMLAttributes<HTMLInputElement>,
-    HTMLInputElement
+React.InputHTMLAttributes<HTMLInputElement>,
+HTMLInputElement
 > & {
     label: string
     name: string
     type: 'password' | 'text' | 'email' | 'file' | 'tel' | 'button'
     error: any | null
     register: () => RefReturn
-}
+};
 
 export const TextField: FC<InputProps> = memo(
-    ({ label, name, type = 'text', register, error }) => {
-        const classes = useStyles()
+    ({
+        label, name, type = 'text', register, error, onChange,
+    }) => {
+        const classes = useStyles();
         return (
             <div className={classes['YlpListTextField-root']}>
                 <input
@@ -82,12 +84,13 @@ export const TextField: FC<InputProps> = memo(
                     name={name}
                     ref={register}
                     placeholder={' '}
+                    onChange={onChange}
                 />
                 <label htmlFor={name}>{label}</label>
                 {error && (
-                    <Typography variant='overline'>{error.message}</Typography>
+                    <Typography variant="overline">{error.message}</Typography>
                 )}
             </div>
-        )
-    }
-)
+        );
+    },
+);

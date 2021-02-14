@@ -4,12 +4,12 @@ enum Color {
     'dark',
     'light',
     'contrastText',
-    'error'
+    'error',
 }
 
-type ColorProps = keyof typeof Color
+type ColorProps = keyof typeof Color;
 
-type TColors = Record<keyof typeof Color, string>
+type TColors = Record<keyof typeof Color, string>;
 
 const colors: TColors = {
     primary: '#f50057',
@@ -17,7 +17,7 @@ const colors: TColors = {
     dark: '#c51162',
     contrastText: '#fff',
     default: 'rgb(204, 204, 204)',
-    error: 'red'
-}
+    error: 'red',
+};
 
-export { colors, TColors, ColorProps }
+export { colors, TColors, ColorProps };
