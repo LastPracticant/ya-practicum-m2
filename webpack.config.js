@@ -13,7 +13,6 @@ module.exports = {
         modules: [path.resolve(__dirname, 'client'), 'node_modules'],
         alias: {
             client: path.resolve(__dirname, './client/'),
-            SharedStyles: path.resolve(__dirname, 'client/shared/styles'),
             SharedComponents: path.resolve(
                 __dirname,
                 'client/shared/components'
