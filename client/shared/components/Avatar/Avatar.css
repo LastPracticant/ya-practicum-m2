@@ -1,10 +1,7 @@
-@import url('../../styles/theme.css');
+/* @import url('../../../styles/theme.css'); */
 
 .avatar {
     border-radius: 100%;
-    background-color: var(--color_dark);
-
-    & i {
-        margin: 8px;
-    }
+    background-color: var(--color_primary);
+    padding: var(--space-xs);
 }

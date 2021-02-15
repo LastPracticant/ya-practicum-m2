@@ -1,43 +1,17 @@
-@import url('../../styles/theme.css');
+/* @import url('../../../styles/theme.css'); */
 
 .chip {
     outline: none;
-    padding: 4px 8px;
-    background: transparent;
+    margin: var(--space-xxs);
+    padding: var(--space-xxxxs) var(--space-xxs);
+    background-color: transparent;
     box-sizing: border-box;
     transition: 0.5s;
-    border-radius: 16px;
+    border-radius: var(--space-unit);
     display: flex;
     align-items: center;
 
-    &__text {
-        color: #f50057;
-        border: 0;
-
-        &:hover {
-            background-color: rgba(244, 143, 177, 0.3);
-        }
-    }
-
-    &__outlined {
-        color: #f50057;
-        border: 1px solid rgba(244, 143, 177, 0.5);
-
-        &:hover {
-            background-color: rgba(244, 143, 177, 0.3);
-        }
-    }
-
-    &__contained {
-        border: 0;
-        background-color: #f50057;
-
-        &:hover {
-            background-color: #c51162;
-        }
-    }
-
-    &__icon {
-        margin-left: 4px;
+    button {
+        margin-left: var(--space-xxs);
     }
 }

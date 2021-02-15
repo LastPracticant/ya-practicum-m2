@@ -1,6 +1,6 @@
-import React, { FC, memo } from 'react';
-import classnames from 'classnames';
-import './Icon.css';
+import React, { FC, memo } from 'react'
+import classnames from 'classnames'
+import './Icon.css'
 
 export interface IconProps extends React.HtmlHTMLAttributes<HTMLElement> {
     size?: 'small' | 'medium' | 'large'
@@ -8,19 +8,17 @@ export interface IconProps extends React.HtmlHTMLAttributes<HTMLElement> {
 }
 
 export const Icon: FC<IconProps> = memo(
-    ({
-        style, className, size = 'medium', type = 'face',
-    }) => (
+    ({ className, size = 'medium', type = 'face', ...props }) => (
         <i
             className={classnames(
                 'material-icons',
-                'Icon',
-                `Icon__${size}`,
-                className,
+                'icon',
+                `size_${size}`,
+                className
             )}
-            style={style}
+            {...props}
         >
             {type}
         </i>
-    ),
-);
+    )
+)

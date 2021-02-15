@@ -1,6 +1,6 @@
-import React from 'react';
-import { PageComponentProps } from 'client/shared/types';
-import { Paper, Chip, Icon } from 'SharedComponents';
+import React from 'react'
+import { PageComponentProps } from 'client/shared/types'
+import { Paper, Chip, Icon } from 'SharedComponents'
 
 export const Leaderboard: React.FC<PageComponentProps> = React.memo(
     ({ title }) => {
@@ -9,30 +9,21 @@ export const Leaderboard: React.FC<PageComponentProps> = React.memo(
             ['user2', '35000'],
             ['user3', '25000'],
             ['You', '15000'],
-            ['User4', '7000'],
-        ];
+            ['User4', '7000']
+        ]
 
-        const getListLeaders = leaders.map(([name, count]) => (
-            <li style={{ justifyContent: 'space-between' }}>
-                <Icon type="emoji_events" />
+        const leadersList = leaders.map(([name, count], index) => (
+            <li key={`leader-${index}`}className='justify-space_between'>
+                <Icon type='emoji_events' />
                 <p>{name}</p>
                 <Chip>{count}</Chip>
             </li>
-        ));
+        ))
         return (
-            <Paper style={{
-                display: 'flex',
-                width: 500,
-                flexDirection: 'column',
-                margin: 'auto',
-                padding: 16,
-            }}
-            >
-                <h1 style={{ marginBottom: 32, textAlign: 'center' }}>
-                    {title}
-                </h1>
-                <ul>{getListLeaders}</ul>
+            <Paper>
+                <h1>{title}</h1>
+                <ul>{leadersList}</ul>
             </Paper>
-        );
-    },
-);
+        )
+    }
+)

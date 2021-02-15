@@ -1,12 +1,12 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const StylelintPlugin = require('stylelint-webpack-plugin');
+const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const StylelintPlugin = require('stylelint-webpack-plugin')
 
 module.exports = {
     entry: './client/index.tsx',
     output: {
         path: path.join(__dirname, '/dist'),
-        filename: 'bundle.js',
+        filename: 'bundle.js'
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
@@ -14,15 +14,18 @@ module.exports = {
         alias: {
             client: path.resolve(__dirname, './client/'),
             SharedStyles: path.resolve(__dirname, 'client/shared/styles'),
-            SharedComponents: path.resolve(__dirname, 'client/shared/components'),
-        },
+            SharedComponents: path.resolve(
+                __dirname,
+                'client/shared/components'
+            )
+        }
     },
     module: {
         rules: [
             {
                 test: /\.tsx?$/,
                 use: 'ts-loader',
-                exclude: /node_modules/,
+                exclude: /node_modules/
             },
             {
                 test: /\.css$/,
@@ -34,28 +37,29 @@ module.exports = {
                         options: {
                             postcssOptions: {
                                 plugins: [
-                                    ['postcss-simple-vars'],
-                                    ['postcss-preset-env'],
-                                    ['postcss-nested'],
-                                ],
-                            },
-                        },
-                    },
-                ],
-            },
-        ],
+                                    'postcss-preset-env',
+                                    'postcss-nested',
+                                    'postcss-simple-vars',
+                                    'postcss-color-mod-function',
+                                ]
+                            }
+                        }
+                    }
+                ]
+            }
+        ]
     },
     devServer: {
         historyApiFallback: true,
-        port: process.env.PORT || 3000,
+        port: process.env.PORT || 3000
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: './www/index.html',
+            template: './www/index.html'
         }),
         new StylelintPlugin({
             configFile: path.resolve(__dirname, './.stylelintrc.json'),
-            context: path.resolve(__dirname, './client'),
-        }),
-    ],
-};
+            context: path.resolve(__dirname, './client')
+        })
+    ]
+}

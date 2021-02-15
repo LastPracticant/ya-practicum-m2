@@ -1,13 +1,13 @@
-@import url('../../styles/theme.css');
+/* @import url('../../../styles/theme.css'); */
 
 .divider {
     border: none;
     height: 1px;
-    margin: 0 16px;
+    margin: var(--space-xs) var(--space-unit);
     flex-shrink: 0;
-    background-color: rgb(204, 204, 204);
+    background-color: var(--color_default);
 
-    &__vertical {
+    &_vertical {
         width: 1px;
         height: auto;
         margin: 0;

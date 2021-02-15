@@ -1,6 +1,7 @@
-import './App.css';
-
 import React from 'react';
+
+import './App.css';
+import './shared/styles/Theme'
 import {
     BrowserRouter,
 } from 'react-router-dom';

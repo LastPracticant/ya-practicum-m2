@@ -5,7 +5,7 @@ import './Chip.css';
 
 interface ChipProps extends React.HtmlHTMLAttributes<HTMLElement> {
     variant?: 'text' | 'outlined' | 'contained'
-    icon?: string | null
+    icon?: string
 }
 
 export const Chip: FC<ChipProps> = memo(
@@ -20,8 +20,8 @@ export const Chip: FC<ChipProps> = memo(
         <div
             className={classnames(
                 'chip',
-                `chip__${variant}`,
-                { chip__icon: icon },
+                `type_${variant}`,
+                { 'chip-with_icon': icon },
                 className,
             )}
             {...props}

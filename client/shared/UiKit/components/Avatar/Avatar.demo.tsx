@@ -3,9 +3,9 @@ import { Divider, Avatar } from 'SharedComponents';
 
 export const AvatarDemo = () => (
     <>
-        <Divider style={{ marginTop: 8 }} />
+        <Divider />
         <h3>Avatars</h3>
-        <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+        <div className={'wrapper justify-space_ev'}>
             <Avatar type="3d_rotation" />
         </div>
     </>

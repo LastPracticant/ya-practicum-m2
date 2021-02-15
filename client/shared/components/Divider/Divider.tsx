@@ -7,16 +7,14 @@ interface DividerProps extends React.HtmlHTMLAttributes<HTMLElement> {
 }
 
 export const Divider: FC<DividerProps> = memo(
-    ({ style, vertical = false, className }) => (
+    ({ vertical = false, className, ...props }) => (
         <hr
             className={classnames(
                 'divider',
-                { divider__vertical: vertical },
-                // classes['YlpDivider-root'],
-                // classes[`YlpDivider-${orientation}`],
+                { divider_vertical: vertical },
                 className,
             )}
-            style={style}
+            {...props}
         />
     ),
 );

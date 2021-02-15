@@ -1,0 +1,144 @@
+#root {
+    --color_primary: red;
+    --color_dark: color-mod(red l(-10%));
+    --color_text: #fff;
+    --color_hover: color-mod(red a(30%));
+    --color_default: gray;
+    --color_background: #424242;
+    --space-unit: 16px;
+    --space-xxxxs: calc(0.125 * var(--space-unit));
+    --space-xxxs: calc(0.25 * var(--space-unit));
+    --space-xxs: calc(0.375 * var(--space-unit));
+    --space-xs: calc(0.5 * var(--space-unit));
+    --space-sm: calc(0.75 * var(--space-unit));
+    --space-md: calc(1.25 * var(--space-unit));
+    --space-lg: calc(2 * var(--space-unit));
+    --space-xl: calc(3.25 * var(--space-unit));
+    --space-xxl: calc(5.25 * var(--space-unit));
+    --space-xxxl: calc(8.5 * var(--space-unit));
+    --space-xxxxl: calc(13.75 * var(--space-unit));
+}
+
+ul {
+    padding: var(--space-xxxs) 0;
+}
+
+li {
+    display: flex;
+    padding: var(--space-xs) var(--space-unit);
+    align-items: center;
+}
+
+li:hover {
+    background-color: var(--color_hover);
+}
+
+h1,
+h2,
+h3,
+p,
+span {
+    color: var(--color_text);
+}
+
+h1 {
+    font-size: 2.125rem;
+    font-weight: 400;
+    line-height: 1.235;
+    text-align: center;
+    margin: var(--space-lg);
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: 400;
+    line-height: 1.334;
+    text-align: center;
+    margin: var(--space-md);
+}
+
+h3 {
+    font-size: 1.25rem;
+    font-weight: 400;
+    line-height: 1.6;
+    text-align: center;
+    margin: var(--space-xs);
+}
+
+p {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+span {
+    font-size: 0.75rem;
+    font-weight: 300;
+    line-height: 1;
+}
+
+.type {
+    &_text {
+        &:hover {
+            background-color: var(--color_hover) !important;
+        }
+    }
+
+    &_outlined {
+        border: 2px solid var(--color_hover) !important;
+
+        &:hover {
+            background-color: var(--color_hover) !important;
+        }
+    }
+
+    &_contained {
+        background-color: var(--color_primary) !important;
+
+        &:hover {
+            background-color: var(--color_dark) !important;
+        }
+    }
+}
+
+.size {
+    &_small {
+        font-size: var(--space-sm) !important;
+    }
+
+    &_medium {
+        font-size: var(--space-md) !important;
+    }
+
+    &_large {
+        font-size: var(--space-lg) !important;
+    }
+}
+
+.wrapper {
+    display: flex;
+
+    &-column {
+        flex-direction: column;
+    }
+}
+
+.justify {
+    &-center {
+        justify-content: center;
+    }
+
+    &-space {
+        &_between {
+            justify-content: space-between;
+        }
+
+        &_ev {
+            justify-content: space-evenly;
+        }
+
+        &_around {
+            justify-content: space-around;
+        }
+    }
+}

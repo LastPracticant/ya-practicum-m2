@@ -32,7 +32,7 @@ InputControlProps
         <div className={classnames('input-control', className)}>
             <input
                 name={name}
-                placeholder={' '}
+                placeholder=' '
                 ref={ref}
                 id={name}
                 type={type}

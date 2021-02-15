@@ -3,9 +3,9 @@ import { Chip, Divider } from 'SharedComponents';
 
 export const ChipDemo = () => (
     <>
-        <Divider style={{ marginTop: 24 }} />
+        <Divider />
         <h3>Chips</h3>
-        <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+        <div className={'wrapper justify-space_ev'}>
             <Chip variant="outlined" icon="add_circle_outline">
                 outlined + icon
             </Chip>

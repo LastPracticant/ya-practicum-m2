@@ -1,7 +1,8 @@
-@import url('../../styles/theme.css');
-
 .paper {
-    background: #424242;
-    box-shadow: 0 8px 10 rgba(0, 0, 0, 0.14), 0 3px 14px rgba(0, 0, 0, 0.12), 0 5px 5px rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
+    background: var(--color_background);
+    border-radius: var(--space-xs);
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    padding: var(--space-unit);
 }

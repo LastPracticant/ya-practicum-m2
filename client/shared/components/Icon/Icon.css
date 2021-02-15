@@ -1,18 +1,6 @@
-@import url('../../styles/theme.css');
+/* @import url('../../../styles/theme.css'); */
 
-.Icon {
+.icon {
     color: var(--color_text);
     font-size: var(--space-md);
-
-    &__small {
-        font-size: var(--space-sm);
-    }
-
-    &__medium {
-        font-size: var(--space-md);
-    }
-
-    &__large {
-        font-size: var(--space-lg);
-    }
 }

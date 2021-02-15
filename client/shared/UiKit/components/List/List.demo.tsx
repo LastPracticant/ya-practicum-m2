@@ -5,11 +5,11 @@ import {
 
 export const ListDemo = () => (
     <>
-        <Divider style={{ marginTop: 24 }} />
+        <Divider />
 
         <h3>List Items</h3>
         <ul>
-            <li style={{ display: 'flex' }}>
+            <li className={'wrapper justify-space_between'}>
                 <Avatar type="3d_rotation" />
                 <p>List item avatar + text + button (icon)</p>
                 <Button

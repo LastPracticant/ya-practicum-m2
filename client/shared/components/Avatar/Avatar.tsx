@@ -8,8 +8,8 @@ interface ListItemAvatarProps extends React.HtmlHTMLAttributes<HTMLElement> {
 }
 
 export const Avatar: FC<ListItemAvatarProps> = memo(
-    ({ style, type = 'face', className }) => (
-        <div className={classnames('avatar', className)} style={style}>
+    ({ type = 'face', className, ...props }) => (
+        <div className={classnames('avatar', className)} {...props}>
             <Icon type={type} />
         </div>
     ),

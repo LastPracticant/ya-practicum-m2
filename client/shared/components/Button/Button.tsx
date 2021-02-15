@@ -1,7 +1,6 @@
-import React, { FC, memo, ReactNode } from 'react';
-import classnames from 'classnames';
-import './Button.css';
-
+import React, { FC, memo, ReactNode } from 'react'
+import classnames from 'classnames'
+import './Button.css'
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     variant?: 'text' | 'outlined' | 'contained'
     icon?: ReactNode
@@ -19,21 +18,19 @@ export const Button: FC<ButtonProps> = memo(
         className,
         ...props
     }) => (
-
-            <button
-                className={classnames(
-                    'Button',
-                    `Button__${variant}`,
-                    { Button__circle: isCircle },
-                    { Button__icon: icon },
-                    className,
-                )}
-                type={type}
-                {...props}
-            >
-                <p>{children}</p>
-                {icon}
-            </button>
-    ),
-
-);
+        <button
+            className={classnames(
+                'button',
+                `type_${variant}`,
+                { button_circle: isCircle },
+                { 'button_with-icon': icon },
+                className
+            )}
+            type={type}
+            {...props}
+        >
+            <p>{children}</p>
+            {icon}
+        </button>
+    )
+)
