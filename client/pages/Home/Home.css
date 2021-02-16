@@ -1,0 +1,5 @@
+.home {
+    width: 100vw;
+    height: 100vh;
+    background: url(./home-bg.png) #000 no-repeat center/cover;
+}

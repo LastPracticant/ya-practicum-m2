@@ -1,8 +1,8 @@
- import React, { FC, memo } from 'react';
+import React, { FC, memo } from 'react';
 import classnames from 'classnames';
 import './Paper.css';
 
-type PaperProps = React.HtmlHTMLAttributes<HTMLElement>
+type PaperProps = React.HtmlHTMLAttributes<HTMLElement>;
 
 export const Paper: FC<PaperProps> = memo(
     ({ children, className, ...props }) => (

@@ -1,6 +1,8 @@
 import React from 'react';
 import { PageComponentProps } from 'client/shared/types';
 
-export const Home: React.FC<PageComponentProps> = ({ title }) => (
-    <div>{title}</div>
-);
+import './Home.css';
+
+export const Home: React.FC<PageComponentProps> = React.memo(({ title }) => (
+    <div className="home">{title}</div>
+));
