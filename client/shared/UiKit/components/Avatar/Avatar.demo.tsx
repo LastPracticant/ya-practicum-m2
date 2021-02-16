@@ -1,5 +1,5 @@
 import React from 'react';
-import { Divider, Avatar } from 'SharedComponents';
+import { Divider, Avatar } from 'client/shared/components';
 
 export const AvatarDemo = () => (
     <>

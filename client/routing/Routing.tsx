@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { UiKit } from 'shared/UiKit';
+import { UiKit } from 'client/shared/UiKit';
 import {
     Forum,
     Game,

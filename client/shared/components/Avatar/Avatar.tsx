@@ -1,5 +1,5 @@
 import React, { FC, memo } from 'react';
-import { Icon } from 'SharedComponents';
+import { Icon } from 'client/shared/components';
 import classnames from 'classnames';
 import './Avatar.css';
 

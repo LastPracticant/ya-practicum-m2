@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Divider, Icon } from 'SharedComponents'
+import { Button, Divider, Icon } from 'client/shared/components'
 
 export const ButtonDemo = () => (
     <>

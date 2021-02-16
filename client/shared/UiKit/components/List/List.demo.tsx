@@ -1,7 +1,7 @@
 import React from 'react';
 import {
     Avatar, Icon, Button, Divider,
-} from 'SharedComponents';
+} from 'client/shared/components';
 
 export const ListDemo = () => (
     <>

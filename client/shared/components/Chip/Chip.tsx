@@ -1,5 +1,5 @@
 import React, { FC, memo } from 'react';
-import { Button, Icon } from 'SharedComponents';
+import { Button, Icon } from 'client/shared/components';
 import classnames from 'classnames';
 import './Chip.css';
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { PageComponentProps } from 'client/shared/types'
-import { Paper, Chip, Icon } from 'SharedComponents'
+import { Paper, Chip, Icon } from 'client/shared/components'
 
 export const Leaderboard: React.FC<PageComponentProps> = React.memo(
     ({ title }) => {

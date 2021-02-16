@@ -1,5 +1,5 @@
 import React from 'react';
-import { Divider, Icon } from 'SharedComponents';
+import { Divider, Icon } from 'client/shared/components';
 
 export const IconDemo = () => (
     <>

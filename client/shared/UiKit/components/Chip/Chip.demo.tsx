@@ -1,5 +1,5 @@
 import React from 'react';
-import { Chip, Divider } from 'SharedComponents';
+import { Chip, Divider } from 'client/shared/components';
 
 export const ChipDemo = () => (
     <>
