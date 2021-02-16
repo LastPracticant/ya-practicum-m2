@@ -4,6 +4,8 @@ import {
 } from 'react-router-dom';
 import { ROUTES, RouteValueProps } from 'client/routing';
 
+import './navigation.css';
+
 const NavigationLink: React.FC<RouteValueProps> = ({ path, title }) => (
 	<li><Link to={path}>{title}</Link></li>
 );
@@ -18,7 +20,7 @@ export const Navigation: React.FC = React.memo(() => {
     ));
 
     return (
-	<ul>
+	<ul className="navigation">
 		{menuList}
 	</ul>
     );

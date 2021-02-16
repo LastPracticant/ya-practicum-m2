@@ -1,8 +1,15 @@
 .paper {
-    background: var(--color_background);
     border-radius: var(--space-xs);
-    display: flex;
-    flex-direction: column;
-    margin: auto;
     padding: var(--space-unit);
+
+    &_small {
+        width: 340px;
+        padding: var(--space-xs);
+    }
+
+    &_theme_dark {
+        background-color: #444444d4;
+        color: #fff;
+        box-shadow: 0 2px 7px #000;
+    }
 }

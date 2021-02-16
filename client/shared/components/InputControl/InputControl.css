@@ -14,7 +14,6 @@
         color: var(--color_text);
         position: absolute;
         font-size: 1rem;
-        background: var(--color_background);
         transition: 0.3s;
         pointer-events: none;
     }
