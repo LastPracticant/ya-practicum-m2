@@ -7,7 +7,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import { CssBaseline } from '@material-ui/core';
 import { red } from '@material-ui/core/colors';
-import './shared/styles/theme.css'
+import './shared/styles/theme.css';
 import './App.css';
 
 const theme = createMuiTheme({
