@@ -1,47 +1,46 @@
 import React from 'react';
-import { FieldError } from 'react-hook-form';
-import classnames from 'classnames';
-import { ComponentCommonProps } from 'client/shared/types';
-import './InputControl.css';
-import { OutlinedInput } from '@material-ui/core';
+import { Control, Controller, RegisterOptions } from 'react-hook-form';
+import { TextField, TextFieldProps } from '@material-ui/core';
+import { PatternProps, CHECK_REQUIRED } from 'client/shared/consts';
 
-export interface InputControlProps extends ComponentCommonProps {
-    name: string
-    label?: string
-    error?: FieldError
-    errorMessage?: string
-    type?: string
-    required?: boolean
-    pattern?: RegExp
+export interface InputControlProps extends TextFieldProps {
+    name: string;
+    label: string;
+    control?: Control;
+    pattern?: PatternProps;
+    type?: string;
+    error?: string;
+    required?: boolean;
 }
 
-const InputControlComponent = React.forwardRef<
-HTMLInputElement,
-InputControlProps
->(
-    (
-        {
-            label,
-            name,
-            error,
-            errorMessage = 'ошибка',
-            type = 'text',
-            className,
-        },
-        ref,
-    ) => (
-        <div>
-            <OutlinedInput
+export const InputControl: React.FC<InputControlProps> = React.memo(
+    ({
+        name, control, type = 'text', error, required, pattern, ...props
+    }) => {
+        const rules: RegisterOptions = {};
+        if (required) {
+            rules.required = CHECK_REQUIRED;
+        }
+        if (pattern) {
+            rules.pattern = pattern;
+        }
+        return (
+            <Controller
                 name={name}
-                placeholder={label}
-                ref={ref}
-                id={name}
-                type={type}
-                className={classnames('input-control', className)}
+                control={control}
+                defaultValue=""
+                rules={rules}
+                render={({ onChange, value }) => (
+                    <TextField
+                        type={type}
+                        onChange={onChange}
+                        value={value}
+                        error={Boolean(error)}
+                        helperText={error}
+                        {...props}
+                    />
+                )}
             />
-            <span>{error && errorMessage}</span>
-        </div>
-    ),
+        );
+    },
 );
-
-export const InputControl = React.memo(InputControlComponent);

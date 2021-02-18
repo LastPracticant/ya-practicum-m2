@@ -5,3 +5,4 @@ export * from './Divider';
 export * from './Icon';
 export * from './Chip';
 export * from './InputControl';
+export * from './InputAvatar';
