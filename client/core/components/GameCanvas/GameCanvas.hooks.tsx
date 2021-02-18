@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { ANIMATION } from './GameCanvas.config';
+import { ANIMATION, CONTROLS } from './GameCanvas.config';
 import { DrawCanvasProps } from './GamePainter';
 import { ResourcesLoader } from './ResourcesLoader';
 
@@ -22,6 +22,10 @@ export const useCanvas = (drawCanvas: DrawCanvasFn, resources?: string | string[
         let keyPress: string | null;
         const handleHeroAction = (e: KeyboardEvent) => {
             keyPress = e.code;
+
+            if (![CONTROLS.jump, CONTROLS.down].includes(e.code)) {
+                e.preventDefault();
+            }
         };
         document.addEventListener('keydown', handleHeroAction, false);
 

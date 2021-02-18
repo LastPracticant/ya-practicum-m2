@@ -1,3 +1,5 @@
+import { CONTROLS } from './GameCanvas.config';
+
 export interface DrawCanvasProps {
     ctx: CanvasRenderingContext2D
     frameCount: number
@@ -75,11 +77,11 @@ export class GamePainter {
     }
 
     drawHero({ ctx, resource, keyPress }: DrawCanvasPartProps) {
-        if (keyPress === 'ArrowUp') {
+        if (keyPress === CONTROLS.jump) {
             if (!this.move.down.pressed) this.move.jump.pressed = true;
         }
 
-        if (keyPress === 'ArrowDown') {
+        if (keyPress === CONTROLS.down) {
             if (!this.move.jump.pressed) this.move.down.pressed = true;
         }
 

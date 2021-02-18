@@ -19,7 +19,6 @@
 }
 
 body {
-    background: url("./shared/images/background.png") center/cover no-repeat;
     margin: 0;
     font-family: sans-serif;
 }

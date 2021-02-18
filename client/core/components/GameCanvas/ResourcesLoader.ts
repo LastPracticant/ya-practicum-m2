@@ -26,8 +26,7 @@ export class ResourcesLoader {
             this._resources[url] = img;
 
             if (this.isReady()) {
-                const her = Object.values(this._resources);
-                this._renderCanvas(her);
+                this._renderCanvas(Object.values(this._resources));
             }
         };
     }

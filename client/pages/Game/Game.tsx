@@ -1,25 +1,24 @@
+import './Game.css';
+
 import React from 'react';
 import { PageComponentProps } from 'client/shared/types';
-import { GamePainter, GameCanvas } from 'client/core';
-import bg5 from 'client/core/components/GameCanvas/img/bg5.png';
-import hero from 'client/core/components/GameCanvas/img/hero.png';
+import { GamePainter, GameCanvas, PageLayout } from 'client/core';
+import { ROUTES } from 'client/routing';
+import classnames from 'classnames';
+import { GAME_RESOURSES, GAME_VIEWPORT } from './Game.config';
 
-export const Game: React.FC<PageComponentProps> = React.memo(({ title }) => {
+export const Game: React.FC<PageComponentProps> = React.memo(({ className }) => {
     const Painter = new GamePainter();
 
     return (
-        <div>
-            <header>
-                {title}
-            </header>
-            <main>
+        <PageLayout className={classnames('game', className)} goBackLink={ROUTES.GAME_START.path}>
+            <div className="game__overlay">
                 <GameCanvas
-                    resources={[bg5, hero]}
+                    resources={GAME_RESOURSES}
                     drawCanvas={Painter.drawCanvas}
-                    width="1000"
-                    height="600"
+                    {...GAME_VIEWPORT}
                 />
-            </main>
-        </div>
+            </div>
+        </PageLayout>
     );
 });

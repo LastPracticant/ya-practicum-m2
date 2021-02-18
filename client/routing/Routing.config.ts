@@ -32,12 +32,16 @@ export const ROUTES: RoutesProps = {
         path: '/game',
         title: 'Игра',
     },
+    GAME_START: {
+        path: '/game-start',
+        title: 'Начать игру',
+    },
+    GAME_OVER: {
+        path: '/game-over',
+        title: 'Игра окончена',
+    },
     LEADERBOARD: {
         path: '/leaderboard',
         title: 'Таблица лидеров',
-    },
-    UIKIT: {
-        path: '/uikit',
-        title: 'Компоненты',
     },
 };

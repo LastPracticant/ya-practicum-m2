@@ -1,11 +1,12 @@
-import { Button, InputControl } from 'client/shared/components';
+import { InputControl } from 'client/shared/components';
 import { AuthAPI, SigninProps } from 'client/core/api';
 import React, { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
-import { SIGNIN_FORM_CONTROLS } from './SigninForm.config';
 import { Link } from 'react-router-dom';
 import { ROUTES } from 'client/routing';
 import { AUTHORIZE, NO_ACCOUNT } from 'client/shared/consts';
+import { Button } from '@material-ui/core';
+import { SIGNIN_FORM_CONTROLS } from './SigninForm.config';
 
 export const SigninForm: React.FC = React.memo(() => {
     const {
@@ -42,7 +43,9 @@ export const SigninForm: React.FC = React.memo(() => {
         <form onSubmit={handleSubmit(onSubmit)}>
             {controls}
 
-            <Button type="submit" variant="outlined" children={AUTHORIZE} className="btn btn_primary btn_wide" />
+            <Button type="submit" variant="outlined" className="btn btn_primary btn_wide">
+                {AUTHORIZE}
+            </Button>
             <Link to={ROUTES.SIGNUP.path} className="btn btn_link">{NO_ACCOUNT}</Link>
         </form>
     );
