@@ -6,10 +6,13 @@ import { PageLayout } from 'client/core';
 import { NivelatorXY, Paper } from 'client/shared/components';
 import { ROUTES } from 'client/routing';
 import { Link } from 'react-router-dom';
+import classnames from 'classnames';
 import gameOver from './game-over.png';
 
-export const GameOver: React.FC<PageComponentProps> = React.memo(() => (
-        <PageLayout className="game-over">
+export const GameOver: React.FC<PageComponentProps> = React.memo(({
+    className,
+}) => (
+        <PageLayout className={classnames('game-over', className)}>
             <Paper>
                 <NivelatorXY>
                     <div>

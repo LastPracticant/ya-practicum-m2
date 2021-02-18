@@ -39,16 +39,12 @@
 }
 
 .game-over {
-    &__help {
-        a {
-            color: #fff;
-        }
+    &__help a {
+        color: #fff;
     }
 
-    &__banner {
-        img {
-            width: 100%;
-            height: auto;
-        }
+    &__banner img {
+        width: 100%;
+        height: auto;
     }
 }
