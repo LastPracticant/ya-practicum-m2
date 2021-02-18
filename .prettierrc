@@ -12,7 +12,11 @@
 	"requirePragma": false,
 	"semi": true,
 	"singleQuote": true,
+<<<<<<< HEAD
 	"tabWidth": 4,
+=======
+	"tabWidth": 2,
+>>>>>>> 6d798671940b8de297110890beb536aa2c8b4252
 	"trailingComma": "all",
 	"useTabs": false,
 	"vueIndentScriptAndStyle": false,

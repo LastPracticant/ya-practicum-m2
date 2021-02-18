@@ -20,6 +20,7 @@ const theme = createMuiTheme({
 });
 export const App: React.FC = () => (
     <ThemeProvider theme={theme}>
+		<CssBaseline />
         <BrowserRouter>
             <Routing />
         </BrowserRouter>
