@@ -23,7 +23,7 @@ export const useCanvas = (drawCanvas: DrawCanvasFn, resources?: string | string[
         const handleHeroAction = (e: KeyboardEvent) => {
             keyPress = e.code;
 
-            if ([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+            if (!['ArrowUp', 'ArrowDown'].includes(e.code)) {
                 e.preventDefault();
             }
         };
