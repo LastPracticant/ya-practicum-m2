@@ -37,18 +37,4 @@ export const PROFILE_FORM_CONTROLS: InputControlProps[] = [
         required: true,
         pattern: CHECK_PHONE_NUMBER,
     },
-    {
-        name: 'password',
-        label: 'Пароль',
-        type: 'password',
-        required: true,
-        pattern: CHECK_ALLOWED_LENGTH_AND_TYPE_CHAR,
-    },
-    {
-        name: 'password_confirm',
-        label: 'Пароль (ещё раз)',
-        type: 'password',
-        required: true,
-        pattern: CHECK_ALLOWED_LENGTH_AND_TYPE_CHAR,
-    },
 ];
