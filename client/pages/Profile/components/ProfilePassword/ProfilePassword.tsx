@@ -21,11 +21,10 @@ export const ProfilePassword: React.FC = React.memo(() => {
     };
 
     const controls = React.useMemo(
-        () =>
-            PROFILE_PASSWORD_CONTROLS.map((inputConfig) => {
-                const { name } = inputConfig;
-                const error = errors[name as keyof typeof errors]?.message;
-                return (
+        () => PROFILE_PASSWORD_CONTROLS.map((inputConfig) => {
+            const { name } = inputConfig;
+            const error = errors[name as keyof typeof errors]?.message;
+            return (
                     <InputControl
                         fullWidth
                         margin="dense"
@@ -35,8 +34,8 @@ export const ProfilePassword: React.FC = React.memo(() => {
                         control={control}
                         {...inputConfig}
                     />
-                );
-            }),
+            );
+        }),
         [errors],
     );
 

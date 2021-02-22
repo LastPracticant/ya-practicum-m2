@@ -18,14 +18,16 @@ import { ROUTES } from 'client/routing';
 import { PROFILE_FORM_CONTROLS } from './ProfileForm.config';
 
 export const ProfileForm: React.FC = React.memo(() => {
-    const { control, handleSubmit, errors, register, setValue } = useForm<
-        CurrentUserInfoProps
+    const {
+        control, handleSubmit, errors, register, setValue,
+    } = useForm<
+    CurrentUserInfoProps
     >();
 
     const [avatar, setAvatar] = React.useState('');
 
     const updateForm = (data: CurrentUserInfoProps) => {
-        Object.entries(data).map(([name, value]) => {
+        Object.entries(data).forEach(([name, value]) => {
             if (name !== 'avatar') {
                 setValue(name as keyof CurrentUserInfoProps, value);
             } else setAvatar(API_BASE + value);
@@ -50,11 +52,10 @@ export const ProfileForm: React.FC = React.memo(() => {
     };
 
     const controls = useMemo(
-        () =>
-            PROFILE_FORM_CONTROLS.map((inputConfig) => {
-                const { name } = inputConfig;
-                const error = errors[name as keyof typeof errors]?.message;
-                return (
+        () => PROFILE_FORM_CONTROLS.map((inputConfig) => {
+            const { name } = inputConfig;
+            const error = errors[name as keyof typeof errors]?.message;
+            return (
                     <InputControl
                         fullWidth
                         margin="dense"
@@ -64,8 +65,8 @@ export const ProfileForm: React.FC = React.memo(() => {
                         control={control}
                         {...inputConfig}
                     />
-                );
-            }),
+            );
+        }),
         [errors],
     );
 

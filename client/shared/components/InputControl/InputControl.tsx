@@ -12,7 +12,9 @@ export interface InputControlProps extends OutlinedTextFieldProps {
 }
 
 export const InputControl: React.FC<InputControlProps> = React.memo(
-    ({ name, control, type = 'text', error, required, pattern, ...props }) => {
+    ({
+        name, control, type = 'text', error, required, pattern, ...props
+    }) => {
         const rules: RegisterOptions = {
             required: required && CHECK_REQUIRED,
             pattern,

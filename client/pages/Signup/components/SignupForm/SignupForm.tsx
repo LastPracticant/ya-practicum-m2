@@ -5,7 +5,9 @@ import { useForm } from 'react-hook-form';
 import { SIGNUP_FORM_CONTROLS } from './SignupForm.config';
 
 export const SignupForm: React.FC = React.memo(() => {
-    const { control, handleSubmit, errors, setError } = useForm<SignupProps>();
+    const {
+        control, handleSubmit, errors, setError,
+    } = useForm<SignupProps>();
 
     const onSubmit = (data: SignupProps) => {
         if (data.password !== data.password_confirm) {
