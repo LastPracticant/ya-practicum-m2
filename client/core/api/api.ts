@@ -14,11 +14,13 @@ type OptionsType = {
 type OptionsWithoutMethodType = Omit<OptionsType, 'method'>;
 
 export interface ResponseProps<T> extends Omit<XMLHttpRequest, 'response'> {
+    avatar: string;
     response: T
 }
 
 export const API_HOST = 'ya-praktikum.tech';
-export const API_BASE_PATH = `https://${API_HOST}/api/v2`;
+export const API_BASE = `https://${API_HOST}`;
+export const API_BASE_PATH = `${API_BASE}/api/v2`;
 
 export function queryStringify<T extends object>(data: T): string {
     if (!data) return '';
@@ -70,14 +72,15 @@ export class HTTP {
             ? `${basePath}${queryStringify(data)}`
             : basePath;
 
+        const type = method === METHOD.GET || data instanceof FormData;
         return fetch(path, {
             method,
             mode: 'cors',
             credentials: 'include',
-            body: method !== METHOD.GET ? JSON.stringify(data) : data,
-            headers: method !== METHOD.GET ? {
+            body: type ? data : JSON.stringify(data),
+            headers: type ? undefined : {
                 'Content-Type': 'application/json',
-            } : undefined,
+            },
         })
             .then((response) => {
                 if (!response.ok) {

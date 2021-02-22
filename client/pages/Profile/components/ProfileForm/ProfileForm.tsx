@@ -1,7 +1,12 @@
 import React, { useMemo } from 'react';
 import { Grid, Button } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
-import { ProfileAPI, ChangeProfileProps, CurrentUserInfoProps } from 'client/core/api';
+import {
+    ProfileAPI,
+    ChangeProfileProps,
+    CurrentUserInfoProps,
+    API_BASE,
+} from 'client/core/api';
 import {
     CHANGE_PROFILE_DATA,
     CHANGE_PROFILE_PASSWORD,
@@ -9,20 +14,39 @@ import {
 } from 'client/shared/consts';
 import { InputControl, AvatarUpload } from 'client/shared/components';
 import { Link } from 'react-router-dom';
+import { ROUTES } from 'client/routing';
 import { PROFILE_FORM_CONTROLS } from './ProfileForm.config';
 
 export const ProfileForm: React.FC = React.memo(() => {
-    const { control, handleSubmit, errors, register } = useForm<CurrentUserInfoProps>();
+    const { control, handleSubmit, errors, register, setValue } = useForm<
+        CurrentUserInfoProps
+    >();
 
-    const onSubmit = (data: ChangeProfileProps) => {
-        ProfileAPI.change(data);
+    const [avatar, setAvatar] = React.useState('');
+
+    const updateForm = (data: CurrentUserInfoProps) => {
+        Object.entries(data).map(([name, value]) => {
+            if (name !== 'avatar') {
+                setValue(name as keyof CurrentUserInfoProps, value);
+            } else setAvatar(API_BASE + value);
+        });
     };
 
-    const onChangeAvatar = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const onSubmit = async (data: ChangeProfileProps) => {
+        const result = await ProfileAPI.change(data);
+        updateForm((result as unknown) as CurrentUserInfoProps);
+    };
+
+    const onChangeAvatar = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const {
             target: { files },
         } = e;
-        ProfileAPI.changeAvatar(files?.item(0));
+        const blob = files?.item(0);
+        if (!blob) return;
+        const formData = new FormData();
+        formData.append('avatar', blob);
+        const result = await ProfileAPI.changeAvatar(formData);
+        updateForm((result as unknown) as CurrentUserInfoProps);
     };
 
     const controls = useMemo(
@@ -59,6 +83,7 @@ export const ProfileForm: React.FC = React.memo(() => {
                         ref={register}
                         onChange={onChangeAvatar}
                         name="avatar"
+                        src={avatar}
                     />
                     {controls}
                 </Grid>
@@ -71,7 +96,7 @@ export const ProfileForm: React.FC = React.memo(() => {
                     <Grid item>
                         <Button
                             component={Link}
-                            to="/profile/password/"
+                            to={ROUTES.PROFILE_PASSWORD.path}
                             color="primary"
                         >
                             {CHANGE_PROFILE_PASSWORD}

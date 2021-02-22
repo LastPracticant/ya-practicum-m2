@@ -10,6 +10,7 @@ import {
 } from 'client/shared/consts';
 import { InputControl } from 'client/shared/components';
 import { Link } from 'react-router-dom';
+import { ROUTES } from 'client/routing';
 import { PROFILE_PASSWORD_CONTROLS } from './ProfilePassword.config';
 
 export const ProfilePassword: React.FC = React.memo(() => {
@@ -49,7 +50,7 @@ export const ProfilePassword: React.FC = React.memo(() => {
                     direction="column"
                     alignItems="center"
                 >
-                    <Avatar className="avatar-upload" src={'src'}>
+                    <Avatar className="avatar-upload">
                         {AVATAR_DEFAULT}
                     </Avatar>
                     {controls}
@@ -61,7 +62,7 @@ export const ProfilePassword: React.FC = React.memo(() => {
                         </Button>
                     </Grid>
                     <Grid item>
-                        <Button component={Link} to="/profile/" color="primary">
+                        <Button component={Link} to={ROUTES.PROFILE.path} color="primary">
                             {BACK}
                         </Button>
                     </Grid>
