@@ -1,4 +1,4 @@
 export * from './Paper';
 export * from './InputControl';
-export * from './InputAvatar';
+export * from './AvatarUpload';
 export * from './NivelatorXY';

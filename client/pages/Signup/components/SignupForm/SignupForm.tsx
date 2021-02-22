@@ -5,9 +5,7 @@ import { useForm } from 'react-hook-form';
 import { SIGNUP_FORM_CONTROLS } from './SignupForm.config';
 
 export const SignupForm: React.FC = React.memo(() => {
-    const {
-        register, handleSubmit, errors, setError,
-    } = useForm<SignupProps>();
+    const { control, handleSubmit, errors, setError } = useForm<SignupProps>();
 
     const onSubmit = (data: SignupProps) => {
         if (data.password !== data.password_confirm) {
@@ -17,26 +15,24 @@ export const SignupForm: React.FC = React.memo(() => {
         }
     };
 
-    const controls = useMemo(() => SIGNUP_FORM_CONTROLS.map(({
-        name,
-        required,
-        label,
-        errorMessage,
-        pattern,
-    }) => {
-        const fieldName = name as keyof typeof errors;
-
-        return (
-            <InputControl
-                key={name}
-                name={name}
-                label={label}
-                ref={register({ required, pattern })}
-                error={errors[fieldName]}
-                errorMessage={errorMessage}
-            />
-        );
-    }), [errors]);
+    const controls = useMemo(
+        () => SIGNUP_FORM_CONTROLS.map((inputConfig) => {
+            const { name } = inputConfig;
+            const error = errors[name as keyof typeof errors]?.message;
+            return (
+                    <InputControl
+                        fullWidth
+                        margin="dense"
+                        variant="outlined"
+                        error={Boolean(error)}
+                        helperText={error}
+                        control={control}
+                        {...inputConfig}
+                    />
+            );
+        }),
+        [errors],
+    );
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>

@@ -1,19 +1,20 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Grid, Button } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
-import { ProfileAPI } from 'client/core/api';
+import { ProfileAPI, ChangeProfileProps, CurrentUserInfoProps } from 'client/core/api';
 import {
     CHANGE_PROFILE_DATA,
     CHANGE_PROFILE_PASSWORD,
+    GRID_SPACE,
 } from 'client/shared/consts';
-import { InputControl, InputAvatar } from 'client/shared/components';
+import { InputControl, AvatarUpload } from 'client/shared/components';
 import { Link } from 'react-router-dom';
 import { PROFILE_FORM_CONTROLS } from './ProfileForm.config';
 
 export const ProfileForm: React.FC = React.memo(() => {
-    const { control, handleSubmit, errors, register } = useForm();
+    const { control, handleSubmit, errors, register } = useForm<CurrentUserInfoProps>();
 
-    const onSubmit = (data: any) => {
+    const onSubmit = (data: ChangeProfileProps) => {
         ProfileAPI.change(data);
     };
 
@@ -24,27 +25,29 @@ export const ProfileForm: React.FC = React.memo(() => {
         ProfileAPI.changeAvatar(files?.item(0));
     };
 
-    const controls = () => {
-        const result = PROFILE_FORM_CONTROLS.map((configInput) => {
-            const { name } = configInput;
-            const error = errors[name as keyof typeof errors]?.message;
-            return (
-                <InputControl
-                    fullWidth
-                    margin="dense"
-                    variant="outlined"
-                    error={error}
-                    control={control}
-                    {...configInput}
-                />
-            );
-        });
-        return result;
-    };
+    const controls = useMemo(
+        () =>
+            PROFILE_FORM_CONTROLS.map((inputConfig) => {
+                const { name } = inputConfig;
+                const error = errors[name as keyof typeof errors]?.message;
+                return (
+                    <InputControl
+                        fullWidth
+                        margin="dense"
+                        variant="outlined"
+                        error={Boolean(error)}
+                        helperText={error}
+                        control={control}
+                        {...inputConfig}
+                    />
+                );
+            }),
+        [errors],
+    );
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="profile_form">
-            <Grid container spacing={2}>
+            <Grid container spacing={GRID_SPACE}>
                 <Grid
                     item
                     xs={12}
@@ -52,12 +55,12 @@ export const ProfileForm: React.FC = React.memo(() => {
                     direction="column"
                     alignItems="center"
                 >
-                    <InputAvatar
+                    <AvatarUpload
                         ref={register}
                         onChange={onChangeAvatar}
                         name="avatar"
                     />
-                    {controls()}
+                    {controls}
                 </Grid>
                 <Grid container item xs={12} justify="center" spacing={1}>
                     <Grid item>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Avatar, InputProps } from '@material-ui/core';
-import './InputAvatar.css';
+import './AvatarUpload.css';
+import { AVATAR_DEFAULT } from 'client/shared/consts';
 
 export interface InputAvatarProps extends InputProps {
     name: string;
@@ -8,7 +9,7 @@ export interface InputAvatarProps extends InputProps {
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const InputAvatarComponent = React.forwardRef<
+const AvatarUploadComponent = React.forwardRef<
 HTMLInputElement,
 InputAvatarProps
 >(({ name, src, onChange }, ref) => (
@@ -22,9 +23,9 @@ InputAvatarProps
             className="input-upload"
         />
         <Avatar className="avatar-upload" src={src}>
-            PR
+            {AVATAR_DEFAULT}
         </Avatar>
     </label>
 ));
 
-export const InputAvatar = React.memo(InputAvatarComponent);
+export const AvatarUpload = React.memo(AvatarUploadComponent);

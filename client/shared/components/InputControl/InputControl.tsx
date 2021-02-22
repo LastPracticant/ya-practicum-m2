@@ -1,29 +1,22 @@
 import React from 'react';
 import { Control, Controller, RegisterOptions } from 'react-hook-form';
-import { TextField, TextFieldProps } from '@material-ui/core';
+import { TextField, OutlinedTextFieldProps } from '@material-ui/core';
 import { PatternProps, CHECK_REQUIRED } from 'client/shared/consts';
 
-export interface InputControlProps extends TextFieldProps {
+export interface InputControlProps extends OutlinedTextFieldProps {
     name: string;
     label: string;
     control?: Control;
     pattern?: PatternProps;
     type?: string;
-    error?: string;
-    required?: boolean;
 }
 
 export const InputControl: React.FC<InputControlProps> = React.memo(
-    ({
-        name, control, type = 'text', error, required, pattern, ...props
-    }) => {
-        const rules: RegisterOptions = {};
-        if (required) {
-            rules.required = CHECK_REQUIRED;
-        }
-        if (pattern) {
-            rules.pattern = pattern;
-        }
+    ({ name, control, type = 'text', error, required, pattern, ...props }) => {
+        const rules: RegisterOptions = {
+            required: required && CHECK_REQUIRED,
+            pattern,
+        };
         return (
             <Controller
                 name={name}
@@ -35,8 +28,6 @@ export const InputControl: React.FC<InputControlProps> = React.memo(
                         type={type}
                         onChange={onChange}
                         value={value}
-                        error={Boolean(error)}
-                        helperText={error}
                         {...props}
                     />
                 )}
