@@ -1,3 +1,4 @@
+import { getRandomIntInclusive } from 'client/shared/utils';
 import { CONTROLS } from './GameCanvas.config';
 import { ResourcesProps } from './ResourcesLoader';
 
@@ -57,7 +58,8 @@ export class GamePainter {
 
     enemies = {
         tickCounter: 0,
-        set: [] as EnemiesProps[],
+        frequency: 65,
+        army: [] as EnemiesProps[],
     };
 
     hero = {
@@ -137,7 +139,6 @@ export class GamePainter {
         }
     }
 
-    // TODO: доработать в LP-41
     drawEnemies({
         ctx,
         resources,
@@ -146,24 +147,30 @@ export class GamePainter {
 
         const { enemies } = resources;
 
-        this.enemies.set.forEach((enemy) => {
+        this.enemies.army.forEach((enemy, index) => {
             ctx.drawImage(enemies, 0, 0, 90, 90, enemy.x, enemy.y, 90, 90);
+
+            this.enemies.army[index].x -= this.hero.bulletSpeed;
         });
 
-        if (this.enemies.tickCounter < 100) {
+        if (this.enemies.tickCounter < this.enemies.frequency) {
             this.enemies.tickCounter++;
 
-            this.enemies.set.push({
-                x: 300,
-                y: ctx.canvas.height - this.hero.position.y,
-            });
+            return;
+        }
+
+        this.enemies.army.push({
+            x: this.enemies.army.length
+                ? ctx.canvas.width + getRandomIntInclusive(0, 100)
+                : ctx.canvas.width,
+            y: ctx.canvas.height - this.hero.position.y,
+        });
+
+        if (this.enemies.army.length > 20) {
+            this.enemies.army.splice(0, this.enemies.army.length / 2);
         }
 
         this.enemies.tickCounter = 0;
-
-        if (this.enemies.set.length > 20) {
-            this.enemies.set = [];
-        }
     }
 
     drawExplosion({
