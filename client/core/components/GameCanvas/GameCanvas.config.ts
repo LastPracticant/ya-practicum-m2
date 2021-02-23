@@ -16,6 +16,7 @@ interface MoveOptionsProps {
     count: number
     length: number
     height: number
+    delay: number
 }
 
 interface PositionProps {
@@ -83,12 +84,14 @@ export const GAME_OPTIONS: GameOptionProps = {
             count: 0,
             length: 50,
             height: 0,
+            delay: 0,
         },
         down: {
             pressed: false,
             count: 0,
-            length: 20,
+            length: 35,
             height: 0,
+            delay: 0,
         },
     },
     explosion: {

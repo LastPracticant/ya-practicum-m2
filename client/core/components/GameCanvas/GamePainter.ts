@@ -247,7 +247,7 @@ export class GamePainter {
         }
 
         if (this.move.down.pressed) {
-            this.drawHeroMove('down');
+            this.move.down.count++;
         }
 
         if (this.move.jump.count > this.move.jump.length) {
@@ -264,8 +264,14 @@ export class GamePainter {
 
         ctx.drawImage(
             hero,
+            0,
+            this.move.down.pressed ? this.hero.height : 0,
+            this.hero.width,
+            this.hero.height,
             this.hero.position.x,
-            this.hero.currentPosition.y,
+            this.move.down.pressed
+                ? ctx.canvas.height - this.hero.position.y + 10
+                : this.hero.currentPosition.y,
             this.hero.width,
             this.hero.height,
         );
