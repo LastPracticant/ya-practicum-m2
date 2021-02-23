@@ -90,8 +90,8 @@ export class GamePainter {
     }
 
     calculateEnemiesDY(enemy: EnemyTypeProps, ctx: CanvasRenderingContext2D) {
-        const basePosition = ctx.canvas.height - this.hero.position.y;
-        const airUnits = basePosition - 60;
+        const basePosition = ctx.canvas.height - this.hero.shiftY;
+        const airUnits = basePosition - 80;
         const earthUnits = basePosition + 10;
 
         switch (enemy.type) {
@@ -167,7 +167,10 @@ export class GamePainter {
     }
 
     checkEncounters() {
+        const explosionShiftY = 30;
+
         this.enemies.army.forEach((enemy, i) => {
+            /** Столкновение врагов со снарядами */
             this.hero.shotes.forEach((shote, j) => {
                 if (
                     shote.x > enemy.dx
@@ -178,12 +181,29 @@ export class GamePainter {
                     this.explosion.encounters.push({
                         ...this.explosion.cutOptions,
                         dx: shote.x,
-                        dy: shote.y,
+                        dy: shote.y - explosionShiftY,
                     });
                     this.enemies.army.splice(i, 1);
                     this.hero.shotes.splice(j, 1);
                 }
             });
+
+            /** Столкновение врагов с главным героем */
+            if (
+                this.hero.currentPosition.x > enemy.dx
+                && this.hero.currentPosition.x < enemy.dx + enemy.dWidth
+                && ((this.hero.currentPosition.y > enemy.dy
+                && this.hero.currentPosition.y < enemy.dy + enemy.dHeight)
+                || (this.hero.currentPosition.y + this.hero.height > enemy.dy
+                && this.hero.currentPosition.y + this.hero.height < enemy.dy + enemy.dHeight))
+            ) {
+                this.explosion.encounters.push({
+                    ...this.explosion.cutOptions,
+                    dx: this.hero.currentPosition.x,
+                    dy: this.hero.currentPosition.y - explosionShiftY,
+                });
+                this.enemies.army.splice(i, 1);
+            }
         });
     }
 
@@ -288,9 +308,11 @@ export class GamePainter {
             this.resetHeroMove('down');
         }
 
-        this.hero.currentPosition.y = (
-            ctx.canvas.height - this.hero.position.y - this.move.jump.height + this.move.down.height
-        );
+        this.hero.currentPosition.y = this.move.down.pressed
+            ? ctx.canvas.height - this.hero.shiftY + 10
+            : (
+                ctx.canvas.height - this.hero.shiftY - this.move.jump.height + this.move.down.height
+            );
 
         ctx.drawImage(
             hero,
@@ -298,17 +320,15 @@ export class GamePainter {
             this.move.down.pressed ? this.hero.height : 0,
             this.hero.width,
             this.hero.height,
-            this.hero.position.x,
-            this.move.down.pressed
-                ? ctx.canvas.height - this.hero.position.y + 10
-                : this.hero.currentPosition.y,
+            this.hero.currentPosition.x,
+            this.hero.currentPosition.y,
             this.hero.width,
             this.hero.height,
         );
 
         if (keyPress === CONTROLS.shote) {
             this.hero.shotes.push({
-                x: this.hero.position.x + this.hero.width,
+                x: this.hero.currentPosition.x + this.hero.width,
                 y: this.hero.currentPosition.y + 35,
             });
         }

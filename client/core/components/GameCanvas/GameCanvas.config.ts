@@ -71,7 +71,7 @@ interface EnemiesArmyProps{
 interface HeroProps {
     width: number
     height: number
-    position: PositionProps,
+    shiftY: number,
     currentPosition: PositionProps,
     lifes: number
     ideas: number
@@ -142,12 +142,9 @@ export const GAME_OPTIONS: GameOptionProps = {
     hero: {
         width: 75,
         height: 80,
-        position: {
-            x: 210,
-            y: 210,
-        },
+        shiftY: 210,
         currentPosition: {
-            x: 0,
+            x: 210,
             y: 0,
         },
         lifes: 3,
