@@ -15,8 +15,10 @@ import { ROUTES } from 'client/routing';
 import { PROFILE_DATA_CONTROLS } from './ProfileData.config';
 
 export const ProfileData: React.FC = React.memo(() => {
-    const { control, handleSubmit, errors, register, setValue } = useForm<
-        CurrentUserInfoProps
+    const {
+        control, handleSubmit, errors, register, setValue,
+    } = useForm<
+    CurrentUserInfoProps
     >();
 
     const [avatar, setAvatar] = React.useState('');
@@ -54,11 +56,10 @@ export const ProfileData: React.FC = React.memo(() => {
     setTimeout(() => updateForm(), []);
 
     const controls = useMemo(
-        () =>
-            PROFILE_DATA_CONTROLS.map((inputConfig) => {
-                const { name } = inputConfig;
-                const error = errors[name as keyof typeof errors]?.message;
-                return (
+        () => PROFILE_DATA_CONTROLS.map((inputConfig) => {
+            const { name } = inputConfig;
+            const error = errors[name as keyof typeof errors]?.message;
+            return (
                     <InputControl
                         fullWidth
                         variant="outlined"
@@ -68,8 +69,8 @@ export const ProfileData: React.FC = React.memo(() => {
                         control={control}
                         {...inputConfig}
                     />
-                );
-            }),
+            );
+        }),
         [errors],
     );
 

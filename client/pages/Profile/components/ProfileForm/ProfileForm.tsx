@@ -31,8 +31,7 @@ export const ProfileForm: React.FC = React.memo(() => {
     setTimeout(() => updateForm(), []);
 
     const controls = useMemo(
-        () =>
-            PROFILE_FORM_CONTROLS.map((inputConfig) => (
+        () => PROFILE_FORM_CONTROLS.map((inputConfig) => (
                 <InputControl
                     disabled
                     fullWidth
@@ -43,7 +42,7 @@ export const ProfileForm: React.FC = React.memo(() => {
                     control={control}
                     {...inputConfig}
                 />
-            )),
+        )),
         [],
     );
 
