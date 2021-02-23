@@ -2,8 +2,6 @@ import React, { useMemo } from 'react';
 import { Grid, Button, Avatar } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
 import {
-    ProfileAPI,
-    ChangeProfileProps,
     CurrentUserInfoProps,
 } from 'client/core/api';
 import {
