@@ -55,6 +55,28 @@ export class HTTP {
         url: string,
         options: OptionsType = { method: METHOD.GET },
     ): Promise<T> {
+        function serializeBody(method: METHOD, data: T) {
+            if (method === METHOD.GET) {
+                return;
+            }
+            if (data instanceof FormData) {
+                return data;
+            }
+            return JSON.stringify(data);
+        }
+
+        function serializeHeader(method: METHOD, data: T) {
+            if (method === METHOD.GET) {
+                return;
+            }
+            if (data instanceof FormData) {
+                return;
+            }
+            return {
+                'Content-Type': 'application/json',
+            };
+        }
+
         const { method, data, responseFormat = 'json' } = options;
 
         const defaultReject = (response: Response) => {
@@ -70,15 +92,12 @@ export class HTTP {
             ? `${basePath}${queryStringify(data)}`
             : basePath;
 
-        const isGetMethodOrFormData = method === METHOD.GET || data instanceof FormData;
         return fetch(path, {
             method,
             mode: 'cors',
             credentials: 'include',
-            body: isGetMethodOrFormData ? data : JSON.stringify(data),
-            headers: !isGetMethodOrFormData ? {
-                'Content-Type': 'application/json',
-            } : undefined,
+            body: serializeBody(method, data),
+            headers: serializeHeader(method, data),
         })
             .then((response) => {
                 if (!response.ok) {
