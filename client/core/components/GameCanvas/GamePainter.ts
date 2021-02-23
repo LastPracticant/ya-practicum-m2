@@ -1,5 +1,5 @@
 import { getRandomIntInclusive } from 'client/shared/utils';
-import { CONTROLS } from './GameCanvas.config';
+import { CONTROLS, EnemyTypeProps, GAME_OPTIONS } from './GameCanvas.config';
 import { ResourcesProps } from './ResourcesLoader';
 
 export interface DrawCanvasProps {
@@ -10,74 +10,24 @@ export interface DrawCanvasProps {
     resources?: ResourcesProps
 }
 
-interface MoveOptionsProps {
-    pressed: boolean
-    count: number
-    length: number
-    height: number
-}
-
-interface MoveProps {
-    [key: string]: MoveOptionsProps
-}
-
-interface ShoteProps {
-    x: number
-    y: number
-}
-
-interface EnemiesProps {
-    x: number
-    y: number
-}
-
 export interface DrawCanvasPartProps extends DrawCanvasProps {}
 
 export class GamePainter {
-    move: MoveProps = {
-        jump: {
-            pressed: false,
-            count: 0,
-            length: 50,
-            height: 0,
-        },
-        down: {
-            pressed: false,
-            count: 0,
-            length: 20,
-            height: 0,
-        },
-    };
+    move = GAME_OPTIONS.move;
 
-    explosion = {
-        shiftX: 0,
-        shiftY: 0,
-        width: 120,
-        height: 90,
-    };
+    explosion = GAME_OPTIONS.explosion;
 
-    enemies = {
-        tickCounter: 0,
-        frequency: 65,
-        army: [] as EnemiesProps[],
-    };
+    enemies = GAME_OPTIONS.enemies;
 
-    hero = {
-        width: 75,
-        height: 80,
-        position: {
-            x: 210,
-            y: 210,
+    hero = GAME_OPTIONS.hero;
+
+    levels = [
+        {
+            enemies: [0, 1, 4],
         },
-        currentPosition: {
-            x: 0,
-            y: 0,
-        },
-        lifes: 3,
-        ideas: 3,
-        bulletSpeed: 5,
-        shotes: [] as ShoteProps[],
-    };
+    ];
+
+    currentLevel = 0;
 
     constructor() {
         this.drawBg = this.drawBg.bind(this);
@@ -139,19 +89,31 @@ export class GamePainter {
         }
     }
 
-    drawEnemies({
+    calculateEnemiesDY(enemy: EnemyTypeProps, ctx: CanvasRenderingContext2D) {
+        const basePosition = ctx.canvas.height - this.hero.position.y;
+        const airUnits = basePosition - 60;
+        const earthUnits = basePosition + 10;
+
+        switch (enemy.type) {
+        case 'companyAir':
+            return airUnits;
+        case 'technologyAir':
+            return airUnits;
+        default:
+            return earthUnits;
+        }
+    }
+
+    generateEnemies({
         ctx,
-        resources,
-    }: DrawCanvasPartProps) {
-        if (!resources) return;
-
-        const { enemies } = resources;
-
-        this.enemies.army.forEach((enemy, index) => {
-            ctx.drawImage(enemies, 0, 0, 90, 90, enemy.x, enemy.y, 90, 90);
-
-            this.enemies.army[index].x -= this.hero.bulletSpeed;
-        });
+    }: DrawCanvasProps) {
+        const levelEnemies = this.levels[this.currentLevel].enemies;
+        const enemiesTypes = this.enemies.types;
+        const randomEnemyType = levelEnemies[getRandomIntInclusive(0, levelEnemies.length - 1)];
+        const calcEnemy = enemiesTypes[randomEnemyType];
+        const randomEnemyNumber = getRandomIntInclusive(
+            1, calcEnemy.sWidth / calcEnemy.unitWidth,
+        );
 
         if (this.enemies.tickCounter < this.enemies.frequency) {
             this.enemies.tickCounter++;
@@ -160,10 +122,16 @@ export class GamePainter {
         }
 
         this.enemies.army.push({
-            x: this.enemies.army.length
+            sx: (randomEnemyNumber - 1) * enemiesTypes[randomEnemyType].unitWidth,
+            sy: enemiesTypes[randomEnemyType].sy,
+            sWidth: enemiesTypes[randomEnemyType].unitWidth,
+            sHeight: enemiesTypes[randomEnemyType].unitHeight,
+            dx: this.enemies.army.length
                 ? ctx.canvas.width + getRandomIntInclusive(0, 100)
                 : ctx.canvas.width,
-            y: ctx.canvas.height - this.hero.position.y,
+            dy: this.calculateEnemiesDY(enemiesTypes[randomEnemyType], ctx),
+            dWidth: enemiesTypes[randomEnemyType].unitWidth,
+            dHeight: enemiesTypes[randomEnemyType].unitHeight,
         });
 
         if (this.enemies.army.length > 20) {
@@ -171,6 +139,31 @@ export class GamePainter {
         }
 
         this.enemies.tickCounter = 0;
+    }
+
+    drawEnemies({
+        ctx,
+        resources,
+    }: DrawCanvasPartProps) {
+        if (!resources) return;
+
+        const { enemies } = resources;
+
+        this.enemies.army.forEach((coord, index) => {
+            ctx.drawImage(
+                enemies,
+                coord.sx,
+                coord.sy,
+                coord.sWidth,
+                coord.sHeight,
+                coord.dx,
+                coord.dy,
+                coord.dWidth,
+                coord.dHeight,
+            );
+
+            this.enemies.army[index].dx -= this.hero.bulletSpeed;
+        });
     }
 
     drawExplosion({
@@ -298,6 +291,7 @@ export class GamePainter {
         this.drawIdeas(options);
         this.drawExplosion(options);
         this.drawShote(options);
+        this.generateEnemies(options);
         this.drawEnemies(options);
     }
 }
