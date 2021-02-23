@@ -189,9 +189,11 @@ export class GamePainter {
             });
 
             /** Столкновение врагов с главным героем */
+            const heroCenter = this.hero.currentPosition.x + this.hero.width / 2;
+
             if (
-                this.hero.currentPosition.x > enemy.dx
-                && this.hero.currentPosition.x < enemy.dx + enemy.dWidth
+                heroCenter > enemy.dx
+                && heroCenter < enemy.dx + enemy.dWidth
                 && ((this.hero.currentPosition.y > enemy.dy
                 && this.hero.currentPosition.y < enemy.dy + enemy.dHeight)
                 || (this.hero.currentPosition.y + this.hero.height > enemy.dy
@@ -200,7 +202,7 @@ export class GamePainter {
                 this.explosion.encounters.push({
                     ...this.explosion.cutOptions,
                     dx: this.hero.currentPosition.x,
-                    dy: this.hero.currentPosition.y - explosionShiftY,
+                    dy: this.hero.currentPosition.y - 5,
                 });
                 this.enemies.army.splice(i, 1);
             }
