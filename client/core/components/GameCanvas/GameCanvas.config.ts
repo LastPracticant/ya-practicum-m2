@@ -25,10 +25,19 @@ interface PositionProps {
 }
 
 interface ExplosionProps {
-    shiftX: number
-    shiftY: number
-    width: number
-    height: number
+    cutOptions: Omit<ExplosionEncounterProps, 'dx' | 'dy'>
+    encounters: ExplosionEncounterProps[]
+}
+
+interface ExplosionEncounterProps {
+    sx: number
+    sy: number
+    sWidth: number
+    sHeight: number
+    dx: number
+    dy: number
+    dWidth: number
+    dHeight: number
 }
 
 export interface EnemyTypeProps {
@@ -95,10 +104,15 @@ export const GAME_OPTIONS: GameOptionProps = {
         },
     },
     explosion: {
-        shiftX: 0,
-        shiftY: 0,
-        width: 120,
-        height: 90,
+        cutOptions: {
+            sx: 0,
+            sy: 0,
+            sWidth: 300,
+            sHeight: 200,
+            dWidth: 120,
+            dHeight: 90,
+        },
+        encounters: [],
     },
     enemies: {
         tickCounter: 0,

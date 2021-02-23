@@ -166,6 +166,27 @@ export class GamePainter {
         });
     }
 
+    checkEncounters() {
+        this.enemies.army.forEach((enemy, i) => {
+            this.hero.shotes.forEach((shote, j) => {
+                if (
+                    shote.x > enemy.dx
+                    && shote.x < enemy.dx + enemy.dWidth
+                    && shote.y > enemy.dy
+                    && shote.y < enemy.dy + enemy.dHeight
+                ) {
+                    this.explosion.encounters.push({
+                        ...this.explosion.cutOptions,
+                        dx: shote.x,
+                        dy: shote.y,
+                    });
+                    this.enemies.army.splice(i, 1);
+                    this.hero.shotes.splice(j, 1);
+                }
+            });
+        });
+    }
+
     drawExplosion({
         ctx,
         resources,
@@ -174,37 +195,46 @@ export class GamePainter {
 
         const { explosion } = resources;
 
+        let isDone = false;
+
         /** Длина за вычетом 1 кадра. Полная длина 1500. */
         const spriteWidth = 1200;
-        /** Длина кадра. */
-        const frameWidth = 300;
         /** Высота за вычетом 1 кадра. Полная высота 1000. */
         const spriteHeight = 800;
-        /** Высота кадра. */
-        const frameHeight = 200;
 
-        if (this.explosion.shiftX === spriteWidth) {
-            this.explosion.shiftX = 0;
-            this.explosion.shiftY += frameHeight;
-        } else {
-            this.explosion.shiftX += frameWidth;
-        }
+        this.explosion.encounters.forEach((encounter, index) => {
+            if (encounter.sx === spriteWidth) {
+                encounter.sx = 0;
+                encounter.sy += encounter.sHeight;
+            } else {
+                encounter.sx += encounter.sWidth;
+                isDone = false;
+            }
 
-        if (this.explosion.shiftY === spriteHeight) {
-            this.explosion.shiftY = 0;
-        }
+            if (
+                encounter.sy === spriteHeight
+                && encounter.sx === spriteWidth
+            ) {
+                encounter.sy = 0;
+                isDone = true;
+            }
 
-        ctx.drawImage(
-            explosion,
-            this.explosion.shiftX,
-            this.explosion.shiftY,
-            frameWidth,
-            frameHeight,
-            500,
-            ctx.canvas.height - this.hero.position.x,
-            this.explosion.width,
-            this.explosion.height,
-        );
+            ctx.drawImage(
+                explosion,
+                encounter.sx,
+                encounter.sy,
+                encounter.sWidth,
+                encounter.sHeight,
+                encounter.dx,
+                encounter.dy,
+                encounter.dWidth,
+                encounter.dHeight,
+            );
+
+            if (isDone) {
+                this.explosion.encounters.splice(index, 1);
+            }
+        });
     }
 
     drawShote({ ctx, resources }: DrawCanvasPartProps) {
@@ -291,6 +321,7 @@ export class GamePainter {
 
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
+        this.checkEncounters();
         this.drawBg(options);
         this.drawHero(options);
         this.drawLifes(options);
