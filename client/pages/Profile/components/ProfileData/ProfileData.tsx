@@ -15,15 +15,15 @@ import { ROUTES } from 'client/routing';
 import { PROFILE_DATA_CONTROLS } from './ProfileData.config';
 
 export const ProfileData: React.FC = React.memo(() => {
-    const {
-        control, handleSubmit, errors, register, setValue,
-    } = useForm<
-    CurrentUserInfoProps
+    const { control, handleSubmit, errors, register, setValue } = useForm<
+        CurrentUserInfoProps
     >();
 
     const [avatar, setAvatar] = React.useState('');
 
-    const updateForm = (data: CurrentUserInfoProps) => {
+    const updateForm = async () => {
+        const data = await AuthAPI.getCurrentUserInfo();
+
         Object.entries(data).forEach(([name, value]) => {
             if (name !== 'avatar') {
                 setValue(name as keyof CurrentUserInfoProps, value);
@@ -34,8 +34,7 @@ export const ProfileData: React.FC = React.memo(() => {
     const onSubmit = async (data: ChangeProfileProps) => {
         await ProfileAPI.change(data);
 
-        const result = await AuthAPI.getCurrentUserInfo();
-        updateForm((result as unknown) as CurrentUserInfoProps);
+        updateForm();
     };
 
     const onChangeAvatar = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,15 +48,17 @@ export const ProfileData: React.FC = React.memo(() => {
 
         await ProfileAPI.changeAvatar(formData);
 
-        const result = await AuthAPI.getCurrentUserInfo();
-        updateForm((result as unknown) as CurrentUserInfoProps);
+        updateForm();
     };
 
+    setTimeout(() => updateForm(), []);
+
     const controls = useMemo(
-        () => PROFILE_DATA_CONTROLS.map((inputConfig) => {
-            const { name } = inputConfig;
-            const error = errors[name as keyof typeof errors]?.message;
-            return (
+        () =>
+            PROFILE_DATA_CONTROLS.map((inputConfig) => {
+                const { name } = inputConfig;
+                const error = errors[name as keyof typeof errors]?.message;
+                return (
                     <InputControl
                         fullWidth
                         variant="outlined"
@@ -67,8 +68,8 @@ export const ProfileData: React.FC = React.memo(() => {
                         control={control}
                         {...inputConfig}
                     />
-            );
-        }),
+                );
+            }),
         [errors],
     );
 
@@ -92,7 +93,7 @@ export const ProfileData: React.FC = React.memo(() => {
                 </Grid>
                 <Grid container item xs={12} justify="center" spacing={1}>
                     <Grid item>
-                        <Button color="primary" type="submit">
+                        <Button color="primary" type="submit" variant="contained">
                             {SAVE}
                         </Button>
                     </Grid>

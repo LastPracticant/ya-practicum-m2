@@ -51,7 +51,7 @@ export const ProfilePassword: React.FC = React.memo(() => {
                 </Grid>
                 <Grid container item xs={12} justify="center" spacing={1}>
                     <Grid item>
-                        <Button color="primary" type="submit">
+                        <Button color="primary" type="submit" variant="contained">
                             {SAVE}
                         </Button>
                     </Grid>
