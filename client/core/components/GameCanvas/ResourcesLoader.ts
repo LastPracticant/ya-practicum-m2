@@ -1,32 +1,39 @@
-interface ResourcesProps {
-    [key: string]: HTMLImageElement | null
+export interface ResourcesProps {
+    [key: string]: HTMLImageElement
+}
+
+export interface CanvasResourcesProps {
+    [key: string]: string
+}
+
+interface LoadStatusesProps {
+    [key: string]: boolean
 }
 
 export class ResourcesLoader {
     static _resources: ResourcesProps = {};
 
+    static _loadStatuses: LoadStatusesProps = {};
+
     static _renderCanvas: Function;
 
-    static load(urlOrArr: string | string[]) {
-        if (Array.isArray(urlOrArr)) {
-            urlOrArr.forEach((url) => {
-                this._load(url);
-            });
-        } else {
-            this._load(urlOrArr);
-        }
+    static load(resources: CanvasResourcesProps) {
+        Object.entries(resources).forEach((resource) => {
+            this._load(...resource);
+        });
     }
 
-    static _load(url: string) {
+    static _load(key: string, url: string) {
         const img = new Image();
         img.src = url;
-        this._resources[url] = null;
+        this._loadStatuses[key] = false;
 
         img.onload = () => {
-            this._resources[url] = img;
+            this._resources[key] = img;
+            this._loadStatuses[key] = true;
 
             if (this.isReady()) {
-                this._renderCanvas(Object.values(this._resources));
+                this._renderCanvas(this._resources);
             }
         };
     }
@@ -34,15 +41,15 @@ export class ResourcesLoader {
     static isReady() {
         let ready = true;
 
-        Object.keys(this._resources).forEach((key) => {
-            if (!this._resources[key]) ready = false;
+        Object.keys(this._loadStatuses).forEach((key) => {
+            if (!this._loadStatuses[key]) ready = false;
         });
 
         return ready;
     }
 
-    static onReady(func: Function) {
+    static onReady(renderCanvas: Function) {
         this._resources = {};
-        this._renderCanvas = func;
+        this._renderCanvas = renderCanvas;
     }
 }

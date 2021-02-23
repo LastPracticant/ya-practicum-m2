@@ -1,0 +1,5 @@
+.forum {
+    &__topic-link {
+        color: #fff;
+    }
+}

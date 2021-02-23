@@ -5,6 +5,9 @@ import {
 import { ROUTES, RouteValueProps } from 'client/routing';
 
 import './Navigation.css';
+import bem from 'bem-cn';
+
+const block = bem('navigation');
 
 const NavigationLink: React.FC<RouteValueProps> = ({ path, title }) => (
 	<li><Link to={path}>{title}</Link></li>
@@ -20,8 +23,8 @@ export const Navigation: React.FC = React.memo(() => {
     ));
 
     return (
-	<ul className="navigation">
-		{menuList}
-	</ul>
+        <ul className={block()}>
+            {menuList}
+        </ul>
     );
 });

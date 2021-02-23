@@ -35,7 +35,7 @@ export class AuthAPI extends BaseAPI {
     }
 
     static signin(data: SigninProps): Promise<XMLHttpRequest> {
-        return authAPIInstance.post('/signin', { data });
+        return authAPIInstance.post('/signin', { data, responseFormat: 'text' });
     }
 
     static getCurrentUserInfo(): Promise<ResponseProps<string>> {

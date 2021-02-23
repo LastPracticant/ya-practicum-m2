@@ -1,0 +1,13 @@
+.buttons-toolbar {
+    margin-bottom: var(--space-sm);
+    display: flex;
+    flex-grow: 1;
+
+    &_no-margin {
+        margin-bottom: 0;
+    }
+
+    button:not(:last-child) {
+        margin-right: var(--space-sm);
+    }
+}

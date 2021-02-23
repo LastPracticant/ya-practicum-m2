@@ -1,5 +1,4 @@
 import { Grid, Paper } from '@material-ui/core';
-import classnames from 'classnames';
 import { ComponentCommonProps } from 'client/shared/types';
 import React from 'react';
 import KeyboardTabRoundedIcon from '@material-ui/icons/KeyboardTabRounded';
@@ -7,10 +6,13 @@ import KeyboardTabRoundedIcon from '@material-ui/icons/KeyboardTabRounded';
 import './PageLayout.css';
 import { Link } from 'react-router-dom';
 import { ROUTES } from 'client/routing';
+import bem from 'bem-cn';
 
 interface PageLayoutProps extends ComponentCommonProps {
     goBackLink?: string
 }
+
+const block = bem('page-layout');
 
 export const PageLayout: React.FC<PageLayoutProps> = React.memo(({
     children,
@@ -19,16 +21,13 @@ export const PageLayout: React.FC<PageLayoutProps> = React.memo(({
 }) => (
         <Grid
             container
-            className={classnames(
-                'page-layout',
-                className,
-            )}
+            className={block({}).mix(className).toString()}
         >
             <Grid item xs={1}>
-                <Paper className="page-layout__aside">
+                <Paper className={block('aside').toString()}>
                     <Link
                         to={goBackLink}
-                        className="page-layout__go-back"
+                        className={block('go-back').toString()}
                     >
                         <KeyboardTabRoundedIcon />
                     </Link>
@@ -38,7 +37,7 @@ export const PageLayout: React.FC<PageLayoutProps> = React.memo(({
             <Grid item xs={11}>
                 <Grid
                     container
-                    className="page-layout__main"
+                    className={block('main').toString()}
                     alignItems="center"
                     justify="center"
                 >

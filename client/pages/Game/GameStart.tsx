@@ -7,6 +7,9 @@ import { NivelatorXY, Paper } from 'client/shared/components';
 import { Button } from '@material-ui/core';
 import { ROUTES } from 'client/routing';
 import { useHistory } from 'react-router-dom';
+import bem from 'bem-cn';
+
+const block = bem('game-start');
 
 export const GameStart: React.FC<PageComponentProps> = React.memo(() => {
     const history = useHistory();
@@ -16,23 +19,24 @@ export const GameStart: React.FC<PageComponentProps> = React.memo(() => {
     };
 
     return (
-        <PageLayout className="game-start">
+        <PageLayout className={block()}>
             <Paper>
                 <NivelatorXY>
                     <div>
-                        <div className="game-start__help">
+                        <div className={block('help')}>
                             <h3>Управление</h3>
 
-                            <div className="game-start__control">
+                            <div className={block('control')}>
                                 <p>Прыгнуть - стрелка вверх</p>
                                 <p>Присесть - стрелка вниз</p>
+                                <p>Выстрел - пробел</p>
                             </div>
 
                             <Button
                                 variant="contained"
                                 color="secondary"
                                 onClick={handleGameStart}
-                                className="game-start__toggle"
+                                className={block('toggle')}
                             >
                                 Начать игру
                             </Button>

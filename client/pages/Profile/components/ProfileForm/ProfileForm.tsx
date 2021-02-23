@@ -59,7 +59,6 @@ export const ProfileForm: React.FC = React.memo(() => {
                     <InputControl
                         fullWidth
                         margin="dense"
-                        variant="outlined"
                         error={Boolean(error)}
                         helperText={error}
                         control={control}

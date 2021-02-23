@@ -34,7 +34,7 @@ export const Routing: React.FC = () => (
         </Route>
 
         <Route path={ROUTES.FORUM.path}>
-            <Forum title={ROUTES.FORUM.title} />
+            <Forum />
         </Route>
 
         <Route path={ROUTES.GAME_START.path}>

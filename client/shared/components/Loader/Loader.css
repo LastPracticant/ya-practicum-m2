@@ -1,0 +1,17 @@
+.loader {
+    background: #00000075;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    transition: 300ms;
+    z-index: 9000;
+    visibility: hidden;
+    opacity: 0;
+
+    &_visible {
+        visibility: visible;
+        opacity: 1;
+    }
+}

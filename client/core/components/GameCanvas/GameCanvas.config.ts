@@ -6,4 +6,5 @@ export const ANIMATION = {
 export const CONTROLS = {
     jump: 'ArrowUp',
     down: 'ArrowDown',
+    shote: 'Space',
 };

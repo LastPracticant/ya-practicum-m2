@@ -1,30 +1,37 @@
-import React, { FC, memo } from 'react';
-import classnames from 'classnames';
 import './Paper.css';
+
+import React, { FC, memo } from 'react';
+import bem from 'bem-cn';
 
 interface PaperProps extends React.HtmlHTMLAttributes<HTMLElement> {
     sizes?: 'small' | 'medium' | 'large' | 'full'
     theme?: 'dark' | 'light'
+    title?: string
 }
+
+const block = bem('paper');
 
 export const Paper: FC<PaperProps> = memo(
     ({
         children,
         className,
+        title,
         sizes = 'full',
         theme = 'dark',
         ...props
     }) => (
         <div
-            className={classnames(
-                'paper',
-                className,
-                `paper_sizes_${sizes}`,
-                `paper_theme_${theme}`,
-            )}
+            className={block({ sizes, theme }).mix(className)}
             {...props}
         >
-            {children}
+            {title ? (
+                <>
+                    <h2 className={block('title')}>{title}</h2>
+                    <section className={block('content')}>
+                        {children}
+                    </section>
+                </>
+            ) : children}
         </div>
     ),
 );

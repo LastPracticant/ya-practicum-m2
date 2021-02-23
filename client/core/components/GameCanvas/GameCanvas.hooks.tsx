@@ -1,11 +1,11 @@
 import { useEffect, useRef } from 'react';
 import { ANIMATION, CONTROLS } from './GameCanvas.config';
 import { DrawCanvasProps } from './GamePainter';
-import { ResourcesLoader } from './ResourcesLoader';
+import { CanvasResourcesProps, ResourcesLoader, ResourcesProps } from './ResourcesLoader';
 
 export type DrawCanvasFn = (props: DrawCanvasProps) => void;
 
-export const useCanvas = (drawCanvas: DrawCanvasFn, resources?: string | string[]) => {
+export const useCanvas = (drawCanvas: DrawCanvasFn, resources?: CanvasResourcesProps) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
     useEffect(() => {
@@ -29,7 +29,7 @@ export const useCanvas = (drawCanvas: DrawCanvasFn, resources?: string | string[
         };
         document.addEventListener('keydown', handleHeroAction, false);
 
-        const renderCanvas = (images?: HTMLImageElement[]) => {
+        const renderCanvas = (loadedResources?: ResourcesProps) => {
             const time = performance.now();
             const shiftTime = time - startTime;
             const shift = (shiftTime / animationTime) * ANIMATION.speedMultiplier;
@@ -38,7 +38,7 @@ export const useCanvas = (drawCanvas: DrawCanvasFn, resources?: string | string[
             drawCanvas({
                 ctx,
                 shift,
-                resources: images,
+                resources: loadedResources,
                 keyPress,
                 frameCount,
             });
@@ -46,7 +46,7 @@ export const useCanvas = (drawCanvas: DrawCanvasFn, resources?: string | string[
             keyPress = null;
 
             animationFrameId = window.requestAnimationFrame(() => {
-                renderCanvas(images);
+                renderCanvas(loadedResources);
             });
         };
 

@@ -1,12 +1,13 @@
 import React from 'react';
 import { DrawCanvasFn, useCanvas } from './GameCanvas.hooks';
+import { CanvasResourcesProps } from './ResourcesLoader';
 
 interface GameCanvasProps
     extends React.DetailedHTMLProps<
     React.CanvasHTMLAttributes<HTMLCanvasElement>, HTMLCanvasElement
     > {
     drawCanvas: DrawCanvasFn
-    resources?: string | string[]
+    resources?: CanvasResourcesProps
 }
 
 export const GameCanvas: React.FC<GameCanvasProps> = ({

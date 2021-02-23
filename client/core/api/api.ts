@@ -8,7 +8,7 @@ type OptionsType = {
     method: METHOD
     data?: any
     headers?: HeadersType
-    timeout?: number
+    responseFormat?: 'json' | 'text'
 };
 
 type OptionsWithoutMethodType = Omit<OptionsType, 'method'>;
@@ -57,7 +57,7 @@ export class HTTP {
         url: string,
         options: OptionsType = { method: METHOD.GET },
     ): Promise<ResponseProps<T>> {
-        const { method, data } = options;
+        const { method, data, responseFormat = 'json' } = options;
 
         const defaultReject = (response: Response) => {
             if (response.status >= 500) {
@@ -87,7 +87,7 @@ export class HTTP {
                     return Promise.reject(response);
                 }
 
-                return response.json();
+                return response[responseFormat]();
             })
             .then((resData) => resData)
             .catch(defaultReject);

@@ -2,6 +2,15 @@
     border-radius: var(--space-xs);
     padding: var(--space-xs);
 
+    &__title {
+        font-weight: normal;
+        margin: var(--space-sm) 0 var(--space-lg);
+        font-size: 24px;
+        line-height: 24px;
+        letter-spacing: 0.18px;
+        color: #fff;
+    }
+
     &_sizes_full {
         width: 100%;
         height: 100%;

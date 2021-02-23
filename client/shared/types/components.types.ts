@@ -5,3 +5,7 @@ export interface ComponentCommonProps {
 export interface PageComponentProps extends ComponentCommonProps {
     title?: string
 }
+
+export interface UrlCommonProps {
+    id?: string
+}

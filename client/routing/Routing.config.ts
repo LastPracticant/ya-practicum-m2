@@ -32,6 +32,10 @@ export const ROUTES: RoutesProps = {
         path: '/forum',
         title: 'Форум',
     },
+    FORUM_TOPIC: {
+        path: '/forum/topic',
+        title: 'Форум: тема',
+    },
     GAME: {
         path: '/game',
         title: 'Игра',
