@@ -1,8 +1,8 @@
-.input-upload {
-    display: none;
+.upload-avatar {
+    border-radius: 100%;
     cursor: pointer;
-}
 
-.avatar-upload {
-    background-color: red !important;
+    & input {
+        display: none;
+    }
 }

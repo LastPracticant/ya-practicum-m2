@@ -7,7 +7,6 @@ export const SIGNIN_FORM_CONTROLS: InputControlProps[] = [
         label: 'Логин',
         required: true,
         pattern: CHECK_ALLOWED_LENGTH_AND_TYPE_CHAR,
-        variant: 'outlined',
     },
     {
         name: 'password',
@@ -15,6 +14,5 @@ export const SIGNIN_FORM_CONTROLS: InputControlProps[] = [
         type: 'password',
         required: true,
         pattern: CHECK_ALLOWED_LENGTH_AND_TYPE_CHAR,
-        variant: 'outlined',
     },
 ];

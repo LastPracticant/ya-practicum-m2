@@ -4,7 +4,7 @@ import { NivelatorXY, Paper } from 'client/shared/components';
 import { SignupForm } from './components';
 
 export const Signup: React.FC<PageComponentProps> = React.memo(({ title }) => (
-	<NivelatorXY>
+	<NivelatorXY className="home">
 		<Paper sizes="small">
 			<h1>{title}</h1>
 			<SignupForm />

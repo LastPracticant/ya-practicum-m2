@@ -2,8 +2,8 @@ import { InputControl } from 'client/shared/components';
 import { AuthAPI, SignupProps } from 'client/core/api';
 import React, { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
-import { REGISTER } from 'client/shared/consts';
-import { Button } from '@material-ui/core';
+import { REGISTER, GRID_SPACE } from 'client/shared/consts';
+import { Button, Grid } from '@material-ui/core';
 import { SIGNUP_FORM_CONTROLS } from './SignupForm.config';
 
 export const SignupForm: React.FC = React.memo(() => {
@@ -27,6 +27,7 @@ export const SignupForm: React.FC = React.memo(() => {
                     <InputControl
                         fullWidth
                         margin="dense"
+                        variant="outlined"
                         error={Boolean(error)}
                         helperText={error}
                         control={control}
@@ -39,11 +40,22 @@ export const SignupForm: React.FC = React.memo(() => {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            {controls}
-
-            <Button type="submit" variant="contained" color="secondary">
-                {REGISTER}
-            </Button>
+            <Grid container spacing={GRID_SPACE}>
+                <Grid
+                    item
+                    xs={12}
+                    container
+                    direction="column"
+                    alignItems="center"
+                >
+                    {controls}
+                </Grid>
+                <Grid container item xs={12} justify="center" spacing={1}>
+                        <Button color="primary" type="submit" variant="contained">
+                            {REGISTER}
+                        </Button>
+                </Grid>
+            </Grid>
         </form>
     );
 });

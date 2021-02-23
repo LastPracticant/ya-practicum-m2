@@ -5,7 +5,8 @@ import {
     ProfileAPI,
     ChangeProfileProps,
     CurrentUserInfoProps,
-    API_BASE,
+    API_HOST,
+    AuthAPI,
 } from 'client/core/api';
 import {
     CHANGE_PROFILE_DATA,
@@ -30,12 +31,14 @@ export const ProfileForm: React.FC = React.memo(() => {
         Object.entries(data).forEach(([name, value]) => {
             if (name !== 'avatar') {
                 setValue(name as keyof CurrentUserInfoProps, value);
-            } else setAvatar(API_BASE + value);
+            } else setAvatar(API_HOST + value);
         });
     };
 
     const onSubmit = async (data: ChangeProfileProps) => {
-        const result = await ProfileAPI.change(data);
+        await ProfileAPI.change(data);
+
+        const result = await AuthAPI.getCurrentUserInfo();
         updateForm((result as unknown) as CurrentUserInfoProps);
     };
 
@@ -47,7 +50,10 @@ export const ProfileForm: React.FC = React.memo(() => {
         if (!blob) return;
         const formData = new FormData();
         formData.append('avatar', blob);
-        const result = await ProfileAPI.changeAvatar(formData);
+
+        await ProfileAPI.changeAvatar(formData);
+
+        const result = await AuthAPI.getCurrentUserInfo();
         updateForm((result as unknown) as CurrentUserInfoProps);
     };
 
@@ -58,6 +64,7 @@ export const ProfileForm: React.FC = React.memo(() => {
             return (
                     <InputControl
                         fullWidth
+                        variant="outlined"
                         margin="dense"
                         error={Boolean(error)}
                         helperText={error}

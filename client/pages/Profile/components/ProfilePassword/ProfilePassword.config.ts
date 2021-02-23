@@ -7,13 +7,11 @@ export const PROFILE_PASSWORD_CONTROLS: InputControlProps[] = [
         label: 'Старый пароль',
         required: true,
         pattern: CHECK_ALLOWED_LENGTH_AND_TYPE_CHAR,
-        variant: 'outlined',
     },
     {
         name: 'newPassword',
         label: 'Новый пароль',
         required: true,
         pattern: CHECK_ALLOWED_LENGTH_AND_TYPE_CHAR,
-        variant: 'outlined',
     },
 ];

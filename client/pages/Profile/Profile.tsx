@@ -4,18 +4,18 @@ import { Paper, NivelatorXY } from 'client/shared/components';
 import { PageComponentProps } from 'client/shared/types';
 import { ROUTES } from 'client/routing';
 import { ProfileForm } from './components';
-import { ProfilePassword } from './components/ProfilePassword/ProfilePassword';
+import { ProfilePassword } from './components/ProfilePassword';
 
 export const Profile: React.FC<PageComponentProps> = React.memo(({ title }) => (
     <NivelatorXY className="home">
         <Paper sizes="small">
             <h1 className="auth-header">{title}</h1>
             <Switch>
-                <Route exact path={ROUTES.PROFILE.path}>
-                    <ProfileForm />
-                </Route>
                 <Route path={ROUTES.PROFILE_PASSWORD.path}>
                     <ProfilePassword />
+                </Route>
+                <Route path={ROUTES.PROFILE.path}>
+                    <ProfileForm />
                 </Route>
             </Switch>
         </Paper>

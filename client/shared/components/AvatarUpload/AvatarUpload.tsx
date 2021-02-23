@@ -13,16 +13,15 @@ const AvatarUploadComponent = React.forwardRef<
 HTMLInputElement,
 InputAvatarProps
 >(({ name, src, onChange }, ref) => (
-    <label htmlFor={`upload_${name}`}>
+    <label htmlFor={`upload_${name}`} className="upload-avatar">
         <input
             ref={ref}
             id={`upload_${name}`}
             name={name}
             onChange={onChange}
             type="file"
-            className="input-upload"
         />
-        <Avatar className="avatar-upload" src={src}>
+        <Avatar src={src}>
             {AVATAR_DEFAULT}
         </Avatar>
     </label>

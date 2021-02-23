@@ -31,6 +31,7 @@ export const ProfilePassword: React.FC = React.memo(() => {
                         error={Boolean(error)}
                         helperText={error}
                         control={control}
+                        variant="outlined"
                         {...inputConfig}
                     />
             );

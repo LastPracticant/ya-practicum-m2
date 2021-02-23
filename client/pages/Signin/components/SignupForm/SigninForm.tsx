@@ -4,8 +4,8 @@ import React, { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { ROUTES } from 'client/routing';
-import { AUTHORIZE, NO_ACCOUNT } from 'client/shared/consts';
-import { Button } from '@material-ui/core';
+import { AUTHORIZE, NO_ACCOUNT, GRID_SPACE } from 'client/shared/consts';
+import { Button, Grid } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { thunkLogin } from 'client/core/store';
 import { SIGNIN_FORM_CONTROLS } from './SigninForm.config';
@@ -26,6 +26,7 @@ export const SigninForm: React.FC = React.memo(() => {
                     <InputControl
                         fullWidth
                         margin="dense"
+                        variant="outlined"
                         error={Boolean(error)}
                         helperText={error}
                         control={control}
@@ -38,18 +39,33 @@ export const SigninForm: React.FC = React.memo(() => {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            {controls}
-
-            <Button
-                type="submit"
-                variant="outlined"
-                className="btn btn_primary btn_wide"
-            >
-                {AUTHORIZE}
-            </Button>
-            <Link to={ROUTES.SIGNUP.path} className="btn btn_link">
-                {NO_ACCOUNT}
-            </Link>
+            <Grid container spacing={GRID_SPACE}>
+                <Grid
+                    item
+                    xs={12}
+                    container
+                    direction="column"
+                    alignItems="center"
+                >
+                    {controls}
+                </Grid>
+                <Grid container item xs={12} justify="center" spacing={1}>
+                    <Grid item>
+                        <Button color="primary" type="submit" variant="contained">
+                            {AUTHORIZE}
+                        </Button>
+                    </Grid>
+                    <Grid item>
+                        <Button
+                            component={Link}
+                            to={ROUTES.SIGNUP.path}
+                            color="primary"
+                        >
+                            {NO_ACCOUNT}
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Grid>
         </form>
     );
 });
