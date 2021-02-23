@@ -35,26 +35,26 @@ export class HTTP {
         this._path += path;
     }
 
-    get<T>(url: string, options: OptionsWithoutMethodType = {}): Promise<ResponseProps<T>> {
+    get<T>(url: string, options: OptionsWithoutMethodType = {}): Promise<T> {
         return this.request<T>(url, { ...options, method: METHOD.GET });
     }
 
-    post<T>(url: string, options: OptionsWithoutMethodType = {}): Promise<ResponseProps<T>> {
+    post<T>(url: string, options: OptionsWithoutMethodType = {}): Promise<T> {
         return this.request<T>(url, { ...options, method: METHOD.POST });
     }
 
-    put<T>(url: string, options: OptionsWithoutMethodType = {}): Promise<ResponseProps<T>> {
+    put<T>(url: string, options: OptionsWithoutMethodType = {}): Promise<T> {
         return this.request<T>(url, { ...options, method: METHOD.PUT });
     }
 
-    delete<T>(url: string, options: OptionsWithoutMethodType = {}): Promise<ResponseProps<T>> {
+    delete<T>(url: string, options: OptionsWithoutMethodType = {}): Promise<T> {
         return this.request<T>(url, { ...options, method: METHOD.DELETE });
     }
 
     request<T>(
         url: string,
         options: OptionsType = { method: METHOD.GET },
-    ): Promise<ResponseProps<T>> {
+    ): Promise<T> {
         const { method, data, responseFormat = 'json' } = options;
 
         const defaultReject = (response: Response) => {

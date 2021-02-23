@@ -1,6 +1,6 @@
-import { InputControlProps } from 'client/shared/components';
+import { InputDataProps } from 'client/shared/components';
 
-export const PROFILE_FORM_CONTROLS: InputControlProps[] = [
+export const PROFILE_FORM_CONTROLS: InputDataProps[] = [
     {
         name: 'email',
         label: 'Почта',

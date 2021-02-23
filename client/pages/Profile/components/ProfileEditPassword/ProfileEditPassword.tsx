@@ -8,9 +8,9 @@ import {
 import { InputControl } from 'client/shared/components';
 import { Link } from 'react-router-dom';
 import { ROUTES } from 'client/routing';
-import { PROFILE_PASSWORD_CONTROLS } from './ProfilePassword.config';
+import { PROFILE_EDIT_PASSWORD_CONTROLS } from './ProfileEditPassword.config';
 
-export const ProfilePassword: React.FC = React.memo(() => {
+export const ProfileEditPassword: React.FC = React.memo(() => {
     const { control, handleSubmit, errors } = useForm<ChangePasswordProps>();
 
     const onSubmit = (data: ChangePasswordProps) => {
@@ -18,7 +18,7 @@ export const ProfilePassword: React.FC = React.memo(() => {
     };
 
     const controls = React.useMemo(
-        () => PROFILE_PASSWORD_CONTROLS.map((inputConfig) => {
+        () => PROFILE_EDIT_PASSWORD_CONTROLS.map((inputConfig) => {
             const { name } = inputConfig;
             const error = errors[name as keyof typeof errors]?.message;
             return (

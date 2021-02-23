@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import { Paper, NivelatorXY } from 'client/shared/components';
 import { PageComponentProps } from 'client/shared/types';
 import { ROUTES } from 'client/routing';
-import { ProfileForm, ProfileData, ProfilePassword } from './components';
+import { ProfileForm, ProfileEdit, ProfileEditPassword } from './components';
 
 export const Profile: React.FC<PageComponentProps> = React.memo(({ title }) => (
     <NivelatorXY className="home">
@@ -11,10 +11,10 @@ export const Profile: React.FC<PageComponentProps> = React.memo(({ title }) => (
             <h1 className="auth-header">{title}</h1>
             <Switch>
                 <Route path={ROUTES.PROFILE_PASSWORD.path}>
-                    <ProfilePassword />
+                    <ProfileEditPassword />
                 </Route>
                 <Route path={ROUTES.PROFILE_DATA.path}>
-                    <ProfileData />
+                    <ProfileEdit />
                 </Route>
                 <Route path={ROUTES.PROFILE.path}>
                     <ProfileForm />

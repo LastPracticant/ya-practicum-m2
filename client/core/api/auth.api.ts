@@ -1,4 +1,4 @@
-import { HTTP, ResponseProps } from './api';
+import { HTTP } from './api';
 import { BaseAPI } from './base.api';
 
 export interface SignupProps {
@@ -38,8 +38,8 @@ export class AuthAPI extends BaseAPI {
         return authAPIInstance.post('/signin', { data, responseFormat: 'text' });
     }
 
-    static getCurrentUserInfo(): Promise<ResponseProps<string>> {
-        return authAPIInstance.get<string>('/user');
+    static getCurrentUserInfo(): Promise<CurrentUserInfoProps> {
+        return authAPIInstance.get<CurrentUserInfoProps>('/user');
     }
 
     static logout(): Promise<XMLHttpRequest> {

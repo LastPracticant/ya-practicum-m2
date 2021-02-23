@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { Grid, Button, Avatar } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
-import { CurrentUserInfoProps, API_HOST, AuthAPI } from 'client/core/api';
+import { CurrentUserInfoProps } from 'client/core/api';
 import {
     CHANGE_PROFILE_DATA,
     CHANGE_PROFILE_PASSWORD,
@@ -14,21 +14,7 @@ import { ROUTES } from 'client/routing';
 import { PROFILE_FORM_CONTROLS } from './ProfileForm.config';
 
 export const ProfileForm: React.FC = React.memo(() => {
-    const { control, setValue } = useForm<CurrentUserInfoProps>();
-
-    const [avatar, setAvatar] = React.useState('');
-
-    const updateForm = async () => {
-        const data = await AuthAPI.getCurrentUserInfo();
-
-        Object.entries(data).forEach(([name, value]) => {
-            if (name !== 'avatar') {
-                setValue(name as keyof CurrentUserInfoProps, value);
-            } else setAvatar(API_HOST + value);
-        });
-    };
-
-    setTimeout(() => updateForm(), []);
+    const { control } = useForm<CurrentUserInfoProps>();
 
     const controls = useMemo(
         () => PROFILE_FORM_CONTROLS.map((inputConfig) => (
@@ -56,7 +42,7 @@ export const ProfileForm: React.FC = React.memo(() => {
                     direction="column"
                     alignItems="center"
                 >
-                    <Avatar src={avatar}>{AVATAR_DEFAULT}</Avatar>
+                    <Avatar>{AVATAR_DEFAULT}</Avatar>
                     {controls}
                 </Grid>
                 <Grid container item xs={12} justify="center" spacing={1}>

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Grid, Button } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
 import {
@@ -12,25 +12,25 @@ import { BACK, GRID_SPACE, SAVE } from 'client/shared/consts';
 import { InputControl, AvatarUpload } from 'client/shared/components';
 import { Link } from 'react-router-dom';
 import { ROUTES } from 'client/routing';
-import { PROFILE_DATA_CONTROLS } from './ProfileData.config';
+import { PROFILE_EDIT_CONTROLS } from './ProfileEdit.config';
 
-export const ProfileData: React.FC = React.memo(() => {
+export const ProfileEdit: React.FC = React.memo(() => {
     const {
-        control, handleSubmit, errors, register, setValue,
-    } = useForm<
-    CurrentUserInfoProps
-    >();
+        control,
+        handleSubmit,
+        errors,
+        register,
+        reset,
+    } = useForm<CurrentUserInfoProps>();
 
-    const [avatar, setAvatar] = React.useState('');
+    const [avatar, setAvatar] = useState('');
 
     const updateForm = async () => {
         const data = await AuthAPI.getCurrentUserInfo();
 
-        Object.entries(data).forEach(([name, value]) => {
-            if (name !== 'avatar') {
-                setValue(name as keyof CurrentUserInfoProps, value);
-            } else setAvatar(API_HOST + value);
-        });
+        setAvatar(API_HOST + data.avatar);
+        delete data.avatar;
+        reset(data);
     };
 
     const onSubmit = async (data: ChangeProfileProps) => {
@@ -53,10 +53,8 @@ export const ProfileData: React.FC = React.memo(() => {
         updateForm();
     };
 
-    setTimeout(() => updateForm(), []);
-
     const controls = useMemo(
-        () => PROFILE_DATA_CONTROLS.map((inputConfig) => {
+        () => PROFILE_EDIT_CONTROLS.map((inputConfig) => {
             const { name } = inputConfig;
             const error = errors[name as keyof typeof errors]?.message;
             return (
@@ -94,7 +92,11 @@ export const ProfileData: React.FC = React.memo(() => {
                 </Grid>
                 <Grid container item xs={12} justify="center" spacing={1}>
                     <Grid item>
-                        <Button color="primary" type="submit" variant="contained">
+                        <Button
+                            color="primary"
+                            type="submit"
+                            variant="contained"
+                        >
                             {SAVE}
                         </Button>
                     </Grid>

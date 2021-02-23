@@ -8,7 +8,10 @@ import { SIGNUP_FORM_CONTROLS } from './SignupForm.config';
 
 export const SignupForm: React.FC = React.memo(() => {
     const {
-        control, handleSubmit, errors, setError,
+        control,
+        handleSubmit,
+        errors,
+        setError,
     } = useForm<SignupProps>();
 
     const onSubmit = (data: SignupProps) => {
@@ -51,9 +54,9 @@ export const SignupForm: React.FC = React.memo(() => {
                     {controls}
                 </Grid>
                 <Grid container item xs={12} justify="center" spacing={1}>
-                        <Button color="primary" type="submit" variant="contained">
-                            {REGISTER}
-                        </Button>
+                    <Button color="primary" type="submit" variant="contained">
+                        {REGISTER}
+                    </Button>
                 </Grid>
             </Grid>
         </form>

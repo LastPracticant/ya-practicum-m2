@@ -1,11 +1,11 @@
-import { InputControlProps } from 'client/shared/components';
+import { InputDataProps } from 'client/shared/components';
 import {
     CHECK_ALLOWED_LENGTH_AND_TYPE_CHAR,
     CHECK_PHONE_NUMBER,
     CHECK_EMAIL,
 } from 'client/shared/consts';
 
-export const PROFILE_DATA_CONTROLS: InputControlProps[] = [
+export const PROFILE_EDIT_CONTROLS: InputDataProps[] = [
     {
         name: 'email',
         label: 'Почта',

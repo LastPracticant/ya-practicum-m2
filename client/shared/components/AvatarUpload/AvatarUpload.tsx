@@ -9,10 +9,8 @@ export interface InputAvatarProps extends InputProps {
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const AvatarUploadComponent = React.forwardRef<
-HTMLInputElement,
-InputAvatarProps
->(({ name, src, onChange }, ref) => (
+const AvatarUploadComponent = React.forwardRef<HTMLInputElement, InputAvatarProps>(
+    ({ name, src, onChange }, ref) => (
     <label htmlFor={`upload_${name}`} className="upload-avatar">
         <input
             ref={ref}
@@ -25,6 +23,7 @@ InputAvatarProps
             {AVATAR_DEFAULT}
         </Avatar>
     </label>
-));
+    ),
+);
 
 export const AvatarUpload = React.memo(AvatarUploadComponent);

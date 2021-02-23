@@ -1,3 +1,3 @@
 export * from './ProfileForm';
-export * from './ProfileData';
-export * from './ProfilePassword';
+export * from './ProfileEdit';
+export * from './ProfileEditPassword';

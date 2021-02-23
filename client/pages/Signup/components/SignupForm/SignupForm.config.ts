@@ -1,11 +1,11 @@
-import { InputControlProps } from 'client/shared/components';
+import { InputDataProps } from 'client/shared/components';
 import {
     CHECK_ALLOWED_LENGTH_AND_TYPE_CHAR,
     CHECK_EMAIL,
     CHECK_PHONE_NUMBER,
 } from 'client/shared/consts';
 
-export const SIGNUP_FORM_CONTROLS: InputControlProps[] = [
+export const SIGNUP_FORM_CONTROLS: InputDataProps[] = [
     {
         name: 'email',
         label: 'Почта',

@@ -1,4 +1,4 @@
-import { HTTP, ResponseProps } from './api';
+import { HTTP } from './api';
 import { BaseAPI } from './base.api';
 import { CurrentUserInfoProps } from './auth.api';
 
@@ -23,15 +23,15 @@ export interface ChangePasswordProps {
 const profileAPIInstance = new HTTP('/user');
 
 export class ProfileAPI extends BaseAPI {
-    static change<T = ChangeProfileProps>(data: T): Promise<ResponseProps<CurrentUserInfoProps>> {
+    static change<T = ChangeProfileProps>(data: T): Promise<CurrentUserInfoProps> {
         return profileAPIInstance.put<CurrentUserInfoProps>('/profile', { data });
     }
 
-    static changeAvatar(data: FormData): Promise<ResponseProps<CurrentUserInfoProps>> {
+    static changeAvatar(data: FormData): Promise<CurrentUserInfoProps> {
         return profileAPIInstance.put<CurrentUserInfoProps>('/profile/avatar', { data });
     }
 
-    static changePassword<T = ChangePasswordProps>(data: T): Promise<ResponseProps<T>> {
-        return profileAPIInstance.put<T>('/password', { data });
+    static changePassword<T = ChangePasswordProps>(data: T): Promise<T> {
+        return profileAPIInstance.put<T>('/password', { data, responseFormat: 'text' });
     }
 }
