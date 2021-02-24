@@ -1,6 +1,6 @@
 import { getRandomIntInclusive } from 'client/shared/utils';
 import { CONTROLS, EnemyTypeProps, GAME_OPTIONS } from './GameCanvas.config';
-import { isHaveBulletEncounter, isHaveHeroEncounter } from './GameCanvas.utils';
+import { drawImage, isHaveBulletEncounter, isHaveHeroEncounter } from './GameCanvas.utils';
 import { ResourcesProps } from './ResourcesLoader';
 
 export interface DrawCanvasProps {
@@ -123,16 +123,16 @@ export class GamePainter {
         }
 
         this.enemies.army.push({
-            sx: (randomEnemyNumber - 1) * enemiesTypes[randomEnemyType].unitWidth,
-            sy: enemiesTypes[randomEnemyType].sy,
-            sWidth: enemiesTypes[randomEnemyType].unitWidth,
-            sHeight: enemiesTypes[randomEnemyType].unitHeight,
+            sx: (randomEnemyNumber - 1) * calcEnemy.unitWidth,
+            sy: calcEnemy.sy,
+            sWidth: calcEnemy.unitWidth,
+            sHeight: calcEnemy.unitHeight,
             dx: this.enemies.army.length
                 ? ctx.canvas.width + getRandomIntInclusive(0, 100)
                 : ctx.canvas.width,
-            dy: this.calculateEnemiesDY(enemiesTypes[randomEnemyType], ctx),
-            dWidth: enemiesTypes[randomEnemyType].unitWidth,
-            dHeight: enemiesTypes[randomEnemyType].unitHeight,
+            dy: this.calculateEnemiesDY(calcEnemy, ctx),
+            dWidth: calcEnemy.unitWidth,
+            dHeight: calcEnemy.unitHeight,
         });
 
         if (this.enemies.army.length > 20) {
@@ -151,17 +151,7 @@ export class GamePainter {
         const { enemies } = resources;
 
         this.enemies.army.forEach((coord, index) => {
-            ctx.drawImage(
-                enemies,
-                coord.sx,
-                coord.sy,
-                coord.sWidth,
-                coord.sHeight,
-                coord.dx,
-                coord.dy,
-                coord.dWidth,
-                coord.dHeight,
-            );
+            drawImage(enemies, coord, ctx);
 
             this.enemies.army[index].dx -= this.hero.bulletSpeed;
         });
@@ -229,17 +219,7 @@ export class GamePainter {
                 isDone = true;
             }
 
-            ctx.drawImage(
-                explosion,
-                encounter.sx,
-                encounter.sy,
-                encounter.sWidth,
-                encounter.sHeight,
-                encounter.dx,
-                encounter.dy,
-                encounter.dWidth,
-                encounter.dHeight,
-            );
+            drawImage(explosion, encounter, ctx);
 
             if (isDone) {
                 this.explosion.encounters.splice(index, 1);

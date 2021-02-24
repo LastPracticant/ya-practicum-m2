@@ -2,79 +2,87 @@ import { CanvasImageCoordinatesProps } from './GameCanvas.config';
 
 type ExcludedProps = 'sx' | 'sy' | 'sWidth' | 'sHeight';
 
-export const getTopLeft = <T extends Omit<CanvasImageCoordinatesProps, ExcludedProps>>(
+export const getTexturePosition = <T extends Omit<CanvasImageCoordinatesProps, ExcludedProps>>(
     texture: T,
-) => [
-    texture.dx,
-    texture.dy,
-];
-
-export const getTopRight = <T extends Omit<CanvasImageCoordinatesProps, ExcludedProps>>(
-    texture: T,
-) => [
-    texture.dx + texture.dWidth,
-    texture.dy,
-];
-
-export const getBottomLeft = <T extends Omit<CanvasImageCoordinatesProps, ExcludedProps>>(
-    texture: T,
-) => [
-    texture.dx,
-    texture.dy + texture.dHeight,
-];
-
-export const getBottomRight = <T extends Omit<CanvasImageCoordinatesProps, ExcludedProps>>(
-    texture: T,
-) => [
-    texture.dx + texture.dWidth,
-    texture.dy + texture.dHeight,
-];
-
-export const getCenter = <T extends Omit<CanvasImageCoordinatesProps, ExcludedProps>>(
-    texture: T,
-) => [
-    texture.dx + texture.dWidth / 2,
-    texture.dy + texture.dHeight / 2,
-];
-
-export const getTopCenter = <T extends Omit<CanvasImageCoordinatesProps, ExcludedProps>>(
-    texture: T,
-) => [
-    texture.dx + texture.dWidth / 2,
-    texture.dy,
-];
-
-export const getBottomCenter = <T extends Omit<CanvasImageCoordinatesProps, ExcludedProps>>(
-    texture: T,
-) => [
-    texture.dx + texture.dWidth / 2,
-    texture.dy + texture.dHeight,
-];
+) => ({
+    topLeft: [
+        texture.dx,
+        texture.dy,
+    ],
+    topRight: [
+        texture.dx + texture.dWidth,
+        texture.dy,
+    ],
+    bottomLeft: [
+        texture.dx,
+        texture.dy + texture.dHeight,
+    ],
+    bottomRight: [
+        texture.dx + texture.dWidth,
+        texture.dy + texture.dHeight,
+    ],
+    center: [
+        texture.dx + texture.dWidth / 2,
+        texture.dy + texture.dHeight / 2,
+    ],
+    topCenter: [
+        texture.dx + texture.dWidth / 2,
+        texture.dy,
+    ],
+    bottomCenter: [
+        texture.dx + texture.dWidth / 2,
+        texture.dy + texture.dHeight,
+    ],
+});
 
 export const isHaveBulletEncounter = <T extends Omit<CanvasImageCoordinatesProps, ExcludedProps>>(
-    firstObj: T,
-    secondObj: T,
+    firstTexture: T,
+    secondTexture: T,
 ) => {
-    const encX = getTopRight(firstObj)[0] > getTopCenter(secondObj)[0]
-        && getTopRight(firstObj)[0] < getTopRight(secondObj)[0];
-    const encYTop = getTopRight(firstObj)[1] > getTopLeft(secondObj)[1]
-        && getTopRight(firstObj)[1] < getBottomLeft(secondObj)[1];
-    const encYBottom = getBottomLeft(firstObj)[1] > getTopLeft(secondObj)[1]
-        && getBottomLeft(firstObj)[1] < getBottomLeft(secondObj)[1];
+    const firstObjPosition = getTexturePosition(firstTexture);
+    const secondObjPosition = getTexturePosition(secondTexture);
+
+    const encX = firstObjPosition.topRight[0] > secondObjPosition.topCenter[0]
+        && firstObjPosition.topRight[0] < secondObjPosition.topRight[0];
+    const encYTop = firstObjPosition.topRight[1] > secondObjPosition.topLeft[1]
+        && firstObjPosition.topRight[1] < secondObjPosition.bottomLeft[1];
+    const encYBottom = firstObjPosition.bottomLeft[1] > secondObjPosition.topLeft[1]
+        && firstObjPosition.bottomLeft[1] < secondObjPosition.bottomLeft[1];
 
     return encX && (encYTop || encYBottom);
 };
 
 export const isHaveHeroEncounter = <T extends Omit<CanvasImageCoordinatesProps, ExcludedProps>>(
-    firstObj: T,
-    secondObj: T,
+    firstTexture: T,
+    secondTexture: T,
 ) => {
-    const encdX = getTopCenter(firstObj)[0] > getTopLeft(secondObj)[0]
-        && getTopCenter(firstObj)[0] < getTopRight(secondObj)[0];
-    const encYTop = getTopRight(firstObj)[1] > getTopLeft(secondObj)[1]
-        && getTopRight(firstObj)[1] < getBottomLeft(secondObj)[1];
-    const encYBottom = getBottomLeft(firstObj)[1] > getTopLeft(secondObj)[1]
-        && getBottomLeft(firstObj)[1] < getBottomLeft(secondObj)[1];
+    const firstObjPosition = getTexturePosition(firstTexture);
+    const secondObjPosition = getTexturePosition(secondTexture);
+
+    const encdX = firstObjPosition.topCenter[0] > secondObjPosition.topLeft[0]
+        && firstObjPosition.topCenter[0] < secondObjPosition.topRight[0];
+    const encYTop = firstObjPosition.topRight[1] > secondObjPosition.topLeft[1]
+        && firstObjPosition.topRight[1] < secondObjPosition.bottomLeft[1];
+    const encYBottom = firstObjPosition.bottomLeft[1] > secondObjPosition.topLeft[1]
+        && firstObjPosition.bottomLeft[1] < secondObjPosition.bottomLeft[1];
 
     return encdX && (encYTop || encYBottom);
+};
+
+export const drawImage = (
+    texture: HTMLImageElement,
+    coords: CanvasImageCoordinatesProps,
+    ctx: CanvasRenderingContext2D,
+) => {
+    ctx.drawImage(
+        texture,
+        coords.sx,
+        coords.sy,
+        coords.sWidth,
+        coords.sHeight,
+        coords.dx,
+        coords.dy,
+        coords.dWidth,
+        coords.dHeight,
+    );
 };
