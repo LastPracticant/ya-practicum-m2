@@ -23,7 +23,7 @@ export const ProfileForm: React.FC = React.memo(() => {
     const { control, reset } = useForm<CurrentUserInfoProps>();
 
     useEffect(() => {
-        if (profile.id === -1) dispatch(thunkCurrentUserInfo());
+        if (!profile) dispatch(thunkCurrentUserInfo());
     }, []);
 
     useEffect(() => reset(profile), [profile]);
@@ -31,6 +31,7 @@ export const ProfileForm: React.FC = React.memo(() => {
     const controls = useMemo(
         () => PROFILE_FORM_CONTROLS.map((inputConfig) => (
                 <InputControl
+                    key={`input-${inputConfig.name}`}
                     disabled
                     fullWidth
                     variant="outlined"

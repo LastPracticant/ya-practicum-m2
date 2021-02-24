@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { Grid, Button } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
 import { ChangeProfileProps, CurrentUserInfoProps } from 'client/core/api';
@@ -21,19 +21,18 @@ export const ProfileEdit: React.FC = React.memo(() => {
         errors,
     } = useForm<CurrentUserInfoProps>({ defaultValues: profile });
 
-    const onSubmit = async (data: ChangeProfileProps) => dispatch(thunkEditProfile(data));
+    const onSubmit = (data: ChangeProfileProps) => dispatch(thunkEditProfile(data));
 
-    const onChangeAvatar = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        const {
-            target: { files },
-        } = e;
-        const blob = files?.item(0);
+    const onChangeAvatar = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        const blob = e.target.files?.item(0);
+
         if (!blob) return;
-        const formData = new FormData();
-        formData.append('avatar', blob);
 
+        const formData = new FormData();
+
+        formData.append('avatar', blob);
         dispatch(thunkEditAvatar(formData));
-    };
+    }, []);
 
     const controls = useMemo(
         () => PROFILE_EDIT_CONTROLS.map((inputConfig) => {
@@ -41,6 +40,7 @@ export const ProfileEdit: React.FC = React.memo(() => {
             const error = errors[name as keyof typeof errors]?.message;
             return (
                     <InputControl
+                        key={`input-${name}`}
                         fullWidth
                         variant="outlined"
                         margin="dense"

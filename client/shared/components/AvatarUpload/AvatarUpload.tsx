@@ -13,7 +13,6 @@ const AvatarUploadComponent: FC<InputAvatarProps> = memo(
     ({ name, src, onChange }) => (
     <label htmlFor={`upload_${name}`} className="upload-avatar">
         <input
-            value=""
             id={`upload_${name}`}
             name={name}
             onChange={onChange}

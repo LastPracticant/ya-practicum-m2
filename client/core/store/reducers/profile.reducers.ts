@@ -13,7 +13,10 @@ const initialState: CurrentUserInfoProps = {
     avatar: '',
 };
 
-export const profileReducers = (state = initialState, action: ActionProps) => {
+export const profileReducers = (
+    state = initialState,
+    action: ActionProps<CurrentUserInfoProps>,
+) => {
     switch (action.type) {
     case GET_CURRENT_USER_INFO:
         return { ...state, ...action.payload };

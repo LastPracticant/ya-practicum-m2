@@ -28,6 +28,7 @@ export const SignupForm: React.FC = React.memo(() => {
             const error = errors[name as keyof typeof errors]?.message;
             return (
                     <InputControl
+                        key={`input-${name}`}
                         fullWidth
                         margin="dense"
                         variant="outlined"
