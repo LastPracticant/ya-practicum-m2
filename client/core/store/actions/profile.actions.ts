@@ -1,0 +1,53 @@
+import {
+    AuthAPI, ProfileAPI, ChangePasswordProps, API_HOST, ChangeProfileProps,
+} from 'client/core/api';
+import { Action } from 'redux';
+import { ThunkAction } from 'redux-thunk';
+import { StoreProps } from '../store.types';
+import { showLoaderAction, hideLoaderAction } from './loader.actions';
+
+export const GET_CURRENT_USER_INFO = 'GET_CURRENT_USER_INFO';
+export const EDIT_PROFILE = 'HIDE_LOADER';
+export const EDIT_AVATAR = 'EDIT_AVATAR';
+export const EDIT_PASSWORD = 'EDIT_PASSWORD';
+
+export const thunkCurrentUserInfo = (
+):ThunkAction<void, StoreProps, unknown, Action<string>> => async (
+    dispatch,
+) => {
+    dispatch(showLoaderAction());
+    const payload = await AuthAPI.getCurrentUserInfo();
+    payload.avatar = API_HOST + payload.avatar;
+    dispatch({ type: 'GET_CURRENT_USER_INFO', payload });
+    dispatch(hideLoaderAction());
+};
+
+export const thunkEditProfile = (
+    data: ChangeProfileProps,
+): ThunkAction<void, StoreProps, unknown, Action<string>> => (
+    dispatch,
+) => {
+    ProfileAPI.change(data).then(() => (
+        dispatch(thunkCurrentUserInfo())
+    ));
+};
+
+export const thunkEditAvatar = (
+    data: FormData,
+): ThunkAction<void, StoreProps, unknown, Action<string>> => (
+    dispatch,
+) => {
+    ProfileAPI.changeAvatar(data).then(() => (
+        dispatch(thunkCurrentUserInfo())
+    ));
+};
+
+export const thunkEditPassword = (
+    data: ChangePasswordProps,
+): ThunkAction<void, StoreProps, unknown, Action<string>> => (
+    dispatch,
+) => {
+    ProfileAPI.changePassword(data).then(() => (
+        dispatch(thunkCurrentUserInfo())
+    ));
+};

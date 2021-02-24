@@ -1,43 +1,27 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { Grid, Button } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
-import {
-    ProfileAPI,
-    ChangeProfileProps,
-    CurrentUserInfoProps,
-    API_HOST,
-    AuthAPI,
-} from 'client/core/api';
+import { ChangeProfileProps, CurrentUserInfoProps } from 'client/core/api';
 import { BACK, GRID_SPACE, SAVE } from 'client/shared/consts';
 import { InputControl, AvatarUpload } from 'client/shared/components';
 import { Link } from 'react-router-dom';
 import { ROUTES } from 'client/routing';
+import { useSelector, useDispatch } from 'react-redux';
+import { profileSelector } from 'client/core/store/selectors';
+import { thunkEditProfile, thunkEditAvatar } from 'client/core/store';
 import { PROFILE_EDIT_CONTROLS } from './ProfileEdit.config';
 
 export const ProfileEdit: React.FC = React.memo(() => {
+    const profile = useSelector(profileSelector);
+    const dispatch = useDispatch();
+
     const {
         control,
         handleSubmit,
         errors,
-        register,
-        reset,
-    } = useForm<CurrentUserInfoProps>();
+    } = useForm<CurrentUserInfoProps>({ defaultValues: profile });
 
-    const [avatar, setAvatar] = useState('');
-
-    const updateForm = async () => {
-        const data = await AuthAPI.getCurrentUserInfo();
-
-        setAvatar(API_HOST + data.avatar);
-        delete data.avatar;
-        reset(data);
-    };
-
-    const onSubmit = async (data: ChangeProfileProps) => {
-        await ProfileAPI.change(data);
-
-        updateForm();
-    };
+    const onSubmit = async (data: ChangeProfileProps) => dispatch(thunkEditProfile(data));
 
     const onChangeAvatar = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const {
@@ -48,9 +32,7 @@ export const ProfileEdit: React.FC = React.memo(() => {
         const formData = new FormData();
         formData.append('avatar', blob);
 
-        await ProfileAPI.changeAvatar(formData);
-
-        updateForm();
+        dispatch(thunkEditAvatar(formData));
     };
 
     const controls = useMemo(
@@ -83,10 +65,9 @@ export const ProfileEdit: React.FC = React.memo(() => {
                     alignItems="center"
                 >
                     <AvatarUpload
-                        ref={register}
                         onChange={onChangeAvatar}
                         name="avatar"
-                        src={avatar}
+                        src={profile.avatar}
                     />
                     {controls}
                 </Grid>

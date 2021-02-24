@@ -2,17 +2,19 @@ import React from 'react';
 import { PageComponentProps } from 'client/shared/types';
 import './Home.css';
 import { ButtonsToolbar, NivelatorXY, Paper } from 'client/shared/components';
-import { Button, Divider, List, ListItem } from '@material-ui/core';
 import {
-    useDispatch,
-} from 'react-redux';
-import { hideLoaderAction, showLoaderAction } from 'client/core/store/actions/loader.actions';
+    Button, Divider, List, ListItem,
+} from '@material-ui/core';
+import { useDispatch } from 'react-redux';
+import {
+    hideLoaderAction,
+    showLoaderAction,
+} from 'client/core/store/actions/loader.actions';
 import bem from 'bem-cn';
 import { RECORD, EXIT } from 'client/shared/consts';
 import { ROUTES } from 'client/routing';
 import { Link, useHistory } from 'react-router-dom';
 import { AuthAPI } from 'client/core/api';
-
 
 const block = bem('home');
 
@@ -36,19 +38,35 @@ export const Home: React.FC<PageComponentProps> = React.memo(() => {
 
     return (
         <NivelatorXY className={block()}>
-            <div className={block('header')}></div>
+            <div className={block('header')} />
             <Paper className={block('paper')} sizes="small">
                 <div className={block('userdata')}>
                     <div className={block('avatar', { small: true })} />
                     <p className={block('username')}>username</p>
-                    <p className={block('user-result')}>{RECORD}: result</p>
+                    <p className={block('user-result')}>
+                        {`${RECORD} : result`}
+                    </p>
                 </div>
                 <Divider />
                 <List className={block('navigation-items').toString()}>
-                    <ListItem><Link to={ROUTES.GAME_START.path}>{ROUTES.GAME_START.title}</Link></ListItem>
-                    <ListItem><Link to={ROUTES.PROFILE.path}>{ROUTES.PROFILE.title}</Link></ListItem>
-                    <ListItem><Link to={ROUTES.LEADERBOARD.path}>{ROUTES.LEADERBOARD.title}</Link></ListItem>
-                    <ListItem><Link to={ROUTES.FORUM.path}>{ROUTES.FORUM.title}</Link></ListItem>
+                    <ListItem>
+                        <Link to={ROUTES.GAME_START.path}>
+                            {ROUTES.GAME_START.title}
+                        </Link>
+                    </ListItem>
+                    <ListItem>
+                        <Link to={ROUTES.PROFILE.path}>
+                            {ROUTES.PROFILE.title}
+                        </Link>
+                    </ListItem>
+                    <ListItem>
+                        <Link to={ROUTES.LEADERBOARD.path}>
+                            {ROUTES.LEADERBOARD.title}
+                        </Link>
+                    </ListItem>
+                    <ListItem>
+                        <Link to={ROUTES.FORUM.path}>{ROUTES.FORUM.title}</Link>
+                    </ListItem>
                 </List>
                 <ButtonsToolbar justify="center">
                     <Button
@@ -64,9 +82,9 @@ export const Home: React.FC<PageComponentProps> = React.memo(() => {
                         onClick={handleShowLoader}
                     >
                         Показать лоадер
-                </Button>
+                    </Button>
                 </ButtonsToolbar>
             </Paper>
         </NivelatorXY>
-    )
+    );
 });

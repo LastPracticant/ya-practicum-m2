@@ -6,5 +6,5 @@ export const CHANGE_PROFILE_PASSWORD = 'Изменить пароль';
 export const SAVE = 'Сохранить';
 export const BACK = 'Назад';
 export const AVATAR_DEFAULT = 'LP';
-export const RECORD = "Рекорд";
-export const EXIT = "Выйти";
+export const RECORD = 'Рекорд';
+export const EXIT = 'Выйти';

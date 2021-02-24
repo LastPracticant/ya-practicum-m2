@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC, memo } from 'react';
 import { Avatar, InputProps } from '@material-ui/core';
 import './AvatarUpload.css';
 import { AVATAR_DEFAULT } from 'client/shared/consts';
@@ -9,11 +9,11 @@ export interface InputAvatarProps extends InputProps {
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const AvatarUploadComponent = React.forwardRef<HTMLInputElement, InputAvatarProps>(
-    ({ name, src, onChange }, ref) => (
+const AvatarUploadComponent: FC<InputAvatarProps> = memo(
+    ({ name, src, onChange }) => (
     <label htmlFor={`upload_${name}`} className="upload-avatar">
         <input
-            ref={ref}
+            value=""
             id={`upload_${name}`}
             name={name}
             onChange={onChange}
