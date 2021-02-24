@@ -128,12 +128,15 @@ export class GamePainter {
         const basePosition = ctx.canvas.height - this.levels.options[this.levels.currentLevel].heroShiftY;
         const airUnits = basePosition - 80;
         const earthUnits = basePosition + 10;
+        const boss = basePosition - 125;
 
         switch (enemy.type) {
         case 'companyAir':
         case 'technologyAir':
         case 'water':
             return airUnits;
+        case 'reviewer':
+            return boss;
         default:
             return earthUnits;
         }
@@ -143,15 +146,29 @@ export class GamePainter {
         ctx,
         frameCount,
     }: DrawCanvasProps) {
-        const levelEnemies = this.levels.options[this.levels.currentLevel].enemies;
+        if (frameCount % this.enemies.frequency < this.enemies.frequency - 1) return;
+
+        const lvl = this.levels.options[this.levels.currentLevel];
+
+        const lvlEnemies = lvl.enemies;
         const enemiesTypes = this.enemies.types;
-        const randomEnemyType = levelEnemies[getRandomIntInclusive(0, levelEnemies.length - 1)];
-        const calcEnemy = enemiesTypes[randomEnemyType];
+        const enemyTypeBoss = 6;
+        let isNeedToDrawBoss = false;
+
+        if ((calcScore(this.levels.timer) >= lvl.duration) && !lvl.bossReached) {
+            lvl.bossReached = true;
+            isNeedToDrawBoss = true;
+        }
+
+        const randomEnemyType = lvlEnemies[getRandomIntInclusive(0, lvlEnemies.length - 1)];
+        const calcEnemy = enemiesTypes[
+            isNeedToDrawBoss
+                ? enemyTypeBoss
+                : randomEnemyType
+        ];
         const randomEnemyNumber = getRandomIntInclusive(
             1, calcEnemy.sWidth / calcEnemy.unitWidth,
         );
-
-        if (frameCount % this.enemies.frequency < this.enemies.frequency - 1) return;
 
         this.enemies.army.push({
             sx: (randomEnemyNumber - 1) * calcEnemy.unitWidth,
@@ -164,6 +181,7 @@ export class GamePainter {
             dy: this.calculateEnemiesDY(calcEnemy, ctx),
             dWidth: calcEnemy.unitWidth,
             dHeight: calcEnemy.unitHeight,
+            type: calcEnemy.type,
         });
 
         if (this.enemies.army.length > 20) {
@@ -188,9 +206,14 @@ export class GamePainter {
 
     checkEncounters(
         gameOverFn: FnActionRequiredProps<StoreGameProps>,
+        gamePauseFn: FnActionRequiredProps<StoreGameProps>,
     ) {
         const anemyExplosionShiftY = 30;
         const heroExplosionShiftY = 5;
+        const score = calcScore(this.levels.timer);
+
+        let levelComplite = false;
+        let isBossWin = false;
 
         this.enemies.army.forEach((enemy, i) => {
             /** Столкновение врагов со снарядами */
@@ -203,6 +226,10 @@ export class GamePainter {
                     });
                     this.enemies.army.splice(i, 1);
                     this.hero.shots.splice(j, 1);
+
+                    if (enemy.type === 'reviewer') {
+                        levelComplite = true;
+                    }
                 }
             });
 
@@ -216,13 +243,24 @@ export class GamePainter {
                 this.enemies.army.splice(i, 1);
 
                 this.hero.lifes--;
+
+                if (enemy.type === 'reviewer') {
+                    isBossWin = true;
+                }
             }
         });
 
-        if (this.hero.lifes === 0) {
+        if (this.hero.lifes === 0 || isBossWin) {
             gameOverFn({
                 isOver: true,
-                score: calcScore(this.levels.timer),
+                score,
+            });
+        }
+
+        if (levelComplite) {
+            gamePauseFn({
+                isPause: true,
+                score,
             });
         }
     }
@@ -298,6 +336,7 @@ export class GamePainter {
     }: DrawCanvasPartProps) {
         if (!resources) return;
 
+        const lvl = this.levels.options[this.levels.currentLevel];
         const { hero } = resources;
 
         if (keyPress === CONTROLS.jump) {
@@ -325,9 +364,9 @@ export class GamePainter {
         }
 
         this.hero.coord.dy = this.move.down.pressed
-            ? ctx.canvas.height - this.levels.options[this.levels.currentLevel].heroShiftY + 10
+            ? ctx.canvas.height - lvl.heroShiftY + 10
             : (
-                ctx.canvas.height - this.levels.options[this.levels.currentLevel].heroShiftY - this.move.jump.position
+                ctx.canvas.height - lvl.heroShiftY - this.move.jump.position
             );
 
         ctx.drawImage(
@@ -352,24 +391,18 @@ export class GamePainter {
 
             this.hero.ideas--;
         }
+
+        this.levels.timer++;
     }
 
     drawTimer(
         { ctx }: DrawCanvasPartProps,
-        gamePauseFn: FnActionRequiredProps<StoreGameProps>,
     ) {
         const score = calcScore(this.levels.timer);
         const center = ctx.canvas.width / 2 - ctx.measureText(String(score)).width / 2;
 
         ctx.font = '48px serif';
         ctx.fillText(String(score), center, 60);
-
-        if (score >= this.levels.options[this.levels.currentLevel].duration) {
-            gamePauseFn({
-                isPause: true,
-                score,
-            });
-        }
 
         this.levels.timer++;
     }
@@ -385,7 +418,7 @@ export class GamePainter {
 
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
-        this.checkEncounters(gameOverFn);
+        this.checkEncounters(gameOverFn, gamePauseFn);
         this.drawBg(options);
         this.drawHero(options);
         this.drawLifes(options);
@@ -395,6 +428,6 @@ export class GamePainter {
         this.restoreIdeas(options);
         this.generateEnemies(options);
         this.drawEnemies(options);
-        this.drawTimer(options, gamePauseFn);
+        this.drawTimer(options);
     }
 }

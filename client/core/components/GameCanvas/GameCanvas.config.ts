@@ -57,6 +57,10 @@ export interface EnemyTypeProps {
     type: 'technology' | 'technologyAir' | 'company' | 'companyAir' | 'bug' | 'reviewer' | 'water'
 }
 
+export interface EnemiesArmyProps extends CanvasImageCoordinatesProps {
+    type: EnemyTypeProps['type']
+}
+
 export interface EnemiesProps {
     /** Скорость врагов */
     speed: number
@@ -68,7 +72,7 @@ export interface EnemiesProps {
     types: EnemyTypeProps[]
 
     /** Сгенерированные враги */
-    army: CanvasImageCoordinatesProps[]
+    army: EnemiesArmyProps[]
 }
 
 export interface HeroProps {
@@ -100,6 +104,9 @@ export interface LevelsOptionProps {
 
     /** Сдвиг по оси Y для героя */
     heroShiftY: number
+
+    /** Флаг достижения босса */
+    bossReached: boolean
 }
 
 export interface LevelsProps {
@@ -181,7 +188,7 @@ export const GAME_OPTIONS: GameOptionProps = {
                 type: 'water', sx: 0, sy: 450, sWidth: 1260, sHeight: 540, unitWidth: 90, unitHeight: 90,
             },
             {
-                type: 'reviewer', sx: 0, sy: 540, sWidth: 111, sHeight: 655, unitWidth: 111, unitHeight: 205,
+                type: 'reviewer', sx: 0, sy: 540, sWidth: 684, sHeight: 655, unitWidth: 114, unitHeight: 210,
             },
         ],
         army: [],
@@ -211,6 +218,7 @@ export const GAME_OPTIONS: GameOptionProps = {
                 },
                 enemies: [1, 4, 5],
                 heroShiftY: 215,
+                bossReached: false,
             },
             {
                 duration: 15,
@@ -219,6 +227,7 @@ export const GAME_OPTIONS: GameOptionProps = {
                 },
                 enemies: [1, 4, 5],
                 heroShiftY: 205,
+                bossReached: false,
             },
             {
                 duration: 15,
@@ -227,6 +236,7 @@ export const GAME_OPTIONS: GameOptionProps = {
                 },
                 enemies: [0, 1, 4],
                 heroShiftY: 140,
+                bossReached: false,
             },
             {
                 duration: 15,
@@ -235,6 +245,7 @@ export const GAME_OPTIONS: GameOptionProps = {
                 },
                 enemies: [0, 1, 4],
                 heroShiftY: 210,
+                bossReached: false,
             },
             {
                 duration: 15,
@@ -243,6 +254,7 @@ export const GAME_OPTIONS: GameOptionProps = {
                 },
                 enemies: [0, 1, 4],
                 heroShiftY: 210,
+                bossReached: false,
             },
             {
                 duration: 15,
@@ -251,30 +263,34 @@ export const GAME_OPTIONS: GameOptionProps = {
                 },
                 enemies: [0, 1, 4],
                 heroShiftY: 210,
+                bossReached: false,
             },
             {
                 duration: 15,
                 bg: {
                     sx: 0, sy: 3600, sWidth: 2134, sHeight: 600,
                 },
-                enemies: [0, 1, 4],
+                enemies: [2, 3, 4],
                 heroShiftY: 150,
+                bossReached: false,
             },
             {
                 duration: 15,
                 bg: {
                     sx: 0, sy: 4200, sWidth: 2134, sHeight: 600,
                 },
-                enemies: [0, 1, 4],
+                enemies: [2, 3, 4],
                 heroShiftY: 150,
+                bossReached: false,
             },
             {
                 duration: 9999999,
                 bg: {
                     sx: 0, sy: 4800, sWidth: 2134, sHeight: 600,
                 },
-                enemies: [0, 1, 4],
+                enemies: [0, 1, 2, 3, 4],
                 heroShiftY: 210,
+                bossReached: false,
             },
         ],
         timer: 0,
