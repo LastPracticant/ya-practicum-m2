@@ -26,11 +26,13 @@ export const ProfileEdit: React.FC = React.memo(() => {
     const [avatar, setAvatar] = useState('');
 
     const updateForm = async () => {
-        const data = await AuthAPI.getCurrentUserInfo();
+        const userInfo = await AuthAPI.getCurrentUserInfo();
 
-        setAvatar(API_HOST + data.avatar);
-        delete data.avatar;
-        reset(data);
+        const { avatar: userAvatar, ...restInfo } = userInfo;
+
+        setAvatar(API_HOST + userAvatar);
+
+        reset(restInfo);
     };
 
     const onSubmit = async (data: ChangeProfileProps) => {
