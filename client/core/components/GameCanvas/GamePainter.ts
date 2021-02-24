@@ -1,5 +1,6 @@
 import { getRandomIntInclusive } from 'client/shared/utils';
 import { CONTROLS, EnemyTypeProps, GAME_OPTIONS } from './GameCanvas.config';
+import { isHaveBulletEncounter, isHaveHeroEncounter } from './GameCanvas.utils';
 import { ResourcesProps } from './ResourcesLoader';
 
 export interface DrawCanvasProps {
@@ -167,21 +168,17 @@ export class GamePainter {
     }
 
     checkEncounters() {
-        const explosionShiftY = 30;
+        const anemyExplosionShiftY = 30;
+        const heroExplosionShiftY = 5;
 
         this.enemies.army.forEach((enemy, i) => {
             /** Столкновение врагов со снарядами */
             this.hero.shotes.forEach((shote, j) => {
-                if (
-                    shote.x > enemy.dx
-                    && shote.x < enemy.dx + enemy.dWidth
-                    && shote.y > enemy.dy
-                    && shote.y < enemy.dy + enemy.dHeight
-                ) {
+                if (isHaveBulletEncounter(shote, enemy)) {
                     this.explosion.encounters.push({
                         ...this.explosion.cutOptions,
-                        dx: shote.x,
-                        dy: shote.y - explosionShiftY,
+                        dx: shote.dx,
+                        dy: shote.dy - anemyExplosionShiftY,
                     });
                     this.enemies.army.splice(i, 1);
                     this.hero.shotes.splice(j, 1);
@@ -189,20 +186,11 @@ export class GamePainter {
             });
 
             /** Столкновение врагов с главным героем */
-            const heroCenter = this.hero.currentPosition.x + this.hero.width / 2;
-
-            if (
-                heroCenter > enemy.dx
-                && heroCenter < enemy.dx + enemy.dWidth
-                && ((this.hero.currentPosition.y > enemy.dy
-                && this.hero.currentPosition.y < enemy.dy + enemy.dHeight)
-                || (this.hero.currentPosition.y + this.hero.height > enemy.dy
-                && this.hero.currentPosition.y + this.hero.height < enemy.dy + enemy.dHeight))
-            ) {
+            if (isHaveHeroEncounter(this.hero.coord, enemy)) {
                 this.explosion.encounters.push({
                     ...this.explosion.cutOptions,
-                    dx: this.hero.currentPosition.x,
-                    dy: this.hero.currentPosition.y - 5,
+                    dx: this.hero.coord.dx,
+                    dy: this.hero.coord.dy - heroExplosionShiftY,
                 });
                 this.enemies.army.splice(i, 1);
             }
@@ -267,13 +255,13 @@ export class GamePainter {
         this.hero.shotes.forEach((shote, index) => {
             ctx.drawImage(
                 idea,
-                shote.x,
-                shote.y,
+                shote.dx,
+                shote.dy,
                 30,
                 30,
             );
 
-            this.hero.shotes[index].x += this.hero.bulletSpeed;
+            this.hero.shotes[index].dx += this.hero.bulletSpeed;
         });
     }
 
@@ -310,7 +298,7 @@ export class GamePainter {
             this.resetHeroMove('down');
         }
 
-        this.hero.currentPosition.y = this.move.down.pressed
+        this.hero.coord.dy = this.move.down.pressed
             ? ctx.canvas.height - this.hero.shiftY + 10
             : (
                 ctx.canvas.height - this.hero.shiftY - this.move.jump.height + this.move.down.height
@@ -319,19 +307,21 @@ export class GamePainter {
         ctx.drawImage(
             hero,
             0,
-            this.move.down.pressed ? this.hero.height : 0,
-            this.hero.width,
-            this.hero.height,
-            this.hero.currentPosition.x,
-            this.hero.currentPosition.y,
-            this.hero.width,
-            this.hero.height,
+            this.move.down.pressed ? this.hero.coord.dHeight : 0,
+            this.hero.coord.sWidth,
+            this.hero.coord.sHeight,
+            this.hero.coord.dx,
+            this.hero.coord.dy,
+            this.hero.coord.dWidth,
+            this.hero.coord.dHeight,
         );
 
         if (keyPress === CONTROLS.shote) {
             this.hero.shotes.push({
-                x: this.hero.currentPosition.x + this.hero.width,
-                y: this.hero.currentPosition.y + 35,
+                dx: this.hero.coord.dx + this.hero.coord.dWidth,
+                dy: this.hero.coord.dy + 35,
+                dWidth: 30,
+                dHeight: 30,
             });
         }
     }

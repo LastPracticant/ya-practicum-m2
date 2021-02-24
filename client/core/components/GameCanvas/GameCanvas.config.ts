@@ -19,17 +19,7 @@ interface MoveOptionsProps {
     delay: number
 }
 
-interface PositionProps {
-    x: number
-    y: number
-}
-
-interface ExplosionProps {
-    cutOptions: Omit<ExplosionEncounterProps, 'dx' | 'dy'>
-    encounters: ExplosionEncounterProps[]
-}
-
-interface ExplosionEncounterProps {
+export interface CanvasImageCoordinatesProps {
     sx: number
     sy: number
     sWidth: number
@@ -38,6 +28,11 @@ interface ExplosionEncounterProps {
     dy: number
     dWidth: number
     dHeight: number
+}
+
+interface ExplosionProps {
+    cutOptions: Omit<CanvasImageCoordinatesProps, 'dx' | 'dy'>
+    encounters: CanvasImageCoordinatesProps[]
 }
 
 export interface EnemyTypeProps {
@@ -54,29 +49,16 @@ interface EnemiesProps {
     tickCounter: number
     frequency: number
     types: EnemyTypeProps[],
-    army: EnemiesArmyProps[],
-}
-
-interface EnemiesArmyProps{
-    sx: number
-    sy: number
-    sWidth: number
-    sHeight: number
-    dx: number
-    dy: number
-    dWidth: number
-    dHeight: number
+    army: CanvasImageCoordinatesProps[],
 }
 
 interface HeroProps {
-    width: number
-    height: number
+    coord: Omit<CanvasImageCoordinatesProps, 'sx' | 'sy'>
     shiftY: number,
-    currentPosition: PositionProps,
     lifes: number
     ideas: number
     bulletSpeed: number
-    shotes: PositionProps[],
+    shotes: Pick<CanvasImageCoordinatesProps, 'dx' | 'dy' | 'dWidth' | 'dHeight'>[],
 }
 
 interface GameOptionProps {
@@ -140,13 +122,15 @@ export const GAME_OPTIONS: GameOptionProps = {
         army: [],
     },
     hero: {
-        width: 75,
-        height: 80,
-        shiftY: 210,
-        currentPosition: {
-            x: 210,
-            y: 0,
+        coord: {
+            sWidth: 75,
+            sHeight: 80,
+            dx: 210,
+            dy: 0,
+            dWidth: 75,
+            dHeight: 80,
         },
+        shiftY: 210,
         lifes: 3,
         ideas: 3,
         bulletSpeed: 5,
