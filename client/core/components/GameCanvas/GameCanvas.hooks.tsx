@@ -1,12 +1,20 @@
+import { ROUTES } from 'client/routing';
+import { FnActionProps } from 'client/shared/types';
 import { useEffect, useRef } from 'react';
+import { useHistory } from 'react-router-dom';
 import { ANIMATION, CONTROLS } from './GameCanvas.config';
 import { DrawCanvasProps } from './GamePainter';
 import { CanvasResourcesProps, ResourcesLoader, ResourcesProps } from './ResourcesLoader';
 
-export type DrawCanvasFn = (props: DrawCanvasProps) => void;
+export type DrawCanvasFn = (props: DrawCanvasProps, gameOverFn?: FnActionProps) => void;
 
 export const useCanvas = (drawCanvas: DrawCanvasFn, resources?: CanvasResourcesProps) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
+    const history = useHistory();
+
+    const handleGameOver = () => {
+        history.push(ROUTES.GAME_OVER.path);
+    };
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -41,7 +49,7 @@ export const useCanvas = (drawCanvas: DrawCanvasFn, resources?: CanvasResourcesP
                 resources: loadedResources,
                 keyPress,
                 frameCount,
-            });
+            }, handleGameOver);
 
             keyPress = null;
 

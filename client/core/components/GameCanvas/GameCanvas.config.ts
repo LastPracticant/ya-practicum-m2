@@ -11,7 +11,7 @@ export const CONTROLS = {
     shote: 'Space',
 };
 
-interface MoveOptionsProps {
+export interface MoveOptionsProps {
     pressed: boolean
     count: number
     length: number
@@ -30,7 +30,7 @@ export interface CanvasImageCoordinatesProps {
     dHeight: number
 }
 
-interface ExplosionProps {
+export interface ExplosionProps {
     cutOptions: Omit<CanvasImageCoordinatesProps, 'dx' | 'dy'>
     encounters: CanvasImageCoordinatesProps[]
 }
@@ -45,14 +45,14 @@ export interface EnemyTypeProps {
     type: 'technology' | 'technologyAir' | 'company' | 'companyAir' | 'bug' | 'reviewer'
 }
 
-interface EnemiesProps {
+export interface EnemiesProps {
     tickCounter: number
     frequency: number
     types: EnemyTypeProps[],
     army: CanvasImageCoordinatesProps[],
 }
 
-interface HeroProps {
+export interface HeroProps {
     coord: Omit<CanvasImageCoordinatesProps, 'sx' | 'sy'>
     shiftY: number,
     lifes: number
@@ -61,7 +61,7 @@ interface HeroProps {
     shotes: Pick<CanvasImageCoordinatesProps, 'dx' | 'dy' | 'dWidth' | 'dHeight'>[],
 }
 
-interface GameOptionProps {
+export interface GameOptionProps {
     move: Store<MoveOptionsProps>
     explosion: ExplosionProps
     enemies: EnemiesProps

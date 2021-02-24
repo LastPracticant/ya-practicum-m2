@@ -1,5 +1,14 @@
+import { FnActionProps, Store } from 'client/shared/types';
 import { getRandomIntInclusive } from 'client/shared/utils';
-import { CONTROLS, EnemyTypeProps, GAME_OPTIONS } from './GameCanvas.config';
+import {
+    CONTROLS,
+    EnemiesProps,
+    EnemyTypeProps,
+    ExplosionProps,
+    GameOptionProps,
+    HeroProps,
+    MoveOptionsProps,
+} from './GameCanvas.config';
 import { drawImage, isHaveBulletEncounter, isHaveHeroEncounter } from './GameCanvas.utils';
 import { ResourcesProps } from './ResourcesLoader';
 
@@ -14,13 +23,13 @@ export interface DrawCanvasProps {
 export interface DrawCanvasPartProps extends DrawCanvasProps {}
 
 export class GamePainter {
-    move = GAME_OPTIONS.move;
+    move: Store<MoveOptionsProps>;
 
-    explosion = GAME_OPTIONS.explosion;
+    explosion: ExplosionProps;
 
-    enemies = GAME_OPTIONS.enemies;
+    enemies: EnemiesProps;
 
-    hero = GAME_OPTIONS.hero;
+    hero: HeroProps;
 
     levels = [
         {
@@ -30,7 +39,12 @@ export class GamePainter {
 
     currentLevel = 0;
 
-    constructor() {
+    constructor(options: GameOptionProps) {
+        this.move = options.move;
+        this.explosion = options.explosion;
+        this.enemies = options.enemies;
+        this.hero = options.hero;
+
         this.drawBg = this.drawBg.bind(this);
         this.drawHero = this.drawHero.bind(this);
         this.drawCanvas = this.drawCanvas.bind(this);
@@ -157,7 +171,7 @@ export class GamePainter {
         });
     }
 
-    checkEncounters() {
+    checkEncounters(gameOverFn?: FnActionProps) {
         const anemyExplosionShiftY = 30;
         const heroExplosionShiftY = 5;
 
@@ -183,6 +197,12 @@ export class GamePainter {
                     dy: this.hero.coord.dy - heroExplosionShiftY,
                 });
                 this.enemies.army.splice(i, 1);
+
+                this.hero.lifes--;
+            }
+
+            if (this.hero.lifes === 0) {
+                gameOverFn?.();
             }
         });
     }
@@ -306,14 +326,14 @@ export class GamePainter {
         }
     }
 
-    drawCanvas(options: DrawCanvasProps) {
+    drawCanvas(options: DrawCanvasProps, gameOverFn?: FnActionProps) {
         const { ctx, resources } = options;
 
         if (!resources) return;
 
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
-        this.checkEncounters();
+        this.checkEncounters(gameOverFn);
         this.drawBg(options);
         this.drawHero(options);
         this.drawLifes(options);
