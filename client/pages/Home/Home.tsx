@@ -5,34 +5,22 @@ import { ButtonsToolbar, NivelatorXY, Paper } from 'client/shared/components';
 import {
     Button, Divider, List, ListItem, Avatar,
 } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
-import {
-    hideLoaderAction,
-    showLoaderAction,
-} from 'client/core/store/actions/loader.actions';
+import { useDispatch, useSelector } from 'react-redux';
 import bem from 'bem-cn';
 import { LOCAL } from 'client/shared/consts';
 import { ROUTES } from 'client/routing';
 import { Link, useHistory } from 'react-router-dom';
-import { AuthAPI } from 'client/core/api';
+import { thunkLogout, profileSelector } from 'client/core/store';
 
 const block = bem('home');
 
 export const Home: React.FC<PageComponentProps> = React.memo(() => {
     const dispatch = useDispatch();
     const history = useHistory();
-
-    /** TODO: просто для примера, потом убрать */
-    const handleShowLoader = () => {
-        dispatch(showLoaderAction());
-
-        setTimeout(() => {
-            dispatch(hideLoaderAction());
-        }, 2000);
-    };
+    const profile = useSelector(profileSelector);
 
     const handleLogout = () => {
-        AuthAPI.logout();
+        dispatch(thunkLogout());
         history.push(ROUTES.SIGNIN.path);
     };
 
@@ -49,11 +37,10 @@ export const Home: React.FC<PageComponentProps> = React.memo(() => {
 
     return (
         <NivelatorXY className={block()}>
-            <Avatar>{LOCAL.AVATAR_DEFAULT}</Avatar>
             <Paper className={block('paper')} sizes="small">
                 <div className={block('userdata')}>
-                    <div className={block('avatar', { small: true })} />
-                    <p className={block('username')}>username</p>
+                    <Avatar src={profile.avatar} />
+                    <p className={block('username')}>{profile.first_name}</p>
                     <p className={block('user-result')}>{LOCAL.RECORD}: result</p>
                 </div>
                 <Divider />
@@ -67,13 +54,6 @@ export const Home: React.FC<PageComponentProps> = React.memo(() => {
                         onClick={handleLogout}
                     >
                         {LOCAL.EXIT}
-                    </Button>
-                    <Button
-                        variant="contained"
-                        color="secondary"
-                        onClick={handleShowLoader}
-                    >
-                        Показать лоадер
                     </Button>
                 </ButtonsToolbar>
             </Paper>
