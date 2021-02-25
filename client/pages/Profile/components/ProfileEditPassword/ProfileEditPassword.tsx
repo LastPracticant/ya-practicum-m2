@@ -17,7 +17,9 @@ export const ProfileEditPassword: React.FC = React.memo(() => {
     const dispatch = useDispatch();
     const profile = useSelector(profileSelector);
 
-    if (!profile) return <Redirect to={ROUTES.SIGNIN.path} />;
+    if (!profile) {
+        return <Redirect to={ROUTES.SIGNIN.path} />;
+    }
 
     const { control, handleSubmit, errors } = useForm<ChangePasswordProps>();
 

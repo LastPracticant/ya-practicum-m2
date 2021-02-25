@@ -18,7 +18,9 @@ import { PROFILE_FORM_CONTROLS } from './ProfileForm.config';
 export const ProfileForm: React.FC = React.memo(() => {
     const profile = useSelector(profileSelector);
 
-    if (!profile) return <Redirect to={ROUTES.SIGNIN.path} />;
+    if (!profile) {
+        return <Redirect to={ROUTES.SIGNIN.path} />;
+    }
 
     const { control } = useForm<CurrentUserInfoProps>({ defaultValues: profile });
 

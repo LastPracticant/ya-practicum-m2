@@ -15,7 +15,9 @@ export const ProfileEdit: React.FC = React.memo(() => {
     const profile = useSelector(profileSelector);
     const dispatch = useDispatch();
 
-    if (!profile) return <Redirect to={ROUTES.SIGNIN.path} />;
+    if (!profile) {
+        return <Redirect to={ROUTES.SIGNIN.path} />;
+    }
 
     const {
         control,
@@ -28,7 +30,9 @@ export const ProfileEdit: React.FC = React.memo(() => {
     const onChangeAvatar = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const blob = e.target.files?.item(0);
 
-        if (!blob) return;
+        if (!blob) {
+            return;
+        }
 
         const formData = new FormData();
 
