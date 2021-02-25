@@ -1,4 +1,5 @@
-import { FnActionProps, Store } from 'client/shared/types';
+import { StoreGameProps } from 'client/core/store';
+import { FnActionRequaredProps, Store } from 'client/shared/types';
 import { getRandomIntInclusive } from 'client/shared/utils';
 import {
     CONTROLS,
@@ -171,7 +172,7 @@ export class GamePainter {
         });
     }
 
-    checkEncounters(gameOverFn?: FnActionProps) {
+    checkEncounters(options: DrawCanvasProps, gameOverFn?: FnActionRequaredProps<StoreGameProps>) {
         const anemyExplosionShiftY = 30;
         const heroExplosionShiftY = 5;
 
@@ -200,11 +201,14 @@ export class GamePainter {
 
                 this.hero.lifes--;
             }
-
-            if (this.hero.lifes === 0) {
-                gameOverFn?.();
-            }
         });
+
+        if (this.hero.lifes === 0) {
+            gameOverFn?.({
+                isOver: true,
+                score: options.shift,
+            });
+        }
     }
 
     drawExplosion({
@@ -326,14 +330,14 @@ export class GamePainter {
         }
     }
 
-    drawCanvas(options: DrawCanvasProps, gameOverFn?: FnActionProps) {
+    drawCanvas(options: DrawCanvasProps, gameOverFn?: FnActionRequaredProps<StoreGameProps>) {
         const { ctx, resources } = options;
 
         if (!resources) return;
 
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
-        this.checkEncounters(gameOverFn);
+        this.checkEncounters(options, gameOverFn);
         this.drawBg(options);
         this.drawHero(options);
         this.drawLifes(options);

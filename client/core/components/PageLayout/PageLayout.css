@@ -10,6 +10,7 @@
         height: 100%;
         padding: var(--space-lg);
         background-color: #212121;
+        position: relative;
     }
 
     &__go-back {

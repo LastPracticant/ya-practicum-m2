@@ -1,22 +1,28 @@
-import { ROUTES } from 'client/routing';
-import { FnActionProps } from 'client/shared/types';
+import { gameSelector, StoreGameProps } from 'client/core/store';
+import { gameOverAction } from 'client/core/store/actions/game.actions';
+import { FnActionRequaredProps } from 'client/shared/types';
 import { useEffect, useRef } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { ANIMATION, CONTROLS } from './GameCanvas.config';
 import { DrawCanvasProps } from './GamePainter';
 import { CanvasResourcesProps, ResourcesLoader, ResourcesProps } from './ResourcesLoader';
 
-export type DrawCanvasFn = (props: DrawCanvasProps, gameOverFn?: FnActionProps) => void;
+export type DrawCanvasFn = (
+    props: DrawCanvasProps, gameOverFn?: FnActionRequaredProps<StoreGameProps>
+) => void;
 
 export const useCanvas = (drawCanvas: DrawCanvasFn, resources?: CanvasResourcesProps) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    const history = useHistory();
+    const { game: gameState } = useSelector(gameSelector);
+    const dispatch = useDispatch();
 
-    const handleGameOver = () => {
-        history.push(ROUTES.GAME_OVER.path);
+    const handleGameOver = (payload: StoreGameProps) => {
+        dispatch(gameOverAction(payload));
     };
 
     useEffect(() => {
+        if (gameState.isOver) return;
+
         const canvas = canvasRef.current;
         const ctx = canvas?.getContext('2d');
 
@@ -25,13 +31,14 @@ export const useCanvas = (drawCanvas: DrawCanvasFn, resources?: CanvasResourcesP
         const startTime = performance.now();
         const animationTime = ANIMATION.time;
         let animationFrameId: number;
+
         let frameCount = 0;
 
         let keyPress: string | null;
         const handleHeroAction = (e: KeyboardEvent) => {
             keyPress = e.code;
 
-            if (![CONTROLS.jump, CONTROLS.down].includes(e.code)) {
+            if (![CONTROLS.jump, CONTROLS.down, CONTROLS.shote].includes(e.code)) {
                 e.preventDefault();
             }
         };
@@ -54,7 +61,7 @@ export const useCanvas = (drawCanvas: DrawCanvasFn, resources?: CanvasResourcesP
             keyPress = null;
 
             animationFrameId = window.requestAnimationFrame(() => {
-                renderCanvas(loadedResources);
+                if (!gameState.isOver) renderCanvas(loadedResources);
             });
         };
 
@@ -69,7 +76,7 @@ export const useCanvas = (drawCanvas: DrawCanvasFn, resources?: CanvasResourcesP
             window.cancelAnimationFrame(animationFrameId);
             document.removeEventListener('keydown', handleHeroAction, false);
         };
-    }, []);
+    }, [gameState]);
 
     return canvasRef;
 };

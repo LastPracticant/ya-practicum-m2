@@ -12,7 +12,7 @@ import { red } from '@material-ui/core/colors';
 import './shared/styles/theme.css';
 import { useSelector } from 'react-redux';
 import { Loader } from './shared/components';
-import { loaderSelector } from './core/store/selectors';
+import { loaderSelector } from './core/store';
 
 const theme = createMuiTheme({
     palette: {
