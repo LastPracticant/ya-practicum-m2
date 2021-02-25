@@ -1,4 +1,4 @@
-import { AuthAPI, SigninProps } from 'client/core/api';
+import { AuthAPI, SigninProps, SignupProps } from 'client/core/api';
 import { Action } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import { StoreProps } from '../store.types';
@@ -12,6 +12,18 @@ export const thunkLogin = (
     dispatch(showLoaderAction());
 
     AuthAPI.signin(data).finally(() => {
+        dispatch(hideLoaderAction());
+    });
+};
+
+export const thunkSignup = (
+    data: SignupProps,
+): ThunkAction<void, StoreProps, unknown, Action<string>> => (
+    dispatch,
+) => {
+    dispatch(showLoaderAction());
+
+    AuthAPI.signup(data).finally(() => {
         dispatch(hideLoaderAction());
     });
 };

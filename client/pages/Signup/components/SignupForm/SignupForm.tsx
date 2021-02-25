@@ -4,6 +4,8 @@ import React, { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { LOCAL, GRID_SPACE } from 'client/shared/consts';
 import { Button, Grid } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
+import { thunkSignup } from 'client/core/store';
 import { SIGNUP_FORM_CONTROLS } from './SignupForm.config';
 
 export const SignupForm: React.FC = React.memo(() => {
@@ -14,11 +16,13 @@ export const SignupForm: React.FC = React.memo(() => {
         setError,
     } = useForm<SignupProps>();
 
+    const dispatch = useDispatch();
+
     const onSubmit = (data: SignupProps) => {
         if (data.password !== data.password_confirm) {
             setError('password_confirm', { type: 'manual' });
         } else {
-            AuthAPI.signup(data);
+            dispatch(thunkSignup(data));
         }
     };
 
