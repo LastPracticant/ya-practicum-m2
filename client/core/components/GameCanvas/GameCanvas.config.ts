@@ -8,7 +8,7 @@ export const ANIMATION = {
 export const CONTROLS = {
     jump: 'ArrowUp',
     down: 'ArrowDown',
-    shote: 'Space',
+    shot: 'Space',
 };
 
 export interface MoveOptionsProps {
@@ -58,7 +58,7 @@ export interface HeroProps {
     lifes: number
     ideas: number
     bulletSpeed: number
-    shotes: Pick<CanvasImageCoordinatesProps, 'dx' | 'dy' | 'dWidth' | 'dHeight'>[],
+    shots: Pick<CanvasImageCoordinatesProps, 'dx' | 'dy' | 'dWidth' | 'dHeight'>[],
 }
 
 export interface GameOptionProps {
@@ -134,6 +134,6 @@ export const GAME_OPTIONS: GameOptionProps = {
         lifes: 3,
         ideas: 3,
         bulletSpeed: 5,
-        shotes: [],
+        shots: [],
     },
 };

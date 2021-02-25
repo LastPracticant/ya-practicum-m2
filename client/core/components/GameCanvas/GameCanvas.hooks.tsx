@@ -38,7 +38,7 @@ export const useCanvas = (drawCanvas: DrawCanvasFn, resources?: CanvasResourcesP
         const handleHeroAction = (e: KeyboardEvent) => {
             keyPress = e.code;
 
-            if (![CONTROLS.jump, CONTROLS.down, CONTROLS.shote].includes(e.code)) {
+            if (![CONTROLS.jump, CONTROLS.down, CONTROLS.shot].includes(e.code)) {
                 e.preventDefault();
             }
         };

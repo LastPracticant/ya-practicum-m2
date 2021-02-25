@@ -19,6 +19,7 @@ export const LOCAL = {
     GAME_OVER: 'Игра закончена',
     GAME_RESET: 'Заново?',
     GAME_CONTROL: 'Управление',
+    GAME_SCORE: 'Счет',
     GAME_CONTROL_JUMP: 'Прыгнуть - стрелка вверх',
     GAME_CONTROL_DOWN: 'Присесть - стрелка вниз',
     GAME_CONTROL_SHOTE: 'Выстрел - пробел',

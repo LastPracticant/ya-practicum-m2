@@ -27,7 +27,7 @@ export const GameOver: React.FC<GameOverProps> = React.memo(({
                         <a href={ROUTES.GAME.path}>{LOCAL.GAME_RESET}</a>
                     </h3>
                     <p>
-                        Счет: {score}
+                        {LOCAL.GAME_SCORE}: {score}
                     </p>
                 </div>
             </NivelatorXY>

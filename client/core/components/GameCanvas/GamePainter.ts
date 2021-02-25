@@ -178,15 +178,15 @@ export class GamePainter {
 
         this.enemies.army.forEach((enemy, i) => {
             /** Столкновение врагов со снарядами */
-            this.hero.shotes.forEach((shote, j) => {
-                if (isHaveBulletEncounter(shote, enemy)) {
+            this.hero.shots.forEach((shot, j) => {
+                if (isHaveBulletEncounter(shot, enemy)) {
                     this.explosion.encounters.push({
                         ...this.explosion.cutOptions,
-                        dx: shote.dx,
-                        dy: shote.dy - anemyExplosionShiftY,
+                        dx: shot.dx,
+                        dy: shot.dy - anemyExplosionShiftY,
                     });
                     this.enemies.army.splice(i, 1);
-                    this.hero.shotes.splice(j, 1);
+                    this.hero.shots.splice(j, 1);
                 }
             });
 
@@ -262,16 +262,16 @@ export class GamePainter {
 
         const { idea } = resources;
 
-        this.hero.shotes.forEach((shote, index) => {
+        this.hero.shots.forEach((shot, index) => {
             ctx.drawImage(
                 idea,
-                shote.dx,
-                shote.dy,
+                shot.dx,
+                shot.dy,
                 30,
                 30,
             );
 
-            this.hero.shotes[index].dx += this.hero.bulletSpeed;
+            this.hero.shots[index].dx += this.hero.bulletSpeed;
         });
     }
 
@@ -326,8 +326,8 @@ export class GamePainter {
             this.hero.coord.dHeight,
         );
 
-        if (keyPress === CONTROLS.shote && this.hero.ideas) {
-            this.hero.shotes.push({
+        if (keyPress === CONTROLS.shot && this.hero.ideas) {
+            this.hero.shots.push({
                 dx: this.hero.coord.dx + this.hero.coord.dWidth,
                 dy: this.hero.coord.dy + 35,
                 dWidth: 30,
