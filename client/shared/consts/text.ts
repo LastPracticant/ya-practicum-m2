@@ -8,3 +8,5 @@ export const BACK = 'Назад';
 export const AVATAR_DEFAULT = 'LP';
 export const RECORD = 'Рекорд';
 export const EXIT = 'Выйти';
+export const LEADERBOARD_COLUMN_PLAYER = 'Игрок';
+export const LEADERBOARD_COLUMN_SCORE = 'Счет';

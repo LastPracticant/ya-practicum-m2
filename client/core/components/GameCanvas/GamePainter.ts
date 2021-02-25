@@ -1,4 +1,6 @@
-import { CONTROLS } from './GameCanvas.config';
+import { getRandomIntInclusive } from 'client/shared/utils';
+import { CONTROLS, EnemyTypeProps, GAME_OPTIONS } from './GameCanvas.config';
+import { drawImage, isHaveBulletEncounter, isHaveHeroEncounter } from './GameCanvas.utils';
 import { ResourcesProps } from './ResourcesLoader';
 
 export interface DrawCanvasProps {
@@ -9,73 +11,24 @@ export interface DrawCanvasProps {
     resources?: ResourcesProps
 }
 
-interface MoveOptionsProps {
-    pressed: boolean
-    count: number
-    length: number
-    height: number
-}
-
-interface MoveProps {
-    [key: string]: MoveOptionsProps
-}
-
-interface ShoteProps {
-    x: number
-    y: number
-}
-
-interface EnemiesProps {
-    x: number
-    y: number
-}
-
 export interface DrawCanvasPartProps extends DrawCanvasProps {}
 
 export class GamePainter {
-    move: MoveProps = {
-        jump: {
-            pressed: false,
-            count: 0,
-            length: 50,
-            height: 0,
-        },
-        down: {
-            pressed: false,
-            count: 0,
-            length: 20,
-            height: 0,
-        },
-    };
+    move = GAME_OPTIONS.move;
 
-    explosion = {
-        shiftX: 0,
-        shiftY: 0,
-        width: 120,
-        height: 90,
-    };
+    explosion = GAME_OPTIONS.explosion;
 
-    enemies = {
-        tickCounter: 0,
-        set: [] as EnemiesProps[],
-    };
+    enemies = GAME_OPTIONS.enemies;
 
-    hero = {
-        width: 75,
-        height: 80,
-        position: {
-            x: 210,
-            y: 210,
+    hero = GAME_OPTIONS.hero;
+
+    levels = [
+        {
+            enemies: [0, 1, 4],
         },
-        currentPosition: {
-            x: 0,
-            y: 0,
-        },
-        lifes: 3,
-        ideas: 3,
-        bulletSpeed: 5,
-        shotes: [] as ShoteProps[],
-    };
+    ];
+
+    currentLevel = 0;
 
     constructor() {
         this.drawBg = this.drawBg.bind(this);
@@ -137,7 +90,58 @@ export class GamePainter {
         }
     }
 
-    // TODO: доработать в LP-41
+    calculateEnemiesDY(enemy: EnemyTypeProps, ctx: CanvasRenderingContext2D) {
+        const basePosition = ctx.canvas.height - this.hero.shiftY;
+        const airUnits = basePosition - 80;
+        const earthUnits = basePosition + 10;
+
+        switch (enemy.type) {
+        case 'companyAir':
+            return airUnits;
+        case 'technologyAir':
+            return airUnits;
+        default:
+            return earthUnits;
+        }
+    }
+
+    generateEnemies({
+        ctx,
+    }: DrawCanvasProps) {
+        const levelEnemies = this.levels[this.currentLevel].enemies;
+        const enemiesTypes = this.enemies.types;
+        const randomEnemyType = levelEnemies[getRandomIntInclusive(0, levelEnemies.length - 1)];
+        const calcEnemy = enemiesTypes[randomEnemyType];
+        const randomEnemyNumber = getRandomIntInclusive(
+            1, calcEnemy.sWidth / calcEnemy.unitWidth,
+        );
+
+        if (this.enemies.tickCounter < this.enemies.frequency) {
+            this.enemies.tickCounter++;
+
+            return;
+        }
+
+        this.enemies.army.push({
+            sx: (randomEnemyNumber - 1) * calcEnemy.unitWidth,
+            sy: calcEnemy.sy,
+            sWidth: calcEnemy.unitWidth,
+            sHeight: calcEnemy.unitHeight,
+            dx: this.enemies.army.length
+                ? ctx.canvas.width + getRandomIntInclusive(0, 100)
+                : ctx.canvas.width,
+            dy: this.calculateEnemiesDY(calcEnemy, ctx),
+            dWidth: calcEnemy.unitWidth,
+            dHeight: calcEnemy.unitHeight,
+        });
+
+        if (this.enemies.army.length > 20) {
+            this.enemies.army.splice(0, this.enemies.army.length / 2);
+        }
+
+        this.enemies.tickCounter = 0;
+    }
+
     drawEnemies({
         ctx,
         resources,
@@ -146,24 +150,41 @@ export class GamePainter {
 
         const { enemies } = resources;
 
-        this.enemies.set.forEach((enemy) => {
-            ctx.drawImage(enemies, 0, 0, 90, 90, enemy.x, enemy.y, 90, 90);
+        this.enemies.army.forEach((coord, index) => {
+            drawImage(enemies, coord, ctx);
+
+            this.enemies.army[index].dx -= this.hero.bulletSpeed;
         });
+    }
 
-        if (this.enemies.tickCounter < 100) {
-            this.enemies.tickCounter++;
+    checkEncounters() {
+        const anemyExplosionShiftY = 30;
+        const heroExplosionShiftY = 5;
 
-            this.enemies.set.push({
-                x: 300,
-                y: ctx.canvas.height - this.hero.position.y,
+        this.enemies.army.forEach((enemy, i) => {
+            /** Столкновение врагов со снарядами */
+            this.hero.shotes.forEach((shote, j) => {
+                if (isHaveBulletEncounter(shote, enemy)) {
+                    this.explosion.encounters.push({
+                        ...this.explosion.cutOptions,
+                        dx: shote.dx,
+                        dy: shote.dy - anemyExplosionShiftY,
+                    });
+                    this.enemies.army.splice(i, 1);
+                    this.hero.shotes.splice(j, 1);
+                }
             });
-        }
 
-        this.enemies.tickCounter = 0;
-
-        if (this.enemies.set.length > 20) {
-            this.enemies.set = [];
-        }
+            /** Столкновение врагов с главным героем */
+            if (isHaveHeroEncounter(this.hero.coord, enemy)) {
+                this.explosion.encounters.push({
+                    ...this.explosion.cutOptions,
+                    dx: this.hero.coord.dx,
+                    dy: this.hero.coord.dy - heroExplosionShiftY,
+                });
+                this.enemies.army.splice(i, 1);
+            }
+        });
     }
 
     drawExplosion({
@@ -174,37 +195,36 @@ export class GamePainter {
 
         const { explosion } = resources;
 
+        let isDone = false;
+
         /** Длина за вычетом 1 кадра. Полная длина 1500. */
         const spriteWidth = 1200;
-        /** Длина кадра. */
-        const frameWidth = 300;
         /** Высота за вычетом 1 кадра. Полная высота 1000. */
         const spriteHeight = 800;
-        /** Высота кадра. */
-        const frameHeight = 200;
 
-        if (this.explosion.shiftX === spriteWidth) {
-            this.explosion.shiftX = 0;
-            this.explosion.shiftY += frameHeight;
-        } else {
-            this.explosion.shiftX += frameWidth;
-        }
+        this.explosion.encounters.forEach((encounter, index) => {
+            if (encounter.sx === spriteWidth) {
+                encounter.sx = 0;
+                encounter.sy += encounter.sHeight;
+            } else {
+                encounter.sx += encounter.sWidth;
+                isDone = false;
+            }
 
-        if (this.explosion.shiftY === spriteHeight) {
-            this.explosion.shiftY = 0;
-        }
+            if (
+                encounter.sy === spriteHeight
+                && encounter.sx === spriteWidth
+            ) {
+                encounter.sy = 0;
+                isDone = true;
+            }
 
-        ctx.drawImage(
-            explosion,
-            this.explosion.shiftX,
-            this.explosion.shiftY,
-            frameWidth,
-            frameHeight,
-            500,
-            ctx.canvas.height - this.hero.position.x,
-            this.explosion.width,
-            this.explosion.height,
-        );
+            drawImage(explosion, encounter, ctx);
+
+            if (isDone) {
+                this.explosion.encounters.splice(index, 1);
+            }
+        });
     }
 
     drawShote({ ctx, resources }: DrawCanvasPartProps) {
@@ -215,13 +235,13 @@ export class GamePainter {
         this.hero.shotes.forEach((shote, index) => {
             ctx.drawImage(
                 idea,
-                shote.x,
-                shote.y,
+                shote.dx,
+                shote.dy,
                 30,
                 30,
             );
 
-            this.hero.shotes[index].x += this.hero.bulletSpeed;
+            this.hero.shotes[index].dx += this.hero.bulletSpeed;
         });
     }
 
@@ -247,7 +267,7 @@ export class GamePainter {
         }
 
         if (this.move.down.pressed) {
-            this.drawHeroMove('down');
+            this.move.down.count++;
         }
 
         if (this.move.jump.count > this.move.jump.length) {
@@ -258,22 +278,30 @@ export class GamePainter {
             this.resetHeroMove('down');
         }
 
-        this.hero.currentPosition.y = (
-            ctx.canvas.height - this.hero.position.y - this.move.jump.height + this.move.down.height
-        );
+        this.hero.coord.dy = this.move.down.pressed
+            ? ctx.canvas.height - this.hero.shiftY + 10
+            : (
+                ctx.canvas.height - this.hero.shiftY - this.move.jump.height + this.move.down.height
+            );
 
         ctx.drawImage(
             hero,
-            this.hero.position.x,
-            this.hero.currentPosition.y,
-            this.hero.width,
-            this.hero.height,
+            0,
+            this.move.down.pressed ? this.hero.coord.dHeight : 0,
+            this.hero.coord.sWidth,
+            this.hero.coord.sHeight,
+            this.hero.coord.dx,
+            this.hero.coord.dy,
+            this.hero.coord.dWidth,
+            this.hero.coord.dHeight,
         );
 
         if (keyPress === CONTROLS.shote) {
             this.hero.shotes.push({
-                x: this.hero.position.x + this.hero.width,
-                y: this.hero.currentPosition.y + 35,
+                dx: this.hero.coord.dx + this.hero.coord.dWidth,
+                dy: this.hero.coord.dy + 35,
+                dWidth: 30,
+                dHeight: 30,
             });
         }
     }
@@ -285,12 +313,14 @@ export class GamePainter {
 
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
+        this.checkEncounters();
         this.drawBg(options);
         this.drawHero(options);
         this.drawLifes(options);
         this.drawIdeas(options);
         this.drawExplosion(options);
         this.drawShote(options);
+        this.generateEnemies(options);
         this.drawEnemies(options);
     }
 }
