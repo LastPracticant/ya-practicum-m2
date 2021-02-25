@@ -3,7 +3,7 @@ import { PageComponentProps } from 'client/shared/types';
 import './Home.css';
 import { ButtonsToolbar, NivelatorXY, Paper } from 'client/shared/components';
 import {
-    Button, Divider, List, ListItem,
+    Button, Divider, List, ListItem, Avatar,
 } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import {
@@ -11,7 +11,7 @@ import {
     showLoaderAction,
 } from 'client/core/store/actions/loader.actions';
 import bem from 'bem-cn';
-import { RECORD, EXIT } from 'client/shared/consts';
+import { RECORD, EXIT, AVATAR_DEFAULT } from 'client/shared/consts';
 import { ROUTES } from 'client/routing';
 import { Link, useHistory } from 'react-router-dom';
 import { AuthAPI } from 'client/core/api';
@@ -36,12 +36,12 @@ export const Home: React.FC<PageComponentProps> = React.memo(() => {
         history.push(ROUTES.SIGNIN.path);
     };
 
-    const names = ['GAME_START', 'PROFILE', 'LEADERBOARD', 'FORUM'];
+    const routes = [ROUTES.GAME_START, ROUTES.PROFILE, ROUTES.LEADERBOARD, ROUTES.FORUM];
     const controls = useMemo(() => (
-        names.map((name) => (
-            <ListItem key={`list-${name}`}>
-                <Link to={ROUTES[name].path}>
-                    {ROUTES[name].title}
+        routes.map((route) => (
+            <ListItem key={route.title}>
+                <Link to={route.path}>
+                    {route.title}
                 </Link>
             </ListItem>
         ))
@@ -49,7 +49,7 @@ export const Home: React.FC<PageComponentProps> = React.memo(() => {
 
     return (
         <NivelatorXY className={block()}>
-            <div className={block('logo')} />
+            <Avatar>{AVATAR_DEFAULT}</Avatar>
             <Paper className={block('paper')} sizes="small">
                 <div className={block('userdata')}>
                     <div className={block('avatar', { small: true })} />

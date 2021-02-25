@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect } from 'react';
+import React, { useMemo } from 'react';
 import { Grid, Button, Avatar } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
 import { CurrentUserInfoProps } from 'client/core/api';
@@ -9,29 +9,23 @@ import {
     AVATAR_DEFAULT,
 } from 'client/shared/consts';
 import { InputControl } from 'client/shared/components';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { ROUTES } from 'client/routing';
 import { profileSelector } from 'client/core/store/selectors';
-import { useSelector, useDispatch } from 'react-redux';
-import { thunkCurrentUserInfo } from 'client/core/store';
+import { useSelector } from 'react-redux';
 import { PROFILE_FORM_CONTROLS } from './ProfileForm.config';
 
 export const ProfileForm: React.FC = React.memo(() => {
     const profile = useSelector(profileSelector);
-    const dispatch = useDispatch();
 
-    const { control, reset } = useForm<CurrentUserInfoProps>();
+    if (!profile) return <Redirect to={ROUTES.SIGNIN.path} />;
 
-    useEffect(() => {
-        if (!profile) dispatch(thunkCurrentUserInfo());
-    }, []);
-
-    useEffect(() => reset(profile), [profile]);
+    const { control } = useForm<CurrentUserInfoProps>({ defaultValues: profile });
 
     const controls = useMemo(
         () => PROFILE_FORM_CONTROLS.map((inputConfig) => (
                 <InputControl
-                    key={`input-${inputConfig.name}`}
+                    key={inputConfig.name}
                     disabled
                     fullWidth
                     variant="outlined"
@@ -55,7 +49,7 @@ export const ProfileForm: React.FC = React.memo(() => {
                     direction="column"
                     alignItems="center"
                 >
-                    <Avatar src={profile.avatar}>{AVATAR_DEFAULT}</Avatar>
+                    <Avatar src={profile?.avatar}>{AVATAR_DEFAULT}</Avatar>
                     {controls}
                 </Grid>
                 <Grid container item xs={12} justify="center" spacing={1}>

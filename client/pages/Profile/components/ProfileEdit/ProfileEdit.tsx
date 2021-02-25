@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { ChangeProfileProps, CurrentUserInfoProps } from 'client/core/api';
 import { BACK, GRID_SPACE, SAVE } from 'client/shared/consts';
 import { InputControl, AvatarUpload } from 'client/shared/components';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { ROUTES } from 'client/routing';
 import { useSelector, useDispatch } from 'react-redux';
 import { profileSelector } from 'client/core/store/selectors';
@@ -14,6 +14,8 @@ import { PROFILE_EDIT_CONTROLS } from './ProfileEdit.config';
 export const ProfileEdit: React.FC = React.memo(() => {
     const profile = useSelector(profileSelector);
     const dispatch = useDispatch();
+
+    if (!profile) return <Redirect to={ROUTES.SIGNIN.path} />;
 
     const {
         control,
@@ -40,7 +42,7 @@ export const ProfileEdit: React.FC = React.memo(() => {
             const error = errors[name as keyof typeof errors]?.message;
             return (
                     <InputControl
-                        key={`input-${name}`}
+                        key={name}
                         fullWidth
                         variant="outlined"
                         margin="dense"
@@ -67,7 +69,7 @@ export const ProfileEdit: React.FC = React.memo(() => {
                     <AvatarUpload
                         onChange={onChangeAvatar}
                         name="avatar"
-                        src={profile.avatar}
+                        src={profile?.avatar}
                     />
                     {controls}
                 </Grid>
