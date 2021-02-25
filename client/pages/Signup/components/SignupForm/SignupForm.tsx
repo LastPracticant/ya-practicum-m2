@@ -2,7 +2,7 @@ import { InputControl } from 'client/shared/components';
 import { AuthAPI, SignupProps } from 'client/core/api';
 import React, { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
-import { REGISTER, GRID_SPACE } from 'client/shared/consts';
+import { LOCAL, GRID_SPACE } from 'client/shared/consts';
 import { Button, Grid } from '@material-ui/core';
 import { SIGNUP_FORM_CONTROLS } from './SignupForm.config';
 
@@ -55,7 +55,7 @@ export const SignupForm: React.FC = React.memo(() => {
                 </Grid>
                 <Grid container item xs={12} justify="center" spacing={1}>
                     <Button color="primary" type="submit" variant="contained">
-                        {REGISTER}
+                        {LOCAL.REGISTER}
                     </Button>
                 </Grid>
             </Grid>

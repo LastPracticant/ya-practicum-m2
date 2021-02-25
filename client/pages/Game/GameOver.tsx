@@ -6,6 +6,7 @@ import { NivelatorXY, Paper } from 'client/shared/components';
 import { ROUTES } from 'client/routing';
 import bem from 'bem-cn';
 import { StoreGameProps } from 'client/core/store';
+import { LOCAL } from 'client/shared/consts';
 import gameOver from './game-over.png';
 
 interface GameOverProps extends PageComponentProps, StoreGameProps {}
@@ -20,10 +21,10 @@ export const GameOver: React.FC<GameOverProps> = React.memo(({
             <NivelatorXY>
                 <div className={block('help')}>
                     <div className={block('banner')}>
-                        <img src={gameOver} alt="Игра закончена" />
+                        <img src={gameOver} alt={LOCAL.GAME_OVER} />
                     </div>
                     <h3>
-                        <a href={ROUTES.GAME.path}>Заново?</a>
+                        <a href={ROUTES.GAME.path}>{LOCAL.GAME_RESET}</a>
                     </h3>
                     <p>
                         Счет: {score}

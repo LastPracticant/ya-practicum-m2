@@ -4,7 +4,7 @@ import React, { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { ROUTES } from 'client/routing';
-import { AUTHORIZE, NO_ACCOUNT, GRID_SPACE } from 'client/shared/consts';
+import { LOCAL, GRID_SPACE } from 'client/shared/consts';
 import { Button, Grid } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { thunkLogin } from 'client/core/store';
@@ -52,7 +52,7 @@ export const SigninForm: React.FC = React.memo(() => {
                 <Grid container item xs={12} justify="center" spacing={1}>
                     <Grid item>
                         <Button color="primary" type="submit" variant="contained">
-                            {AUTHORIZE}
+                            {LOCAL.AUTHORIZE}
                         </Button>
                     </Grid>
                     <Grid item>
@@ -61,7 +61,7 @@ export const SigninForm: React.FC = React.memo(() => {
                             to={ROUTES.SIGNUP.path}
                             color="primary"
                         >
-                            {NO_ACCOUNT}
+                            {LOCAL.NO_ACCOUNT}
                         </Button>
                     </Grid>
                 </Grid>

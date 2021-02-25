@@ -3,13 +3,14 @@ import { CellParams, Columns } from '@material-ui/data-grid';
 import { Link } from 'react-router-dom';
 import bem from 'bem-cn';
 import { ROUTES } from 'client/routing';
+import { LOCAL } from 'client/shared/consts';
 
 export const block = bem('forum');
 
 export const columns: Columns = [
     {
         field: 'topic',
-        headerName: 'Тема',
+        headerName: LOCAL.FORUM_COLUMN_TOPIC,
         flex: 1,
         sortable: false,
         renderCell: (params: CellParams) => (
@@ -20,7 +21,7 @@ export const columns: Columns = [
     },
     {
         field: 'reviews',
-        headerName: 'Просмотры',
+        headerName: LOCAL.FORUM_COLUMN_REVIEWS,
         width: 150,
         align: 'center',
         headerAlign: 'center',
@@ -28,7 +29,7 @@ export const columns: Columns = [
     },
     {
         field: 'answers',
-        headerName: 'Ответы',
+        headerName: LOCAL.FORUM_COLUMN_ANSWERS,
         width: 150,
         align: 'center',
         headerAlign: 'center',
@@ -36,7 +37,7 @@ export const columns: Columns = [
     },
     {
         field: 'autor',
-        headerName: 'Автор',
+        headerName: LOCAL.FORUM_COLUMN_AUTOR,
         width: 200,
         sortable: false,
     },

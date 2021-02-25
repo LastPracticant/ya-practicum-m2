@@ -3,7 +3,7 @@ import { Grid, Button, Avatar } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
 import { ProfileAPI, ChangePasswordProps } from 'client/core/api';
 import {
-    BACK, GRID_SPACE, AVATAR_DEFAULT, SAVE,
+    GRID_SPACE, LOCAL,
 } from 'client/shared/consts';
 import { InputControl } from 'client/shared/components';
 import { Link } from 'react-router-dom';
@@ -46,13 +46,13 @@ export const ProfileEditPassword: React.FC = React.memo(() => {
                     direction="column"
                     alignItems="center"
                 >
-                    <Avatar className="avatar-upload">{AVATAR_DEFAULT}</Avatar>
+                    <Avatar className="avatar-upload">{LOCAL.AVATAR_DEFAULT}</Avatar>
                     {controls}
                 </Grid>
                 <Grid container item xs={12} justify="center" spacing={1}>
                     <Grid item>
                         <Button color="primary" type="submit" variant="contained">
-                            {SAVE}
+                            {LOCAL.SAVE}
                         </Button>
                     </Grid>
                     <Grid item>
@@ -61,7 +61,7 @@ export const ProfileEditPassword: React.FC = React.memo(() => {
                             to={ROUTES.PROFILE.path}
                             color="primary"
                         >
-                            {BACK}
+                            {LOCAL.BACK}
                         </Button>
                     </Grid>
                 </Grid>
