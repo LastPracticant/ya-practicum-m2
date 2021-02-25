@@ -1,59 +1,44 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { Grid, Button } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
-import {
-    ProfileAPI,
-    ChangeProfileProps,
-    CurrentUserInfoProps,
-    API_HOST,
-    AuthAPI,
-} from 'client/core/api';
+import { ChangeProfileProps, CurrentUserInfoProps } from 'client/core/api';
 import { GRID_SPACE, LOCAL } from 'client/shared/consts';
 import { InputControl, AvatarUpload } from 'client/shared/components';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { ROUTES } from 'client/routing';
+import { useSelector, useDispatch } from 'react-redux';
+import { profileSelector } from 'client/core/store/selectors';
+import { thunkEditProfile, thunkEditAvatar } from 'client/core/store';
 import { PROFILE_EDIT_CONTROLS } from './ProfileEdit.config';
 
 export const ProfileEdit: React.FC = React.memo(() => {
+    const profile = useSelector(profileSelector);
+    const dispatch = useDispatch();
+
+    if (!profile) {
+        return <Redirect to={ROUTES.SIGNIN.path} />;
+    }
+
     const {
         control,
         handleSubmit,
         errors,
-        register,
-        reset,
-    } = useForm<CurrentUserInfoProps>();
+    } = useForm<CurrentUserInfoProps>({ defaultValues: profile });
 
-    const [avatar, setAvatar] = useState('');
+    const onSubmit = (data: ChangeProfileProps) => dispatch(thunkEditProfile(data));
 
-    const updateForm = async () => {
-        const userInfo = await AuthAPI.getCurrentUserInfo();
+    const onChangeAvatar = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        const blob = e.target.files?.item(0);
 
-        const { avatar: userAvatar, ...restInfo } = userInfo;
+        if (!blob) {
+            return;
+        }
 
-        setAvatar(API_HOST + userAvatar);
-
-        reset(restInfo);
-    };
-
-    const onSubmit = async (data: ChangeProfileProps) => {
-        await ProfileAPI.change(data);
-
-        updateForm();
-    };
-
-    const onChangeAvatar = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        const {
-            target: { files },
-        } = e;
-        const blob = files?.item(0);
-        if (!blob) return;
         const formData = new FormData();
+
         formData.append('avatar', blob);
-
-        await ProfileAPI.changeAvatar(formData);
-
-        updateForm();
-    };
+        dispatch(thunkEditAvatar(formData));
+    }, []);
 
     const controls = useMemo(
         () => PROFILE_EDIT_CONTROLS.map((inputConfig) => {
@@ -61,6 +46,7 @@ export const ProfileEdit: React.FC = React.memo(() => {
             const error = errors[name as keyof typeof errors]?.message;
             return (
                     <InputControl
+                        key={name}
                         fullWidth
                         variant="outlined"
                         margin="dense"
@@ -85,10 +71,9 @@ export const ProfileEdit: React.FC = React.memo(() => {
                     alignItems="center"
                 >
                     <AvatarUpload
-                        ref={register}
                         onChange={onChangeAvatar}
                         name="avatar"
-                        src={avatar}
+                        src={profile?.avatar}
                     />
                     {controls}
                 </Grid>

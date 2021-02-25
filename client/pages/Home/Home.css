@@ -42,12 +42,12 @@
         font-weight: 600;
     }
 
-    &__user-result {
+    &__user-score {
         font-size: 12px;
         opacity: 0.6;
     }
 
-    &__header {
+    &__logo {
         width: 334px;
         height: 30px;
         margin: var(--space-lg);

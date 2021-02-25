@@ -42,7 +42,9 @@ export class ResourcesLoader {
         let ready = true;
 
         Object.keys(this._loadStatuses).forEach((key) => {
-            if (!this._loadStatuses[key]) ready = false;
+            if (!this._loadStatuses[key]) {
+                ready = false;
+            }
         });
 
         return ready;

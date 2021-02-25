@@ -21,7 +21,9 @@ export const API_HOST = 'https://ya-praktikum.tech';
 export const API_BASE_PATH = `${API_HOST}/api/v2`;
 
 export function queryStringify<T extends object>(data: T): string {
-    if (!data) return '';
+    if (!data) {
+        return '';
+    }
 
     const queryArr = Object.entries(data).map(([key, value]) => `${key}=${value}`);
 

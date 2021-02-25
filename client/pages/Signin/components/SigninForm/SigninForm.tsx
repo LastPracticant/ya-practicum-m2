@@ -24,6 +24,7 @@ export const SigninForm: React.FC = React.memo(() => {
             const error = errors[name as keyof typeof errors]?.message;
             return (
                     <InputControl
+                        key={name}
                         fullWidth
                         margin="dense"
                         variant="outlined"

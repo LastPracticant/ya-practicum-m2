@@ -7,16 +7,25 @@ import {
     LOCAL,
 } from 'client/shared/consts';
 import { InputControl } from 'client/shared/components';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { ROUTES } from 'client/routing';
+import { profileSelector } from 'client/core/store/selectors';
+import { useSelector } from 'react-redux';
 import { PROFILE_FORM_CONTROLS } from './ProfileForm.config';
 
 export const ProfileForm: React.FC = React.memo(() => {
-    const { control } = useForm<CurrentUserInfoProps>();
+    const profile = useSelector(profileSelector);
+
+    if (!profile) {
+        return <Redirect to={ROUTES.SIGNIN.path} />;
+    }
+
+    const { control } = useForm<CurrentUserInfoProps>({ defaultValues: profile });
 
     const controls = useMemo(
         () => PROFILE_FORM_CONTROLS.map((inputConfig) => (
                 <InputControl
+                    key={inputConfig.name}
                     disabled
                     fullWidth
                     variant="outlined"
@@ -27,7 +36,7 @@ export const ProfileForm: React.FC = React.memo(() => {
                     {...inputConfig}
                 />
         )),
-        [],
+        [profile],
     );
 
     return (
@@ -40,7 +49,7 @@ export const ProfileForm: React.FC = React.memo(() => {
                     direction="column"
                     alignItems="center"
                 >
-                    <Avatar>{LOCAL.AVATAR_DEFAULT}</Avatar>
+                    <Avatar src={profile?.avatar}>{LOCAL.AVATAR_DEFAULT}</Avatar>
                     {controls}
                 </Grid>
                 <Grid container item xs={12} justify="center" spacing={1}>
