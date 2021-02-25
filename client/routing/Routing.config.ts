@@ -52,10 +52,6 @@ export const ROUTES: RoutesProps = {
         path: '/game-start',
         title: 'Начать игру',
     },
-    GAME_OVER: {
-        path: '/game-over',
-        title: 'Игра окончена',
-    },
     LEADERBOARD: {
         path: '/leaderboard',
         title: 'Таблица лидеров',

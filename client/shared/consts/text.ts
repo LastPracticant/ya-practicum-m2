@@ -1,12 +1,26 @@
-export const AUTHORIZE = 'Авторизоваться';
-export const REGISTER = 'Зарегистрироваться';
-export const NO_ACCOUNT = 'Нет пароля?';
-export const CHANGE_PROFILE_DATA = 'Изменить данные';
-export const CHANGE_PROFILE_PASSWORD = 'Изменить пароль';
-export const SAVE = 'Сохранить';
-export const BACK = 'Назад';
-export const AVATAR_DEFAULT = 'LP';
-export const RECORD = 'Рекорд';
-export const EXIT = 'Выйти';
-export const LEADERBOARD_COLUMN_PLAYER = 'Игрок';
-export const LEADERBOARD_COLUMN_SCORE = 'Счет';
+export const LOCAL = {
+    AUTHORIZE: 'Авторизоваться',
+    REGISTER: 'Зарегистрироваться',
+    NO_ACCOUNT: 'Нет пароля?',
+    CHANGE_PROFILE_DATA: 'Изменить данные',
+    CHANGE_PROFILE_PASSWORD: 'Изменить пароль',
+    SAVE: 'Сохранить',
+    BACK: 'Назад',
+    AVATAR_DEFAULT: 'LP',
+    RECORD: 'Рекорд',
+    EXIT: 'Выйти',
+    FORUM_COLUMN_TOPIC: 'Тема',
+    FORUM_COLUMN_REVIEWS: 'Просмотры',
+    FORUM_COLUMN_ANSWERS: 'Ответы',
+    FORUM_COLUMN_AUTOR: 'Автор',
+    LEADERBOARD_COLUMN_PLAYER: 'Игрок',
+    LEADERBOARD_COLUMN_SCORE: 'Счет',
+    GAME_START: 'Начать игру',
+    GAME_OVER: 'Игра закончена',
+    GAME_RESET: 'Заново?',
+    GAME_CONTROL: 'Управление',
+    GAME_SCORE: 'Счет',
+    GAME_CONTROL_JUMP: 'Прыгнуть - стрелка вверх',
+    GAME_CONTROL_DOWN: 'Присесть - стрелка вниз',
+    GAME_CONTROL_SHOTE: 'Выстрел - пробел',
+};

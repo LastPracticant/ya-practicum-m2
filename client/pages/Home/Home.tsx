@@ -11,7 +11,7 @@ import {
     showLoaderAction,
 } from 'client/core/store/actions/loader.actions';
 import bem from 'bem-cn';
-import { RECORD, EXIT, AVATAR_DEFAULT } from 'client/shared/consts';
+import { LOCAL } from 'client/shared/consts';
 import { ROUTES } from 'client/routing';
 import { Link, useHistory } from 'react-router-dom';
 import { AuthAPI } from 'client/core/api';
@@ -49,14 +49,12 @@ export const Home: React.FC<PageComponentProps> = React.memo(() => {
 
     return (
         <NivelatorXY className={block()}>
-            <Avatar>{AVATAR_DEFAULT}</Avatar>
+            <Avatar>{LOCAL.AVATAR_DEFAULT}</Avatar>
             <Paper className={block('paper')} sizes="small">
                 <div className={block('userdata')}>
                     <div className={block('avatar', { small: true })} />
                     <p className={block('username')}>username</p>
-                    <p className={block('user-score')}>
-                        {`${RECORD} : result`}
-                    </p>
+                    <p className={block('user-result')}>{LOCAL.RECORD}: result</p>
                 </div>
                 <Divider />
                 <List className={block('navigation-items').toString()}>
@@ -68,7 +66,7 @@ export const Home: React.FC<PageComponentProps> = React.memo(() => {
                         color="secondary"
                         onClick={handleLogout}
                     >
-                        {EXIT}
+                        {LOCAL.EXIT}
                     </Button>
                     <Button
                         variant="contained"

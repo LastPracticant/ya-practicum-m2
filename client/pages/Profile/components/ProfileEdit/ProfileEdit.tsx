@@ -2,7 +2,7 @@ import React, { useMemo, useCallback } from 'react';
 import { Grid, Button } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
 import { ChangeProfileProps, CurrentUserInfoProps } from 'client/core/api';
-import { BACK, GRID_SPACE, SAVE } from 'client/shared/consts';
+import { GRID_SPACE, LOCAL } from 'client/shared/consts';
 import { InputControl, AvatarUpload } from 'client/shared/components';
 import { Link, Redirect } from 'react-router-dom';
 import { ROUTES } from 'client/routing';
@@ -84,7 +84,7 @@ export const ProfileEdit: React.FC = React.memo(() => {
                             type="submit"
                             variant="contained"
                         >
-                            {SAVE}
+                            {LOCAL.SAVE}
                         </Button>
                     </Grid>
                     <Grid item>
@@ -93,7 +93,7 @@ export const ProfileEdit: React.FC = React.memo(() => {
                             to={ROUTES.PROFILE.path}
                             color="primary"
                         >
-                            {BACK}
+                            {LOCAL.BACK}
                         </Button>
                     </Grid>
                 </Grid>

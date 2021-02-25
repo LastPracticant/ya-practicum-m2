@@ -1,14 +1,28 @@
+import { gameSelector, StoreGameProps } from 'client/core/store';
+import { gameOverAction } from 'client/core/store/actions/game.actions';
+import { FnActionRequaredProps } from 'client/shared/types';
 import { useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { ANIMATION, CONTROLS } from './GameCanvas.config';
 import { DrawCanvasProps } from './GamePainter';
 import { CanvasResourcesProps, ResourcesLoader, ResourcesProps } from './ResourcesLoader';
 
-export type DrawCanvasFn = (props: DrawCanvasProps) => void;
+export type DrawCanvasFn = (
+    props: DrawCanvasProps, gameOverFn?: FnActionRequaredProps<StoreGameProps>
+) => void;
 
 export const useCanvas = (drawCanvas: DrawCanvasFn, resources?: CanvasResourcesProps) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
+    const { game: gameState } = useSelector(gameSelector);
+    const dispatch = useDispatch();
+
+    const handleGameOver = (payload: StoreGameProps) => {
+        dispatch(gameOverAction(payload));
+    };
 
     useEffect(() => {
+        if (gameState.isOver) return;
+
         const canvas = canvasRef.current;
         const ctx = canvas?.getContext('2d');
 
@@ -17,13 +31,14 @@ export const useCanvas = (drawCanvas: DrawCanvasFn, resources?: CanvasResourcesP
         const startTime = performance.now();
         const animationTime = ANIMATION.time;
         let animationFrameId: number;
+
         let frameCount = 0;
 
         let keyPress: string | null;
         const handleHeroAction = (e: KeyboardEvent) => {
             keyPress = e.code;
 
-            if (![CONTROLS.jump, CONTROLS.down].includes(e.code)) {
+            if (![CONTROLS.jump, CONTROLS.down, CONTROLS.shot].includes(e.code)) {
                 e.preventDefault();
             }
         };
@@ -41,7 +56,7 @@ export const useCanvas = (drawCanvas: DrawCanvasFn, resources?: CanvasResourcesP
                 resources: loadedResources,
                 keyPress,
                 frameCount,
-            });
+            }, handleGameOver);
 
             keyPress = null;
 
@@ -61,7 +76,7 @@ export const useCanvas = (drawCanvas: DrawCanvasFn, resources?: CanvasResourcesP
             window.cancelAnimationFrame(animationFrameId);
             document.removeEventListener('keydown', handleHeroAction, false);
         };
-    }, []);
+    }, [gameState]);
 
     return canvasRef;
 };

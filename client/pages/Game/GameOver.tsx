@@ -2,31 +2,34 @@ import './Game.css';
 
 import React from 'react';
 import { PageComponentProps } from 'client/shared/types';
-import { PageLayout } from 'client/core';
 import { NivelatorXY, Paper } from 'client/shared/components';
 import { ROUTES } from 'client/routing';
-import { Link } from 'react-router-dom';
 import bem from 'bem-cn';
+import { StoreGameProps } from 'client/core/store';
+import { LOCAL } from 'client/shared/consts';
 import gameOver from './game-over.png';
+
+interface GameOverProps extends PageComponentProps, StoreGameProps {}
 
 const block = bem('game-over');
 
-export const GameOver: React.FC<PageComponentProps> = React.memo(() => (
-        <PageLayout className={block()}>
-            <Paper>
-                <NivelatorXY>
-                    <div>
-                        <div className={block('help')}>
-                            <div className={block('banner')}>
-                                <img src={gameOver} alt="Игра закончена" />
-                            </div>
-                            <h3>
-                                <Link to={ROUTES.GAME.path}>Заново?</Link>
-                            </h3>
-                            <p>Счет: 25</p>
-                        </div>
+export const GameOver: React.FC<GameOverProps> = React.memo(({
+    isOver,
+    score = 0,
+}) => (
+        <Paper className={block.state({ active: isOver })}>
+            <NivelatorXY>
+                <div className={block('help')}>
+                    <div className={block('banner')}>
+                        <img src={gameOver} alt={LOCAL.GAME_OVER} />
                     </div>
-                </NivelatorXY>
-            </Paper>
-        </PageLayout>
+                    <h3>
+                        <a href={ROUTES.GAME.path}>{LOCAL.GAME_RESET}</a>
+                    </h3>
+                    <p>
+                        {LOCAL.GAME_SCORE}: {score}
+                    </p>
+                </div>
+            </NivelatorXY>
+        </Paper>
 ));

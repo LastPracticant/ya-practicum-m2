@@ -3,10 +3,8 @@ import { Grid, Button, Avatar } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
 import { CurrentUserInfoProps } from 'client/core/api';
 import {
-    CHANGE_PROFILE_DATA,
-    CHANGE_PROFILE_PASSWORD,
     GRID_SPACE,
-    AVATAR_DEFAULT,
+    LOCAL,
 } from 'client/shared/consts';
 import { InputControl } from 'client/shared/components';
 import { Link, Redirect } from 'react-router-dom';
@@ -51,7 +49,7 @@ export const ProfileForm: React.FC = React.memo(() => {
                     direction="column"
                     alignItems="center"
                 >
-                    <Avatar src={profile?.avatar}>{AVATAR_DEFAULT}</Avatar>
+                    <Avatar src={profile?.avatar}>{LOCAL.AVATAR_DEFAULT}</Avatar>
                     {controls}
                 </Grid>
                 <Grid container item xs={12} justify="center" spacing={1}>
@@ -61,7 +59,7 @@ export const ProfileForm: React.FC = React.memo(() => {
                             to={ROUTES.PROFILE_DATA.path}
                             color="primary"
                         >
-                            {CHANGE_PROFILE_DATA}
+                            {LOCAL.CHANGE_PROFILE_DATA}
                         </Button>
                     </Grid>
                     <Grid item>
@@ -70,7 +68,7 @@ export const ProfileForm: React.FC = React.memo(() => {
                             to={ROUTES.PROFILE_PASSWORD.path}
                             color="primary"
                         >
-                            {CHANGE_PROFILE_PASSWORD}
+                            {LOCAL.CHANGE_PROFILE_PASSWORD}
                         </Button>
                     </Grid>
                 </Grid>

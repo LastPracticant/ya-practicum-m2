@@ -8,6 +8,7 @@ import { Button } from '@material-ui/core';
 import { ROUTES } from 'client/routing';
 import { useHistory } from 'react-router-dom';
 import bem from 'bem-cn';
+import { LOCAL } from 'client/shared/consts';
 
 const block = bem('game-start');
 
@@ -24,12 +25,12 @@ export const GameStart: React.FC<PageComponentProps> = React.memo(() => {
                 <NivelatorXY>
                     <div>
                         <div className={block('help')}>
-                            <h3>Управление</h3>
+                            <h3>{LOCAL.GAME_CONTROL}</h3>
 
                             <div className={block('control')}>
-                                <p>Прыгнуть - стрелка вверх</p>
-                                <p>Присесть - стрелка вниз</p>
-                                <p>Выстрел - пробел</p>
+                                <p>{LOCAL.GAME_CONTROL_JUMP}</p>
+                                <p>{LOCAL.GAME_CONTROL_DOWN}</p>
+                                <p>{LOCAL.GAME_CONTROL_SHOTE}</p>
                             </div>
 
                             <Button
@@ -38,7 +39,7 @@ export const GameStart: React.FC<PageComponentProps> = React.memo(() => {
                                 onClick={handleGameStart}
                                 className={block('toggle')}
                             >
-                                Начать игру
+                                {LOCAL.GAME_START}
                             </Button>
                         </div>
                     </div>

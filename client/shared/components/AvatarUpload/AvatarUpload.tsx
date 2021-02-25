@@ -1,7 +1,7 @@
 import React, { FC, memo } from 'react';
 import { Avatar, InputProps } from '@material-ui/core';
 import './AvatarUpload.css';
-import { AVATAR_DEFAULT } from 'client/shared/consts';
+import { LOCAL } from 'client/shared/consts';
 
 export interface InputAvatarProps extends InputProps {
     name: string;
@@ -19,7 +19,7 @@ const AvatarUploadComponent: FC<InputAvatarProps> = memo(
             type="file"
         />
         <Avatar src={src}>
-            {AVATAR_DEFAULT}
+            {LOCAL.AVATAR_DEFAULT}
         </Avatar>
     </label>
     ),

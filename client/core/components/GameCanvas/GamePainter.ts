@@ -1,5 +1,15 @@
+import { StoreGameProps } from 'client/core/store';
+import { FnActionRequaredProps, Store } from 'client/shared/types';
 import { getRandomIntInclusive } from 'client/shared/utils';
-import { CONTROLS, EnemyTypeProps, GAME_OPTIONS } from './GameCanvas.config';
+import {
+    CONTROLS,
+    EnemiesProps,
+    EnemyTypeProps,
+    ExplosionProps,
+    GameOptionProps,
+    HeroProps,
+    MoveOptionsProps,
+} from './GameCanvas.config';
 import { drawImage, isHaveBulletEncounter, isHaveHeroEncounter } from './GameCanvas.utils';
 import { ResourcesProps } from './ResourcesLoader';
 
@@ -14,13 +24,13 @@ export interface DrawCanvasProps {
 export interface DrawCanvasPartProps extends DrawCanvasProps {}
 
 export class GamePainter {
-    move = GAME_OPTIONS.move;
+    move: Store<MoveOptionsProps>;
 
-    explosion = GAME_OPTIONS.explosion;
+    explosion: ExplosionProps;
 
-    enemies = GAME_OPTIONS.enemies;
+    enemies: EnemiesProps;
 
-    hero = GAME_OPTIONS.hero;
+    hero: HeroProps;
 
     levels = [
         {
@@ -30,7 +40,12 @@ export class GamePainter {
 
     currentLevel = 0;
 
-    constructor() {
+    constructor(options: GameOptionProps) {
+        this.move = options.move;
+        this.explosion = options.explosion;
+        this.enemies = options.enemies;
+        this.hero = options.hero;
+
         this.drawBg = this.drawBg.bind(this);
         this.drawHero = this.drawHero.bind(this);
         this.drawCanvas = this.drawCanvas.bind(this);
@@ -157,21 +172,21 @@ export class GamePainter {
         });
     }
 
-    checkEncounters() {
+    checkEncounters(options: DrawCanvasProps, gameOverFn?: FnActionRequaredProps<StoreGameProps>) {
         const anemyExplosionShiftY = 30;
         const heroExplosionShiftY = 5;
 
         this.enemies.army.forEach((enemy, i) => {
             /** Столкновение врагов со снарядами */
-            this.hero.shotes.forEach((shote, j) => {
-                if (isHaveBulletEncounter(shote, enemy)) {
+            this.hero.shots.forEach((shot, j) => {
+                if (isHaveBulletEncounter(shot, enemy)) {
                     this.explosion.encounters.push({
                         ...this.explosion.cutOptions,
-                        dx: shote.dx,
-                        dy: shote.dy - anemyExplosionShiftY,
+                        dx: shot.dx,
+                        dy: shot.dy - anemyExplosionShiftY,
                     });
                     this.enemies.army.splice(i, 1);
-                    this.hero.shotes.splice(j, 1);
+                    this.hero.shots.splice(j, 1);
                 }
             });
 
@@ -183,8 +198,17 @@ export class GamePainter {
                     dy: this.hero.coord.dy - heroExplosionShiftY,
                 });
                 this.enemies.army.splice(i, 1);
+
+                this.hero.lifes--;
             }
         });
+
+        if (this.hero.lifes === 0) {
+            gameOverFn?.({
+                isOver: true,
+                score: options.shift,
+            });
+        }
     }
 
     drawExplosion({
@@ -227,21 +251,27 @@ export class GamePainter {
         });
     }
 
+    restoreIdeas({ frameCount }: DrawCanvasPartProps) {
+        if (!(frameCount % 200) && this.hero.ideas < 3) {
+            this.hero.ideas++;
+        }
+    }
+
     drawShote({ ctx, resources }: DrawCanvasPartProps) {
         if (!resources) return;
 
         const { idea } = resources;
 
-        this.hero.shotes.forEach((shote, index) => {
+        this.hero.shots.forEach((shot, index) => {
             ctx.drawImage(
                 idea,
-                shote.dx,
-                shote.dy,
+                shot.dx,
+                shot.dy,
                 30,
                 30,
             );
 
-            this.hero.shotes[index].dx += this.hero.bulletSpeed;
+            this.hero.shots[index].dx += this.hero.bulletSpeed;
         });
     }
 
@@ -296,30 +326,33 @@ export class GamePainter {
             this.hero.coord.dHeight,
         );
 
-        if (keyPress === CONTROLS.shote) {
-            this.hero.shotes.push({
+        if (keyPress === CONTROLS.shot && this.hero.ideas) {
+            this.hero.shots.push({
                 dx: this.hero.coord.dx + this.hero.coord.dWidth,
                 dy: this.hero.coord.dy + 35,
                 dWidth: 30,
                 dHeight: 30,
             });
+
+            this.hero.ideas--;
         }
     }
 
-    drawCanvas(options: DrawCanvasProps) {
+    drawCanvas(options: DrawCanvasProps, gameOverFn?: FnActionRequaredProps<StoreGameProps>) {
         const { ctx, resources } = options;
 
         if (!resources) return;
 
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
-        this.checkEncounters();
+        this.checkEncounters(options, gameOverFn);
         this.drawBg(options);
         this.drawHero(options);
         this.drawLifes(options);
         this.drawIdeas(options);
         this.drawExplosion(options);
         this.drawShote(options);
+        this.restoreIdeas(options);
         this.generateEnemies(options);
         this.drawEnemies(options);
     }

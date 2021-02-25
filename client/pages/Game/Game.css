@@ -39,6 +39,20 @@
 }
 
 .game-over {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transition: 300ms;
+    visibility: hidden;
+    opacity: 0;
+
+    &.is-active {
+        opacity: 1;
+        visibility: visible;
+    }
+
     &__help a {
         color: #fff;
     }
