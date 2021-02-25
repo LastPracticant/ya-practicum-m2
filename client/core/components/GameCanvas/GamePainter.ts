@@ -251,6 +251,12 @@ export class GamePainter {
         });
     }
 
+    restoreIdeas({ frameCount }: DrawCanvasPartProps) {
+        if (!(frameCount % 200) && this.hero.ideas < 3) {
+            this.hero.ideas++;
+        }
+    }
+
     drawShote({ ctx, resources }: DrawCanvasPartProps) {
         if (!resources) return;
 
@@ -320,13 +326,15 @@ export class GamePainter {
             this.hero.coord.dHeight,
         );
 
-        if (keyPress === CONTROLS.shote) {
+        if (keyPress === CONTROLS.shote && this.hero.ideas) {
             this.hero.shotes.push({
                 dx: this.hero.coord.dx + this.hero.coord.dWidth,
                 dy: this.hero.coord.dy + 35,
                 dWidth: 30,
                 dHeight: 30,
             });
+
+            this.hero.ideas--;
         }
     }
 
@@ -344,6 +352,7 @@ export class GamePainter {
         this.drawIdeas(options);
         this.drawExplosion(options);
         this.drawShote(options);
+        this.restoreIdeas(options);
         this.generateEnemies(options);
         this.drawEnemies(options);
     }

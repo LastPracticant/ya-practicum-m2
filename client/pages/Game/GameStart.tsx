@@ -25,7 +25,7 @@ export const GameStart: React.FC<PageComponentProps> = React.memo(() => {
                 <NivelatorXY>
                     <div>
                         <div className={block('help')}>
-                            <h3>Управление</h3>
+                            <h3>{LOCAL.GAME_CONTROL}</h3>
 
                             <div className={block('control')}>
                                 <p>{LOCAL.GAME_CONTROL_JUMP}</p>
