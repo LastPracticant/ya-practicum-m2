@@ -86,3 +86,9 @@ export const drawImage = (
         coords.dHeight,
     );
 };
+
+export const calcScore = (sec?: number) => {
+    if (!sec) return 0;
+
+    return Math.floor(sec / 60);
+};

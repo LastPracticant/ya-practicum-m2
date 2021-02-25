@@ -2,8 +2,10 @@ import { SnackBarDataProps } from 'client/shared/components';
 import { CurrentUserInfoProps } from '../api';
 
 export interface StoreGameProps {
-    isOver: boolean
+    isOver?: boolean
+    isPause?: boolean
     score?: number
+    currentLevel?: number
 }
 
 export interface StoreSnackBarProps extends SnackBarDataProps {

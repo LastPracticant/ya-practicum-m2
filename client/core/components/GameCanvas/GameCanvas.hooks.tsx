@@ -1,6 +1,6 @@
 import { gameSelector, StoreGameProps } from 'client/core/store';
-import { gameOverAction } from 'client/core/store/actions/game.actions';
-import { FnActionRequaredProps } from 'client/shared/types';
+import { gameOverAction, gamePauseAction } from 'client/core/store/actions/game.actions';
+import { FnActionRequiredProps } from 'client/shared/types';
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ANIMATION, CONTROLS } from './GameCanvas.config';
@@ -8,7 +8,9 @@ import { DrawCanvasProps } from './GamePainter';
 import { CanvasResourcesProps, ResourcesLoader, ResourcesProps } from './ResourcesLoader';
 
 export type DrawCanvasFn = (
-    props: DrawCanvasProps, gameOverFn?: FnActionRequaredProps<StoreGameProps>
+    props: DrawCanvasProps,
+    gameOverFn: FnActionRequiredProps<StoreGameProps>,
+    gamePauseFn: FnActionRequiredProps<StoreGameProps>,
 ) => void;
 
 export const useCanvas = (drawCanvas: DrawCanvasFn, resources?: CanvasResourcesProps) => {
@@ -20,8 +22,12 @@ export const useCanvas = (drawCanvas: DrawCanvasFn, resources?: CanvasResourcesP
         dispatch(gameOverAction(payload));
     };
 
+    const handleGamePause = (payload: StoreGameProps) => {
+        dispatch(gamePauseAction(payload));
+    };
+
     useEffect(() => {
-        if (gameState.isOver) return;
+        if (gameState.isOver || gameState.isPause) return;
 
         const canvas = canvasRef.current;
         const ctx = canvas?.getContext('2d');
@@ -29,7 +35,6 @@ export const useCanvas = (drawCanvas: DrawCanvasFn, resources?: CanvasResourcesP
         if (!ctx) return;
 
         const startTime = performance.now();
-        const animationTime = ANIMATION.time;
         let animationFrameId: number;
 
         let frameCount = 0;
@@ -47,7 +52,7 @@ export const useCanvas = (drawCanvas: DrawCanvasFn, resources?: CanvasResourcesP
         const renderCanvas = (loadedResources?: ResourcesProps) => {
             const time = performance.now();
             const shiftTime = time - startTime;
-            const shift = (shiftTime / animationTime) * ANIMATION.speedMultiplier;
+            const shift = (shiftTime / ANIMATION.secDivider);
             frameCount++;
 
             drawCanvas({
@@ -56,7 +61,7 @@ export const useCanvas = (drawCanvas: DrawCanvasFn, resources?: CanvasResourcesP
                 resources: loadedResources,
                 keyPress,
                 frameCount,
-            }, handleGameOver);
+            }, handleGameOver, handleGamePause);
 
             keyPress = null;
 
