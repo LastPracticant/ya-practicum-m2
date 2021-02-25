@@ -61,7 +61,7 @@ export const useCanvas = (drawCanvas: DrawCanvasFn, resources?: CanvasResourcesP
             keyPress = null;
 
             animationFrameId = window.requestAnimationFrame(() => {
-                if (!gameState.isOver) renderCanvas(loadedResources);
+                renderCanvas(loadedResources);
             });
         };
 
