@@ -1,4 +1,4 @@
-import { MESSAGES, METHOD } from './api.consts';
+import { METHOD } from './api.consts';
 
 type HeadersType = {
     [key: string]: string
@@ -81,14 +81,6 @@ export class HTTP {
 
         const { method, data, responseFormat = 'json' } = options;
 
-        const defaultReject = (response: Response) => {
-            if (response.status >= 500) {
-                alert(MESSAGES.FAIL_MESSAGE_500_DEFAULT);
-            } else {
-                alert(MESSAGES.FAIL_MESSAGE_DEFAULT);
-            }
-        };
-
         const basePath = `${this._path}${url}`;
         const path = method === METHOD.GET
             ? `${basePath}${queryStringify(data)}`
@@ -105,10 +97,8 @@ export class HTTP {
                 if (!response.ok) {
                     return Promise.reject(response);
                 }
-
                 return response[responseFormat]();
             })
-            .then((resData) => resData)
-            .catch(defaultReject);
+            .then((resData) => resData);
     }
 }

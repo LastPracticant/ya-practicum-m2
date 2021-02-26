@@ -7,7 +7,7 @@ import { ROUTES } from 'client/routing';
 import { LOCAL, GRID_SPACE } from 'client/shared/consts';
 import { Button, Grid } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
-import { thunkLogin } from 'client/core/store';
+import { thunkSignin } from 'client/core/store';
 import { SIGNIN_FORM_CONTROLS } from './SigninForm.config';
 
 export const SigninForm: React.FC = React.memo(() => {
@@ -15,7 +15,7 @@ export const SigninForm: React.FC = React.memo(() => {
     const dispatch = useDispatch();
 
     const onSubmit = (data: SigninProps) => {
-        dispatch(thunkLogin(data));
+        dispatch(thunkSignin(data));
     };
 
     const controls = useMemo(
