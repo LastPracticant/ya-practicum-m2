@@ -98,7 +98,6 @@ export class HTTP {
                     return Promise.reject(response);
                 }
                 return response[responseFormat]();
-            })
-            .then((resData) => resData);
+            });
     }
 }

@@ -5,24 +5,23 @@ import { ButtonsToolbar, NivelatorXY, Paper } from 'client/shared/components';
 import {
     Button, Divider, List, ListItem, Avatar,
 } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import bem from 'bem-cn';
 import { LOCAL } from 'client/shared/consts';
 import { ROUTES } from 'client/routing';
-import { Link, useHistory, withRouter } from 'react-router-dom';
-import { thunkLogout } from 'client/core/store';
-import { useAuth } from 'client/core/hooks';
-import { HokAuth } from 'client/core/HOKs';
+import { Link, Redirect, useHistory } from 'react-router-dom';
+import { thunkLogout, profileSelector } from 'client/core/store';
 
 const block = bem('home');
 
-export const HomeQ: React.FC<PageComponentProps> = React.memo((props: any) => {
-    console.log(props);
-    const dispatch = useDispatch();
+export const Home: React.FC<PageComponentProps> = React.memo(() => {
     const history = useHistory();
-    const { profile } = useAuth();
+    const profile = useSelector(profileSelector);
+    const dispatch = useDispatch();
 
-    if (!profile) return <div>dfss</div>;
+    if (!profile) {
+        return <Redirect to={ROUTES.SIGNIN.path} />;
+    }
 
     const handleLogout = () => {
         dispatch(thunkLogout());
@@ -65,5 +64,3 @@ export const HomeQ: React.FC<PageComponentProps> = React.memo((props: any) => {
         </NivelatorXY>
     );
 });
-
-export const Home = HokAuth(withRouter(HomeQ));
