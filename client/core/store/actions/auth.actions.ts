@@ -1,9 +1,11 @@
-import { AuthAPI, SigninProps, SignupProps } from 'client/core/api';
+import {
+    AuthAPI, SigninProps, SignupProps, ProfileAPI, API_HOST,
+} from 'client/core/api';
 import { Action } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import { StoreProps } from '../store.types';
 import { hideLoaderAction, showLoaderAction } from './loader.actions';
-import { thunkCurrentUserInfo } from './profile.actions';
+import { thunkCurrentUserInfo, getCurrentUserInfo } from './profile.actions';
 import { visibleSnackBar } from './snackbar.actions';
 
 export const LOGIN = 'LOGIN';
@@ -57,4 +59,16 @@ export const thunkSignin = (
             });
         },
     );
+};
+
+export const thunkCheckAuth = (
+): ThunkAction<void, StoreProps, unknown, Action<string>> => (
+    dispatch,
+) => {
+    AuthAPI.getCurrentUserInfo().then((payload) => {
+        Object.assign(payload, { avatar: API_HOST + payload.avatar });
+        dispatch(getCurrentUserInfo(payload));
+        dispatch(login());
+        dispatch(hideLoaderAction());
+    });
 };
