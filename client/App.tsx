@@ -1,6 +1,6 @@
 import './App.css';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
     BrowserRouter,
 } from 'react-router-dom';
@@ -10,10 +10,9 @@ import { ThemeProvider } from '@material-ui/styles';
 import { CssBaseline } from '@material-ui/core';
 import { red } from '@material-ui/core/colors';
 import './shared/styles/theme.css';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Loader, SnackBar } from './shared/components';
 import { loaderSelector, snackbarSelector } from './core/store/selectors';
-import { thunkCheckAuth } from './core/store';
 
 const theme = createMuiTheme({
     palette: {

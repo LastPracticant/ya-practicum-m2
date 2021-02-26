@@ -22,5 +22,5 @@ export const visibleSnackBar = (
 ) => {
     dispatch(showSnackBarAction(payload));
 
-    setTimeout(() => dispatch(hideSnackBarAction()), 5000);
+    setTimeout(() => dispatch(hideSnackBarAction()), 1000);
 };
