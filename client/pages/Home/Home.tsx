@@ -16,7 +16,8 @@ import { HokAuth } from 'client/core/HOKs';
 
 const block = bem('home');
 
-const HomeQ: React.FC<PageComponentProps> = React.memo(() => {
+export const HomeQ: React.FC<PageComponentProps> = React.memo((props: any) => {
+    console.log(props);
     const dispatch = useDispatch();
     const history = useHistory();
     const { profile } = useAuth();
