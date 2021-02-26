@@ -1,6 +1,6 @@
 import './Game.css';
 
-import React from 'react';
+import React, { useCallback } from 'react';
 import { PageComponentProps } from 'client/shared/types';
 import { PageLayout } from 'client/core';
 import { NivelatorXY, Paper } from 'client/shared/components';
@@ -14,9 +14,9 @@ const block = bem('game-start');
 export const GameStart: React.FC<PageComponentProps> = React.memo(() => {
     const history = useHistory();
 
-    const handleGameStart = () => {
+    const handleGameStart = useCallback(() => {
         history.push(ROUTES.GAME.path);
-    };
+    }, []);
 
     return (
         <PageLayout className={block()}>

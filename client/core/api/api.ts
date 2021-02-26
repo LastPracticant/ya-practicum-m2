@@ -106,7 +106,6 @@ export class HTTP {
 
                 return response[responseFormat]();
             })
-            .then((resData) => resData)
             .catch(defaultReject);
     }
 }

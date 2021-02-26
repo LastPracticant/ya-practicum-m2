@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useCallback } from 'react';
 import { Grid, Button } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
 import {
@@ -35,13 +35,13 @@ export const ProfileEdit: React.FC = React.memo(() => {
         reset(restInfo);
     };
 
-    const onSubmit = async (data: ChangeProfileProps) => {
+    const onSubmit = useCallback(async (data: ChangeProfileProps) => {
         await ProfileAPI.change(data);
 
         updateForm();
-    };
+    }, []);
 
-    const onChangeAvatar = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const onChangeAvatar = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
         const {
             target: { files },
         } = e;
@@ -53,7 +53,7 @@ export const ProfileEdit: React.FC = React.memo(() => {
         await ProfileAPI.changeAvatar(formData);
 
         updateForm();
-    };
+    }, []);
 
     const controls = useMemo(
         () => PROFILE_EDIT_CONTROLS.map((inputConfig) => {

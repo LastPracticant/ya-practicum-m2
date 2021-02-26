@@ -1,6 +1,6 @@
 import { InputControl } from 'client/shared/components';
 import { AuthAPI, SignupProps } from 'client/core/api';
-import React, { useMemo } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { REGISTER, GRID_SPACE } from 'client/shared/consts';
 import { Button, Grid } from '@material-ui/core';
@@ -14,13 +14,13 @@ export const SignupForm: React.FC = React.memo(() => {
         setError,
     } = useForm<SignupProps>();
 
-    const onSubmit = (data: SignupProps) => {
+    const onSubmit = useCallback((data: SignupProps) => {
         if (data.password !== data.password_confirm) {
             setError('password_confirm', { type: 'manual' });
         } else {
             AuthAPI.signup(data);
         }
-    };
+    }, []);
 
     const controls = useMemo(
         () => SIGNUP_FORM_CONTROLS.map((inputConfig) => {

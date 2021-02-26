@@ -1,6 +1,6 @@
 import { InputControl } from 'client/shared/components';
 import { SigninProps } from 'client/core/api';
-import React, { useMemo } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { ROUTES } from 'client/routing';
@@ -14,9 +14,9 @@ export const SigninForm: React.FC = React.memo(() => {
     const { control, handleSubmit, errors } = useForm<SigninProps>();
     const dispatch = useDispatch();
 
-    const onSubmit = (data: SigninProps) => {
+    const onSubmit = useCallback((data: SigninProps) => {
         dispatch(thunkLogin(data));
-    };
+    }, []);
 
     const controls = useMemo(
         () => SIGNIN_FORM_CONTROLS.map((inputConfig) => {

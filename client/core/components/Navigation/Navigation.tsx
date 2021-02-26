@@ -1,30 +1,18 @@
 import React from 'react';
-import {
-    Link,
-} from 'react-router-dom';
-import { ROUTES, RouteValueProps } from 'client/routing';
-
-import './Navigation.css';
+import { ROUTES } from 'client/routing';
 import bem from 'bem-cn';
+import { List, ListItem, Link } from '@material-ui/core';
 
 const block = bem('navigation');
 
-const NavigationLink: React.FC<RouteValueProps> = ({ path, title }) => (
-	<li><Link to={path}>{title}</Link></li>
-);
-
 export const Navigation: React.FC = React.memo(() => {
     const menuList = Object.keys(ROUTES).map((key) => (
-	<NavigationLink
-		key={ROUTES[key].title}
-		path={ROUTES[key].path}
-		title={ROUTES[key].title}
-	/>
+        <ListItem button>
+            <Link href={ROUTES[key].path}>{ROUTES[key].title}</Link>
+        </ListItem>
     ));
 
     return (
-        <ul className={block()}>
-            {menuList}
-        </ul>
+        <List className={block('navigation-items').toString()}>{menuList}</List>
     );
 });

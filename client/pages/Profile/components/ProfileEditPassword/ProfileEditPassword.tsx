@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Grid, Button, Avatar } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
 import { ProfileAPI, ChangePasswordProps } from 'client/core/api';
@@ -13,9 +13,9 @@ import { PROFILE_EDIT_PASSWORD_CONTROLS } from './ProfileEditPassword.config';
 export const ProfileEditPassword: React.FC = React.memo(() => {
     const { control, handleSubmit, errors } = useForm<ChangePasswordProps>();
 
-    const onSubmit = (data: ChangePasswordProps) => {
+    const onSubmit = useCallback((data: ChangePasswordProps) => {
         ProfileAPI.changePassword(data);
-    };
+    }, []);
 
     const controls = React.useMemo(
         () => PROFILE_EDIT_PASSWORD_CONTROLS.map((inputConfig) => {

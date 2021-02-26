@@ -1,4 +1,4 @@
-export class BaseAPI {
+export abstract class BaseAPI {
     create(): unknown {
         throw new Error('Not implemented');
     }

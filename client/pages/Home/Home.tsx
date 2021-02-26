@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { PageComponentProps } from 'client/shared/types';
 import './Home.css';
 import { ButtonsToolbar, NivelatorXY, Paper } from 'client/shared/components';
-import { Button, Divider, List, ListItem } from '@material-ui/core';
+import {
+    Button, Divider, List, ListItem,
+} from '@material-ui/core';
 import {
     useDispatch,
 } from 'react-redux';
@@ -13,7 +15,6 @@ import { ROUTES } from 'client/routing';
 import { Link, useHistory } from 'react-router-dom';
 import { AuthAPI } from 'client/core/api';
 
-
 const block = bem('home');
 
 export const Home: React.FC<PageComponentProps> = React.memo(() => {
@@ -21,27 +22,27 @@ export const Home: React.FC<PageComponentProps> = React.memo(() => {
     const history = useHistory();
 
     /** TODO: просто для примера, потом убрать */
-    const handleShowLoader = () => {
+    const handleShowLoader = useCallback(() => {
         dispatch(showLoaderAction());
 
         setTimeout(() => {
             dispatch(hideLoaderAction());
         }, 2000);
-    };
+    }, []);
 
-    const handleLogout = () => {
+    const handleLogout = useCallback(() => {
         AuthAPI.logout();
         history.push(ROUTES.SIGNIN.path);
-    };
+    }, []);
 
     return (
         <NivelatorXY className={block()}>
-            <div className={block('header')}></div>
+            <div className={block('header')} />
             <Paper className={block('paper')} sizes="small">
                 <div className={block('userdata')}>
                     <div className={block('avatar', { small: true })} />
                     <p className={block('username')}>username</p>
-                    <p className={block('user-result')}>{RECORD}: result</p>
+                    <p className={block('user-result')}>{`${RECORD}: result`}</p>
                 </div>
                 <Divider />
                 <List className={block('navigation-items').toString()}>
@@ -68,5 +69,5 @@ export const Home: React.FC<PageComponentProps> = React.memo(() => {
                 </ButtonsToolbar>
             </Paper>
         </NivelatorXY>
-    )
+    );
 });
