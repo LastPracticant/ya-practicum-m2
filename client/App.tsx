@@ -11,8 +11,8 @@ import { CssBaseline } from '@material-ui/core';
 import { red } from '@material-ui/core/colors';
 import './shared/styles/theme.css';
 import { useSelector } from 'react-redux';
-import { Loader } from './shared/components';
-import { loaderSelector } from './core/store';
+import { Loader, SnackBar } from './shared/components';
+import { loaderSelector, snackbarSelector } from './core/store/selectors';
 
 const theme = createMuiTheme({
     palette: {
@@ -27,14 +27,14 @@ const theme = createMuiTheme({
 
 export const App: React.FC = () => {
     const loader = useSelector(loaderSelector);
-
+    const snackBar = useSelector(snackbarSelector);
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <BrowserRouter>
                 <Routing />
-
                 <Loader isVisible={loader.isVisible} />
+                <SnackBar open={snackBar.isVisible} {...snackBar} />
             </BrowserRouter>
         </ThemeProvider>
     );

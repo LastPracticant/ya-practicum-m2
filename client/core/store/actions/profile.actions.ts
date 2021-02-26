@@ -5,6 +5,7 @@ import { Action } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import { StoreProps } from '../store.types';
 import { showLoaderAction, hideLoaderAction } from './loader.actions';
+import { visibleSnackBar } from './snackbar.actions';
 
 export const GET_CURRENT_USER_INFO = 'GET_CURRENT_USER_INFO';
 export const EDIT_PROFILE = 'EDIT_PROFILE';
@@ -22,8 +23,8 @@ export const thunkCurrentUserInfo = (
     dispatch(showLoaderAction());
     AuthAPI.getCurrentUserInfo().then((payload) => {
         Object.assign(payload, { avatar: API_HOST + payload.avatar });
-
         dispatch(getCurrentUserInfo(payload));
+        dispatch(visibleSnackBar({ type: 'success', msg: 'СВЕДЕНИЯ ПОЛУЧЕНЫ' }));
         dispatch(hideLoaderAction());
     });
 };

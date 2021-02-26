@@ -5,19 +5,23 @@ import { ButtonsToolbar, NivelatorXY, Paper } from 'client/shared/components';
 import {
     Button, Divider, List, ListItem, Avatar,
 } from '@material-ui/core';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import bem from 'bem-cn';
 import { LOCAL } from 'client/shared/consts';
 import { ROUTES } from 'client/routing';
-import { Link, useHistory } from 'react-router-dom';
-import { thunkLogout, profileSelector } from 'client/core/store';
+import { Link, useHistory, withRouter } from 'react-router-dom';
+import { thunkLogout } from 'client/core/store';
+import { useAuth } from 'client/core/hooks';
+import { HokAuth } from 'client/core/HOKs';
 
 const block = bem('home');
 
-export const Home: React.FC<PageComponentProps> = React.memo(() => {
+const HomeQ: React.FC<PageComponentProps> = React.memo(() => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const profile = useSelector(profileSelector);
+    const { profile } = useAuth();
+
+    if (!profile) return <div>dfss</div>;
 
     const handleLogout = () => {
         dispatch(thunkLogout());
@@ -60,3 +64,5 @@ export const Home: React.FC<PageComponentProps> = React.memo(() => {
         </NivelatorXY>
     );
 });
+
+export const Home = HokAuth(withRouter(HomeQ));
