@@ -1,6 +1,8 @@
-import React, { memo, FC } from 'react';
+import React, { memo, FC, useCallback } from 'react';
 import Snackbar, { SnackbarProps } from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import { useDispatch } from 'react-redux';
+import { hideSnackBarAction } from 'client/core/store';
 
 export interface SnackBarDataProps {
     msg?: string
@@ -9,12 +11,15 @@ export interface SnackBarDataProps {
 
 type SnackBarProps = SnackBarDataProps & SnackbarProps;
 
-export const SnackBar: FC<SnackBarProps> = memo(
-    ({ open, msg = '', type }) => (
-        <Snackbar open={open} autoHideDuration={6000}>
+export const SnackBar: FC<SnackBarProps> = memo(({ open, msg = '', type }) => {
+    const dispatch = useDispatch();
+    const onClose = useCallback(() => dispatch(hideSnackBarAction()), []);
+
+    return (
+        <Snackbar open={open} onClose={onClose} autoHideDuration={2000}>
             <MuiAlert elevation={6} variant="filled" severity={type}>
                 {msg}
             </MuiAlert>
         </Snackbar>
-    ),
-);
+    );
+});

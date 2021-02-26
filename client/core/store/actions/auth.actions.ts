@@ -4,14 +4,14 @@ import { ThunkAction } from 'redux-thunk';
 import { StoreProps } from '../store.types';
 import { hideLoaderAction, showLoaderAction } from './loader.actions';
 import { thunkCurrentUserInfo } from './profile.actions';
-import { visibleSnackBar } from './snackbar.actions';
+import { showSnackBarAction } from './snackbar.actions';
 
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 
-export const login = () => ({ type: LOGIN });
+export const loginAction = () => ({ type: LOGIN });
 
-export const logout = () => ({ type: LOGOUT });
+export const logoutAction = () => ({ type: LOGOUT });
 
 export const thunkSignup = (
     data: SignupProps,
@@ -20,7 +20,7 @@ export const thunkSignup = (
 
     AuthAPI.signup(data).finally(() => {
         dispatch(hideLoaderAction());
-        dispatch(login());
+        dispatch(loginAction());
         dispatch(thunkCurrentUserInfo());
     });
 };
@@ -30,7 +30,7 @@ export const thunkLogout = (
     dispatch(showLoaderAction());
 
     AuthAPI.logout().finally(() => {
-        dispatch(logout());
+        dispatch(logoutAction());
         dispatch(hideLoaderAction());
     });
 };
@@ -39,17 +39,16 @@ export const thunkSignin = (
     data: SigninProps,
 ): ThunkAction<void, StoreProps, unknown, Action<string>> => (dispatch) => {
     dispatch(showLoaderAction());
-    AuthAPI.signin(data).then(
-        () => {
+    AuthAPI.signin(data)
+        .then(() => {
             dispatch(hideLoaderAction());
-            dispatch(login());
+            dispatch(loginAction());
             dispatch(thunkCurrentUserInfo());
-        },
-        (response) => {
+        })
+        .catch((response) => {
             dispatch(hideLoaderAction());
             response.json().then((result: any) => {
-                dispatch(visibleSnackBar({ type: 'error', msg: result?.reason }));
+                dispatch(showSnackBarAction({ type: 'error', msg: result?.reason }));
             });
-        },
-    );
+        });
 };
