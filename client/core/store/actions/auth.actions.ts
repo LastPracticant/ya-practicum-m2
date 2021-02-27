@@ -9,9 +9,16 @@ import { showSnackBarAction } from './snackbar.actions';
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 
-export const loginAction = () => ({ type: LOGIN });
+export const loginAction = () => {
+    localStorage.setItem('isAuth', 'true');
+    return ({ type: LOGIN });
+};
 
-export const logoutAction = () => ({ type: LOGOUT });
+export const logoutAction = () => {
+    localStorage.removeItem('isAuth');
+    localStorage.removeItem('profile');
+    return ({ type: LOGOUT });
+};
 
 export const thunkSignup = (
     data: SignupProps,
@@ -20,7 +27,6 @@ export const thunkSignup = (
 
     AuthAPI.signup(data).finally(() => {
         dispatch(hideLoaderAction());
-        localStorage.setItem('isAuth', 'true');
         dispatch(loginAction());
         dispatch(thunkCurrentUserInfo());
     });
@@ -32,8 +38,6 @@ export const thunkLogout = (
 
     AuthAPI.logout().finally(() => {
         dispatch(logoutAction());
-        localStorage.removeItem('isAuth');
-        localStorage.removeItem('profile');
         dispatch(hideLoaderAction());
     });
 };

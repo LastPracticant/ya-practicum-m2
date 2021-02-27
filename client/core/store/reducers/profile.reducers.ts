@@ -2,10 +2,19 @@ import { CurrentUserInfoProps } from 'client/core/api';
 import { ActionProps } from '../actions/actions.types';
 import { GET_CURRENT_USER_INFO } from '../actions/profile.actions';
 
-const initialState = null;
+export const initialStateProfile: CurrentUserInfoProps = {
+    id: 0,
+    first_name: '',
+    second_name: '',
+    display_name: '',
+    login: '',
+    email: '',
+    phone: '',
+    avatar: '',
+};
 
 export const profileReducers = (
-    state = initialState,
+    state = initialStateProfile,
     action: ActionProps<CurrentUserInfoProps>,
 ) => {
     switch (action.type) {
