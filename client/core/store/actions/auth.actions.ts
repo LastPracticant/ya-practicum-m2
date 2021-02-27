@@ -20,6 +20,7 @@ export const thunkSignup = (
 
     AuthAPI.signup(data).finally(() => {
         dispatch(hideLoaderAction());
+        localStorage.setItem('isAuth', 'true');
         dispatch(loginAction());
         dispatch(thunkCurrentUserInfo());
     });
@@ -31,6 +32,8 @@ export const thunkLogout = (
 
     AuthAPI.logout().finally(() => {
         dispatch(logoutAction());
+        localStorage.removeItem('isAuth');
+        localStorage.removeItem('profile');
         dispatch(hideLoaderAction());
     });
 };
