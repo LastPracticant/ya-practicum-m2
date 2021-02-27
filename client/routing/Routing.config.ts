@@ -30,11 +30,11 @@ export const ROUTES: RoutesProps = {
     },
     PROFILE_PASSWORD: {
         path: '/profile/password',
-        title: 'Изменение пароля',
+        title: 'Изменить пароль',
     },
     PROFILE_DATA: {
         path: '/profile/data',
-        title: 'Изменение данных',
+        title: 'Изменить данные',
     },
     FORUM: {
         path: '/forum',

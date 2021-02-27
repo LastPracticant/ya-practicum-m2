@@ -9,10 +9,11 @@ import { ROUTES } from 'client/routing';
 import { useHistory } from 'react-router-dom';
 import bem from 'bem-cn';
 import { LOCAL } from 'client/shared/consts';
+import { HOKAuth } from 'client/core/HOKs';
 
 const block = bem('game-start');
 
-export const GameStart: React.FC<PageComponentProps> = React.memo(() => {
+const GameStartComponent: React.FC<PageComponentProps> = React.memo(() => {
     const history = useHistory();
 
     const handleGameStart = () => {
@@ -32,7 +33,6 @@ export const GameStart: React.FC<PageComponentProps> = React.memo(() => {
                                 <p>{LOCAL.GAME_CONTROL_DOWN}</p>
                                 <p>{LOCAL.GAME_CONTROL_SHOTE}</p>
                             </div>
-
                             <Button
                                 variant="contained"
                                 color="secondary"
@@ -48,3 +48,5 @@ export const GameStart: React.FC<PageComponentProps> = React.memo(() => {
         </PageLayout>
     );
 });
+
+export const GameStart = HOKAuth(GameStartComponent);

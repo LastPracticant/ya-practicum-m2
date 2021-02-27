@@ -9,12 +9,13 @@ import { GAME_OPTIONS } from 'client/core/components/GameCanvas/GameCanvas.confi
 import { cloneDeep } from 'client/shared/utils';
 import { useSelector } from 'react-redux';
 import { gameSelector } from 'client/core/store';
+import { HOKAuth } from 'client/core/HOKs';
 import { GAME_RESOURSES, GAME_VIEWPORT } from './Game.config';
 import { GameOver } from './GameOver';
 
 const block = bem('game');
 
-export const Game: React.FC<PageComponentProps> = React.memo(() => {
+const GameComponent: React.FC<PageComponentProps> = React.memo(() => {
     const options = cloneDeep(GAME_OPTIONS);
     const Painter = new GamePainter(options);
     const { game: gameState } = useSelector(gameSelector);
@@ -32,3 +33,5 @@ export const Game: React.FC<PageComponentProps> = React.memo(() => {
         </PageLayout>
     );
 });
+
+export const Game = HOKAuth(GameComponent);

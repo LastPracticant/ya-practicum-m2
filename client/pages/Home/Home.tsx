@@ -11,12 +11,12 @@ import { LOCAL } from 'client/shared/consts';
 import { ROUTES } from 'client/routing';
 import { Link, useHistory } from 'react-router-dom';
 import { thunkLogout, profileSelector } from 'client/core/store';
-import { HOKAuth } from 'client/core/HOKs';
 import { CurrentUserInfoProps } from 'client/core/api';
+import { HOKAuth } from 'client/core/HOKs';
 
 const block = bem('home');
 
-export const HomeQ: React.FC<PageComponentProps> = React.memo(() => {
+const HomeComponent: React.FC<PageComponentProps> = React.memo(() => {
     const history = useHistory();
     const profile = useSelector(profileSelector) as CurrentUserInfoProps;
     const dispatch = useDispatch();
@@ -26,16 +26,20 @@ export const HomeQ: React.FC<PageComponentProps> = React.memo(() => {
         history.push(ROUTES.SIGNIN.path);
     };
 
-    const routes = [ROUTES.GAME_START, ROUTES.PROFILE, ROUTES.LEADERBOARD, ROUTES.FORUM];
-    const controls = useMemo(() => (
-        routes.map((route) => (
-            <ListItem key={route.title}>
-                <Link to={route.path}>
-                    {route.title}
-                </Link>
-            </ListItem>
-        ))
-    ), []);
+    const routes = [
+        ROUTES.GAME_START,
+        ROUTES.PROFILE,
+        ROUTES.LEADERBOARD,
+        ROUTES.FORUM,
+    ];
+    const controls = useMemo(
+        () => routes.map((route) => (
+                <ListItem key={route.title}>
+                    <Link to={route.path}>{route.title}</Link>
+                </ListItem>
+        )),
+        [],
+    );
 
     return (
         <NivelatorXY className={block()}>
@@ -43,7 +47,9 @@ export const HomeQ: React.FC<PageComponentProps> = React.memo(() => {
                 <div className={block('userdata')}>
                     <Avatar src={profile.avatar} />
                     <p className={block('username')}>{profile.first_name}</p>
-                    <p className={block('user-result')}>{LOCAL.RECORD}: result</p>
+                    <p className={block('user-result')}>
+                        {LOCAL.RECORD}: result
+                    </p>
                 </div>
                 <Divider />
                 <List className={block('navigation-items').toString()}>
@@ -63,4 +69,4 @@ export const HomeQ: React.FC<PageComponentProps> = React.memo(() => {
     );
 });
 
-export const Home = HOKAuth(HomeQ);
+export const Home = HOKAuth(HomeComponent);

@@ -3,11 +3,12 @@ import './Forum.css';
 import React from 'react';
 import { ROUTES } from 'client/routing';
 import { Route, Switch } from 'react-router-dom';
+import { HOKAuth } from 'client/core/HOKs';
 import { ErrorPage } from '../ErrorPage';
 import { ForumBoard } from './ForumBoard';
 import { ForumTopic } from './ForumTopic';
 
-export const Forum: React.FC = () => (
+const ForumComponent: React.FC = () => (
     <Switch>
         <Route path={`${ROUTES.FORUM_TOPIC.path}/:id`}>
             <ForumTopic title={ROUTES.FORUM_TOPIC.title} />
@@ -22,3 +23,5 @@ export const Forum: React.FC = () => (
         </Route>
     </Switch>
 );
+
+export const Forum = HOKAuth(ForumComponent);

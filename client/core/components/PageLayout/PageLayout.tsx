@@ -1,4 +1,4 @@
-import { Grid, Paper } from '@material-ui/core';
+import { Grid, Paper, IconButton } from '@material-ui/core';
 import { ComponentCommonProps } from 'client/shared/types';
 import React from 'react';
 import KeyboardTabRoundedIcon from '@material-ui/icons/KeyboardTabRounded';
@@ -14,26 +14,25 @@ interface PageLayoutProps extends ComponentCommonProps {
 
 const block = bem('page-layout');
 
-export const PageLayout: React.FC<PageLayoutProps> = React.memo(({
-    children,
-    className,
-    goBackLink = ROUTES.HOME.path,
-}) => (
+export const PageLayout: React.FC<PageLayoutProps> = React.memo(
+    ({ children, className, goBackLink = ROUTES.HOME.path }) => (
         <Grid
             container
-            className={block({}).mix(className).toString()}
+            className={block({})
+                .mix(className)
+                .toString()}
         >
             <Grid item xs={1}>
                 <Paper className={block('aside').toString()}>
-                    <Link
+                    <IconButton
+                        component={Link}
                         to={goBackLink}
                         className={block('go-back').toString()}
                     >
                         <KeyboardTabRoundedIcon />
-                    </Link>
+                    </IconButton>
                 </Paper>
             </Grid>
-
             <Grid item xs={11}>
                 <Grid
                     container
@@ -45,4 +44,5 @@ export const PageLayout: React.FC<PageLayoutProps> = React.memo(({
                 </Grid>
             </Grid>
         </Grid>
-));
+    ),
+);

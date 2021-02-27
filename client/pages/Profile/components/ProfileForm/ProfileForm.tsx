@@ -7,7 +7,7 @@ import {
     LOCAL,
 } from 'client/shared/consts';
 import { InputControl } from 'client/shared/components';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ROUTES } from 'client/routing';
 import { profileSelector } from 'client/core/store/selectors';
 import { useSelector } from 'react-redux';
@@ -15,10 +15,6 @@ import { PROFILE_FORM_CONTROLS } from './ProfileForm.config';
 
 export const ProfileForm: React.FC = React.memo(() => {
     const profile = useSelector(profileSelector);
-
-    if (!profile) {
-        return <Redirect to={ROUTES.SIGNIN.path} />;
-    }
 
     const { control } = useForm<CurrentUserInfoProps>({ defaultValues: profile });
 
