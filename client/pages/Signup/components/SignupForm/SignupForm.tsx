@@ -1,5 +1,5 @@
 import { InputControl } from 'client/shared/components';
-import { AuthAPI, SignupProps } from 'client/core/api';
+import { SignupProps } from 'client/core/api';
 import React, { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { LOCAL, GRID_SPACE } from 'client/shared/consts';
