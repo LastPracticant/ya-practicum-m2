@@ -7,6 +7,7 @@ import {
 import { gameReducers, initialStateGame } from './reducers/game.reducers';
 import { snackbarReducers, initialStateSnackBar } from './reducers/snackbar.reducers';
 import { StoreProps } from './store.types';
+import { CurrentUserInfoProps } from '../api';
 
 const middlewares = [thunk];
 
@@ -18,25 +19,35 @@ const rootReducer = combineReducers({
     snackbar: snackbarReducers,
 });
 
-function saveToLocalStorage(state: StoreProps) {
-    const serialisedState = JSON.stringify(state);
-    localStorage.setItem('state', serialisedState);
-}
+const saveToLocalStorage = (state: StoreProps) => {
+    const { auth, profile } = state;
+    const serialisedProfile = JSON.stringify(profile);
+    localStorage.setItem('profile', serialisedProfile);
 
-function loadFromLocalStorage() {
-    const storageStore = localStorage.getItem('state');
-    let state: StoreProps = {
+    const serialisedAuth = JSON.stringify(auth);
+    localStorage.setItem('auth', serialisedAuth);
+};
+
+const loadFromLocalStorage = (): StoreProps => {
+    const profile = localStorage.getItem('profile');
+    const auth = localStorage.getItem('auth');
+    const state: StoreProps = {
         auth: false,
         game: initialStateGame,
         loader: false,
         snackbar: initialStateSnackBar,
         profile: initialStateProfile,
     };
-    if (storageStore) {
-        state = JSON.parse(storageStore) as StoreProps;
+    if (profile) {
+        const serialisedProfile = JSON.parse(profile) as CurrentUserInfoProps;
+        state.profile = serialisedProfile;
+    }
+    if (auth) {
+        const serialisedAuth = Boolean(JSON.parse(auth));
+        state.auth = serialisedAuth;
     }
     return state;
-}
+};
 
 export const store = createStore(
     rootReducer,

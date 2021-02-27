@@ -22,7 +22,6 @@ export const thunkCurrentUserInfo = (
     dispatch(showLoaderAction());
     AuthAPI.getCurrentUserInfo().then((payload) => {
         Object.assign(payload, { avatar: API_HOST + payload.avatar });
-        localStorage.setItem('profile', JSON.stringify(payload));
         dispatch(getCurrentUserInfo(payload));
         dispatch(hideLoaderAction());
     });
