@@ -6,6 +6,10 @@ const PORT = process.env.PORT || 8000;
 
 app.use(express.static(path.join(__dirname, '../dist')));
 
+app.get('/sw.js', (_, res) => {
+    res.sendFile(path.join(__dirname, '../sw.js'));
+});
+
 app.get('*', (_, res) => {
     res.sendFile(path.join(__dirname, '../dist/index.html'));
 });
