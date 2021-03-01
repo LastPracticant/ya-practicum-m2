@@ -155,8 +155,8 @@ export class GamePainter {
         const enemyTypeBoss = 6;
         let isNeedToDrawBoss = false;
 
-        if ((calcScore(this.levels.timer) >= lvl.duration) && !lvl.bossReached) {
-            lvl.bossReached = true;
+        if ((calcScore(this.levels.timer) >= lvl.duration) && !lvl.isBossReached) {
+            lvl.isBossReached = true;
             isNeedToDrawBoss = true;
         }
 

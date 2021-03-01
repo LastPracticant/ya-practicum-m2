@@ -106,7 +106,7 @@ export interface LevelsOptionProps {
     heroShiftY: number
 
     /** Флаг достижения босса */
-    bossReached: boolean
+    isBossReached: boolean
 }
 
 export interface LevelsProps {
@@ -218,7 +218,7 @@ export const GAME_OPTIONS: GameOptionProps = {
                 },
                 enemies: [1, 4, 5],
                 heroShiftY: 215,
-                bossReached: false,
+                isBossReached: false,
             },
             {
                 duration: 15,
@@ -227,7 +227,7 @@ export const GAME_OPTIONS: GameOptionProps = {
                 },
                 enemies: [1, 4, 5],
                 heroShiftY: 205,
-                bossReached: false,
+                isBossReached: false,
             },
             {
                 duration: 15,
@@ -236,7 +236,7 @@ export const GAME_OPTIONS: GameOptionProps = {
                 },
                 enemies: [0, 1, 4],
                 heroShiftY: 140,
-                bossReached: false,
+                isBossReached: false,
             },
             {
                 duration: 15,
@@ -245,7 +245,7 @@ export const GAME_OPTIONS: GameOptionProps = {
                 },
                 enemies: [0, 1, 4],
                 heroShiftY: 210,
-                bossReached: false,
+                isBossReached: false,
             },
             {
                 duration: 15,
@@ -254,7 +254,7 @@ export const GAME_OPTIONS: GameOptionProps = {
                 },
                 enemies: [0, 1, 4],
                 heroShiftY: 210,
-                bossReached: false,
+                isBossReached: false,
             },
             {
                 duration: 15,
@@ -263,7 +263,7 @@ export const GAME_OPTIONS: GameOptionProps = {
                 },
                 enemies: [0, 1, 4],
                 heroShiftY: 210,
-                bossReached: false,
+                isBossReached: false,
             },
             {
                 duration: 15,
@@ -272,7 +272,7 @@ export const GAME_OPTIONS: GameOptionProps = {
                 },
                 enemies: [2, 3, 4],
                 heroShiftY: 150,
-                bossReached: false,
+                isBossReached: false,
             },
             {
                 duration: 15,
@@ -281,7 +281,7 @@ export const GAME_OPTIONS: GameOptionProps = {
                 },
                 enemies: [2, 3, 4],
                 heroShiftY: 150,
-                bossReached: false,
+                isBossReached: false,
             },
             {
                 duration: 9999999,
@@ -290,7 +290,7 @@ export const GAME_OPTIONS: GameOptionProps = {
                 },
                 enemies: [0, 1, 2, 3, 4],
                 heroShiftY: 210,
-                bossReached: false,
+                isBossReached: false,
             },
         ],
         timer: 0,
