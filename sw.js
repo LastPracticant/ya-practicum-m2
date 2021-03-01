@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-const CACHE_NAME = 'my-site-cache-v1';
+const CACHE_NAME = 'v1';
 const URLS = [
     '/',
     '/bgs.png',
@@ -27,7 +27,7 @@ this.addEventListener('install', (event) => {
                 return cache.addAll(URLS);
             })
             .catch((err) => {
-                console.log('!!!!!!', err);
+                console.log('Something is wrong', err);
             }),
     );
 });
