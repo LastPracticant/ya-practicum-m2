@@ -34,14 +34,12 @@ export const Game: React.FC<PageComponentProps> = React.memo(() => {
 
     return (
         <PageLayout className={block()} goBackLink={ROUTES.GAME_START.path}>
-            <div>
-                <div className={block('overlay')}>
-                    <GameCanvas
-                        resources={GAME_RESOURSES}
-                        drawCanvas={Painter.drawCanvas}
-                        {...GAME_VIEWPORT}
-                    />
-                </div>
+            <div className={block('overlay')}>
+                <GameCanvas
+                    resources={GAME_RESOURSES}
+                    drawCanvas={Painter.drawCanvas}
+                    {...GAME_VIEWPORT}
+                />
             </div>
 
             <GameOver {...gameState} />
