@@ -1,6 +1,11 @@
 import { GAME_OPTIONS } from 'client/core/components/GameCanvas/GameCanvas.config';
 import { ActionProps } from '../actions/actions.types';
-import { GAME_NEXT_LEVEL, GAME_OVER, GAME_PAUSE } from '../actions/game.actions';
+import {
+    GAME_NEXT_LEVEL,
+    GAME_OVER,
+    GAME_PAUSE,
+    GAME_RESET,
+} from '../actions/game.actions';
 import { StoreGameProps } from '../store.types';
 
 const initialState: Required<StoreGameProps> = {
@@ -39,6 +44,9 @@ export const gameReducers = (state = initialState, action: ActionProps<StoreGame
                 ? 0
                 : state.currentLevel + 1,
         };
+    }
+    case GAME_RESET: {
+        return initialState;
     }
     default:
         return state;

@@ -6,7 +6,7 @@ import bem from 'bem-cn';
 import { StoreGameProps } from 'client/core/store';
 import { LOCAL } from 'client/shared/consts';
 import { useDispatch } from 'react-redux';
-import { gameOverAction } from 'client/core/store/actions/game.actions';
+import { gameResetAction } from 'client/core/store/actions/game.actions';
 import gameOver from './game-over.png';
 
 interface GameOverProps extends PageComponentProps, StoreGameProps {}
@@ -18,14 +18,13 @@ export const GameOver: React.FC<GameOverProps> = React.memo(({
     score = 0,
 }) => {
     const dispatch = useDispatch();
+
     const handleGameReset = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
         e.preventDefault();
 
-        dispatch(gameOverAction({
-            isOver: false,
-            score: 0,
-        }));
+        dispatch(gameResetAction());
     };
+
     return (
         <Paper className={block.state({ active: Boolean(isOver) })}>
             <NivelatorXY>

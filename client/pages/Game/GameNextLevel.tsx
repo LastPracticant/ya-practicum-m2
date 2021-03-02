@@ -18,7 +18,7 @@ export const GameNextLevel: React.FC<GameNextLevelProps> = React.memo(({
     const dispatch = useDispatch();
 
     const handleGameNextLevel = () => {
-        dispatch(gameNextLevelAction({ isPause: false }));
+        dispatch(gameNextLevelAction(false));
     };
 
     return (
