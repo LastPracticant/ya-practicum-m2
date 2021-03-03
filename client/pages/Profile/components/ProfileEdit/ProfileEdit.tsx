@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from 'react';
+import React, { useMemo, useCallback, useEffect } from 'react';
 import { Grid, Button } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
 import { ChangeProfileProps, CurrentUserInfoProps } from 'client/core/api';
@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { ROUTES } from 'client/routing';
 import { useSelector, useDispatch } from 'react-redux';
 import { profileSelector } from 'client/core/store/selectors';
-import { editProfileThunk, editAvatarThunk } from 'client/core/store';
+import { editProfileThunk, editAvatarThunk, getCurrentUserInfoThunk } from 'client/core/store';
 import { PROFILE_EDIT_CONTROLS } from './ProfileEdit.config';
 
 export const ProfileEdit: React.FC = React.memo(() => {
@@ -19,7 +19,8 @@ export const ProfileEdit: React.FC = React.memo(() => {
         control,
         handleSubmit,
         errors,
-    } = useForm<CurrentUserInfoProps>({ defaultValues: profile });
+        reset,
+    } = useForm<CurrentUserInfoProps>();
 
     const onSubmit = (data: ChangeProfileProps) => dispatch(editProfileThunk(data));
 
@@ -41,20 +42,28 @@ export const ProfileEdit: React.FC = React.memo(() => {
             const { name } = inputConfig;
             const error = errors[name as keyof typeof errors]?.message;
             return (
-                    <InputControl
-                        key={name}
-                        fullWidth
-                        variant="outlined"
-                        margin="dense"
-                        error={Boolean(error)}
-                        helperText={error}
-                        control={control}
-                        {...inputConfig}
-                    />
+                <InputControl
+                    key={name}
+                    fullWidth
+                    variant="outlined"
+                    margin="dense"
+                    error={Boolean(error)}
+                    helperText={error}
+                    control={control}
+                    {...inputConfig}
+                />
             );
         }),
         [errors],
     );
+
+    useEffect(() => {
+        dispatch(getCurrentUserInfoThunk());
+    }, []);
+
+    useEffect(() => {
+        reset(profile);
+    }, [profile]);
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="profile_form">
