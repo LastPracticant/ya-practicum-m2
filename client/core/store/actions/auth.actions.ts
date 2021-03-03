@@ -69,7 +69,7 @@ export const signinThunk = (
 ): ThunkAction<void, StoreProps, unknown, Action<string>> => (dispatch) => {
     dispatch(showLoaderAction());
 
-    return AuthAPI.signin(data)
+    AuthAPI.signin(data)
         .then(() => {
             dispatch(hideLoaderAction());
             dispatch(getCurrentUserInfoThunk());

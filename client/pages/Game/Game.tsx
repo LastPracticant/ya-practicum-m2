@@ -9,7 +9,7 @@ import { GAME_OPTIONS } from 'client/core/components/GameCanvas/GameCanvas.confi
 import { cloneDeep } from 'client/shared/utils';
 import { useSelector } from 'react-redux';
 import { gameSelector } from 'client/core/store';
-import { withCheckAuth } from 'client/core/HOKs';
+import { withCheckAuth } from 'client/core/HOCs';
 import { GAME_RESOURSES, GAME_VIEWPORT } from './Game.config';
 import { GameOver } from './GameOver';
 

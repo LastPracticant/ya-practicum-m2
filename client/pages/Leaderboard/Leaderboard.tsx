@@ -4,7 +4,7 @@ import { Paper } from 'client/shared/components';
 import { ROUTES } from 'client/routing';
 import { PageLayout } from 'client/core';
 import { DataGrid } from '@material-ui/data-grid';
-import { withCheckAuth } from 'client/core/HOKs';
+import { withCheckAuth } from 'client/core/HOCs';
 import { rows } from './Leaderboard.mock';
 import { columns } from './Leaderboard.config';
 

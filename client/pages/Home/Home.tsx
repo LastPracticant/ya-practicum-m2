@@ -12,7 +12,7 @@ import { ROUTES } from 'client/routing';
 import { Link, useHistory } from 'react-router-dom';
 import { logoutThunk, profileSelector } from 'client/core/store';
 import { CurrentUserInfoProps } from 'client/core/api';
-import { withCheckAuth } from 'client/core/HOKs';
+import { withCheckAuth } from 'client/core/HOCs';
 
 const block = bem('home');
 

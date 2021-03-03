@@ -3,7 +3,7 @@ import './Forum.css';
 import React from 'react';
 import { ROUTES } from 'client/routing';
 import { Route, Switch } from 'react-router-dom';
-import { withCheckAuth } from 'client/core/HOKs';
+import { withCheckAuth } from 'client/core/HOCs';
 import { ErrorPage } from '../ErrorPage';
 import { ForumBoard } from './ForumBoard';
 import { ForumTopic } from './ForumTopic';
