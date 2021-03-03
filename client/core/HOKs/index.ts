@@ -1,1 +1,1 @@
-export * from './HOKAuth';
+export * from './withCheckAuth';

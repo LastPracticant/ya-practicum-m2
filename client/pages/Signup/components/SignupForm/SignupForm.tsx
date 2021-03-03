@@ -5,7 +5,9 @@ import { useForm } from 'react-hook-form';
 import { LOCAL, GRID_SPACE } from 'client/shared/consts';
 import { Button, Grid } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
-import { thunkSignup } from 'client/core/store';
+import { signupThunk } from 'client/core/store';
+import { Link } from 'react-router-dom';
+import { ROUTES } from 'client/routing';
 import { SIGNUP_FORM_CONTROLS } from './SignupForm.config';
 
 export const SignupForm: React.FC = React.memo(() => {
@@ -22,7 +24,7 @@ export const SignupForm: React.FC = React.memo(() => {
         if (data.password !== data.password_confirm) {
             setError('password_confirm', { type: 'manual' });
         } else {
-            dispatch(thunkSignup(data));
+            dispatch(signupThunk(data));
         }
     };
 
@@ -61,6 +63,13 @@ export const SignupForm: React.FC = React.memo(() => {
                 <Grid container item xs={12} justify="center" spacing={1}>
                     <Button color="primary" type="submit" variant="contained">
                         {LOCAL.REGISTER}
+                    </Button>
+                    <Button
+                        component={Link}
+                        to={ROUTES.SIGNIN.path}
+                        color="primary"
+                    >
+                        {LOCAL.AUTHORIZE}
                     </Button>
                 </Grid>
             </Grid>

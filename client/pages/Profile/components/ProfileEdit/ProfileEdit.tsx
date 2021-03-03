@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { ROUTES } from 'client/routing';
 import { useSelector, useDispatch } from 'react-redux';
 import { profileSelector } from 'client/core/store/selectors';
-import { thunkEditProfile, thunkEditAvatar } from 'client/core/store';
+import { editProfileThunk, editAvatarThunk } from 'client/core/store';
 import { PROFILE_EDIT_CONTROLS } from './ProfileEdit.config';
 
 export const ProfileEdit: React.FC = React.memo(() => {
@@ -21,7 +21,7 @@ export const ProfileEdit: React.FC = React.memo(() => {
         errors,
     } = useForm<CurrentUserInfoProps>({ defaultValues: profile });
 
-    const onSubmit = (data: ChangeProfileProps) => dispatch(thunkEditProfile(data));
+    const onSubmit = (data: ChangeProfileProps) => dispatch(editProfileThunk(data));
 
     const onChangeAvatar = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const blob = e.target.files?.item(0);
@@ -33,7 +33,7 @@ export const ProfileEdit: React.FC = React.memo(() => {
         const formData = new FormData();
 
         formData.append('avatar', blob);
-        dispatch(thunkEditAvatar(formData));
+        dispatch(editAvatarThunk(formData));
     }, []);
 
     const controls = useMemo(

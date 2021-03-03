@@ -4,7 +4,7 @@ import { Paper } from 'client/shared/components';
 import { PageComponentProps } from 'client/shared/types';
 import { ROUTES } from 'client/routing';
 import { PageLayout } from 'client/core';
-import { HOKAuth } from 'client/core/HOKs';
+import { withCheckAuth } from 'client/core/HOKs';
 import { ProfileForm, ProfileEdit, ProfileEditPassword } from './components';
 
 const ProfileComponent: React.FC<PageComponentProps> = React.memo(({ title }) => {
@@ -34,4 +34,4 @@ const ProfileComponent: React.FC<PageComponentProps> = React.memo(({ title }) =>
     );
 });
 
-export const Profile = HOKAuth(ProfileComponent);
+export const Profile = withCheckAuth(ProfileComponent);

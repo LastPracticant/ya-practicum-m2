@@ -9,7 +9,7 @@ import { GAME_OPTIONS } from 'client/core/components/GameCanvas/GameCanvas.confi
 import { cloneDeep } from 'client/shared/utils';
 import { useSelector } from 'react-redux';
 import { gameSelector } from 'client/core/store';
-import { HOKAuth } from 'client/core/HOKs';
+import { withCheckAuth } from 'client/core/HOKs';
 import { GAME_RESOURSES, GAME_VIEWPORT } from './Game.config';
 import { GameOver } from './GameOver';
 
@@ -34,4 +34,4 @@ const GameComponent: React.FC<PageComponentProps> = React.memo(() => {
     );
 });
 
-export const Game = HOKAuth(GameComponent);
+export const Game = withCheckAuth(GameComponent);

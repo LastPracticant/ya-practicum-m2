@@ -4,7 +4,7 @@ import { Paper } from 'client/shared/components';
 import { ROUTES } from 'client/routing';
 import { PageLayout } from 'client/core';
 import { DataGrid } from '@material-ui/data-grid';
-import { HOKAuth } from 'client/core/HOKs';
+import { withCheckAuth } from 'client/core/HOKs';
 import { rows } from './Leaderboard.mock';
 import { columns } from './Leaderboard.config';
 
@@ -23,4 +23,4 @@ const LeaderboardComponent: React.FC<PageComponentProps> = ({ title }) => (
     </PageLayout>
 );
 
-export const Leaderboard = HOKAuth(LeaderboardComponent);
+export const Leaderboard = withCheckAuth(LeaderboardComponent);
