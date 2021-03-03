@@ -5,6 +5,7 @@ import {
     SigninProps,
     SignupProps,
 } from 'client/core/api';
+import { ROUTES } from 'client/routing';
 import { Action } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import { StoreProps } from '../store.types';
@@ -51,6 +52,7 @@ export const signupThunk = (
     AuthAPI.signup(data).finally(() => {
         dispatch(hideLoaderAction());
         dispatch(getCurrentUserInfoThunk());
+        window.history.pushState({}, '', ROUTES.HOME.path);
     });
 };
 
@@ -58,10 +60,14 @@ export const logoutThunk = (
 ): ThunkAction<void, StoreProps, unknown, Action<string>> => (dispatch) => {
     dispatch(showLoaderAction());
 
-    AuthAPI.logout().finally(() => {
-        dispatch(hideLoaderAction());
-        setAuth(false);
-    });
+    AuthAPI.logout()
+        .then(() => {
+            setAuth(false);
+        })
+        .finally(() => {
+            dispatch(hideLoaderAction());
+            window.history.pushState({}, '', ROUTES.SIGNIN.path);
+        });
 };
 
 export const signinThunk = (
@@ -73,6 +79,7 @@ export const signinThunk = (
         .then(() => {
             dispatch(hideLoaderAction());
             dispatch(getCurrentUserInfoThunk());
+            window.history.pushState({}, '', ROUTES.HOME.path);
         })
         .catch((response) => {
             dispatch(hideLoaderAction());

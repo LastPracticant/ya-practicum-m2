@@ -16,7 +16,7 @@ export function withCheckAuth<T = any>(
         const isAuth = checkAuth();
 
         useEffect(() => {
-            dispatch(getCurrentUserInfoThunk());
+            if (!isAuth) dispatch(getCurrentUserInfoThunk());
         }, []);
 
         if (!isAuth && !isSignin && !isSignup) {
