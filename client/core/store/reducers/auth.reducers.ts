@@ -3,7 +3,19 @@ import { LOGIN, LOGOUT } from '../actions';
 
 const initialState: boolean = false;
 
-export const authReducers = (state = initialState, action: ActionProps) => {
+const getInitialStateAuth = () => {
+    const auth = localStorage.getItem('auth');
+    if (auth) {
+        const serialisedAuth = Boolean(JSON.parse(auth));
+        return serialisedAuth;
+    }
+    return initialState;
+};
+
+export const authReducers = (
+    state = getInitialStateAuth(),
+    action: ActionProps,
+) => {
     switch (action.type) {
     case LOGIN: {
         return true;

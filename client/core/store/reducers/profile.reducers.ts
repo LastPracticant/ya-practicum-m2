@@ -2,7 +2,7 @@ import { CurrentUserInfoProps } from 'client/core/api';
 import { ActionProps } from '../actions/actions.types';
 import { GET_CURRENT_USER_INFO } from '../actions/profile.actions';
 
-export const initialStateProfile: CurrentUserInfoProps = {
+const initialStateProfile: CurrentUserInfoProps = {
     id: 0,
     first_name: '',
     second_name: '',
@@ -13,8 +13,17 @@ export const initialStateProfile: CurrentUserInfoProps = {
     avatar: '',
 };
 
+const getInitStateProfile = () => {
+    const profile = localStorage.getItem('profile');
+    if (profile) {
+        const serialisedProfile = JSON.parse(profile) as CurrentUserInfoProps;
+        return serialisedProfile;
+    }
+    return initialStateProfile;
+};
+
 export const profileReducers = (
-    state = initialStateProfile,
+    state = getInitStateProfile(),
     action: ActionProps<CurrentUserInfoProps>,
 ) => {
     switch (action.type) {
