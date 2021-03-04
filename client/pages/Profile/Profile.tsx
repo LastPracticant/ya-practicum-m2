@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, useLocation } from 'react-router-dom';
+import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import { Paper } from 'client/shared/components';
 import { PageComponentProps } from 'client/shared/types';
 import { ROUTES } from 'client/routing';
@@ -8,12 +8,12 @@ import { withCheckAuth } from 'client/core/HOCs';
 import { ProfileForm, ProfileEdit, ProfileEditPassword } from './components';
 
 const ProfileComponent: React.FC<PageComponentProps> = React.memo(({ title }) => {
-    const { pathname } = useLocation();
-    let goBackLink = ROUTES.PROFILE.path;
+    const isProfile = useRouteMatch({ path: ROUTES.PROFILE.path, strict: true });
 
-    if (pathname === ROUTES.PROFILE.path) {
-        goBackLink = ROUTES.HOME.path;
-    }
+    const goBackLink = isProfile?.isExact
+        ? ROUTES.HOME.path
+        : ROUTES.PROFILE.path;
+
     return (
         <PageLayout goBackLink={goBackLink}>
             <Paper sizes="small">
