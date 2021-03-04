@@ -12,8 +12,6 @@
         height: 100%;
         padding: var(--space-lg);
         flex-grow: 1;
-
-        /* background-color: #212121; */
         position: relative;
     }
 
