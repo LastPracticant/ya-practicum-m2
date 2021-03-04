@@ -3,7 +3,7 @@ import './Forum.css';
 import React from 'react';
 import { ROUTES } from 'client/routing';
 import { Route, Switch } from 'react-router-dom';
-import { HOKAuth } from 'client/core/HOKs';
+import { withCheckAuth } from 'client/core/HOCs';
 import { ErrorPage } from '../ErrorPage';
 import { ForumBoard } from './ForumBoard';
 import { ForumTopic } from './ForumTopic';
@@ -24,4 +24,4 @@ const ForumComponent: React.FC = () => (
     </Switch>
 );
 
-export const Forum = HOKAuth(ForumComponent);
+export const Forum = withCheckAuth(ForumComponent);

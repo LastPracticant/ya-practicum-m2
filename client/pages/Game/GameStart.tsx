@@ -9,7 +9,7 @@ import { ROUTES } from 'client/routing';
 import { useHistory } from 'react-router-dom';
 import bem from 'bem-cn';
 import { LOCAL } from 'client/shared/consts';
-import { HOKAuth } from 'client/core/HOKs';
+import { withCheckAuth } from 'client/core/HOCs';
 
 const block = bem('game-start');
 
@@ -49,4 +49,4 @@ const GameStartComponent: React.FC<PageComponentProps> = React.memo(() => {
     );
 });
 
-export const GameStart = HOKAuth(GameStartComponent);
+export const GameStart = withCheckAuth(GameStartComponent);

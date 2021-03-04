@@ -1,10 +1,10 @@
 import React from 'react';
 import { PageComponentProps } from 'client/shared/types';
 import { NivelatorXY, Paper } from 'client/shared/components';
-import { HOKAuth } from 'client/core/HOKs';
+import { withCheckAuth } from 'client/core/HOCs';
 import { SigninForm } from './components';
 
-const SigninComponent: React.FC<PageComponentProps> = React.memo(({ title }) => (
+export const SigninComponent: React.FC<PageComponentProps> = React.memo(({ title }) => (
     <NivelatorXY className="home">
         <Paper sizes="small">
             <h1>{title}</h1>
@@ -13,4 +13,4 @@ const SigninComponent: React.FC<PageComponentProps> = React.memo(({ title }) => 
     </NivelatorXY>
 ));
 
-export const Signin = HOKAuth(SigninComponent);
+export const Signin = withCheckAuth(SigninComponent);

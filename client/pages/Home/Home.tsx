@@ -9,21 +9,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import bem from 'bem-cn';
 import { LOCAL } from 'client/shared/consts';
 import { ROUTES } from 'client/routing';
-import { Link, useHistory } from 'react-router-dom';
-import { thunkLogout, profileSelector } from 'client/core/store';
+import { Link } from 'react-router-dom';
+import { logoutThunk, profileSelector } from 'client/core/store';
 import { CurrentUserInfoProps } from 'client/core/api';
-import { HOKAuth } from 'client/core/HOKs';
+import { withCheckAuth } from 'client/core/HOCs';
 
 const block = bem('home');
 
 const HomeComponent: React.FC<PageComponentProps> = React.memo(() => {
-    const history = useHistory();
     const profile = useSelector(profileSelector) as CurrentUserInfoProps;
     const dispatch = useDispatch();
 
     const handleLogout = () => {
-        dispatch(thunkLogout());
-        history.push(ROUTES.SIGNIN.path);
+        dispatch(logoutThunk());
     };
 
     const routes = [
@@ -69,4 +67,4 @@ const HomeComponent: React.FC<PageComponentProps> = React.memo(() => {
     );
 });
 
-export const Home = HOKAuth(HomeComponent);
+export const Home = withCheckAuth(HomeComponent);

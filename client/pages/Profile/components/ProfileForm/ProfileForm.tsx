@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { Grid, Button, Avatar } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
 import { CurrentUserInfoProps } from 'client/core/api';
@@ -10,13 +10,15 @@ import { InputControl } from 'client/shared/components';
 import { Link } from 'react-router-dom';
 import { ROUTES } from 'client/routing';
 import { profileSelector } from 'client/core/store/selectors';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCurrentUserInfoThunk } from 'client/core/store';
 import { PROFILE_FORM_CONTROLS } from './ProfileForm.config';
 
 export const ProfileForm: React.FC = React.memo(() => {
     const profile = useSelector(profileSelector);
+    const dispatch = useDispatch();
 
-    const { control } = useForm<CurrentUserInfoProps>({ defaultValues: profile });
+    const { control, reset } = useForm<CurrentUserInfoProps>();
 
     const controls = useMemo(
         () => PROFILE_FORM_CONTROLS.map((inputConfig) => (
@@ -34,6 +36,14 @@ export const ProfileForm: React.FC = React.memo(() => {
         )),
         [profile],
     );
+
+    useEffect(() => {
+        dispatch(getCurrentUserInfoThunk());
+    }, []);
+
+    useEffect(() => {
+        reset(profile);
+    }, [profile]);
 
     return (
         <form className="profile_form">
