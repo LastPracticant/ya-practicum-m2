@@ -16,6 +16,8 @@ export const LOCAL = {
     LEADERBOARD_COLUMN_PLAYER: 'Игрок',
     LEADERBOARD_COLUMN_SCORE: 'Счет',
     GAME_START: 'Начать игру',
+    GAME_NEXT_LEVEL: 'Следующий уровень',
+    GAME_LEVEL_COMPLITE: 'Уровень завершен!',
     GAME_OVER: 'Игра закончена',
     GAME_RESET: 'Заново?',
     GAME_CONTROL: 'Управление',

@@ -9,7 +9,8 @@
 }
 
 .game-start,
-.game-over {
+.game-over,
+.next-level {
     &__help {
         text-align: center;
 
@@ -38,7 +39,8 @@
     }
 }
 
-.game-over {
+.game-over,
+.next-level {
     position: absolute;
     top: 0;
     right: 0;
