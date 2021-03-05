@@ -1,10 +1,7 @@
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
-import {
-    loaderReducers,
-    profileReducers,
-} from './reducers';
+import { loaderReducers, profileReducers, authReducers } from './reducers';
 import { gameReducers } from './reducers/game.reducers';
 import { snackbarReducers } from './reducers/snackbar.reducers';
 
@@ -15,6 +12,7 @@ const rootReducer = combineReducers({
     profile: profileReducers,
     game: gameReducers,
     snackbar: snackbarReducers,
+    auth: authReducers,
 });
 
 export const store = createStore(

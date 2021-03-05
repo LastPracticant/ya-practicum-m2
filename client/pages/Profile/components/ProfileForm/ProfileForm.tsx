@@ -10,13 +10,11 @@ import { InputControl } from 'client/shared/components';
 import { Link } from 'react-router-dom';
 import { ROUTES } from 'client/routing';
 import { profileSelector } from 'client/core/store/selectors';
-import { useDispatch, useSelector } from 'react-redux';
-import { getCurrentUserInfoThunk } from 'client/core/store';
+import { useSelector } from 'react-redux';
 import { PROFILE_FORM_CONTROLS } from './ProfileForm.config';
 
 export const ProfileForm: React.FC = React.memo(() => {
     const profile = useSelector(profileSelector);
-    const dispatch = useDispatch();
 
     const { control, reset } = useForm<CurrentUserInfoProps>();
 
@@ -36,10 +34,6 @@ export const ProfileForm: React.FC = React.memo(() => {
         )),
         [profile],
     );
-
-    useEffect(() => {
-        dispatch(getCurrentUserInfoThunk());
-    }, []);
 
     useEffect(() => {
         reset(profile);

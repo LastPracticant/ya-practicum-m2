@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { ROUTES } from 'client/routing';
 import { useSelector, useDispatch } from 'react-redux';
 import { profileSelector } from 'client/core/store/selectors';
-import { editProfileThunk, editAvatarThunk, getCurrentUserInfoThunk } from 'client/core/store';
+import { editProfileThunk, editAvatarThunk } from 'client/core/store';
 import { PROFILE_EDIT_CONTROLS } from './ProfileEdit.config';
 
 export const ProfileEdit: React.FC = React.memo(() => {
@@ -56,10 +56,6 @@ export const ProfileEdit: React.FC = React.memo(() => {
         }),
         [errors],
     );
-
-    useEffect(() => {
-        dispatch(getCurrentUserInfoThunk());
-    }, []);
 
     useEffect(() => {
         reset(profile);

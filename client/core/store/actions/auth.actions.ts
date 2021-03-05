@@ -12,36 +12,39 @@ import { StoreProps } from '../store.types';
 import { hideLoaderAction, showLoaderAction } from './loader.actions';
 import { showSnackBarAction } from './snackbar.actions';
 
-function setAuth(value: boolean) {
-    localStorage.setItem('isAuth', value ? '1' : '0');
-}
-
-export function checkAuth() {
-    return Boolean(+(localStorage.getItem('isAuth') || 0));
-}
-
 export const SET_CURRENT_USER_INFO = 'SET_CURRENT_USER_INFO';
+export const SET_AUTH = 'SET_AUTH';
 
-export const setCurrentUserInfoAction = (payload: CurrentUserInfoProps) => (
-    { type: SET_CURRENT_USER_INFO, payload }
-);
+const changeAuth = (payload: boolean) => ({ type: SET_AUTH, payload });
 
-export const getCurrentUserInfoThunk = (
-):ThunkAction<void, StoreProps, unknown, Action<string>> => (
-    dispatch,
-) => {
+export const setCurrentUserInfoAction = (payload: CurrentUserInfoProps) => ({
+    type: SET_CURRENT_USER_INFO,
+    payload,
+});
+
+export const getCurrentUserInfoThunk = (): ThunkAction<
+void,
+StoreProps,
+unknown,
+Action<string>
+> => (dispatch) => {
     dispatch(showLoaderAction());
-    AuthAPI.getCurrentUserInfo().then((payload) => {
-        dispatch(setCurrentUserInfoAction({
-            ...payload,
-            avatar: API_HOST + payload.avatar,
-        }));
-        setAuth(true);
-    }).catch(() => {
-        setAuth(false);
-    }).finally(() => {
-        dispatch(hideLoaderAction());
-    });
+    AuthAPI.getCurrentUserInfo()
+        .then((payload) => {
+            dispatch(
+                setCurrentUserInfoAction({
+                    ...payload,
+                    avatar: API_HOST + payload.avatar,
+                }),
+            );
+            dispatch(changeAuth(true));
+        })
+        .catch(() => {
+            dispatch(changeAuth(false));
+        })
+        .finally(() => {
+            dispatch(hideLoaderAction());
+        });
 };
 
 export const signupThunk = (
@@ -56,13 +59,17 @@ export const signupThunk = (
     });
 };
 
-export const logoutThunk = (
-): ThunkAction<void, StoreProps, unknown, Action<string>> => (dispatch) => {
+export const logoutThunk = (): ThunkAction<
+void,
+StoreProps,
+unknown,
+Action<string>
+> => (dispatch) => {
     dispatch(showLoaderAction());
 
     AuthAPI.logout()
         .then(() => {
-            setAuth(false);
+            dispatch(changeAuth(false));
         })
         .finally(() => {
             dispatch(hideLoaderAction());
@@ -84,7 +91,9 @@ export const signinThunk = (
         .catch((response) => {
             dispatch(hideLoaderAction());
             response.json().then((result: any) => {
-                dispatch(showSnackBarAction({ type: 'error', msg: result?.reason }));
+                dispatch(
+                    showSnackBarAction({ type: 'error', msg: result?.reason }),
+                );
             });
         });
 };
