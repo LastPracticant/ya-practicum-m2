@@ -32,8 +32,7 @@ https://last-practicant.herokuapp.com/
 - Все делаем максимально просто. На главной стр. (разводящая стр., где будет располагаться меню) будет красивый фон с изображением. Само меню будет на полупрозрачной подложке. Остальные стр. просто на темном фоне, без изображения. Цвет рамок и текста - светлый.
 
 **Ссылки на фигму**:
-- https://www.figma.com/file/1Vc5DfESLq1yISl7ZU0b0u/GamePractice?node-id=206%3A145 - предварительно (без главной стр. и стр. игры)
-- https://www.figma.com/file/F777YBFGZuKrKDihT2QG2e/LastPracticant - предварительно (главная стр. и стр. игры)
+- https://www.figma.com/file/F777YBFGZuKrKDihT2QG2e/LastPracticant
 
 # Примерная структура папок
 ```
