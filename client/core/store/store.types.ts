@@ -16,6 +16,6 @@ export interface StoreProps {
     loader: boolean
     game: StoreGameProps
     profile: CurrentUserInfoProps
-    auth: boolean | null,
+    auth: boolean
     snackbar: StoreSnackBarProps
 }
