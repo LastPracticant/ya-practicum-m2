@@ -15,6 +15,7 @@ export const LOCAL = {
     FORUM_COLUMN_AUTOR: 'Автор',
     LEADERBOARD_COLUMN_PLAYER: 'Игрок',
     LEADERBOARD_COLUMN_SCORE: 'Счет',
+    GAME_NAME: 'Last Practicant',
     GAME_START: 'Начать игру',
     GAME_NEXT_LEVEL: 'Следующий уровень',
     GAME_LEVEL_COMPLITE: 'Уровень завершен!',

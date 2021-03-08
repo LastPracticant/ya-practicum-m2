@@ -2,7 +2,7 @@ import './Game.css';
 
 import React from 'react';
 import { PageComponentProps } from 'client/shared/types';
-import { PageLayout } from 'client/core';
+import { Meta, PageLayout } from 'client/core';
 import { NivelatorXY, Paper } from 'client/shared/components';
 import { Button } from '@material-ui/core';
 import { ROUTES } from 'client/routing';
@@ -13,7 +13,7 @@ import { withCheckAuth } from 'client/core/HOCs';
 
 const block = bem('game-start');
 
-const GameStartComponent: React.FC<PageComponentProps> = React.memo(() => {
+const GameStartComponent: React.FC<PageComponentProps> = React.memo(({ title }) => {
     const history = useHistory();
 
     const handleGameStart = () => {
@@ -22,6 +22,7 @@ const GameStartComponent: React.FC<PageComponentProps> = React.memo(() => {
 
     return (
         <PageLayout className={block()}>
+            <Meta title={title} />
             <Paper>
                 <NivelatorXY>
                     <div>

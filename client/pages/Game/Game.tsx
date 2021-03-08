@@ -2,7 +2,9 @@ import './Game.css';
 
 import React, { useMemo } from 'react';
 import { PageComponentProps } from 'client/shared/types';
-import { GamePainter, GameCanvas, PageLayout } from 'client/core';
+import {
+    GamePainter, GameCanvas, PageLayout, Meta,
+} from 'client/core';
 import { ROUTES } from 'client/routing';
 import bem from 'bem-cn';
 import { GAME_OPTIONS } from 'client/core/components/GameCanvas/GameCanvas.config';
@@ -16,7 +18,7 @@ import { GameNextLevel } from './GameNextLevel';
 
 const block = bem('game');
 
-const GameComponent: React.FC<PageComponentProps> = React.memo(() => {
+const GameComponent: React.FC<PageComponentProps> = React.memo(({ title }) => {
     const { game: gameState } = useSelector(gameSelector);
 
     const Painter = useMemo(() => {
@@ -35,6 +37,7 @@ const GameComponent: React.FC<PageComponentProps> = React.memo(() => {
 
     return (
         <PageLayout className={block()} goBackLink={ROUTES.GAME_START.path}>
+            <Meta title={title} />
             <div className={block('overlay')}>
                 <GameCanvas
                     resources={GAME_RESOURSES}

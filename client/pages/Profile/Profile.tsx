@@ -3,7 +3,7 @@ import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import { NivelatorXY, Paper } from 'client/shared/components';
 import { PageComponentProps } from 'client/shared/types';
 import { ROUTES } from 'client/routing';
-import { Logo, PageLayout } from 'client/core';
+import { Logo, Meta, PageLayout } from 'client/core';
 import { withCheckAuth } from 'client/core/HOCs';
 import { ProfileForm, ProfileEdit, ProfileEditPassword } from './components';
 
@@ -16,6 +16,7 @@ const ProfileComponent: React.FC<PageComponentProps> = React.memo(({ title }) =>
 
     return (
         <PageLayout goBackLink={goBackLink}>
+            <Meta title={title} />
             <NivelatorXY>
                 <Logo />
                 <Paper sizes="small">

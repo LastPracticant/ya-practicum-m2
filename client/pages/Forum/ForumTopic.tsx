@@ -2,7 +2,7 @@ import './Forum.css';
 
 import React from 'react';
 import { PageComponentProps, UrlCommonProps } from 'client/shared/types';
-import { PageLayout } from 'client/core/components';
+import { Meta, PageLayout } from 'client/core';
 import { ROUTES } from 'client/routing';
 import { Paper } from 'client/shared/components';
 import { useParams } from 'react-router-dom';
@@ -13,6 +13,7 @@ export const ForumTopic: React.FC<PageComponentProps> = ({ title }) => {
 
     return (
         <PageLayout goBackLink={ROUTES.FORUM.path} className={block()}>
+            <Meta title={title} />
             <Paper title={title}>
                 {`topic ${params.id}`}
             </Paper>
