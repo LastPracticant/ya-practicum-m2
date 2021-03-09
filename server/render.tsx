@@ -1,3 +1,4 @@
+import { Loader } from 'client/shared/components';
 import React from 'react';
 import { renderToStaticMarkup, renderToString } from 'react-dom/server';
 import { Helmet, HelmetData } from 'react-helmet';
@@ -27,14 +28,10 @@ function getPageHtml({ bundleHtml, helmet }: PageHtmlParams) {
     return `<!doctype html>${html}`;
 }
 
-function MockApp() {
-    return <h1>Hello world!</h1>;
-}
-
 export const renderBundle = () => {
     const bundleHtml = renderToString(
         (
-            <MockApp />
+            <Loader isVisible />
         ),
     );
 

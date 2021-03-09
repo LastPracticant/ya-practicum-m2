@@ -16,7 +16,7 @@ module.exports = {
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
         alias: {
-            client: path.resolve(__dirname, './client/'),
+            client: path.join(__dirname, './client/'),
         },
     },
     module: {
@@ -62,18 +62,16 @@ module.exports = {
     devServer: {
         historyApiFallback: true,
         port: 7000,
-        publicPath: path.join(__dirname, './www'),
     },
     plugins: [
-        // new HtmlWebpackPlugin({
-        //     template: './www/index.html',
-        //     filename: path.join(__dirname, './dist/dev/index.html'),
-        //     minify: false,
-        //     excludeChunks: ['server'],
-        // }),
+        new HtmlWebpackPlugin({
+            template: './www/index.html',
+            minify: false,
+            excludeChunks: ['server'],
+        }),
         new StylelintPlugin({
-            configFile: path.resolve(__dirname, './.stylelintrc.json'),
-            context: path.resolve(__dirname, './client'),
+            configFile: path.join(__dirname, './.stylelintrc.json'),
+            context: path.join(__dirname, './client'),
         }),
         new MiniCssExtractPlugin(),
     ],
