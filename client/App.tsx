@@ -27,15 +27,15 @@ export const App: React.FC = () => {
     const snackBar = useSelector(snackbarSelector);
 
     return (
-        <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <NivelatorXY>
-                <BrowserRouter>
-                    <Routing />
-                    <Loader isVisible={loader.isVisible} />
-                    <SnackBar open={snackBar.isVisible} {...snackBar} />
-                </BrowserRouter>
-            </NivelatorXY>
-        </ThemeProvider>
+            <ThemeProvider theme={theme}>
+                <CssBaseline />
+                <NivelatorXY>
+                    <BrowserRouter>
+                        <Routing />
+                        <Loader isVisible={loader.isVisible} />
+                        <SnackBar open={snackBar.isVisible} {...snackBar} />
+                    </BrowserRouter>
+                </NivelatorXY>
+            </ThemeProvider>
     );
 };

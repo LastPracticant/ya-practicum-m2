@@ -24,5 +24,6 @@
             "client/*": ["./client/*"],
         }
     },
-    "include": ["./client", "./server"]
+    "include": ["./client", "./server"],
+    "exclude": ["./node_modules"]
 }
