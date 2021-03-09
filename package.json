@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./dist/server.js",
-    "dev": "webpack serve --mode development --open --hot",
-    "build": "webpack --mode production",
+    "dev": "webpack serve --mode development --open --hot --config ./webpack.config.app.js",
+    "build": "npm run build:app && npm run build:ssr",
+    "build:app": "webpack --config ./webpack.config.app.js --mode production",
+    "build:ssr": "webpack --config ./webpack.config.ssr.js --mode production",
     "test": "jest"
   },
   "keywords": [],

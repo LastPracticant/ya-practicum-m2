@@ -1,16 +1,10 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const StylelintPlugin = require('stylelint-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     target: 'node',
-    entry: {
-        app: './client/index.tsx',
-        server: './server/start.ts',
-    },
+    entry: './server/start.ts',
     output: {
-        filename: '[name].js',
+        filename: 'server.js',
         path: path.join(__dirname, '/dist'),
     },
     resolve: {
@@ -29,7 +23,6 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: [
-                    MiniCssExtractPlugin.loader,
                     'css-loader',
                     {
                         loader: 'postcss-loader',
@@ -59,20 +52,4 @@ module.exports = {
             },
         ],
     },
-    devServer: {
-        historyApiFallback: true,
-        port: 7000,
-    },
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: './www/index.html',
-            minify: false,
-            excludeChunks: ['server'],
-        }),
-        new StylelintPlugin({
-            configFile: path.join(__dirname, './.stylelintrc.json'),
-            context: path.join(__dirname, './client'),
-        }),
-        new MiniCssExtractPlugin(),
-    ],
 };
