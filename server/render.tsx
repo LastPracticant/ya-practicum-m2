@@ -3,12 +3,12 @@ import React from 'react';
 import { renderToStaticMarkup, renderToString } from 'react-dom/server';
 import { Helmet, HelmetData } from 'react-helmet';
 
-interface PageHtmlParams {
+interface PageHtmlProps {
     bundleHtml: string;
     helmet: HelmetData;
 }
 
-function getPageHtml({ bundleHtml, helmet }: PageHtmlParams) {
+function getPageHtml({ bundleHtml, helmet }: PageHtmlProps) {
     const html = renderToStaticMarkup(
         <html lang="ru">
             <head>
