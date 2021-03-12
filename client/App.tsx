@@ -1,6 +1,5 @@
 import './App.css';
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
 import { Routing } from 'client/routing/Routing';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
@@ -30,11 +29,9 @@ export const App: React.FC = () => {
             <ThemeProvider theme={theme}>
                 <CssBaseline />
                 <NivelatorXY>
-                    <BrowserRouter>
-                        <Routing />
-                        <Loader isVisible={loader.isVisible} />
-                        <SnackBar open={snackBar.isVisible} {...snackBar} />
-                    </BrowserRouter>
+                    <Routing />
+                    <Loader isVisible={loader.isVisible} />
+                    <SnackBar open={snackBar.isVisible} {...snackBar} />
                 </NivelatorXY>
             </ThemeProvider>
     );

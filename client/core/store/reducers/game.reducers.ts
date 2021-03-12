@@ -17,7 +17,7 @@ const initialState = {
 
 export const gameReducers = (state: StoreGameProps = initialState, action: Required<ActionProps<StoreGameProps>>) => {
     const actionScore = action.payload?.score || 0;
-    const score = state.score + actionScore;
+    const score = (state.score || 0) + actionScore;
 
     switch (action.type) {
     case GAME_OVER: {
@@ -42,7 +42,7 @@ export const gameReducers = (state: StoreGameProps = initialState, action: Requi
             isPause: action.payload?.isPause,
             currentLevel: state.currentLevel === GAME_OPTIONS.levels.options.length - 1
                 ? 0
-                : state.currentLevel + 1,
+                : (state.currentLevel || 0) + 1,
         };
     }
     case GAME_RESET: {

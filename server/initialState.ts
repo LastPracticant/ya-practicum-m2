@@ -14,5 +14,5 @@ export const defaultState = {
         msg: '',
         type: 'info',
     },
-    auth: null,
+    auth: true,
 } as StoreProps;

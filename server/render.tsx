@@ -1,5 +1,5 @@
+import { App } from 'client/App';
 import { composeStore, StoreProps } from 'client/core/store';
-import { Loader } from 'client/shared/components';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { Helmet, HelmetData } from 'react-helmet';
@@ -20,7 +20,7 @@ function getPageHtml({ html, state, helmet }: PageHtmlProps) {
         <head>
             <meta charset="utf-8">
             <title>React SSR</title>
-            <link rel="stylesheet" href="./main.css" type="text/css">
+            <link rel="stylesheet" href="/main.css" type="text/css">
         </head>
 
         <body>
@@ -28,7 +28,7 @@ function getPageHtml({ html, state, helmet }: PageHtmlProps) {
             <script>
                 window.__INITIAL_STATE__ = ${JSON.stringify(state)}
             </script>
-            <script src="./app.js"></script>
+            <script src="/app.js"></script>
         </body>
         </html>
     `;
@@ -42,7 +42,7 @@ export const renderHtml = (reqUrl: string) => {
     const html = renderToString(
         <ReduxProvider store={store}>
             <StaticRouter context={context} location={reqUrl}>
-                <Loader isVisible />
+                <App />
             </StaticRouter>
         </ReduxProvider>,
     );

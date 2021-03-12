@@ -1,5 +1,4 @@
 import { applyMiddleware, combineReducers, createStore } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import { loaderReducers, profileReducers, authReducers } from './reducers';
 import { gameReducers } from './reducers/game.reducers';
@@ -19,5 +18,5 @@ export const rootReducer = combineReducers<StoreProps>({
 export const composeStore = (initialState: StoreProps) => createStore(
     rootReducer,
     initialState,
-    composeWithDevTools(applyMiddleware(...middlewares)),
+    applyMiddleware(...middlewares),
 );
