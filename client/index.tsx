@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
+import { Provider as ReduxProvider } from 'react-redux';
 import { App } from './App';
-import { store } from './core/store';
+import { composeStore } from './core/store';
 
-ReactDOM.render(
-    <Provider store={store}>
+const store = composeStore(window.__INITIAL_STATE__);
+
+ReactDOM.hydrate(
+    <ReduxProvider store={store}>
         <App />
-    </Provider>,
+    </ReduxProvider>,
     document.getElementById('root'),
 );

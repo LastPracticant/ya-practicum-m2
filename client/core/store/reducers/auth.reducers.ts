@@ -1,9 +1,9 @@
 import { ActionProps } from '../actions/actions.types';
 import { SET_AUTH } from '../actions/auth.actions';
 
-const initialState: boolean | null = null;
+const initialState = null;
 
-export const authReducers = (state = initialState, action: ActionProps) => {
+export const authReducers = (state: boolean | null = initialState, action: Required<ActionProps<boolean>>) => {
     switch (action.type) {
     case SET_AUTH: {
         return action.payload;

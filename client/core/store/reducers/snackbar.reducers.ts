@@ -8,7 +8,7 @@ export const initialStateSnackBar: StoreSnackBarProps = {
     type: 'info',
 };
 
-export const snackbarReducers = (state = initialStateSnackBar, action: ActionProps) => {
+export const snackbarReducers = (state: StoreSnackBarProps = initialStateSnackBar, action: ActionProps<StoreSnackBarProps>) => {
     switch (action.type) {
     case SHOW_SNACKBAR: {
         return { ...state, ...action.payload, isVisible: true };

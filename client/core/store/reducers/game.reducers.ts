@@ -8,14 +8,14 @@ import {
 } from '../actions/game.actions';
 import { StoreGameProps } from '../store.types';
 
-const initialState: Required<StoreGameProps> = {
+const initialState = {
     isOver: false,
     isPause: false,
     score: 0,
     currentLevel: 0,
 };
 
-export const gameReducers = (state = initialState, action: ActionProps<StoreGameProps>) => {
+export const gameReducers = (state: StoreGameProps = initialState, action: Required<ActionProps<StoreGameProps>>) => {
     const actionScore = action.payload?.score || 0;
     const score = state.score + actionScore;
 

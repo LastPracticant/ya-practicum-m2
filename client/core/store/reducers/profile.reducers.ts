@@ -5,8 +5,8 @@ import { SET_CURRENT_USER_INFO } from '../actions/auth.actions';
 const initialStateProfile = {} as CurrentUserInfoProps;
 
 export const profileReducers = (
-    state = initialStateProfile,
-    action: ActionProps<CurrentUserInfoProps>,
+    state: CurrentUserInfoProps = initialStateProfile,
+    action: Required<ActionProps<CurrentUserInfoProps>>,
 ) => {
     switch (action.type) {
     case SET_CURRENT_USER_INFO:

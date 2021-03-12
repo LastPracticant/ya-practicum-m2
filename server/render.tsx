@@ -1,43 +1,54 @@
+import { composeStore, StoreProps } from 'client/core/store';
 import { Loader } from 'client/shared/components';
 import React from 'react';
-import { renderToStaticMarkup, renderToString } from 'react-dom/server';
+import { renderToString } from 'react-dom/server';
 import { Helmet, HelmetData } from 'react-helmet';
+import { Provider as ReduxProvider } from 'react-redux';
+import { StaticRouter } from 'react-router-dom';
 
 interface PageHtmlProps {
-    bundleHtml: string;
+    html: string;
+    state: StoreProps
     helmet: HelmetData;
 }
 
-function getPageHtml({ bundleHtml, helmet }: PageHtmlProps) {
-    const html = renderToStaticMarkup(
-        <html lang="ru">
-            <head>
-                {helmet.title.toComponent()}
-                {helmet.meta.toComponent()}
-                {helmet.link.toComponent()}
-                {helmet.script.toComponent()}
+function getPageHtml({ html, state, helmet }: PageHtmlProps) {
+    return `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <title>React SSR</title>
+            <link rel="stylesheet" href="./main.css" type="text/css">
+        </head>
 
-                <link rel="icon" type="image/png" href="./idea.png" />
-            </head>
-            <body>
-                <div id="root" dangerouslySetInnerHTML={{ __html: bundleHtml }} />
-            </body>
-        </html>,
-    );
-
-    return `<!doctype html>${html}`;
+        <body>
+            <div id="root">${html}</div>
+            <script>
+                window.__INITIAL_STATE__ = ${JSON.stringify(state)}
+            </script>
+            <script src="./app.js"></script>
+        </body>
+        </html>
+    `;
 }
 
-export const renderBundle = () => {
-    const bundleHtml = renderToString(
-        (
-            <Loader isVisible />
-        ),
+export const renderHtml = (reqUrl: string) => {
+    const store = composeStore();
+    const state = store.getState();
+    const context = {};
+
+    const html = renderToString(
+        <ReduxProvider store={store}>
+            <StaticRouter context={context} location={reqUrl}>
+                <Loader isVisible />
+            </StaticRouter>
+        </ReduxProvider>,
     );
 
     const helmet = Helmet.rewind();
 
     return {
-        html: getPageHtml({ bundleHtml, helmet }),
+        html: getPageHtml({ html, state, helmet }),
     };
 };
