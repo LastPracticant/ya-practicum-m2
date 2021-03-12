@@ -5,6 +5,7 @@ import { renderToString } from 'react-dom/server';
 import { Helmet, HelmetData } from 'react-helmet';
 import { Provider as ReduxProvider } from 'react-redux';
 import { StaticRouter } from 'react-router-dom';
+import { defaultState } from './initialState';
 
 interface PageHtmlProps {
     html: string;
@@ -34,7 +35,7 @@ function getPageHtml({ html, state, helmet }: PageHtmlProps) {
 }
 
 export const renderHtml = (reqUrl: string) => {
-    const store = composeStore();
+    const store = composeStore(defaultState);
     const state = store.getState();
     const context = {};
 
