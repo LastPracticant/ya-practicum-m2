@@ -7,7 +7,7 @@ module.exports = {
     entry: './server/start.ts',
     output: {
         filename: 'server.js',
-        path: path.join(__dirname, '/dist'),
+        path: path.resolve(__dirname, './dist'),
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
@@ -35,7 +35,10 @@ module.exports = {
                 test: /\.(png|jpe?g|gif)$/i,
                 use: [
                     {
-                        loader: 'null-loader',
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[ext]',
+                        },
                     },
                 ],
             },
