@@ -14,4 +14,10 @@
         visibility: visible;
         opacity: 1;
     }
+
+    &__img {
+        width: 55px;
+        height: 32px;
+        background: url(./loader.gif) no-repeat center/contain;
+    }
 }

@@ -10,7 +10,7 @@ import bem from 'bem-cn';
 import { GAME_OPTIONS } from 'client/core/components/GameCanvas/GameCanvas.config';
 import { cloneDeep } from 'client/shared/utils';
 import { useSelector } from 'react-redux';
-import { gameSelector } from 'client/core/store';
+import { gameSelector, isServer } from 'client/core/store';
 import { withCheckAuth } from 'client/core/HOCs';
 import { GAME_RESOURSES, GAME_VIEWPORT } from './Game.config';
 import { GameOver } from './GameOver';
@@ -38,16 +38,22 @@ const GameComponent: React.FC<PageComponentProps> = React.memo(({ title }) => {
     return (
         <PageLayout className={block()} goBackLink={ROUTES.GAME_START.path}>
             <Meta title={title} />
-            <div className={block('overlay')}>
-                <GameCanvas
-                    resources={GAME_RESOURSES}
-                    drawCanvas={Painter.drawCanvas}
-                    {...GAME_VIEWPORT}
-                />
-            </div>
+            {!isServer
+                ? (
+                    <>
+                        <div className={block('overlay')}>
+                            <GameCanvas
+                                resources={GAME_RESOURSES}
+                                drawCanvas={Painter.drawCanvas}
+                                {...GAME_VIEWPORT}
+                            />
+                        </div>
 
-            <GameOver {...gameState} />
-            <GameNextLevel {...gameState} />
+                        <GameOver {...gameState} />
+                        <GameNextLevel {...gameState} />
+                    </>
+                )
+                : (<></>)}
         </PageLayout>
     );
 });

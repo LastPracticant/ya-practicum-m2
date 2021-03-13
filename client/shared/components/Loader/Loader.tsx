@@ -3,7 +3,6 @@ import './Loader.css';
 
 import { ComponentCommonProps } from 'client/shared/types';
 import bem from 'bem-cn';
-import loader from './loader.gif';
 import { NivelatorXY } from '../NivelatorXY';
 
 interface LoaderProps extends ComponentCommonProps {
@@ -19,7 +18,7 @@ export const Loader: FC<LoaderProps> = memo(
     }) => (
         <div className={block({ visible: isVisible }).mix(className)}>
             <NivelatorXY>
-                <img src={loader} alt="loader" />
+                <div className={block('img')} />
             </NivelatorXY>
         </div>
     ),

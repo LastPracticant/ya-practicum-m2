@@ -7,6 +7,12 @@ import { StoreProps } from './store.types';
 
 const middlewares = [thunk];
 
+export const isServer = !(
+    typeof window !== 'undefined'
+    && window.document
+    && window.document.createElement
+);
+
 export const rootReducer = combineReducers<StoreProps>({
     loader: loaderReducers,
     profile: profileReducers,
