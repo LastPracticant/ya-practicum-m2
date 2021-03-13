@@ -7,6 +7,10 @@ import { composeStore } from './core/store';
 
 const store = composeStore(window.__INITIAL_STATE__);
 
+// TODO: на время интеграции SSR, после нужно будет убрать
+// @ts-ignore
+window.store = store;
+
 ReactDOM.hydrate(
     <ReduxProvider store={store}>
         <BrowserRouter>

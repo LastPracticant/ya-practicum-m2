@@ -14,5 +14,6 @@ export const defaultState = {
         msg: '',
         type: 'info',
     },
+    // TODO: пока true, будет поправлено в LP-86
     auth: true,
 } as StoreProps;

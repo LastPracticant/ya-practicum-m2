@@ -16,10 +16,15 @@ interface PageHtmlProps {
 function getPageHtml({ html, state, helmet }: PageHtmlProps) {
     return `
         <!DOCTYPE html>
-        <html>
+        <html lang="ru">
+        <base href="/">
         <head>
-            <meta charset="utf-8">
-            <title>React SSR</title>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta http-equiv="X-UA-Compatible" content="ie=edge">
+            ${helmet.title.toString()}
+            ${helmet.meta.toString()}
+            <link rel="icon" type="image/png" href="./idea.png"/>
             <link rel="stylesheet" href="/main.css" type="text/css">
         </head>
 
