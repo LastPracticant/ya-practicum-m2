@@ -5,14 +5,14 @@ import { Link } from 'react-router-dom';
 import bem from 'bem-cn';
 import { NivelatorXY } from 'client/shared/components';
 import { LOCAL } from 'client/shared/consts';
-import { ErrorPageProps } from './ErrorPage.types';
+import { PageComponentProps } from 'client/shared/types';
 
 const block = bem('error-page');
 
-export const ErrorPage: React.FC<ErrorPageProps> = ({ errorCode }) => (
+export const ErrorPage: React.FC<PageComponentProps> = ({ title }) => (
     <NivelatorXY className={block}>
         <h3>
-			{errorCode}
+			{title}
 		</h3>
 
 		<p>

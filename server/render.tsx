@@ -21,8 +21,8 @@ function getPageHtml({ html, state, helmet }: PageHtmlProps) {
                 <meta charSet="UTF-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
-                ${helmet.title.toString()}
-                ${helmet.meta.toString()}
+                {helmet.title.toString()}
+                {helmet.meta.toString()}
                 <link rel="icon" type="image/png" href="./idea.png" />
                 <link rel="stylesheet" href="/main.css" type="text/css" />
             </head>
