@@ -15,5 +15,5 @@ export const defaultState = {
         type: 'info',
     },
     // TODO: можно поставить true, чтобы проверить работоспособность рендера, будет доработано в LP-86
-    auth: false,
+    auth: true,
 } as StoreProps;
