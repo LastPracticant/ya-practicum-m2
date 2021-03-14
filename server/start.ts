@@ -1,5 +1,5 @@
 import express, { Express } from 'express';
-import renderBundle from './middlewares/render-bundle';
+import { renderBundle } from './middlewares/render-bundle';
 
 const path = require('path');
 
