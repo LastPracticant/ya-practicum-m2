@@ -30,6 +30,7 @@ export const ROUTES: RoutesProps = {
         path: '/',
         title: 'Главная',
         component: Home,
+        exact: true,
     },
     SIGNIN: {
         path: '/signin',

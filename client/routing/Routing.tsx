@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import { ROUTES } from './Routing.config';
 
-export const Routing: React.FC = () => {
+export const Routing: React.FC = React.memo(() => {
     const pages = Object.values(ROUTES).map(({
         component: Page,
         title,
@@ -20,4 +20,4 @@ export const Routing: React.FC = () => {
             {pages}
         </Switch>
     );
-};
+});
