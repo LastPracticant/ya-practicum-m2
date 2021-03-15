@@ -1,5 +1,5 @@
 import express, { Express } from 'express';
-import { renderHtml } from './render';
+import { renderBundle } from './middlewares/render-bundle';
 
 const path = require('path');
 
@@ -15,9 +15,9 @@ app.get('*.(js|css|png|jpe?g|gif)$', (req, res) => {
     res.sendFile(path.join(__dirname, req.path));
 });
 
+app.use(renderBundle);
 app.get('*', (req, res) => {
-    const { html } = renderHtml(req.url);
-    res.send(html);
+    res.renderBundle(req.url);
 });
 
 app.listen(PORT, () => {
