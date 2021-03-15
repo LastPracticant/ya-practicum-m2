@@ -1,5 +1,7 @@
 import express, { Express } from 'express';
-import { renderBundle } from './middlewares/render-bundle';
+import cookieParser from 'cookie-parser';
+import { renderBundle } from './middlewares/renderBundle';
+import { setCookies } from './middlewares/setCookies';
 
 const path = require('path');
 
@@ -15,6 +17,8 @@ app.get('*.(js|css|png|jpe?g|gif)$', (req, res) => {
     res.sendFile(path.join(__dirname, req.path));
 });
 
+app.use(cookieParser());
+app.use(setCookies);
 app.use(renderBundle);
 app.get('*', (req, res) => {
     res.renderBundle(req.url);
