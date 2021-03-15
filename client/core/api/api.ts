@@ -17,8 +17,8 @@ export interface ResponseProps<T> extends Omit<XMLHttpRequest, 'response'> {
     response: T
 }
 
-export const API_HOST = 'https://ya-praktikum.tech';
-export const API_BASE_PATH = `${API_HOST}/api/v2`;
+export const YA_API_HOST = 'https://ya-praktikum.tech';
+export const NODE_API_HOST = '';
 
 export function queryStringify<T extends object>(data: T): string {
     if (!data) {
@@ -31,10 +31,10 @@ export function queryStringify<T extends object>(data: T): string {
 }
 
 export class HTTP {
-    _path: string = API_BASE_PATH;
+    _path: string;
 
-    constructor(path = '') {
-        this._path += path;
+    constructor(path = '', host = YA_API_HOST) {
+        this._path = `${host}/api/v2${path}`;
     }
 
     get<T>(url: string, options: OptionsWithoutMethodType = {}): Promise<T> {
@@ -97,6 +97,7 @@ export class HTTP {
                 if (!response.ok) {
                     return Promise.reject(response);
                 }
+                console.log(response.headers.get('set-cookie'), 'dddddddddddddddddd');
                 return response[responseFormat]();
             });
     }

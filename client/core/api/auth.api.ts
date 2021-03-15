@@ -1,4 +1,4 @@
-import { HTTP } from './api';
+import { HTTP, NODE_API_HOST } from './api';
 import { BaseAPI } from './base.api';
 
 export interface SignupProps {
@@ -27,22 +27,29 @@ export interface CurrentUserInfoProps {
     avatar: string
 }
 
-const authAPIInstance = new HTTP('/auth');
+export class AuthAPIBase extends BaseAPI {
+    _apiInstance: HTTP;
 
-export class AuthAPI extends BaseAPI {
-    static signup(data: SignupProps): Promise<XMLHttpRequest> {
-        return authAPIInstance.post('/signup', { data });
+    constructor(host?: string) {
+        super();
+        this._apiInstance = new HTTP('/auth', host);
     }
 
-    static signin(data: SigninProps): Promise<XMLHttpRequest> {
-        return authAPIInstance.post('/signin', { data, responseFormat: 'text' });
+    signup(data: SignupProps): Promise<XMLHttpRequest> {
+        return this._apiInstance.post('/signup', { data });
     }
 
-    static getCurrentUserInfo(): Promise<CurrentUserInfoProps> {
-        return authAPIInstance.get<CurrentUserInfoProps>('/user');
+    signin(data: SigninProps): Promise<XMLHttpRequest> {
+        return this._apiInstance.post('/signin', { data, responseFormat: 'text' });
     }
 
-    static logout(): Promise<XMLHttpRequest> {
-        return authAPIInstance.post('/logout', { responseFormat: 'text' });
+    getCurrentUserInfo(): Promise<CurrentUserInfoProps> {
+        return this._apiInstance.get<CurrentUserInfoProps>('/user');
+    }
+
+    logout(): Promise<XMLHttpRequest> {
+        return this._apiInstance.post('/logout', { responseFormat: 'text' });
     }
 }
+
+export const AuthAPI = new AuthAPIBase();

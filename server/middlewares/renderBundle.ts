@@ -6,10 +6,14 @@ import {
 import { NextFunction, Request, Response } from 'express';
 // import { AnyAction } from 'redux';
 // import { ThunkDispatch } from 'redux-thunk';
+import fetch from 'node-fetch';
 import { defaultState } from '../initialState';
 import { renderHtml } from './renderHtml';
 
-import 'isomorphic-fetch';
+if (!globalThis.fetch) {
+    // @ts-ignore
+    globalThis.fetch = fetch;
+}
 
 export function renderBundle(req: Request, res: Response, next: NextFunction) {
     res.renderBundle = async (url: string) => {
