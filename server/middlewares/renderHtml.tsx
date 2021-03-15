@@ -1,11 +1,11 @@
 import { App } from 'client/App';
-import { composeStore, StoreProps } from 'client/core/store';
+import { StoreProps } from 'client/core/store';
 import React from 'react';
 import { renderToStaticMarkup, renderToString } from 'react-dom/server';
 import { Helmet, HelmetData } from 'react-helmet';
 import { Provider as ReduxProvider } from 'react-redux';
 import { StaticRouter } from 'react-router-dom';
-import { defaultState } from '../initialState';
+import { Store } from 'redux';
 
 interface PageHtmlProps {
     html: string;
@@ -41,9 +41,7 @@ function getPageHtml({ html, state, helmet }: PageHtmlProps) {
     return `<!DOCTYPE html> ${staticMarkup}`;
 }
 
-export const renderHtml = (reqUrl: string) => {
-    const store = composeStore(defaultState);
-    const state = store.getState();
+export const renderHtml = (reqUrl: string, state: StoreProps, store: Store) => {
     const context = {};
 
     const html = renderToString(
