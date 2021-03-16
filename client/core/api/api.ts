@@ -92,7 +92,7 @@ export class HTTP {
             body: serializeBody(method, data),
             headers: serializeHeader(options),
         })
-            .then(async (response) => {
+            .then((response) => {
                 if (!response.ok) {
                     return Promise.reject(response);
                 }

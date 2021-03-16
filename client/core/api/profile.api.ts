@@ -19,18 +19,18 @@ export interface ChangePasswordProps {
     newPassword: string
 }
 
-const profileAPIInstance = new HTTP('/user');
+const ExpresspPofileAPI = new HTTP('/user');
 
 export class ProfileAPI extends BaseAPI {
     static change(data: ChangeProfileProps) {
-        return profileAPIInstance.put<ChangeProfileProps, ChangeProfileProps>('/profile', { data });
+        return ExpresspPofileAPI.put<ChangeProfileProps, ChangeProfileProps>('/profile', { data });
     }
 
     static changeAvatar(data: FormData) {
-        return profileAPIInstance.put<ChangeProfilePropsAvatar, Response>('/profile/avatar', { data });
+        return ExpresspPofileAPI.put<ChangeProfilePropsAvatar, Response>('/profile/avatar', { data });
     }
 
     static changePassword(data: ChangePasswordProps) {
-        return profileAPIInstance.put<ChangePasswordProps, Response>('/password', { data, responseFormat: 'text' });
+        return ExpresspPofileAPI.put<ChangePasswordProps, Response>('/password', { data, responseFormat: 'text' });
     }
 }
