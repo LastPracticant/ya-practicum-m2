@@ -39,7 +39,6 @@ export class AuthAPI extends BaseAPI {
     }
 
     static getCurrentUserInfo(): Promise<CurrentUserInfoProps> {
-        console.log('call 1.1');
         return ExpressAuthAPI.get<CurrentUserInfoProps>('/user');
     }
 

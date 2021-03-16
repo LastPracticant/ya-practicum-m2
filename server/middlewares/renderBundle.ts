@@ -18,17 +18,13 @@ if (!globalThis.fetch) {
 export function renderBundle(req: Request, res: Response, next: NextFunction) {
     res.renderBundle = async (url: string) => {
         const store = composeStore(defaultState);
-        const state = store.getState();
-
         const dispatch = store.dispatch as ThunkDispatch<StoreProps, void, AnyAction>;
-
-        console.log('before dispatch getCurrentUserInfoThunk');
 
         await dispatch(getCurrentUserInfoThunk(req));
 
-        console.log('after dispatch getCurrentUserInfoThunk');
-
+        const state = store.getState();
         const { html } = renderHtml(url, state, store);
+
         res.send(html);
     };
 
