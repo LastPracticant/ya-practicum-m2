@@ -1,6 +1,7 @@
 import {
     API_SERVER_HOST, METHOD, OptionsType, OptionsWithoutMethodType, queryStringify,
 } from 'client/core/api';
+import fetch, { Response } from 'node-fetch';
 
 export class ExpressHTTP {
     _path: string;
@@ -9,32 +10,29 @@ export class ExpressHTTP {
         this._path = `${API_SERVER_HOST}/api/v2${path}`;
     }
 
-    get<Req, Res>(url: string, options: OptionsWithoutMethodType = {}): Promise<Res> {
-        return this.request<Req, Res>(url, { ...options, method: METHOD.GET });
+    get<Req>(url: string, options: OptionsWithoutMethodType = {}) {
+        return this.request<Req>(url, { ...options, method: METHOD.GET });
     }
 
-    post<Req, Res>(url: string, options: OptionsWithoutMethodType = {}): Promise<Res> {
-        return this.request<Req, Res>(url, { ...options, method: METHOD.POST });
+    post<Req>(url: string, options: OptionsWithoutMethodType = {}) {
+        return this.request<Req>(url, { ...options, method: METHOD.POST });
     }
 
-    put<Req, Res>(url: string, options: OptionsWithoutMethodType = {}): Promise<Res> {
-        return this.request<Req, Res>(url, { ...options, method: METHOD.PUT });
+    put<Req>(url: string, options: OptionsWithoutMethodType = {}) {
+        return this.request<Req>(url, { ...options, method: METHOD.PUT });
     }
 
-    delete<Req, Res>(url: string, options: OptionsWithoutMethodType = {}): Promise<Res> {
-        return this.request<Req, Res>(url, { ...options, method: METHOD.DELETE });
+    delete<Req>(url: string, options: OptionsWithoutMethodType = {}) {
+        return this.request<Req>(url, { ...options, method: METHOD.DELETE });
     }
 
-    request<Req, Res>(
+    request<Req>(
         url: string,
         options: OptionsType = { method: METHOD.GET },
-    ): Promise<Res> {
+    ): Promise<Response> {
         function serializeBody(method: METHOD, data: Req) {
             if (method === METHOD.GET) {
                 return;
-            }
-            if (data instanceof FormData) {
-                return data;
             }
             return JSON.stringify(data);
         }
@@ -58,11 +56,15 @@ export class ExpressHTTP {
 
         return fetch(path, {
             method,
-            mode: 'cors',
-            credentials: 'include',
             body: serializeBody(method, data),
             headers: serializeHeader(options),
         })
-            .then((response) => response).catch((error) => error);
+            .then((response) => {
+                if (!response.ok) {
+                    return Promise.reject(response);
+                }
+
+                return response;
+            });
     }
 }

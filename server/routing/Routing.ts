@@ -27,19 +27,9 @@ export function routing(app: Express) {
             },
         })
             .then(async (response) => {
-                console.log('--------------- call 1 -----------');
-                console.log(response);
-                console.log('--------------- call 1 end -----------');
-                const body = await response.json();
-                console.log('--------------- call 2 -----------');
-                console.log(body);
-                console.log('--------------- call 2 end -----------');
-                res.send(body);
+                res.send(await response.json());
             })
             .catch((error) => {
-                console.log('--------------- call 3 -----------');
-                console.log(error);
-                console.log('--------------- call 3 end -----------');
                 res.status(error.status).send(error.statusText);
             });
     });
@@ -48,10 +38,10 @@ export function routing(app: Express) {
         if (!req.body) return res.sendStatus(400);
 
         ExpressAuthAPI.signin(req.body)
-            .then((response) => {
+            .then(async (response) => {
                 setCookies(response, res);
 
-                res.send(response);
+                res.send(await response.text());
             })
             .catch((error) => {
                 res.status(error.status).send(error.statusText);
@@ -62,10 +52,10 @@ export function routing(app: Express) {
         if (!req.body) return res.sendStatus(400);
 
         ExpressAuthAPI.signup(req.body)
-            .then((response) => {
+            .then(async (response) => {
                 setCookies(response, res);
 
-                res.send(response);
+                res.send(await response.text());
             })
             .catch((error) => {
                 res.status(error.status).send(error.statusText);
@@ -81,7 +71,6 @@ export function routing(app: Express) {
             },
         })
             .then(async (response) => {
-                console.log('----------------------huy----------------------');
                 res.clearCookie('uuid');
                 res.clearCookie('authCookie');
                 res.send(await response.text());

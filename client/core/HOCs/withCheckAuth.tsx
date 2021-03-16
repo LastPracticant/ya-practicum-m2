@@ -16,6 +16,8 @@ export function withCheckAuth<T = any>(
         const isSignPageThere = signRoutes.some(useRouteMatch);
         const { isAuth } = useSelector(authSelector);
 
+        debugger;
+
         useEffect(() => {
             if (!isAuth) {
                 dispatch(getCurrentUserInfoThunk());

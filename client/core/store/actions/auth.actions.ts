@@ -24,14 +24,7 @@ export const setCurrentUserInfoAction = (payload: CurrentUserInfoProps) => ({
 
 export const getCurrentUserInfoThunk = (): ThunkAction<void, StoreProps, unknown, Action<string>> => (dispatch) => {
     dispatch(showLoaderAction());
-    console.log('--------------- call 0 -----------');
-    // console.log(body);
-    console.log('--------------- call 0 end -----------');
     AuthAPI.getCurrentUserInfo().then(async (response) => {
-        console.log('--------------- call 4 -----------');
-        // @ts-ignore
-        console.log(await response.json());
-        console.log('--------------- call 4 end -----------');
         dispatch(
             setCurrentUserInfoAction({
                 ...response,
@@ -56,6 +49,7 @@ export const signupThunk = (
     AuthAPI.signup(data).finally(() => {
         dispatch(hideLoaderAction());
         dispatch(getCurrentUserInfoThunk());
+    }).then(() => {
         window.history.pushState({}, '', ROUTES.HOME.path);
     });
 };
@@ -82,6 +76,8 @@ export const signinThunk = (
         .then(() => {
             dispatch(hideLoaderAction());
             dispatch(getCurrentUserInfoThunk());
+        })
+        .then(() => {
             window.history.pushState({}, '', ROUTES.HOME.path);
         })
         .catch((response) => {
