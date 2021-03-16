@@ -26,16 +26,10 @@ export function routing(app: Express) {
                 Cookie: composeCookies(req),
             },
         })
-            .then((response) => {
-                console.log('--------- response ---------');
-                console.log(response);
-                console.log('--------- response end ---------');
-                res.send(response);
+            .then(async (response) => {
+                res.send(await response.json());
             })
             .catch((error) => {
-                console.log('--------- error ---------');
-                console.log(error);
-                console.log('--------- error end ---------');
                 res.status(error.status).send(error.statusText);
             });
     });

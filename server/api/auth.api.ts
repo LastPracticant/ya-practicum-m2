@@ -3,7 +3,7 @@ import {
 } from 'client/core/api';
 import { Response } from 'node-fetch';
 
-const ServerAuthAPI = new HTTP('/auth');
+const ServerAuthAPI = new HTTP('/auth', 'accrosExpress');
 
 export class AuthAPI extends BaseAPI {
     static signup(data: SignupProps): Promise<Response> {

@@ -27,7 +27,7 @@ export interface CurrentUserInfoProps {
     avatar: string
 }
 
-const ExpressAuthAPI = new HTTP('/auth', API_EXPRESS_HOST);
+const ExpressAuthAPI = new HTTP('/auth', 'accrosExpress', API_EXPRESS_HOST);
 
 export class AuthAPI extends BaseAPI {
     static signup(data: SignupProps): Promise<Response> {

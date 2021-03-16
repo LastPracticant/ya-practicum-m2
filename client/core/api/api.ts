@@ -12,6 +12,7 @@ export type OptionsType<T = any> = {
 };
 
 export type OptionsWithoutMethodType = Omit<OptionsType, 'method'>;
+export type ApiModeType = 'clientDirectly' | 'accrosExpress';
 
 export interface ResponseProps<T> extends Omit<XMLHttpRequest, 'response'> {
     response: T
@@ -33,11 +34,11 @@ export function queryStringify<T extends object>(data: T): string {
 export class HTTP {
     _path: string;
 
-    _isServerApi: boolean;
+    _isBFF: boolean;
 
-    constructor(path = '', host = API_SERVER_HOST) {
+    constructor(path = '', mode: ApiModeType = 'clientDirectly', host = API_SERVER_HOST) {
         this._path = `${host}/api/v2${path}`;
-        this._isServerApi = host === API_SERVER_HOST;
+        this._isBFF = mode === 'accrosExpress';
     }
 
     get<T>(url: string, options: OptionsWithoutMethodType = {}): Promise<T> {
@@ -96,17 +97,10 @@ export class HTTP {
             headers: serializeHeader(options),
         })
             .then(async (response) => {
-                const her = await response[responseFormat]();
-                console.log('------------ this._isServerApi ----------');
-                console.log(this._isServerApi);
-                console.log('------------ this._isServerApi end ----------');
-                console.log('------------ her ----------');
-                console.log(her);
-                console.log('------------ her end ----------');
                 if (!response.ok) {
                     return Promise.reject(response);
                 }
-                if (this._isServerApi) {
+                if (this._isBFF) {
                     return response;
                 }
 
