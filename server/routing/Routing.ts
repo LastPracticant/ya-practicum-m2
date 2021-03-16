@@ -1,6 +1,7 @@
 import express, { Express } from 'express';
 import cookieParser from 'cookie-parser';
 import path from 'path';
+import { ExpressProfileAPI } from 'server/api/profile.api';
 import { renderBundle } from '../middlewares/renderBundle';
 import { ExpressAuthAPI } from '../api/auth.api';
 import { composeCookies, setCookies } from '../server.utils';
@@ -74,6 +75,42 @@ export function routing(app: Express) {
                 res.clearCookie('uuid');
                 res.clearCookie('authCookie');
                 res.send(await response.text());
+            })
+            .catch((error) => {
+                res.status(error.status).send(error.statusText);
+            });
+    });
+
+    app.put('/api/v2/user/profile', jsonParser, (req, res) => {
+        if (!req.body) return res.sendStatus(400);
+
+        ExpressProfileAPI.change(req.body, {
+            headers: {
+                Cookie: composeCookies(req),
+            },
+        })
+            .then(async (response) => {
+                setCookies(response, res);
+
+                res.send(await response.json());
+            })
+            .catch((error) => {
+                res.status(error.status).send(error.statusText);
+            });
+    });
+
+    app.put('/api/v2/user/password', jsonParser, (req, res) => {
+        if (!req.body) return res.sendStatus(400);
+
+        ExpressProfileAPI.changePassword(req.body, {
+            headers: {
+                Cookie: composeCookies(req),
+            },
+        })
+            .then(async (response) => {
+                setCookies(response, res);
+
+                res.send(await response.json());
             })
             .catch((error) => {
                 res.status(error.status).send(error.statusText);
