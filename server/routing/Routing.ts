@@ -2,7 +2,7 @@ import express, { Express } from 'express';
 import cookieParser from 'cookie-parser';
 import path from 'path';
 import { renderBundle } from '../middlewares/renderBundle';
-import { AuthAPI } from '../api/auth.api';
+import { ExpressAuthAPI } from '../api/auth.api';
 import { composeCookies } from '../server.utils';
 
 export function routing(app: Express) {
@@ -21,7 +21,7 @@ export function routing(app: Express) {
     app.use(renderBundle);
 
     app.get('/api/v2/auth/user', (req, res) => {
-        AuthAPI.getCurrentUserInfo({
+        ExpressAuthAPI.getCurrentUserInfo({
             headers: {
                 Cookie: composeCookies(req),
             },
@@ -37,7 +37,7 @@ export function routing(app: Express) {
     app.post('/api/v2/auth/signin', jsonParser, (req, res) => {
         if (!req.body) return res.sendStatus(400);
 
-        AuthAPI.signin(req.body)
+        ExpressAuthAPI.signin(req.body)
             .then((response) => {
                 const cookiesHeaders = response.headers.raw()['set-cookie'];
 

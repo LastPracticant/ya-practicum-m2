@@ -15,30 +15,25 @@ import { showSnackBarAction } from './snackbar.actions';
 export const SET_CURRENT_USER_INFO = 'SET_CURRENT_USER_INFO';
 export const SET_AUTH = 'SET_AUTH';
 
-const changeAuth = (payload: boolean) => ({ type: SET_AUTH, payload });
+export const changeAuth = (payload: boolean) => ({ type: SET_AUTH, payload });
 
 export const setCurrentUserInfoAction = (payload: CurrentUserInfoProps) => ({
     type: SET_CURRENT_USER_INFO,
     payload,
 });
 
-export const getCurrentUserInfoThunk = (): ThunkAction<
-void,
-StoreProps,
-unknown,
-Action<string>
-> => (dispatch) => {
+export const getCurrentUserInfoThunk = (): ThunkAction<void, StoreProps, unknown, Action<string>> => (dispatch) => {
     dispatch(showLoaderAction());
-    AuthAPI.getCurrentUserInfo()
-        .then((payload) => {
-            dispatch(
-                setCurrentUserInfoAction({
-                    ...payload,
-                    avatar: API_SERVER_HOST + payload.avatar,
-                }),
-            );
-            dispatch(changeAuth(true));
-        })
+
+    AuthAPI.getCurrentUserInfo().then((payload) => {
+        dispatch(
+            setCurrentUserInfoAction({
+                ...payload,
+                avatar: API_SERVER_HOST + payload.avatar,
+            }),
+        );
+        dispatch(changeAuth(true));
+    })
         .catch(() => {
             dispatch(changeAuth(false));
         })
@@ -59,12 +54,7 @@ export const signupThunk = (
     });
 };
 
-export const logoutThunk = (): ThunkAction<
-void,
-StoreProps,
-unknown,
-Action<string>
-> => (dispatch) => {
+export const logoutThunk = (): ThunkAction<void, StoreProps, unknown, Action<string>> => (dispatch) => {
     dispatch(showLoaderAction());
 
     AuthAPI.logout()

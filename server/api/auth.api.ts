@@ -5,7 +5,7 @@ import { Response } from 'node-fetch';
 
 const ServerAuthAPI = new HTTP('/auth', 'accrosExpress');
 
-export class AuthAPI extends BaseAPI {
+export class ExpressAuthAPI extends BaseAPI {
     static signup(data: SignupProps): Promise<Response> {
         return ServerAuthAPI.post('/signup', { data });
     }

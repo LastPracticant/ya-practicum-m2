@@ -22,6 +22,7 @@
         "baseUrl": "./",
         "paths": {
             "client/*": ["./client/*"],
+            "server/*": ["./server/*"],
         }
     },
     "include": ["./client", "./server"],

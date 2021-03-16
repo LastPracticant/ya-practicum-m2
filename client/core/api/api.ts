@@ -42,6 +42,7 @@ export class HTTP {
     }
 
     get<T>(url: string, options: OptionsWithoutMethodType = {}): Promise<T> {
+        console.log('call 1.2');
         return this.request<T>(url, { ...options, method: METHOD.GET });
     }
 
@@ -82,13 +83,18 @@ export class HTTP {
             };
         }
 
+        console.log('call 1.3');
+
         const { method, data, responseFormat = 'json' } = options;
+        console.log('call 1.3.1');
 
         const basePath = `${this._path}${url}`;
+        console.log('call 1.3.2');
         const path = method === METHOD.GET
             ? `${basePath}${queryStringify(data)}`
             : basePath;
-
+        console.log('call 1.3.3');
+        console.log(path);
         return fetch(path, {
             method,
             mode: 'cors',
@@ -98,13 +104,16 @@ export class HTTP {
         })
             .then(async (response) => {
                 if (!response.ok) {
+                    console.log('call 1.4');
                     return Promise.reject(response);
                 }
                 if (this._isBFF) {
+                    console.log('call 1.5');
                     return response;
                 }
 
+                console.log('call 1.6');
                 return response[responseFormat]();
-            });
+            }).catch((err) => console.log(err));
     }
 }

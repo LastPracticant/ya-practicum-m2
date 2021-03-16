@@ -12,6 +12,7 @@ module.exports = {
         extensions: ['.tsx', '.ts', '.js'],
         alias: {
             client: path.join(__dirname, './client/'),
+            server: path.join(__dirname, './server/'),
         },
     },
     module: {

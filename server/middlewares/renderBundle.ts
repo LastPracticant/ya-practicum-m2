@@ -1,13 +1,13 @@
 import {
     composeStore,
-    // getCurrentUserInfoThunk,
-    // StoreProps,
+    StoreProps,
 } from 'client/core/store';
 import { NextFunction, Request, Response } from 'express';
-// import { AnyAction } from 'redux';
-// import { ThunkDispatch } from 'redux-thunk';
+import { AnyAction } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
 import fetch from 'node-fetch';
-import { defaultState } from '../initialState';
+import { getCurrentUserInfoThunk } from 'server/store/actions';
+import { defaultState } from '../store/initialState';
 import { renderHtml } from './renderHtml';
 
 if (!globalThis.fetch) {
@@ -20,15 +20,13 @@ export function renderBundle(req: Request, res: Response, next: NextFunction) {
         const store = composeStore(defaultState);
         const state = store.getState();
 
-        // const dispatch = store.dispatch as ThunkDispatch<StoreProps, void, AnyAction>;
-        // Promise.resolve().then(() => {
-        //     console.log('before dispatch getCurrentUserInfoThunk');
-        //     return new Promise(() => {
-        //         dispatch(getCurrentUserInfoThunk());
-        //     });
-        // }).finally(() => {
-        //     console.log('after dispatch getCurrentUserInfoThunk');
-        // });
+        const dispatch = store.dispatch as ThunkDispatch<StoreProps, void, AnyAction>;
+
+        console.log('before dispatch getCurrentUserInfoThunk');
+
+        await dispatch(getCurrentUserInfoThunk(req));
+
+        console.log('after dispatch getCurrentUserInfoThunk');
 
         const { html } = renderHtml(url, state, store);
         res.send(html);
