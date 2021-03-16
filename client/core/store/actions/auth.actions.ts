@@ -24,12 +24,18 @@ export const setCurrentUserInfoAction = (payload: CurrentUserInfoProps) => ({
 
 export const getCurrentUserInfoThunk = (): ThunkAction<void, StoreProps, unknown, Action<string>> => (dispatch) => {
     dispatch(showLoaderAction());
-
-    AuthAPI.getCurrentUserInfo().then((payload) => {
+    console.log('--------------- call 0 -----------');
+    // console.log(body);
+    console.log('--------------- call 0 end -----------');
+    AuthAPI.getCurrentUserInfo().then(async (response) => {
+        console.log('--------------- call 4 -----------');
+        // @ts-ignore
+        console.log(await response.json());
+        console.log('--------------- call 4 end -----------');
         dispatch(
             setCurrentUserInfoAction({
-                ...payload,
-                avatar: API_SERVER_HOST + payload.avatar,
+                ...response,
+                avatar: response.avatar && API_SERVER_HOST + response.avatar,
             }),
         );
         dispatch(changeAuth(true));

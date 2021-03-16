@@ -27,11 +27,19 @@ export function routing(app: Express) {
             },
         })
             .then(async (response) => {
-                console.log('her 1 ------', response);
-                res.send(await response.json());
+                console.log('--------------- call 1 -----------');
+                console.log(response);
+                console.log('--------------- call 1 end -----------');
+                const body = await response.json();
+                console.log('--------------- call 2 -----------');
+                console.log(body);
+                console.log('--------------- call 2 end -----------');
+                res.send(body);
             })
             .catch((error) => {
-                console.log('her 2 ------', error);
+                console.log('--------------- call 3 -----------');
+                console.log(error);
+                console.log('--------------- call 3 end -----------');
                 res.status(error.status).send(error.statusText);
             });
     });

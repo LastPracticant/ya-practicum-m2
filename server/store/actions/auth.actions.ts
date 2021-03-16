@@ -15,10 +15,11 @@ export const getCurrentUserInfoThunk = (req: Request): ThunkAction<void, StorePr
         },
     }).then(async (response) => {
         const payload = await response.json();
+
         dispatch(
             setCurrentUserInfoAction({
                 ...payload,
-                avatar: API_SERVER_HOST + payload.avatar,
+                avatar: payload.avatar && API_SERVER_HOST + payload.avatar,
             }),
         );
         dispatch(changeAuth(true));

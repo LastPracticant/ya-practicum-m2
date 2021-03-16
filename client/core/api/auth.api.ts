@@ -1,4 +1,4 @@
-import { HTTP, API_EXPRESS_HOST } from './api';
+import { HTTP } from './api';
 import { BaseAPI } from './base.api';
 
 export interface SignupProps {
@@ -27,7 +27,7 @@ export interface CurrentUserInfoProps {
     avatar: string
 }
 
-const ExpressAuthAPI = new HTTP('/auth', 'accrosExpress', API_EXPRESS_HOST);
+const ExpressAuthAPI = new HTTP('/auth');
 
 export class AuthAPI extends BaseAPI {
     static signup(data: SignupProps) {

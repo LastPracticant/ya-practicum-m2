@@ -1,10 +1,11 @@
 import {
     BaseAPI,
-    ChangePasswordProps, ChangeProfileProps, CurrentUserInfoProps, HTTP,
+    ChangePasswordProps, ChangeProfileProps, CurrentUserInfoProps,
 } from 'client/core/api';
 import { Response } from 'node-fetch';
+import { ExpressHTTP } from './api';
 
-const ServerProfileAPI = new HTTP('/user', 'accrosExpress');
+const ServerProfileAPI = new ExpressHTTP('/user');
 
 export class ExpressProfileAPI extends BaseAPI {
     static change(data: ChangeProfileProps) {

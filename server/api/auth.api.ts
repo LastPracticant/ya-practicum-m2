@@ -1,9 +1,10 @@
 import {
-    BaseAPI, HTTP, OptionsWithoutMethodType, SigninProps, SignupProps,
+    BaseAPI, OptionsWithoutMethodType, SigninProps, SignupProps,
 } from 'client/core/api';
 import { Response } from 'node-fetch';
+import { ExpressHTTP } from './api';
 
-const ServerAuthAPI = new HTTP('/auth', 'accrosExpress');
+const ServerAuthAPI = new ExpressHTTP('/auth');
 
 export class ExpressAuthAPI extends BaseAPI {
     static signup(data: SignupProps) {
