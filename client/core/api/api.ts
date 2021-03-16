@@ -41,27 +41,27 @@ export class HTTP {
         this._isBFF = mode === 'accrosExpress';
     }
 
-    get<T>(url: string, options: OptionsWithoutMethodType = {}): Promise<T> {
-        return this.request<T>(url, { ...options, method: METHOD.GET });
+    get<Req, Res>(url: string, options: OptionsWithoutMethodType = {}): Promise<Res> {
+        return this.request<Req, Res>(url, { ...options, method: METHOD.GET });
     }
 
-    post<T>(url: string, options: OptionsWithoutMethodType = {}): Promise<T> {
-        return this.request<T>(url, { ...options, method: METHOD.POST });
+    post<Req, Res>(url: string, options: OptionsWithoutMethodType = {}): Promise<Res> {
+        return this.request<Req, Res>(url, { ...options, method: METHOD.POST });
     }
 
-    put<T>(url: string, options: OptionsWithoutMethodType = {}): Promise<T> {
-        return this.request<T>(url, { ...options, method: METHOD.PUT });
+    put<Req, Res>(url: string, options: OptionsWithoutMethodType = {}): Promise<Res> {
+        return this.request<Req, Res>(url, { ...options, method: METHOD.PUT });
     }
 
-    delete<T>(url: string, options: OptionsWithoutMethodType = {}): Promise<T> {
-        return this.request<T>(url, { ...options, method: METHOD.DELETE });
+    delete<Req, Res>(url: string, options: OptionsWithoutMethodType = {}): Promise<Res> {
+        return this.request<Req, Res>(url, { ...options, method: METHOD.DELETE });
     }
 
-    request<T>(
+    request<Req, Res>(
         url: string,
         options: OptionsType = { method: METHOD.GET },
-    ): Promise<T> {
-        function serializeBody(method: METHOD, data: T) {
+    ): Promise<Res> {
+        function serializeBody(method: METHOD, data: Req) {
             if (method === METHOD.GET) {
                 return;
             }
@@ -71,7 +71,7 @@ export class HTTP {
             return JSON.stringify(data);
         }
 
-        function serializeHeader({ data, method, headers }: OptionsType<T>) {
+        function serializeHeader({ data, method, headers }: OptionsType<Req>) {
             if (method === METHOD.GET || data instanceof FormData) {
                 return headers;
             }
@@ -96,11 +96,16 @@ export class HTTP {
             headers: serializeHeader(options),
         })
             .then(async (response) => {
-                if (!response.ok) {
-                    return Promise.reject(response);
-                }
+                console.log('her -1 ---------------', response);
+                console.log('this._isBFF -1 ---------------', this._isBFF);
                 if (this._isBFF) {
+                    console.log('her 0 ---------------', response);
                     return response;
+                }
+
+                if (!response.ok) {
+                    console.log('her -2 ---------------', response);
+                    return Promise.reject(response);
                 }
 
                 return response[responseFormat]();

@@ -6,19 +6,19 @@ import { Response } from 'node-fetch';
 const ServerAuthAPI = new HTTP('/auth', 'accrosExpress');
 
 export class ExpressAuthAPI extends BaseAPI {
-    static signup(data: SignupProps): Promise<Response> {
-        return ServerAuthAPI.post('/signup', { data });
+    static signup(data: SignupProps) {
+        return ServerAuthAPI.post<SignupProps, Response>('/signup', { data });
     }
 
-    static signin(data: SigninProps): Promise<Response> {
-        return ServerAuthAPI.post('/signin', { data, responseFormat: 'text' });
+    static signin(data: SigninProps) {
+        return ServerAuthAPI.post<SigninProps, Response>('/signin', { data, responseFormat: 'text' });
     }
 
-    static getCurrentUserInfo(options: OptionsWithoutMethodType): Promise<Response> {
-        return ServerAuthAPI.get<Response>('/user', options);
+    static getCurrentUserInfo(options: OptionsWithoutMethodType) {
+        return ServerAuthAPI.get<{}, Response>('/user', options);
     }
 
-    static logout(): Promise<Response> {
-        return ServerAuthAPI.post('/logout', { responseFormat: 'text' });
+    static logout(options: OptionsWithoutMethodType) {
+        return ServerAuthAPI.post<{}, Response>('/logout', { ...options, responseFormat: 'text' });
     }
 }
