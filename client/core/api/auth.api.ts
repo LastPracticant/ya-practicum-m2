@@ -1,4 +1,4 @@
-import { HTTP, NODE_API_HOST } from './api';
+import { HTTP, API_EXPRESS_HOST } from './api';
 import { BaseAPI } from './base.api';
 
 export interface SignupProps {
@@ -27,29 +27,22 @@ export interface CurrentUserInfoProps {
     avatar: string
 }
 
-export class AuthAPIBase extends BaseAPI {
-    _apiInstance: HTTP;
+const ExpressAuthAPI = new HTTP('/auth', API_EXPRESS_HOST);
 
-    constructor(host?: string) {
-        super();
-        this._apiInstance = new HTTP('/auth', host);
+export class AuthAPI extends BaseAPI {
+    static signup(data: SignupProps): Promise<Response> {
+        return ExpressAuthAPI.post('/signup', { data });
     }
 
-    signup(data: SignupProps): Promise<XMLHttpRequest> {
-        return this._apiInstance.post('/signup', { data });
+    static signin(data: SigninProps): Promise<Response> {
+        return ExpressAuthAPI.post('/signin', { data, responseFormat: 'text' });
     }
 
-    signin(data: SigninProps): Promise<XMLHttpRequest> {
-        return this._apiInstance.post('/signin', { data, responseFormat: 'text' });
+    static getCurrentUserInfo(): Promise<CurrentUserInfoProps> {
+        return ExpressAuthAPI.get<CurrentUserInfoProps>('/user');
     }
 
-    getCurrentUserInfo(): Promise<CurrentUserInfoProps> {
-        return this._apiInstance.get<CurrentUserInfoProps>('/user');
-    }
-
-    logout(): Promise<XMLHttpRequest> {
-        return this._apiInstance.post('/logout', { responseFormat: 'text' });
+    static logout(): Promise<Response> {
+        return ExpressAuthAPI.post('/logout', { responseFormat: 'text' });
     }
 }
-
-export const AuthAPI = new AuthAPIBase();

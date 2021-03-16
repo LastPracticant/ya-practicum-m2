@@ -4,21 +4,21 @@ type HeadersType = {
     [key: string]: string
 };
 
-type OptionsType = {
+export type OptionsType<T = any> = {
     method: METHOD
-    data?: any
+    data?: T
     headers?: HeadersType
     responseFormat?: 'json' | 'text'
 };
 
-type OptionsWithoutMethodType = Omit<OptionsType, 'method'>;
+export type OptionsWithoutMethodType = Omit<OptionsType, 'method'>;
 
 export interface ResponseProps<T> extends Omit<XMLHttpRequest, 'response'> {
     response: T
 }
 
-export const YA_API_HOST = 'https://ya-praktikum.tech';
-export const NODE_API_HOST = '';
+export const API_SERVER_HOST = 'https://ya-praktikum.tech';
+export const API_EXPRESS_HOST = '';
 
 export function queryStringify<T extends object>(data: T): string {
     if (!data) {
@@ -33,8 +33,11 @@ export function queryStringify<T extends object>(data: T): string {
 export class HTTP {
     _path: string;
 
-    constructor(path = '', host = YA_API_HOST) {
+    _isServerApi: boolean;
+
+    constructor(path = '', host = API_SERVER_HOST) {
         this._path = `${host}/api/v2${path}`;
+        this._isServerApi = host === API_SERVER_HOST;
     }
 
     get<T>(url: string, options: OptionsWithoutMethodType = {}): Promise<T> {
@@ -67,14 +70,13 @@ export class HTTP {
             return JSON.stringify(data);
         }
 
-        function serializeHeader(method: METHOD, data: T) {
-            if (method === METHOD.GET) {
-                return;
+        function serializeHeader({ data, method, headers }: OptionsType<T>) {
+            if (method === METHOD.GET || data instanceof FormData) {
+                return headers;
             }
-            if (data instanceof FormData) {
-                return;
-            }
+
             return {
+                ...headers,
                 'Content-Type': 'application/json',
             };
         }
@@ -91,13 +93,16 @@ export class HTTP {
             mode: 'cors',
             credentials: 'include',
             body: serializeBody(method, data),
-            headers: serializeHeader(method, data),
+            headers: serializeHeader(options),
         })
             .then((response) => {
                 if (!response.ok) {
                     return Promise.reject(response);
                 }
-                console.log(response.headers.get('set-cookie'), 'dddddddddddddddddd');
+                if (this._isServerApi) {
+                    return response;
+                }
+
                 return response[responseFormat]();
             });
     }

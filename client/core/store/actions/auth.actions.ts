@@ -1,5 +1,5 @@
 import {
-    YA_API_HOST,
+    API_SERVER_HOST,
     AuthAPI,
     CurrentUserInfoProps,
     SigninProps,
@@ -34,7 +34,7 @@ Action<string>
             dispatch(
                 setCurrentUserInfoAction({
                     ...payload,
-                    avatar: YA_API_HOST + payload.avatar,
+                    avatar: API_SERVER_HOST + payload.avatar,
                 }),
             );
             dispatch(changeAuth(true));
