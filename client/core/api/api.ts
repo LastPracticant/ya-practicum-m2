@@ -95,7 +95,14 @@ export class HTTP {
             body: serializeBody(method, data),
             headers: serializeHeader(options),
         })
-            .then((response) => {
+            .then(async (response) => {
+                const her = await response[responseFormat]();
+                console.log('------------ this._isServerApi ----------');
+                console.log(this._isServerApi);
+                console.log('------------ this._isServerApi end ----------');
+                console.log('------------ her ----------');
+                console.log(her);
+                console.log('------------ her end ----------');
                 if (!response.ok) {
                     return Promise.reject(response);
                 }
