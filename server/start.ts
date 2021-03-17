@@ -1,7 +1,7 @@
 import express, { Express } from 'express';
 
 import * as FormData from 'form-data';
-import { routing } from './Routing';
+import { routing } from './routing';
 
 const globals = global as any;
 

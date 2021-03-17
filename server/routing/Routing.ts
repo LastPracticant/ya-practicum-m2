@@ -9,11 +9,6 @@ import { composeCookies, setCookies } from '../server.utils';
 export function routing(app: Express) {
     const jsonParser = express.json();
 
-    // TODO: отключил SW на время выполнения задач, LP-94
-    // app.get('/sw.js', (_, res) => {
-    //     res.sendFile(path.join(__dirname, '../sw.js'));
-    // });
-
     app.get('*.(js|css|png|jpe?g|gif)$', (req, res) => {
         res.sendFile(path.join(__dirname, req.path));
     });

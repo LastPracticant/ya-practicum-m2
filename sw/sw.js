@@ -17,8 +17,8 @@ const STATIC_URLS = [
     '/main.css',
 ];
 
-self.addEventListener('install', async (event) => {
-    console.log('[SW]: install', event);
+self.addEventListener('install', async () => {
+    console.log('[SW]: install');
 
     try {
         const cache = await caches.open(STATIC_CACHE_NAME);
