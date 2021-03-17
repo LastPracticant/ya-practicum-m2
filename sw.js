@@ -56,8 +56,7 @@ async function networkFirst(request) {
     } catch (e) {
         const cached = await cache.match(request);
 
-        // TODO: придумать, что делать в подобном случае
-        return cached ?? await caches.match('/offline.html');
+        return cached;
     }
 }
 
@@ -74,5 +73,7 @@ function fetchMiddleware(event) {
 }
 
 self.addEventListener('fetch', (event) => {
+    console.log('[SW]: fetch', event);
+
     event.respondWith(fetchMiddleware(event));
 });
