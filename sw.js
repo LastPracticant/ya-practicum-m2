@@ -1,7 +1,8 @@
+/* eslint-disable no-restricted-globals */
 /* eslint-disable no-undef */
-const CACHE_NAME = 'v1';
-const URLS = [
-    '/',
+const STATIC_CACHE_NAME = 's-v1';
+const DINAMIC_CACHE_NAME = 'd-v1';
+const STATIC_URLS = [
     '/bgs.png',
     '/enemies.png',
     '/explosion.png',
@@ -12,61 +13,66 @@ const URLS = [
     '/idea.png',
     '/life.png',
     '/loader.png',
-    '/index.html',
-    '/bundle.js',
-    '/sw.js',
+    '/app.js',
     'https://fonts.googleapis.com/icon?family=Material+Icons',
 ];
 
-const onlineFirstStrategy = (event) => caches.match(event.request)
-    .then((res) => {
-        const fetchRequest = event.request.clone();
+self.addEventListener('install', async (event) => {
+    console.log('[SW]: install', event);
 
-        return new Promise((resolve) => {
-            fetch(fetchRequest)
-                .then((response) => {
-                    if (!response || response.status !== 200 || response.type !== 'basic') {
-                        return resolve(response);
-                    }
+    try {
+        const cache = await caches.open(STATIC_CACHE_NAME);
+        await cache.addAll(STATIC_URLS);
+    } catch (error) {
+        console.log('[SW]: error on install', error);
+    }
+});
 
-                    const responseToCache = response.clone();
+self.addEventListener('activate', async () => {
+    console.log('[SW]: activate');
 
-                    caches.open(CACHE_NAME)
-                        .then((cache) => {
-                            cache.put(event.request, responseToCache);
-                        });
+    const cacheNames = await caches.keys();
 
-                    return resolve(response);
-                })
-                .catch((err) => {
-                    if (res) {
-                        return resolve(res);
-                    }
-                    console.error('Something is wrong', err);
-                });
-        });
-    });
-
-const fetchMiddleware = (event) => onlineFirstStrategy(event);
-
-this.addEventListener('install', (event) => {
-    event.waitUntil(
-        caches
-            .open(CACHE_NAME)
-            .then((cache) => {
-                console.info('Opened cache');
-                return cache.addAll(URLS);
-            })
-            .catch((err) => {
-                console.error('Something is wrong', err);
-            }),
+    await Promise.all(
+        cacheNames
+            .filter((name) => ![STATIC_CACHE_NAME, DINAMIC_CACHE_NAME].inlcules(name))
+            .map((name) => caches.delete(name)),
     );
 });
 
-this.addEventListener('activate', (event) => {
-    console.info('activate', event);
-});
+async function cacheFirst(request) {
+    const cached = await caches.match(request);
 
-this.addEventListener('fetch', (event) => {
+    return cached ?? await fetch(request);
+}
+
+async function networkFirst(request) {
+    const cache = await caches.open(dynamicCacheName);
+    try {
+        const response = await fetch(request);
+        await cache.put(request, response.clone());
+
+        return response;
+    } catch (e) {
+        const cached = await cache.match(request);
+
+        // TODO: придумать, что делать в подобном случае
+        return cached ?? await caches.match('/offline.html');
+    }
+}
+
+function fetchMiddleware(event) {
+    const { request } = event;
+
+    const url = new URL(request.url);
+
+    if (url.origin === location.origin) {
+        return cacheFirst(request);
+    }
+
+    return networkFirst(request);
+}
+
+self.addEventListener('fetch', (event) => {
     event.respondWith(fetchMiddleware(event));
 });
