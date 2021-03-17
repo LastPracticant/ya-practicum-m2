@@ -15,7 +15,6 @@ const STATIC_URLS = [
     '/loader.gif',
     '/logo.png',
     '/main.css',
-    'https://fonts.googleapis.com/icon?family=Material+Icons',
 ];
 
 self.addEventListener('install', async (event) => {
@@ -48,7 +47,7 @@ async function cacheFirst(request) {
 }
 
 async function networkFirst(request) {
-    const cache = await caches.open(dynamicCacheName);
+    const cache = await caches.open(DINAMIC_CACHE_NAME);
     try {
         const response = await fetch(request);
         await cache.put(request, response.clone());
@@ -74,7 +73,7 @@ function fetchMiddleware(event) {
 }
 
 self.addEventListener('fetch', (event) => {
-    console.log('[SW]: fetch', event);
+    console.log('[SW]: fetch', event.request.url);
 
     event.respondWith(fetchMiddleware(event));
 });
