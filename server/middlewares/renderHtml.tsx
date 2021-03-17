@@ -34,6 +34,7 @@ function getPageHtml({ html, state, helmet }: PageHtmlProps) {
                     }}
                 />
                 <script src="/app.js" />
+                <script src="/start-sw.js" />
             </body>
         </html>,
     );

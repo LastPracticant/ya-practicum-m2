@@ -1,6 +1,7 @@
 const path = require('path');
 const StylelintPlugin = require('stylelint-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry: './client/index.tsx',
@@ -61,5 +62,13 @@ module.exports = {
             context: path.join(__dirname, './client'),
         }),
         new MiniCssExtractPlugin(),
+        new CopyPlugin({
+            patterns: [
+                { from: './sw', to: './' },
+            ],
+            options: {
+                concurrency: 100,
+            },
+        }),
     ],
 };

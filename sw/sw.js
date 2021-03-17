@@ -3,17 +3,18 @@
 const STATIC_CACHE_NAME = 's-v1';
 const DINAMIC_CACHE_NAME = 'd-v1';
 const STATIC_URLS = [
+    '/app.js',
+    '/app.png',
     '/bgs.png',
     '/enemies.png',
     '/explosion.png',
-    '/game-name.png',
     '/game-over.png',
     '/hero.png',
-    '/home-bg.png',
     '/idea.png',
     '/life.png',
-    '/loader.png',
-    '/app.js',
+    '/loader.gif',
+    '/logo.png',
+    '/main.css',
     'https://fonts.googleapis.com/icon?family=Material+Icons',
 ];
 
@@ -35,7 +36,7 @@ self.addEventListener('activate', async () => {
 
     await Promise.all(
         cacheNames
-            .filter((name) => ![STATIC_CACHE_NAME, DINAMIC_CACHE_NAME].inlcules(name))
+            .filter((name) => ![STATIC_CACHE_NAME, DINAMIC_CACHE_NAME].includes(name))
             .map((name) => caches.delete(name)),
     );
 });
