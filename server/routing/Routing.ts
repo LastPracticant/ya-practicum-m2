@@ -2,9 +2,15 @@ import express, { Express } from 'express';
 import cookieParser from 'cookie-parser';
 import path from 'path';
 import { ExpressProfileAPI } from 'server/api/profile.api';
+import devMiddleware from 'webpack-dev-middleware';
+import hotMiddleware from 'webpack-hot-middleware';
+import webpack from 'webpack';
 import { renderBundle } from '../middlewares/renderBundle';
 import { ExpressAuthAPI } from '../api/auth.api';
 import { composeCookies, setCookies } from '../server.utils';
+import webpackConfig from '../../webpack.config';
+
+const compiler = webpack(webpackConfig);
 
 export function routing(app: Express) {
     const jsonParser = express.json();
@@ -111,6 +117,15 @@ export function routing(app: Express) {
                 res.status(error.status).send(error.statusText);
             });
     });
+
+    app.use(
+        devMiddleware(compiler, {
+            noInfo: true,
+            publicPath: webpackConfig.output.publicPath,
+        }),
+    );
+
+    app.use(hotMiddleware(compiler));
 
     app.get('*', (req, res) => {
         res.renderBundle(req.url);

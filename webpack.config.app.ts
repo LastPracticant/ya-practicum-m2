@@ -1,10 +1,14 @@
-const path = require('path');
-const StylelintPlugin = require('stylelint-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
+import path from 'path';
+import StylelintPlugin from 'stylelint-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import CopyPlugin from 'copy-webpack-plugin';
+import webpack from 'webpack';
 
-module.exports = {
-    entry: './client/index.tsx',
+export default {
+    entry: [
+        'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
+        './client/index.tsx',
+    ],
     output: {
         filename: 'app.js',
         path: path.join(__dirname, './dist'),
@@ -14,6 +18,7 @@ module.exports = {
         alias: {
             client: path.join(__dirname, './client/'),
             server: path.join(__dirname, './server/'),
+            'react-dom': '@hot-loader/react-dom',
         },
     },
     module: {
@@ -70,5 +75,6 @@ module.exports = {
                 concurrency: 100,
             },
         }),
+        new webpack.HotModuleReplacementPlugin(),
     ],
 };
