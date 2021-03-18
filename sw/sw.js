@@ -1,8 +1,9 @@
 /* eslint-disable no-restricted-globals */
 /* eslint-disable no-undef */
-const STATIC_CACHE_NAME = 's-v1';
-const DINAMIC_CACHE_NAME = 'd-v1';
+const STATIC_CACHE_NAME = 's-v5';
+const DINAMIC_CACHE_NAME = 'd-v5';
 const STATIC_URLS = [
+    '/',
     '/app.js',
     '/app.png',
     '/bgs.png',
@@ -65,6 +66,14 @@ function fetchMiddleware(event) {
 
     const url = new URL(request.url);
 
+    if (url.origin === location.origin && url.pathname.includes('api')) {
+        // TODO: придумать заглушку для подобных кейсов при offline, если время останется,
+        // сейчас SW отрабатывает нормально если пользователь ранее авторизацию проходил,
+        // если пользователь не прошел авторизацию, пользоваться сервисом offline он не сможет
+        console.log('[SW]: fetch', event.request.url);
+        return networkFirst(request);
+    }
+
     if (url.origin === location.origin) {
         return cacheFirst(request);
     }
@@ -73,7 +82,5 @@ function fetchMiddleware(event) {
 }
 
 self.addEventListener('fetch', (event) => {
-    console.log('[SW]: fetch', event.request.url);
-
     event.respondWith(fetchMiddleware(event));
 });

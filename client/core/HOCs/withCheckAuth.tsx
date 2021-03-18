@@ -2,9 +2,15 @@ import React, { useEffect } from 'react';
 import { Redirect, useRouteMatch } from 'react-router-dom';
 import { ROUTES } from 'client/routing';
 import { PageComponentProps } from 'client/shared/types';
-import { useDispatch, useSelector } from 'react-redux';
+import {
+    useDispatch,
+    useSelector,
+} from 'react-redux';
 import { Loader } from 'client/shared/components';
-import { getCurrentUserInfoThunk, authSelector } from '../store';
+import {
+    getCurrentUserInfoThunk,
+    authSelector,
+} from '../store';
 
 export function withCheckAuth<T = any>(
     Component: React.FC<T & PageComponentProps>,
