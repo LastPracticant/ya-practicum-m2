@@ -7,7 +7,7 @@
     "start:server": "nodemon ./dist/server.js --watch ./dist",
     "start:webpack": "webpack --mode development --watch",
     "start": "npm-run-all --parallel start:*",
-    "build": "webpack --mode development",
+    "build": "webpack --mode production",
     "test": "jest",
     "heroku:login": "heroku container:login",
     "heroku:push": "heroku container:push web",
@@ -83,6 +83,7 @@
     "@material-ui/styles": "4.11.3",
     "bem-cn": "3.0.1",
     "cookie-parser": "1.4.5",
+    "css-hot-loader": "1.4.4",
     "express": "4.17.1",
     "form-data": "4.0.0",
     "isomorphic-fetch": "3.0.0",
@@ -92,11 +93,14 @@
     "react-dom": "17.0.1",
     "react-helmet": "6.1.0",
     "react-hook-form": "6.15.1",
+    "react-hot-loader": "4.13.0",
     "react-redux": "7.2.2",
     "react-router-dom": "5.2.0",
     "redux": "4.0.5",
     "redux-thunk": "2.3.0",
     "tslib": "2.1.0",
-    "webpack": "5.24.4"
+    "webpack": "5.24.4",
+    "webpack-dev-middleware": "4.1.0",
+    "webpack-hot-middleware": "2.25.0"
   }
 }
