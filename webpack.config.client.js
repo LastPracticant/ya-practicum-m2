@@ -2,9 +2,16 @@ const path = require('path');
 const StylelintPlugin = require('stylelint-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const webpack = require('webpack');
+
+const IS_DEV = process.env.NODE_ENV !== 'production';
 
 module.exports = {
-    entry: './client/index.tsx',
+    entry: [
+        IS_DEV ? 'css-hot-loader/hotModuleReplacement' : '',
+        IS_DEV ? 'webpack-hot-middleware/client' : '',
+        './client/index.tsx',
+    ].filter(Boolean),
     output: {
         filename: 'app.js',
         path: path.join(__dirname, './dist'),
@@ -70,5 +77,6 @@ module.exports = {
                 concurrency: 100,
             },
         }),
+        new webpack.HotModuleReplacementPlugin(),
     ],
 };

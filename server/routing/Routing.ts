@@ -8,7 +8,7 @@ import webpack from 'webpack';
 import { renderBundle } from '../middlewares/renderBundle';
 import { ExpressAuthAPI } from '../api/auth.api';
 import { composeCookies, setCookies } from '../server.utils';
-import webpackConfig from '../../webpack.config';
+import webpackConfig from '../../webpack.config.client';
 
 const compiler = webpack(webpackConfig);
 
@@ -20,7 +20,6 @@ export function routing(app: Express) {
     });
 
     app.use(cookieParser());
-    app.use(renderBundle);
 
     app.get('/api/v2/auth/user', (req, res) => {
         ExpressAuthAPI.getCurrentUserInfo({
@@ -118,14 +117,9 @@ export function routing(app: Express) {
             });
     });
 
-    app.use(
-        devMiddleware(compiler, {
-            noInfo: true,
-            publicPath: webpackConfig.output.publicPath,
-        }),
-    );
-
+    app.use(devMiddleware(compiler));
     app.use(hotMiddleware(compiler));
+    app.use(renderBundle);
 
     app.get('*', (req, res) => {
         res.renderBundle(req.url);

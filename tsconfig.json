@@ -20,6 +20,7 @@
         "rootDir": "./",
         "outDir": "./dist",
         "baseUrl": "./",
+        "allowJs": true,
         "paths": {
             "client/*": ["./client/*"],
             "server/*": ["./server/*"],
