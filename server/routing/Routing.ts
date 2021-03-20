@@ -120,6 +120,7 @@ export function routing(app: Express) {
     app.use(devMiddleware(compiler, {
         serverSideRender: true,
         writeToDisk: true,
+        publicPath: webpackConfig.output.publicPath,
     }));
     app.use(hotMiddleware(compiler));
     app.use(renderBundle);
