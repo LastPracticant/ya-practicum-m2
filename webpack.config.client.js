@@ -1,27 +1,29 @@
 const path = require('path');
-const StylelintPlugin = require('stylelint-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 const IS_DEV = process.env.NODE_ENV !== 'production';
 
 module.exports = {
     entry: [
-        IS_DEV ? 'css-hot-loader/hotModuleReplacement' : '',
+        IS_DEV ? 'react-hot-loader/patch' : '',
         IS_DEV ? 'webpack-hot-middleware/client' : '',
+        IS_DEV ? 'css-hot-loader/hotModuleReplacement' : '',
         './client/index.tsx',
     ].filter(Boolean),
     output: {
         filename: 'app.js',
         path: path.join(__dirname, './dist'),
+        publicPath: '/',
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
         alias: {
-            client: path.join(__dirname, './client/'),
-            server: path.join(__dirname, './server/'),
+            'react-dom': '@hot-loader/react-dom',
         },
+        plugins: [new TsconfigPathsPlugin()],
     },
     module: {
         rules: [
@@ -64,10 +66,6 @@ module.exports = {
         ],
     },
     plugins: [
-        new StylelintPlugin({
-            configFile: path.join(__dirname, './.stylelintrc.json'),
-            context: path.join(__dirname, './client'),
-        }),
         new MiniCssExtractPlugin(),
         new CopyPlugin({
             patterns: [
@@ -78,5 +76,6 @@ module.exports = {
             },
         }),
         new webpack.HotModuleReplacementPlugin(),
-    ],
+        IS_DEV ? new webpack.HotModuleReplacementPlugin() : '',
+    ].filter(Boolean),
 };

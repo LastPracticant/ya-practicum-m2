@@ -117,7 +117,10 @@ export function routing(app: Express) {
             });
     });
 
-    app.use(devMiddleware(compiler));
+    app.use(devMiddleware(compiler, {
+        serverSideRender: true,
+        writeToDisk: true,
+    }));
     app.use(hotMiddleware(compiler));
     app.use(renderBundle);
 
