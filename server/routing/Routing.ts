@@ -1,8 +1,6 @@
 import express, { Express } from 'express';
-import cookieParser from 'cookie-parser';
 import path from 'path';
 import { ExpressProfileAPI } from 'server/api/profile.api';
-import { renderBundle } from '../middlewares/renderBundle';
 import { ExpressAuthAPI } from '../api/auth.api';
 import { composeCookies, setCookies } from '../server.utils';
 
@@ -17,9 +15,6 @@ export function routing(app: Express) {
     app.get('*.(js|css|png|jpe?g|gif)$', (req, res) => {
         res.sendFile(path.join(__dirname, req.path));
     });
-
-    app.use(cookieParser());
-    app.use(renderBundle);
 
     app.get('/api/v2/auth/user', (req, res) => {
         ExpressAuthAPI.getCurrentUserInfo({
