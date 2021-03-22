@@ -2,7 +2,7 @@ import express, { Express } from 'express';
 import path from 'path';
 import { ExpressProfileAPI } from 'server/api/profile.api';
 import { ExpressAuthAPI } from '../api/auth.api';
-import { composeCookies, setCookies } from '../server.utils';
+import { getHeadersWithCookies, setCookies } from '../server.utils';
 
 export function routing(app: Express) {
     const jsonParser = express.json();
@@ -18,9 +18,7 @@ export function routing(app: Express) {
 
     app.get('/api/v2/auth/user', (req, res) => {
         ExpressAuthAPI.getCurrentUserInfo({
-            headers: {
-                Cookie: composeCookies(req),
-            },
+            headers: getHeadersWithCookies(req),
         })
             .then(async (response) => {
                 res.send(await response.json());
@@ -34,10 +32,10 @@ export function routing(app: Express) {
         if (!req.body) return res.sendStatus(400);
 
         ExpressAuthAPI.signin(req.body)
-            .then(async (response) => {
-                setCookies(response, res);
+            .then(async (fetchResponse) => {
+                setCookies(fetchResponse, res);
 
-                res.send(await response.text());
+                res.send(await fetchResponse.text());
             })
             .catch((error) => {
                 res.status(error.status).send(error.statusText);
@@ -48,10 +46,10 @@ export function routing(app: Express) {
         if (!req.body) return res.sendStatus(400);
 
         ExpressAuthAPI.signup(req.body)
-            .then(async (response) => {
-                setCookies(response, res);
+            .then(async (fetchResponse) => {
+                setCookies(fetchResponse, res);
 
-                res.send(await response.text());
+                res.send(await fetchResponse.text());
             })
             .catch((error) => {
                 res.status(error.status).send(error.statusText);
@@ -62,9 +60,7 @@ export function routing(app: Express) {
         if (!req.body) return res.sendStatus(400);
 
         ExpressAuthAPI.logout({
-            headers: {
-                Cookie: composeCookies(req),
-            },
+            headers: getHeadersWithCookies(req),
         })
             .then(async (response) => {
                 res.clearCookie('uuid');
@@ -80,13 +76,9 @@ export function routing(app: Express) {
         if (!req.body) return res.sendStatus(400);
 
         ExpressProfileAPI.change(req.body, {
-            headers: {
-                Cookie: composeCookies(req),
-            },
+            headers: getHeadersWithCookies(req),
         })
             .then(async (response) => {
-                setCookies(response, res);
-
                 res.send(await response.json());
             })
             .catch((error) => {
@@ -98,13 +90,9 @@ export function routing(app: Express) {
         if (!req.body) return res.sendStatus(400);
 
         ExpressProfileAPI.changePassword(req.body, {
-            headers: {
-                Cookie: composeCookies(req),
-            },
+            headers: getHeadersWithCookies(req),
         })
             .then(async (response) => {
-                setCookies(response, res);
-
                 res.send(await response.json());
             })
             .catch((error) => {
