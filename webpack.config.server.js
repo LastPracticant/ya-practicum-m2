@@ -20,8 +20,24 @@ module.exports = {
         rules: [
             {
                 test: /\.tsx?$/,
-                use: 'ts-loader',
                 exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        cacheDirectory: true,
+                        babelrc: false,
+                        presets: [
+                            '@babel/preset-env',
+                            '@babel/preset-typescript',
+                            '@babel/preset-react',
+                        ],
+                        plugins: [
+                            ['@babel/plugin-proposal-decorators', { legacy: true }],
+                            ['@babel/plugin-proposal-class-properties', { loose: true }],
+                            'react-hot-loader/babel',
+                        ],
+                    },
+                },
             },
             {
                 test: /\.css$/,
@@ -36,10 +52,7 @@ module.exports = {
                 test: /\.(png|jpe?g|gif)$/i,
                 use: [
                     {
-                        loader: 'file-loader',
-                        options: {
-                            name: '[name].[ext]',
-                        },
+                        loader: 'null-loader',
                     },
                 ],
             },

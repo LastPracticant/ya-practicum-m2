@@ -1,11 +1,13 @@
 import './App.css';
+import './shared/styles/theme.css';
+
 import React from 'react';
 import { Routing } from 'client/routing/Routing';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import { CssBaseline } from '@material-ui/core';
 import { red } from '@material-ui/core/colors';
-import './shared/styles/theme.css';
+import { hot } from 'react-hot-loader/root';
 import { useSelector } from 'react-redux';
 import { Loader, SnackBar, NivelatorXY } from './shared/components';
 import { loaderSelector, snackbarSelector } from './core/store/selectors';
@@ -21,7 +23,7 @@ const theme = createMuiTheme({
     },
 });
 
-export const App: React.FC = () => {
+const AppContainer: React.FC = () => {
     const loader = useSelector(loaderSelector);
     const snackBar = useSelector(snackbarSelector);
 
@@ -36,3 +38,5 @@ export const App: React.FC = () => {
             </ThemeProvider>
     );
 };
+
+export const App = hot(AppContainer);
