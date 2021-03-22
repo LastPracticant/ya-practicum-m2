@@ -5,6 +5,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { hot } from 'react-hot-loader/root';
 import { App } from './App';
 import { composeStore } from './core/store';
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 
 const store = composeStore(window.__INITIAL_STATE__);
 

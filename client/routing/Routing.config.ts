@@ -44,7 +44,7 @@ export const ROUTES: RoutesProps = {
     },
     PROFILE: {
         path: '/profile',
-        title: 'Профиль епт',
+        title: 'Профиль',
         component: Profile,
     },
     PROFILE_PASSWORD: {

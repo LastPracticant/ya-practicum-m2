@@ -3,6 +3,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const { IS_DEV } = require('./env');
 
 module.exports = {
@@ -42,7 +43,7 @@ module.exports = {
                         ],
                         plugins: [
                             ['@babel/plugin-proposal-decorators', { legacy: true }],
-                            '@babel/plugin-proposal-class-properties',
+                            ['@babel/plugin-proposal-class-properties', { loose: true }],
                             'react-hot-loader/babel',
                         ],
                     },
@@ -82,6 +83,7 @@ module.exports = {
         ],
     },
     plugins: [
+        new ForkTsCheckerWebpackPlugin(),
         new MiniCssExtractPlugin(),
         new CopyPlugin({
             patterns: [

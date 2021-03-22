@@ -3,6 +3,9 @@ import express, { Express } from 'express';
 import * as FormData from 'form-data';
 import { routing } from './routing';
 
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
+
 const globals = global as any;
 
 globals.FormData = FormData;
