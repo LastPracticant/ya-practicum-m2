@@ -1,14 +1,16 @@
 import express, { Express } from 'express';
-
+import cookieParser from 'cookie-parser';
 import * as FormData from 'form-data';
-import { routing } from './routing';
+import { renderBundle } from './middlewares/renderBundle';
+import { routing } from './Routing';
 
-const globals = global as any;
-
-globals.FormData = FormData;
+(global as any).FormData = FormData;
 
 const app: Express = express();
 const PORT = process.env.PORT || 8000;
+
+app.use(cookieParser());
+app.use(renderBundle);
 
 routing(app);
 

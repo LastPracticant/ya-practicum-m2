@@ -10,9 +10,9 @@ import { getCurrentUserInfoThunk } from 'server/store/actions';
 import { defaultState } from '../store/initialState';
 import { renderHtml } from './renderHtml';
 
-if (!globalThis.fetch) {
+if (!global.fetch) {
     // @ts-ignore
-    globalThis.fetch = fetch;
+    global.fetch = fetch;
 }
 
 export function renderBundle(req: Request, res: Response, next: NextFunction) {
