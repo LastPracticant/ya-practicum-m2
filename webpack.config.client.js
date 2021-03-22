@@ -29,8 +29,24 @@ module.exports = {
         rules: [
             {
                 test: /\.tsx?$/,
-                use: 'ts-loader',
                 exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        cacheDirectory: true,
+                        babelrc: false,
+                        presets: [
+                            '@babel/preset-env',
+                            '@babel/preset-typescript',
+                            '@babel/preset-react',
+                        ],
+                        plugins: [
+                            ['@babel/plugin-proposal-decorators', { legacy: true }],
+                            '@babel/plugin-proposal-class-properties',
+                            'react-hot-loader/babel',
+                        ],
+                    },
+                },
             },
             {
                 test: /\.css$/,
@@ -79,4 +95,4 @@ module.exports = {
     ].filter(Boolean),
 };
 
-console.info('--------------- enviroment "mode" is:', IS_DEV, '---------------');
+console.info('--------------- enviroment "mode" is:', process.env.NODE_ENV, '---------------');
