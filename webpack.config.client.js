@@ -5,8 +5,6 @@ const webpack = require('webpack');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const { IS_DEV } = require('./env');
 
-console.log('---------------', IS_DEV, '---------------');
-
 module.exports = {
     mode: IS_DEV ? 'development' : 'production',
     entry: [
@@ -80,3 +78,5 @@ module.exports = {
         IS_DEV ? new webpack.HotModuleReplacementPlugin() : '',
     ].filter(Boolean),
 };
+
+console.info('--------------- enviroment "mode" is:', IS_DEV, '---------------');

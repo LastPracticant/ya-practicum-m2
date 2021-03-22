@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development webpack --mode development --config webpack.config.server.js && node ./dist/server.js",
-    "build": "webpack --mode production",
+    "start": "cross-env NODE_ENV=development webpack --config webpack.config.server.js && node ./dist/server.js",
+    "build": "cross-env NODE_ENV=production webpack",
     "test": "jest",
     "heroku:login": "heroku container:login",
     "heroku:push": "heroku container:push web",
