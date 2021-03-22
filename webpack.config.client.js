@@ -3,10 +3,12 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const { IS_DEV } = require('./env');
 
-const IS_DEV = process.env.NODE_ENV !== 'production';
+console.log('---------------', IS_DEV, '---------------');
 
 module.exports = {
+    mode: IS_DEV ? 'development' : 'production',
     entry: [
         IS_DEV ? 'react-hot-loader/patch' : '',
         IS_DEV ? 'webpack-hot-middleware/client' : '',
@@ -15,7 +17,7 @@ module.exports = {
     ].filter(Boolean),
     output: {
         filename: 'app.js',
-        path: path.join(__dirname, './dist'),
+        path: IS_DEV ? __dirname : path.join(__dirname, './dist'),
         publicPath: '/',
     },
     resolve: {
@@ -75,7 +77,6 @@ module.exports = {
                 concurrency: 100,
             },
         }),
-        new webpack.HotModuleReplacementPlugin(),
         IS_DEV ? new webpack.HotModuleReplacementPlugin() : '',
     ].filter(Boolean),
 };

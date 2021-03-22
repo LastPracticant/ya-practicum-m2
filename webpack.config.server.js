@@ -1,8 +1,10 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const { IS_DEV } = require('./env');
 
 module.exports = {
+    mode: IS_DEV ? 'development' : 'production',
     target: 'node',
     externals: [nodeExternals()],
     entry: './server/start.ts',

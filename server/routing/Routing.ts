@@ -4,18 +4,18 @@ import path from 'path';
 import { ExpressProfileAPI } from 'server/api/profile.api';
 import devMiddleware from 'webpack-dev-middleware';
 import hotMiddleware from 'webpack-hot-middleware';
-import webpack from 'webpack';
+import webpack, { Configuration } from 'webpack';
 import { renderBundle } from '../middlewares/renderBundle';
 import { ExpressAuthAPI } from '../api/auth.api';
 import { composeCookies, setCookies } from '../server.utils';
 import webpackConfig from '../../webpack.config.client';
 
-const compiler = webpack(webpackConfig);
+const compiler = webpack(webpackConfig as Configuration);
 
 export function routing(app: Express) {
     const jsonParser = express.json();
 
-    app.get('*.(js|css|png|jpe?g|gif)$', (req, res) => {
+    app.get('*.(js|css|png|jpe?g|gif|json)$', (req, res) => {
         res.sendFile(path.join(__dirname, req.path));
     });
 
