@@ -5,7 +5,7 @@ import devMiddleware from 'webpack-dev-middleware';
 import hotMiddleware from 'webpack-hot-middleware';
 import webpack, { Configuration } from 'webpack';
 import { renderBundle } from './middlewares/renderBundle';
-import { routing } from './Routing';
+import { routing } from './routing';
 import webpackConfig from '../webpack.config.client';
 
 import 'core-js/stable';
