@@ -20,7 +20,7 @@ const ProfileComponent: React.FC<PageComponentProps> = React.memo(({ title }) =>
             <NivelatorXY>
                 <Logo />
                 <Paper sizes="small">
-                    <h1>{title}222</h1>
+                    <h1>{title}</h1>
                     <Switch>
                         <Route path={ROUTES.PROFILE_PASSWORD.path}>
                             <ProfileEditPassword />
