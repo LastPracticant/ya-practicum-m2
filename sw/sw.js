@@ -21,6 +21,10 @@ const NETWORK_ONLY_STRATEGY_URLS = [
     'auth/signup',
     'hot-update.js',
 ];
+const NETWORK_FIRST_STRATEGY_URLS = [
+    'api',
+    'main.js',
+];
 
 self.addEventListener('install', async () => {
     console.info('[SW]: install');
@@ -84,7 +88,7 @@ function fetchMiddleware(event) {
         return networkOnly(request);
     }
 
-    if (url.origin === location.origin && url.pathname.includes('api')) {
+    if (url.origin === location.origin && NETWORK_FIRST_STRATEGY_URLS.some((path) => url.pathname.includes(path))) {
         // TODO: придумать заглушку для подобных кейсов при offline, если время останется,
         // сейчас SW отрабатывает нормально если пользователь ранее авторизацию проходил,
         // если пользователь не прошел авторизацию, пользоваться сервисом offline он не сможет
