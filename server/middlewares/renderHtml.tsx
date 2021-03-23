@@ -34,8 +34,7 @@ function getPageHtml({ html, state, helmet }: PageHtmlProps) {
                     }}
                 />
                 <script src="/main.js" />
-                {/* TODO: включить SW после LP-84 */}
-                {/* <script src="/start-sw.js" /> */}
+                <script src="/start-sw.js" />
             </body>
         </html>,
     );

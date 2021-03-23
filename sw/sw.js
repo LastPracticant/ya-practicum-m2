@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-globals */
 /* eslint-disable no-undef */
-const STATIC_CACHE_NAME = 's-v5';
-const DINAMIC_CACHE_NAME = 'd-v5';
+const STATIC_CACHE_NAME = 's-v1';
+const DINAMIC_CACHE_NAME = 'd-v1';
 const STATIC_URLS = [
     '/',
     '/app.js',
@@ -17,20 +17,24 @@ const STATIC_URLS = [
     '/logo.png',
     '/main.css',
 ];
+const NETWORK_ONLY_STRATEGY_URLS = [
+    'auth/signin',
+    'auth/signup',
+];
 
 self.addEventListener('install', async () => {
-    console.log('[SW]: install');
+    console.info('[SW]: install');
 
     try {
         const cache = await caches.open(STATIC_CACHE_NAME);
         await cache.addAll(STATIC_URLS);
     } catch (error) {
-        console.log('[SW]: error on install', error);
+        console.error('[SW]: error on install', error);
     }
 });
 
 self.addEventListener('activate', async () => {
-    console.log('[SW]: activate');
+    console.info('[SW]: activate');
 
     const cacheNames = await caches.keys();
 
@@ -61,16 +65,29 @@ async function networkFirst(request) {
     }
 }
 
+async function networkOnly(request) {
+    try {
+        const response = await fetch(request);
+
+        return response;
+    } catch (e) {
+        console.error(e);
+    }
+}
+
 function fetchMiddleware(event) {
     const { request } = event;
 
     const url = new URL(request.url);
 
+    if (url.origin === location.origin && NETWORK_ONLY_STRATEGY_URLS.some((path) => url.pathname.includes(path))) {
+        return networkOnly(request);
+    }
+
     if (url.origin === location.origin && url.pathname.includes('api')) {
         // TODO: придумать заглушку для подобных кейсов при offline, если время останется,
         // сейчас SW отрабатывает нормально если пользователь ранее авторизацию проходил,
         // если пользователь не прошел авторизацию, пользоваться сервисом offline он не сможет
-        console.log('[SW]: fetch', event.request.url);
         return networkFirst(request);
     }
 

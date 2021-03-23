@@ -1,29 +1,18 @@
 import express, { Express } from 'express';
-import cookieParser from 'cookie-parser';
 import path from 'path';
 import { ExpressProfileAPI } from 'server/api/profile.api';
-import devMiddleware from 'webpack-dev-middleware';
-import hotMiddleware from 'webpack-hot-middleware';
-import webpack, { Configuration } from 'webpack';
-import { renderBundle } from '../middlewares/renderBundle';
-import { ExpressAuthAPI } from '../api/auth.api';
-import { composeCookies, setCookies } from '../server.utils';
-import webpackConfig from '../../webpack.config.client';
 
-const compiler = webpack(webpackConfig as Configuration);
+import { ExpressAuthAPI } from '../api/auth.api';
+import { getHeadersWithCookies, setCookies } from '../server.utils';
 
 export function routing(app: Express) {
     const jsonParser = express.json();
 
     app.use(express.static(path.join(__dirname, './dist')));
 
-    app.use(cookieParser());
-
     app.get('/api/v2/auth/user', (req, res) => {
         ExpressAuthAPI.getCurrentUserInfo({
-            headers: {
-                Cookie: composeCookies(req),
-            },
+            headers: getHeadersWithCookies(req),
         })
             .then(async (response) => {
                 res.send(await response.json());
@@ -37,10 +26,10 @@ export function routing(app: Express) {
         if (!req.body) return res.sendStatus(400);
 
         ExpressAuthAPI.signin(req.body)
-            .then(async (response) => {
-                setCookies(response, res);
+            .then(async (fetchResponse) => {
+                setCookies(fetchResponse, res);
 
-                res.send(await response.text());
+                res.send(await fetchResponse.text());
             })
             .catch((error) => {
                 res.status(error.status).send(error.statusText);
@@ -51,10 +40,10 @@ export function routing(app: Express) {
         if (!req.body) return res.sendStatus(400);
 
         ExpressAuthAPI.signup(req.body)
-            .then(async (response) => {
-                setCookies(response, res);
+            .then(async (fetchResponse) => {
+                setCookies(fetchResponse, res);
 
-                res.send(await response.text());
+                res.send(await fetchResponse.text());
             })
             .catch((error) => {
                 res.status(error.status).send(error.statusText);
@@ -65,9 +54,7 @@ export function routing(app: Express) {
         if (!req.body) return res.sendStatus(400);
 
         ExpressAuthAPI.logout({
-            headers: {
-                Cookie: composeCookies(req),
-            },
+            headers: getHeadersWithCookies(req),
         })
             .then(async (response) => {
                 res.clearCookie('uuid');
@@ -83,13 +70,9 @@ export function routing(app: Express) {
         if (!req.body) return res.sendStatus(400);
 
         ExpressProfileAPI.change(req.body, {
-            headers: {
-                Cookie: composeCookies(req),
-            },
+            headers: getHeadersWithCookies(req),
         })
             .then(async (response) => {
-                setCookies(response, res);
-
                 res.send(await response.json());
             })
             .catch((error) => {
@@ -101,27 +84,15 @@ export function routing(app: Express) {
         if (!req.body) return res.sendStatus(400);
 
         ExpressProfileAPI.changePassword(req.body, {
-            headers: {
-                Cookie: composeCookies(req),
-            },
+            headers: getHeadersWithCookies(req),
         })
             .then(async (response) => {
-                setCookies(response, res);
-
                 res.send(await response.json());
             })
             .catch((error) => {
                 res.status(error.status).send(error.statusText);
             });
     });
-
-    app.use(devMiddleware(compiler, {
-        serverSideRender: true,
-        writeToDisk: true,
-        publicPath: webpackConfig.output.publicPath,
-    }));
-    app.use(hotMiddleware(compiler));
-    app.use(renderBundle);
 
     app.get('*', (req, res) => {
         res.renderBundle(req.url);
