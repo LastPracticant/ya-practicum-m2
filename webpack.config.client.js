@@ -15,7 +15,7 @@ module.exports = {
         './client/index.tsx',
     ].filter(Boolean),
     output: {
-        filename: 'app.js',
+        filename: '[name].js',
         path: IS_DEV ? __dirname : path.join(__dirname, './dist'),
         publicPath: '/',
     },

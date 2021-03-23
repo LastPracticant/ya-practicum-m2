@@ -15,9 +15,7 @@ const compiler = webpack(webpackConfig as Configuration);
 export function routing(app: Express) {
     const jsonParser = express.json();
 
-    app.get('*.(js|css|png|jpe?g|gif|json)$', (req, res) => {
-        res.sendFile(path.join(__dirname, req.path));
-    });
+    app.use(express.static(path.join(__dirname, './dist')));
 
     app.use(cookieParser());
 

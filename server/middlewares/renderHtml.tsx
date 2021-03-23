@@ -33,7 +33,7 @@ function getPageHtml({ html, state, helmet }: PageHtmlProps) {
                         __html: `window.__INITIAL_STATE__ = ${JSON.stringify(state)}`,
                     }}
                 />
-                <script src="/app.js" />
+                <script src="/main.js" />
                 {/* TODO: включить SW после LP-84 */}
                 {/* <script src="/start-sw.js" /> */}
             </body>
