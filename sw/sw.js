@@ -4,7 +4,6 @@ const STATIC_CACHE_NAME = 's-v1';
 const DINAMIC_CACHE_NAME = 'd-v1';
 const STATIC_URLS = [
     '/',
-    '/app.js',
     '/app.png',
     '/bgs.png',
     '/enemies.png',
@@ -20,6 +19,7 @@ const STATIC_URLS = [
 const NETWORK_ONLY_STRATEGY_URLS = [
     'auth/signin',
     'auth/signup',
+    'hot-update.js',
 ];
 
 self.addEventListener('install', async () => {
