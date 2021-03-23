@@ -5,6 +5,7 @@ const webpack = require('webpack');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const { IS_DEV } = require('./env');
+const babelLoader = require('./webpack.babel.loader');
 
 module.exports = {
     mode: IS_DEV ? 'development' : 'production',
@@ -28,27 +29,7 @@ module.exports = {
     },
     module: {
         rules: [
-            {
-                test: /\.tsx?$/,
-                exclude: /node_modules/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        cacheDirectory: true,
-                        babelrc: false,
-                        presets: [
-                            '@babel/preset-env',
-                            '@babel/preset-typescript',
-                            '@babel/preset-react',
-                        ],
-                        plugins: [
-                            ['@babel/plugin-proposal-decorators', { legacy: true }],
-                            ['@babel/plugin-proposal-class-properties', { loose: true }],
-                            'react-hot-loader/babel',
-                        ],
-                    },
-                },
-            },
+            babelLoader,
             {
                 test: /\.css$/,
                 use: [
