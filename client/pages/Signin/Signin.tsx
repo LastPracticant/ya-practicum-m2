@@ -10,7 +10,7 @@ export const SigninComponent: React.FC<PageComponentProps> = React.memo(({ title
         <Meta title={title} />
         <Logo />
         <Paper sizes="small">
-            <h1>{title}777</h1>
+            <h1>{title}</h1>
             <SigninForm />
         </Paper>
     </NivelatorXY>

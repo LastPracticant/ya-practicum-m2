@@ -6,6 +6,7 @@ import { Helmet, HelmetData } from 'react-helmet';
 import { Provider as ReduxProvider } from 'react-redux';
 import { StaticRouter } from 'react-router-dom';
 import { Store } from 'redux';
+import { IS_DEV } from '../../env';
 
 interface PageHtmlProps {
     html: string;
@@ -57,6 +58,6 @@ export const renderHtml = (reqUrl: string, state: StoreProps, store: Store) => {
     const helmet = Helmet.rewind();
 
     return {
-        html: getPageHtml({ html, state, helmet }),
+        html: getPageHtml({ html: !IS_DEV ? html : '', state, helmet }),
     };
 };

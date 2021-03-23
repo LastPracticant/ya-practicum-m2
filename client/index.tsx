@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider as ReduxProvider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import { hot } from 'react-hot-loader/root';
 import { App } from './App';
 import { composeStore } from './core/store';
 import 'core-js/stable';
@@ -13,15 +14,17 @@ const store = composeStore(window.__INITIAL_STATE__);
 // @ts-ignore
 window.store = store;
 
-ReactDOM.hydrate(
+const RootComponent = () => (
     <ReduxProvider store={store}>
         <BrowserRouter>
             <App />
         </BrowserRouter>
-    </ReduxProvider>,
-    document.getElementById('root'),
+    </ReduxProvider>
 );
 
-if ((module as any).hot) {
-    (module as any).hot.accept();
-}
+const RootComponentWithHot = hot(RootComponent);
+
+ReactDOM.hydrate(
+    <RootComponentWithHot />,
+    document.getElementById('root'),
+);
