@@ -9,9 +9,9 @@ const { IS_DEV } = require('./env');
 module.exports = {
     mode: IS_DEV ? 'development' : 'production',
     entry: [
-        IS_DEV ? 'webpack-hot-middleware/client?noInfo=true' : '',
-        IS_DEV ? 'react-hot-loader/patch' : '',
-        IS_DEV ? 'css-hot-loader/hotModuleReplacement' : '',
+        IS_DEV && 'webpack-hot-middleware/client?noInfo=true',
+        IS_DEV && 'react-hot-loader/patch',
+        IS_DEV && 'css-hot-loader/hotModuleReplacement',
         './client/index.tsx',
     ].filter(Boolean),
     output: {
