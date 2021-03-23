@@ -1,4 +1,5 @@
 import { SnackBarDataProps } from 'client/shared/components';
+import { RouterState } from 'connected-react-router';
 import { CurrentUserInfoProps } from '../api';
 
 export interface StoreGameProps {
@@ -13,6 +14,7 @@ export interface StoreSnackBarProps extends SnackBarDataProps {
 }
 
 export interface StoreProps {
+    router: RouterState
     loader: boolean
     game: StoreGameProps
     profile: CurrentUserInfoProps

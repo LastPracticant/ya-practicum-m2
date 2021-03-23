@@ -52,7 +52,7 @@ const HomeComponent: React.FC<PageComponentProps> = React.memo(({ title }) => {
                     <p className={block('username')}>{profile.first_name}</p>
                     <p className={block('user-result')}>
                         {/* TODO: будет доработано, когда реализуем АПИ для leaderboard, LP-82 */}
-                        {LOCAL.RECORD}: 100
+                        {LOCAL.RECORD}: 33
                     </p>
                 </div>
                 <Divider />
