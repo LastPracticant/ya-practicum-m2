@@ -8,6 +8,7 @@ import {
 import { ROUTES } from 'client/routing';
 import { Action } from 'redux';
 import { ThunkAction } from 'redux-thunk';
+import { push } from 'connected-react-router';
 import { StoreProps } from '../store.types';
 import { hideLoaderAction, showLoaderAction } from './loader.actions';
 import { showSnackBarAction } from './snackbar.actions';
@@ -51,7 +52,7 @@ export const signupThunk = (
         dispatch(hideLoaderAction());
         dispatch(getCurrentUserInfoThunk());
     }).then(() => {
-        window.history.pushState({}, '', ROUTES.HOME.path);
+        dispatch(push(ROUTES.HOME.path));
     });
 };
 
@@ -64,7 +65,7 @@ export const logoutThunk = (): ThunkAction<void, StoreProps, unknown, Action<str
         })
         .finally(() => {
             dispatch(hideLoaderAction());
-            window.history.pushState({}, '', ROUTES.SIGNIN.path);
+            dispatch(push(ROUTES.SIGNIN.path));
         });
 };
 
@@ -79,7 +80,7 @@ export const signinThunk = (
             dispatch(getCurrentUserInfoThunk());
         })
         .then(() => {
-            window.history.pushState({}, '', ROUTES.HOME.path);
+            dispatch(push(ROUTES.HOME.path));
         })
         .catch((response) => {
             dispatch(hideLoaderAction());

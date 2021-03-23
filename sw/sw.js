@@ -19,7 +19,9 @@ const STATIC_URLS = [
 const NETWORK_ONLY_STRATEGY_URLS = [
     'auth/signin',
     'auth/signup',
-    'hot-update.js',
+    'auth/user',
+    'hot-update',
+    '__webpack_hmr',
 ];
 const NETWORK_FIRST_STRATEGY_URLS = [
     'api',
