@@ -19,6 +19,7 @@ const NETWORK_ONLY_STRATEGY_URLS = [
     'auth/signin',
     'auth/signup',
     'auth/user',
+    'oauth/yandex',
     'hot-update',
     '__webpack_hmr',
 ];

@@ -1,11 +1,13 @@
 import React, {
-    FC, memo, useEffect, useState,
+    FC, memo, useEffect,
 } from 'react';
 import './OAuth.css';
 
 import { ComponentCommonProps } from 'client/shared/types';
 import bem from 'bem-cn';
 import { LOCAL } from 'client/shared/consts';
+import { useDispatch, useSelector } from 'react-redux';
+import { oauthSelector, signinWithYandexThunk } from 'client/core/store';
 import { getOAuthUrl } from './OAuth.config';
 
 const block = bem('oauth');
@@ -14,16 +16,12 @@ export const OAuth: FC<ComponentCommonProps> = memo(
     ({
         className,
     }) => {
-        const [clientId, setClientId] = useState<number>();
+        const dispatch = useDispatch();
+        const { oauth: clientId } = useSelector(oauthSelector);
 
         useEffect(() => {
-            fetch('https://ya-praktikum.tech/api/v2/oauth/yandex/service-id')
-                .then(async (response) => {
-                    const token = await response.json();
-                    setClientId(token.service_id);
-                })
-                .catch(console.error);
-        }, []);
+            dispatch(signinWithYandexThunk());
+        }, [dispatch]);
 
         return (
             <div className={block({}).mix(className).toString()}>

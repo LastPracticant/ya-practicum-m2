@@ -1,5 +1,6 @@
 import express, { Express } from 'express';
 import path from 'path';
+import { ExpressOAuthAPI } from 'server/api/oauth.api';
 import { ExpressProfileAPI } from 'server/api/profile.api';
 
 import { ExpressAuthAPI } from '../api/auth.api';
@@ -14,6 +15,16 @@ export function routing(app: Express) {
         ExpressAuthAPI.getCurrentUserInfo({
             headers: getHeadersWithCookies(req),
         })
+            .then(async (response) => {
+                res.send(await response.json());
+            })
+            .catch((error) => {
+                res.status(error.status).send(error.statusText);
+            });
+    });
+
+    app.get('/api/v2/oauth/yandex/service-id', (req, res) => {
+        ExpressOAuthAPI.getServiceId()
             .then(async (response) => {
                 res.send(await response.json());
             })

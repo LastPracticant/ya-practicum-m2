@@ -3,7 +3,12 @@ import thunk from 'redux-thunk';
 import { createBrowserHistory, createMemoryHistory } from 'history';
 import { routerMiddleware, connectRouter } from 'connected-react-router';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { loaderReducers, profileReducers, authReducers } from './reducers';
+import {
+    loaderReducers,
+    profileReducers,
+    authReducers,
+    oauthReducers,
+} from './reducers';
 import { gameReducers } from './reducers/game.reducers';
 import { snackbarReducers } from './reducers/snackbar.reducers';
 import { StoreProps } from './store.types';
@@ -32,6 +37,7 @@ export const rootReducer = combineReducers<StoreProps>({
     game: gameReducers,
     snackbar: snackbarReducers,
     auth: authReducers,
+    oauth: oauthReducers,
 });
 
 export const composeStore = (initialState: StoreProps) => createStore(
