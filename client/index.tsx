@@ -30,7 +30,7 @@ ReactDOM.hydrate(
 );
 
 if ((module as any).hot) {
-    (module as any).hot.accept('./core/store', () => {
+    (module as any).hot.accept('./core/store/store', () => {
         store.replaceReducer(rootReducer);
     });
 }

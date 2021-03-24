@@ -2,6 +2,7 @@ import { applyMiddleware, combineReducers, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import { createBrowserHistory, createMemoryHistory } from 'history';
 import { routerMiddleware, connectRouter } from 'connected-react-router';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import { loaderReducers, profileReducers, authReducers } from './reducers';
 import { gameReducers } from './reducers/game.reducers';
 import { snackbarReducers } from './reducers/snackbar.reducers';
@@ -15,7 +16,7 @@ export const isServer = !(
 
 export const history = !isServer
     ? createBrowserHistory()
-    : createMemoryHistory({ initialEntries: ['/'] });
+    : createMemoryHistory();
 
 const middlewares = [
     thunk,
@@ -36,5 +37,7 @@ export const rootReducer = combineReducers<StoreProps>({
 export const composeStore = (initialState: StoreProps) => createStore(
     rootReducer,
     initialState,
-    applyMiddleware(...middlewares),
+    composeWithDevTools(
+        applyMiddleware(...middlewares),
+    ),
 );

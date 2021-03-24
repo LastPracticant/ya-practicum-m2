@@ -24,8 +24,6 @@ export const setCurrentUserInfoAction = (payload: CurrentUserInfoProps) => ({
 });
 
 export const getCurrentUserInfoThunk = (): ThunkAction<void, StoreProps, unknown, Action<string>> => (dispatch) => {
-    dispatch(showLoaderAction());
-
     AuthAPI.getCurrentUserInfo().then(async (response) => {
         dispatch(
             setCurrentUserInfoAction({
@@ -34,13 +32,9 @@ export const getCurrentUserInfoThunk = (): ThunkAction<void, StoreProps, unknown
             }),
         );
         dispatch(changeAuth(true));
-    })
-        .catch(() => {
-            dispatch(changeAuth(false));
-        })
-        .finally(() => {
-            dispatch(hideLoaderAction());
-        });
+    }).catch(() => {
+        dispatch(changeAuth(false));
+    });
 };
 
 export const signupThunk = (
@@ -49,10 +43,11 @@ export const signupThunk = (
     dispatch(showLoaderAction());
 
     AuthAPI.signup(data).finally(() => {
-        dispatch(hideLoaderAction());
         dispatch(getCurrentUserInfoThunk());
     }).then(() => {
         dispatch(push(ROUTES.HOME.path));
+    }).finally(() => {
+        dispatch(hideLoaderAction());
     });
 };
 
@@ -76,18 +71,19 @@ export const signinThunk = (
 
     AuthAPI.signin(data)
         .then(() => {
-            dispatch(hideLoaderAction());
             dispatch(getCurrentUserInfoThunk());
         })
         .then(() => {
             dispatch(push(ROUTES.HOME.path));
         })
         .catch((response) => {
-            dispatch(hideLoaderAction());
             response.json().then((result: any) => {
                 dispatch(
                     showSnackBarAction({ type: 'error', msg: result?.reason }),
                 );
             });
+        })
+        .finally(() => {
+            dispatch(hideLoaderAction());
         });
 };

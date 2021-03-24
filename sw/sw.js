@@ -2,8 +2,7 @@
 /* eslint-disable no-undef */
 const STATIC_CACHE_NAME = 's-v1';
 const DINAMIC_CACHE_NAME = 'd-v1';
-const STATIC_URLS = [
-    '/',
+const CACHE_FIRST_STRATEGY_URLS = [
     '/app.png',
     '/bgs.png',
     '/enemies.png',
@@ -23,9 +22,9 @@ const NETWORK_ONLY_STRATEGY_URLS = [
     'hot-update',
     '__webpack_hmr',
 ];
+
 const NETWORK_FIRST_STRATEGY_URLS = [
-    'api',
-    'main.js',
+    '/',
 ];
 
 self.addEventListener('install', async () => {
@@ -33,7 +32,7 @@ self.addEventListener('install', async () => {
 
     try {
         const cache = await caches.open(STATIC_CACHE_NAME);
-        await cache.addAll(STATIC_URLS);
+        await cache.addAll(CACHE_FIRST_STRATEGY_URLS);
     } catch (error) {
         console.error('[SW]: error on install', error);
     }
@@ -81,24 +80,23 @@ async function networkOnly(request) {
     }
 }
 
+const pathMatcher = (url) => (path) => url.includes(path);
+
 function fetchMiddleware(event) {
     const { request } = event;
 
     const url = new URL(request.url);
 
-    if (url.origin === location.origin && NETWORK_ONLY_STRATEGY_URLS.some((path) => url.pathname.includes(path))) {
+    if (url.origin === location.origin && NETWORK_ONLY_STRATEGY_URLS.some(pathMatcher(url.pathname))) {
         return networkOnly(request);
     }
 
-    if (url.origin === location.origin && NETWORK_FIRST_STRATEGY_URLS.some((path) => url.pathname.includes(path))) {
-        // TODO: придумать заглушку для подобных кейсов при offline, если время останется,
-        // сейчас SW отрабатывает нормально если пользователь ранее авторизацию проходил,
-        // если пользователь не прошел авторизацию, пользоваться сервисом offline он не сможет
-        return networkFirst(request);
+    if (url.origin === location.origin && CACHE_FIRST_STRATEGY_URLS.some(pathMatcher(url.pathname))) {
+        return cacheFirst(request);
     }
 
-    if (url.origin === location.origin) {
-        return cacheFirst(request);
+    if (url.origin === location.origin && NETWORK_FIRST_STRATEGY_URLS.some(pathMatcher(url.pathname))) {
+        return networkFirst(request);
     }
 
     return networkFirst(request);
