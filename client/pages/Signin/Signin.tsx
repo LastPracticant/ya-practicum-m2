@@ -3,7 +3,6 @@ import { PageComponentProps } from 'client/shared/types';
 import { NivelatorXY, Paper } from 'client/shared/components';
 import { withCheckAuth } from 'client/core/HOCs';
 import { Logo, Meta, OAuth } from 'client/core';
-import { isServer } from 'client/core/store';
 import { SigninForm } from './components';
 
 export const SigninComponent: React.FC<PageComponentProps> = React.memo(({ title }) => (
@@ -13,7 +12,7 @@ export const SigninComponent: React.FC<PageComponentProps> = React.memo(({ title
         <Paper sizes="small">
             <h1>{title}</h1>
             <SigninForm />
-            {!isServer && <OAuth />}
+            <OAuth />
         </Paper>
     </NivelatorXY>
 ));

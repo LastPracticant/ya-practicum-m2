@@ -25,7 +25,7 @@ const NETWORK_ONLY_STRATEGY_URLS = [
 ];
 
 const NETWORK_FIRST_STRATEGY_URLS = [
-    // Явно казываем, чтобы кешировался индекс
+    // Явно указываем, чтобы кешировался root path
     '/',
 ];
 
