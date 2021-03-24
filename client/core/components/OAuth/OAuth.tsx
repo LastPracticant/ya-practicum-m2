@@ -1,4 +1,6 @@
-import React, { FC, memo, useEffect } from 'react';
+import React, {
+    FC, memo, useEffect, useState,
+} from 'react';
 import './OAuth.css';
 
 import { ComponentCommonProps } from 'client/shared/types';
@@ -12,14 +14,21 @@ export const OAuth: FC<ComponentCommonProps> = memo(
     ({
         className,
     }) => {
+        const [clientId, setClientId] = useState<number>();
+
         useEffect(() => {
-            console.log('fetch oauth...');
+            fetch('https://ya-praktikum.tech/api/v2/oauth/yandex/service-id')
+                .then(async (response) => {
+                    const token = await response.json();
+                    setClientId(token.service_id);
+                })
+                .catch(console.error);
         }, []);
 
         return (
             <div className={block({}).mix(className).toString()}>
                 <a
-                    href={getOAuthUrl(0)}
+                    href={getOAuthUrl(clientId)}
                 >
                     {LOCAL.AUTHORIZE_YANDEX}
                 </a>
