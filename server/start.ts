@@ -13,10 +13,11 @@ import 'regenerator-runtime/runtime';
 
 const compiler = webpack(webpackConfig as Configuration);
 
+// У nodejs нет FormData, необходимо для нормальной работы POST запросов а API Express
 (global as any).FormData = FormData;
 
 const app: Express = express();
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 5000;
 
 app.use(cookieParser());
 app.use(devMiddleware(compiler, {
@@ -30,5 +31,5 @@ app.use(renderBundle);
 routing(app);
 
 app.listen(PORT, () => {
-    console.log(`Start in ${PORT}!`);
+    console.log(`The server started on port: ${PORT}!`);
 });

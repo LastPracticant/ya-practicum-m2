@@ -13,8 +13,8 @@ const CACHE_FIRST_STRATEGY_URLS = [
     '/life.png',
     '/loader.gif',
     '/logo.png',
-    '/main.css',
 ];
+
 const NETWORK_ONLY_STRATEGY_URLS = [
     'auth/signin',
     'auth/signup',
@@ -24,6 +24,7 @@ const NETWORK_ONLY_STRATEGY_URLS = [
 ];
 
 const NETWORK_FIRST_STRATEGY_URLS = [
+    // Явно казываем, чтобы кешировался индекс
     '/',
 ];
 
@@ -99,6 +100,7 @@ function fetchMiddleware(event) {
         return networkFirst(request);
     }
 
+    // Сюда попадут main.js, main.css
     return networkFirst(request);
 }
 
