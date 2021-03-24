@@ -1,19 +1,37 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
+import { gameSelector } from 'client/core/store';
+import { useSelector } from 'react-redux';
 import { DrawCanvasFn, useCanvas } from './GameCanvas.hooks';
 import { CanvasResourcesProps } from './ResourcesLoader';
 
 interface GameCanvasProps
     extends React.DetailedHTMLProps<
-    React.CanvasHTMLAttributes<HTMLCanvasElement>, HTMLCanvasElement
-    > {
+    React.CanvasHTMLAttributes<HTMLCanvasElement>,
+    HTMLCanvasElement> {
     drawCanvas: DrawCanvasFn
     resources?: CanvasResourcesProps
 }
 
 export const GameCanvas: React.FC<GameCanvasProps> = ({
-    drawCanvas, resources, ...restProps
+    drawCanvas,
+    resources,
+    ...restProps
 }) => {
     const canvasRef = useCanvas(drawCanvas, resources);
 
-    return <canvas ref={canvasRef} {...restProps} />;
+    const { game: gameState } = useSelector(gameSelector);
+
+    useEffect(() => {
+        if (gameState.isOver || gameState.isPause) {
+            document.exitFullscreen();
+        }
+    }, [gameState]);
+
+    const fullScreenHandle = useCallback(() => {
+        if (canvasRef?.current) {
+            canvasRef.current.requestFullscreen();
+        }
+    }, [canvasRef?.current]);
+
+    return <canvas ref={canvasRef} {...restProps} onDoubleClick={fullScreenHandle} />;
 };
