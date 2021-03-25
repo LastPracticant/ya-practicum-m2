@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
-import { Redirect, useRouteMatch } from 'react-router-dom';
+import {
+    Redirect, useLocation, useRouteMatch,
+} from 'react-router-dom';
 import { ROUTES } from 'client/routing';
 import { PageComponentProps } from 'client/shared/types';
 import {
@@ -10,6 +12,7 @@ import { Loader } from 'client/shared/components';
 import {
     getCurrentUserInfoThunk,
     authSelector,
+    signinWithYandexThunk,
 } from '../store';
 
 export function withCheckAuth<T = any>(
@@ -17,12 +20,21 @@ export function withCheckAuth<T = any>(
 ) {
     const WrappedComponent: React.FC<T> = (props) => {
         const dispatch = useDispatch();
+        const location = useLocation();
 
         const signRoutes = [ROUTES.SIGNIN.path, ROUTES.SIGNUP.path];
         const isSignPageThere = signRoutes.some(useRouteMatch);
         const { isAuth } = useSelector(authSelector);
 
         useEffect(() => {
+            const urlParams = new URLSearchParams(location.search);
+            const oauthCode = urlParams.get('code');
+            console.log(oauthCode);
+
+            if (oauthCode) {
+                dispatch(signinWithYandexThunk(oauthCode));
+            }
+
             if (!isAuth) {
                 dispatch(getCurrentUserInfoThunk());
             }

@@ -89,6 +89,10 @@ function fetchMiddleware(event) {
 
     const url = new URL(request.url);
 
+    if (url.origin === location.origin && url.search.includes('code')) {
+        return networkOnly(request);
+    }
+
     if (url.origin === location.origin && NETWORK_ONLY_STRATEGY_URLS.some(pathMatcher(url.pathname))) {
         return networkOnly(request);
     }

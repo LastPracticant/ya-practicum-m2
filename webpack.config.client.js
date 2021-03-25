@@ -78,4 +78,4 @@ module.exports = {
     ].filter(Boolean),
 };
 
-console.info('--------------- enviroment "mode" is:', process.env.NODE_ENV, '---------------');
+console.info('--------------- Enviroment "mode" is:', process.env.NODE_ENV, '---------------');

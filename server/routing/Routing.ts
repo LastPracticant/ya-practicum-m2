@@ -33,6 +33,20 @@ export function routing(app: Express) {
             });
     });
 
+    app.post('/api/v2/oauth/yandex', jsonParser, (req, res) => {
+        if (!req.body) return res.sendStatus(400);
+
+        ExpressOAuthAPI.signinWithYandex(req.body)
+            .then(async (fetchResponse) => {
+                setCookies(fetchResponse, res);
+
+                res.send(await fetchResponse.text());
+            })
+            .catch((error) => {
+                res.status(error.status).send(error.statusText);
+            });
+    });
+
     app.post('/api/v2/auth/signin', jsonParser, (req, res) => {
         if (!req.body) return res.sendStatus(400);
 
