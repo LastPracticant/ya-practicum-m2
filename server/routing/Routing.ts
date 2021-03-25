@@ -82,8 +82,7 @@ export function routing(app: Express) {
             .then(async (response) => {
                 res.clearCookie('uuid');
                 res.clearCookie('authCookie');
-                const her = await response.text();
-                res.send(her);
+                res.send(await response.text());
             })
             .catch((error) => {
                 res.status(error.status).send(error.statusText);

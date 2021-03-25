@@ -32,6 +32,8 @@ export function withCheckAuth<T = any>(
 
             if (oauthCode) {
                 dispatch(signinWithYandexThunk(oauthCode));
+
+                return;
             }
 
             if (!isAuth) {

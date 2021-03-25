@@ -13,7 +13,7 @@ const ExpressOAuthAPI = new HTTP('/oauth/yandex');
 
 export class OAuthAPI extends BaseAPI {
     static signinWithYandex(data: OAuthSigninProps) {
-        return ExpressOAuthAPI.post<OAuthSigninProps, Response>('', { data });
+        return ExpressOAuthAPI.post<OAuthSigninProps, Response>('', { data, responseFormat: 'text' });
     }
 
     static getServiceId() {
