@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { gameSelector } from 'client/core/store';
 import { useSelector } from 'react-redux';
 import { DrawCanvasFn, useCanvas } from './GameCanvas.hooks';
@@ -27,11 +27,11 @@ export const GameCanvas: React.FC<GameCanvasProps> = ({
         }
     }, [gameState]);
 
-    const fullScreenHandle = useCallback(() => {
+    const handleSetFullScreen = () => {
         if (canvasRef?.current) {
             canvasRef.current.requestFullscreen();
         }
-    }, [canvasRef?.current]);
+    };
 
-    return <canvas ref={canvasRef} {...restProps} onDoubleClick={fullScreenHandle} />;
+    return <canvas ref={canvasRef} {...restProps} onDoubleClick={handleSetFullScreen} />;
 };

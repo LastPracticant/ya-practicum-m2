@@ -33,6 +33,8 @@ const GameStartComponent: React.FC<PageComponentProps> = React.memo(({ title }) 
                                 <p>{LOCAL.GAME_CONTROL_JUMP}</p>
                                 <p>{LOCAL.GAME_CONTROL_DOWN}</p>
                                 <p>{LOCAL.GAME_CONTROL_SHOTE}</p>
+                                <p>{LOCAL.GAME_CONTROL_FULLSCREEN}</p>
+
                             </div>
                             <Button
                                 variant="contained"

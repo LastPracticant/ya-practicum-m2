@@ -26,6 +26,7 @@ export const LOCAL = {
     GAME_CONTROL_JUMP: 'Прыгнуть - стрелка вверх',
     GAME_CONTROL_DOWN: 'Присесть - стрелка вниз',
     GAME_CONTROL_SHOTE: 'Выстрел - пробел',
+    GAME_CONTROL_FULLSCREEN: 'На весь экран - двойной клик по области',
     ERROR_PAGE_DESC: 'Вы можете перейти на',
     ERROR_PAGE_LINK: 'Главную',
 };
