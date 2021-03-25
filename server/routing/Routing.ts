@@ -76,15 +76,14 @@ export function routing(app: Express) {
     });
 
     app.post('/api/v2/auth/logout', jsonParser, (req, res) => {
-        if (!req.body) return res.sendStatus(400);
-
         ExpressAuthAPI.logout({
             headers: getHeadersWithCookies(req),
         })
             .then(async (response) => {
                 res.clearCookie('uuid');
                 res.clearCookie('authCookie');
-                res.send(await response.text());
+                const her = await response.text();
+                res.send(her);
             })
             .catch((error) => {
                 res.status(error.status).send(error.statusText);

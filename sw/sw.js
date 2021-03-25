@@ -19,14 +19,10 @@ const NETWORK_ONLY_STRATEGY_URLS = [
     'auth/signin',
     'auth/signup',
     'auth/user',
+    'auth/logout',
     'oauth/yandex',
     'hot-update',
     '__webpack_hmr',
-];
-
-const NETWORK_FIRST_STRATEGY_URLS = [
-    // Явно указываем, чтобы кешировался root path
-    '/',
 ];
 
 self.addEventListener('install', async () => {
@@ -101,7 +97,7 @@ function fetchMiddleware(event) {
         return cacheFirst(request);
     }
 
-    if (url.origin === location.origin && NETWORK_FIRST_STRATEGY_URLS.some(pathMatcher(url.pathname))) {
+    if (url.origin === location.origin && url.pathname === '/') {
         return networkFirst(request);
     }
 

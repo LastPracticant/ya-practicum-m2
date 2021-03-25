@@ -1,5 +1,5 @@
 import React, {
-    FC, memo, useEffect,
+    FC, memo, useEffect, MouseEvent,
 } from 'react';
 import './OAuth.css';
 
@@ -20,13 +20,23 @@ export const OAuth: FC<ComponentCommonProps> = memo(
         const { oauth: clientId } = useSelector(oauthSelector);
 
         useEffect(() => {
+            const url = getOAuthUrl(clientId);
+
+            if (url) {
+                window.location.href = url;
+            }
+        }, [clientId]);
+
+        const fetchServiceId = (e: MouseEvent) => {
+            e.preventDefault();
             dispatch(getServiceIdThunk());
-        }, [dispatch]);
+        };
 
         return (
             <div className={block({}).mix(className).toString()}>
                 <a
-                    href={getOAuthUrl(clientId)}
+                    href="#s"
+                    onClick={fetchServiceId}
                 >
                     {LOCAL.AUTHORIZE_YANDEX}
                 </a>

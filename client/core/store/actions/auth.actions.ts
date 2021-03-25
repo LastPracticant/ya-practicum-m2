@@ -58,6 +58,7 @@ export const logoutThunk = (): ThunkAction<void, StoreProps, unknown, Action<str
         .then(() => {
             dispatch(changeAuth(false));
         })
+        .catch(console.error)
         .finally(() => {
             dispatch(hideLoaderAction());
             dispatch(push(ROUTES.SIGNIN.path));
