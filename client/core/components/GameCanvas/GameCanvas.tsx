@@ -6,8 +6,8 @@ import { CanvasResourcesProps } from './ResourcesLoader';
 
 interface GameCanvasProps
     extends React.DetailedHTMLProps<
-    React.CanvasHTMLAttributes<HTMLCanvasElement>,
-    HTMLCanvasElement> {
+    React.CanvasHTMLAttributes<HTMLCanvasElement>, HTMLCanvasElement
+    > {
     drawCanvas: DrawCanvasFn
     resources?: CanvasResourcesProps
 }
