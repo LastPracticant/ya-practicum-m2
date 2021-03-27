@@ -12,7 +12,7 @@ export const ForumTopic: React.FC<PageComponentProps> = ({ title }) => {
     const params = useParams<UrlCommonProps>();
 
     return (
-        <PageLayout goBackLink={ROUTES.FORUM.path} className={block()}>
+        <PageLayout goBackLink={ROUTES.FORUM.children?.BOARD.path} className={block()}>
             <Meta title={title} />
             <Paper title={title}>
                 {`topic ${params.id}`}

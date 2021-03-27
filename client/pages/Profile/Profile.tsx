@@ -5,7 +5,6 @@ import { PageComponentProps } from 'client/shared/types';
 import { ROUTES } from 'client/routing';
 import { Logo, Meta, PageLayout } from 'client/core';
 import { withCheckAuth } from 'client/core/HOCs';
-import { ProfileForm, ProfileEdit, ProfileEditPassword } from './components';
 
 const ProfileComponent: React.FC<PageComponentProps> = React.memo(({ title }) => {
     const isProfile = useRouteMatch({ path: ROUTES.PROFILE.path, strict: true });
@@ -22,15 +21,9 @@ const ProfileComponent: React.FC<PageComponentProps> = React.memo(({ title }) =>
                 <Paper sizes="small">
                     <h1>{title}</h1>
                     <Switch>
-                        <Route path={ROUTES.PROFILE_PASSWORD.path}>
-                            <ProfileEditPassword />
-                        </Route>
-                        <Route path={ROUTES.PROFILE_DATA.path}>
-                            <ProfileEdit />
-                        </Route>
-                        <Route path={ROUTES.PROFILE.path}>
-                            <ProfileForm />
-                        </Route>
+                        <Route path={ROUTES.PROFILE.children?.PASSWORD.path} component={ROUTES.PROFILE.children?.PASSWORD.component} />
+                        <Route path={ROUTES.PROFILE.children?.DATA.path} component={ROUTES.PROFILE.children?.DATA.component} />
+                        <Route path={ROUTES.PROFILE.path} component={ROUTES.PROFILE.component} />
                     </Switch>
                 </Paper>
             </NivelatorXY>

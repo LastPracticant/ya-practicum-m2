@@ -14,7 +14,7 @@ export const columns: Columns = [
         flex: 1,
         sortable: false,
         renderCell: (params: CellParams) => (
-            <Link to={`${ROUTES.FORUM_TOPIC.path}/${params.getValue('id')}`} className={block('topic-link')}>
+            <Link to={`${ROUTES.FORUM.children?.TOPIC.path}/${params.getValue('id')}`} className={block('topic-link')}>
                 {params.value}
             </Link>
         ),

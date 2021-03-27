@@ -56,7 +56,7 @@ export const ProfileForm: React.FC = React.memo(() => {
                     <Grid item>
                         <Button
                             component={Link}
-                            to={ROUTES.PROFILE_DATA.path}
+                            to={ROUTES.PROFILE.children?.DATA.path!}
                             color="primary"
                         >
                             {LOCAL.CHANGE_PROFILE_DATA}
@@ -65,7 +65,7 @@ export const ProfileForm: React.FC = React.memo(() => {
                     <Grid item>
                         <Button
                             component={Link}
-                            to={ROUTES.PROFILE_PASSWORD.path}
+                            to={ROUTES.PROFILE.children?.PASSWORD.path!}
                             color="primary"
                         >
                             {LOCAL.CHANGE_PROFILE_PASSWORD}

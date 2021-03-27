@@ -5,7 +5,7 @@ import { withCheckAuth } from 'client/core/HOCs';
 import { Logo, Meta, OAuth } from 'client/core';
 import { SigninForm } from './components';
 
-export const SigninComponent: React.FC<PageComponentProps> = React.memo(({ title }) => (
+const SigninComponent: React.FC<PageComponentProps> = React.memo(({ title }) => (
     <NivelatorXY>
         <Meta title={title} />
         <Logo />
