@@ -1,4 +1,4 @@
-import { ErrorPage } from 'client/pages';
+// import { ErrorPage } from 'client/pages';
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
@@ -23,10 +23,6 @@ export const Routing: React.FC<RoutingProps> = React.memo(({ routes = ROUTES }) 
     return (
         <Switch>
             {pages}
-
-            <Route>
-                <ErrorPage title="404" />
-            </Route>
         </Switch>
     );
 });

@@ -5,10 +5,13 @@ import {
     Profile,
     Signin,
     Signup,
-    ErrorPage,
     Home,
     GameStart,
+    ForumTopic,
+    ForumBoard,
+    ErrorPage,
 } from 'client/pages';
+import { ProfileEdit, ProfileEditPassword, ProfileForm } from 'client/pages/Profile/components';
 import { PageComponentProps } from 'client/shared/types';
 import React from 'react';
 
@@ -23,6 +26,7 @@ export interface RouteValueProps {
     params?: string
     fetchData?: Function
     exact?: boolean
+    children?: RoutesProps
 }
 
 export const ROUTES: RoutesProps = {
@@ -46,21 +50,45 @@ export const ROUTES: RoutesProps = {
         path: '/profile',
         title: 'Профиль',
         component: Profile,
-    },
-    PROFILE_PASSWORD: {
-        path: '/profile/password',
-        title: 'Изменить пароль',
-        component: Forum,
-    },
-    PROFILE_DATA: {
-        path: '/profile/data',
-        title: 'Изменить данные',
-        component: Home,
+        children: {
+            PASSWORD: {
+                path: '/profile/password',
+                title: 'Изменение пароля',
+                component: ProfileEditPassword,
+            },
+            DATA: {
+                path: '/profile/data',
+                title: 'Изменение данных',
+                component: ProfileEdit,
+            },
+            VIEW: {
+                path: '/profile',
+                title: 'Профиль',
+                component: ProfileForm,
+            },
+        },
     },
     FORUM: {
         path: '/forum',
         title: 'Форум',
         component: Forum,
+        children: {
+            TOPIC: {
+                path: '/forum/topic',
+                title: 'Форум: тема',
+                component: ForumTopic,
+            },
+            BOARD: {
+                path: '/forum',
+                title: 'Форум',
+                component: ForumBoard,
+            },
+            NOT_FOUND: {
+                path: '/*',
+                title: '404',
+                component: ErrorPage,
+            },
+        },
     },
     GAME: {
         path: '/game',
@@ -82,5 +110,4 @@ export const ROUTES: RoutesProps = {
         title: '404',
         component: ErrorPage,
     },
-
 };

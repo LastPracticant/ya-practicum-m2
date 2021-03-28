@@ -1,8 +1,8 @@
 import React from 'react';
-import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import { NivelatorXY, Paper } from 'client/shared/components';
 import { PageComponentProps } from 'client/shared/types';
-import { ROUTES } from 'client/routing';
+import { ROUTES, Routing } from 'client/routing';
 import { Logo, Meta, PageLayout } from 'client/core';
 import { withCheckAuth } from 'client/core/HOCs';
 
@@ -20,11 +20,8 @@ const ProfileComponent: React.FC<PageComponentProps> = React.memo(({ title }) =>
                 <Logo />
                 <Paper sizes="small">
                     <h1>{title}</h1>
-                    <Switch>
-                        <Route path={ROUTES.PROFILE.children?.PASSWORD.path} component={ROUTES.PROFILE.children?.PASSWORD.component} />
-                        <Route path={ROUTES.PROFILE.children?.DATA.path} component={ROUTES.PROFILE.children?.DATA.component} />
-                        <Route path={ROUTES.PROFILE.path} component={ROUTES.PROFILE.component} />
-                    </Switch>
+
+                    <Routing routes={ROUTES.PROFILE.children} />
                 </Paper>
             </NivelatorXY>
         </PageLayout>

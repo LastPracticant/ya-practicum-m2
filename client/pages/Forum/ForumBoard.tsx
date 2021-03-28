@@ -8,10 +8,11 @@ import { Meta, PageLayout } from 'client/core';
 import { ROUTES } from 'client/routing';
 import { ButtonsToolbar, Paper } from 'client/shared/components';
 import { Button } from '@material-ui/core';
+import { withCheckAuth } from 'client/core/HOCs';
 import { rows } from './Forum.mock';
 import { columns, block } from './Forum.config';
 
-export const ForumBoard: React.FC<PageComponentProps> = ({ title }) => (
+export const ForumBoardComponent: React.FC<PageComponentProps> = ({ title }) => (
     <PageLayout goBackLink={ROUTES.HOME.path} className={block()}>
         <Meta title={title} />
         <Paper title={title}>
@@ -35,3 +36,5 @@ export const ForumBoard: React.FC<PageComponentProps> = ({ title }) => (
         </Paper>
     </PageLayout>
 );
+
+export const ForumBoard = withCheckAuth(ForumBoardComponent);

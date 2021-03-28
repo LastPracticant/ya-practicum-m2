@@ -6,9 +6,10 @@ import { Meta, PageLayout } from 'client/core';
 import { ROUTES } from 'client/routing';
 import { Paper } from 'client/shared/components';
 import { useParams } from 'react-router-dom';
+import { withCheckAuth } from 'client/core/HOCs';
 import { block } from './Forum.config';
 
-export const ForumTopic: React.FC<PageComponentProps> = ({ title }) => {
+export const ForumTopicComponent: React.FC<PageComponentProps> = ({ title }) => {
     const params = useParams<UrlCommonProps>();
 
     return (
@@ -20,3 +21,5 @@ export const ForumTopic: React.FC<PageComponentProps> = ({ title }) => {
         </PageLayout>
     );
 };
+
+export const ForumTopic = withCheckAuth(ForumTopicComponent);
