@@ -1,4 +1,3 @@
-// import { ErrorPage } from 'client/pages';
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
