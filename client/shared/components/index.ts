@@ -5,3 +5,4 @@ export * from './AvatarUpload';
 export * from './Loader';
 export * from './ButtonsToolbar';
 export * from './SnackBar';
+export * from './Popup';
