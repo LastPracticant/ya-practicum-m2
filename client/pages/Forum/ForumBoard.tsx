@@ -12,6 +12,7 @@ import { withCheckAuth } from 'client/core/HOCs';
 import { useElementVisible } from 'client/core/hooks';
 import { rows } from './Forum.mock';
 import { columns, block } from './Forum.config';
+import { AddTopikForm } from './components';
 
 export const ForumBoardComponent: React.FC<PageComponentProps> = React.memo(({ title }) => {
     const {
@@ -36,7 +37,7 @@ export const ForumBoardComponent: React.FC<PageComponentProps> = React.memo(({ t
                         isVisible={elementVisible}
                         onChangeVisible={handleChangeElementVisible}
                     >
-                        content
+                        <AddTopikForm />
                     </Popup>
                 </ButtonsToolbar>
                 <DataGrid
