@@ -13,7 +13,7 @@ interface PopupProps extends ComponentCommonProps {
     onChangeVisible?: FnActionProps
 }
 
-const block = bem('Popup');
+const block = bem('popup');
 
 export const Popup: FC<PopupProps> = memo(
     ({
@@ -35,7 +35,7 @@ export const Popup: FC<PopupProps> = memo(
             }}
         >
             <Fade in={isVisible}>
-                <Paper sizes="small">
+                <Paper sizes="small" className={block('body')}>
                     {children}
                 </Paper>
             </Fade>
