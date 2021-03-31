@@ -1,7 +1,9 @@
 export const LOCAL = {
-    FORM_SEND: 'Отправить',
-    FORM_ADD: 'Добавить',
-    FORM_SAVE: 'Сохранить',
+    COMMON_PREFIX: {
+        SEND: 'Отправить',
+        ADD: 'Добавить',
+        SAVE: 'Сохранить',
+    },
     AUTHORIZE: 'Авторизоваться',
     AUTHORIZE_YANDEX: 'Войти через Яндекс',
     REGISTER: 'Зарегистрироваться',

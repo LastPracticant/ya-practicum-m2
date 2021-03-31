@@ -10,6 +10,7 @@ import { ButtonsToolbar, Paper, Popup } from 'client/shared/components';
 import { Button } from '@material-ui/core';
 import { withCheckAuth } from 'client/core/HOCs';
 import { useElementVisible } from 'client/core/hooks';
+import { LOCAL } from 'client/shared/consts';
 import { rows } from './Forum.mock';
 import { columns, block } from './Forum.config';
 import { AddTopikForm } from './components';
@@ -31,11 +32,12 @@ export const ForumBoardComponent: React.FC<PageComponentProps> = React.memo(({ t
                         startIcon={<AddIcon />}
                         onClick={handleChangeElementVisible}
                     >
-                        Добавить тему
+                        {LOCAL.FORUM_COLUMN_TOPIC}
                     </Button>
                     <Popup
                         isVisible={elementVisible}
                         onChangeVisible={handleChangeElementVisible}
+                        title={LOCAL.FORUM_COLUMN_TOPIC}
                     >
                         <AddTopikForm />
                     </Popup>

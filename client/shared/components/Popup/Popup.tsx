@@ -6,11 +6,13 @@ import bem from 'bem-cn';
 import Modal from '@material-ui/core/Modal';
 import { Fade } from '@material-ui/core';
 import Backdrop from '@material-ui/core/Backdrop';
+import CloseIcon from '@material-ui/icons/Close';
 import { Paper } from '../Paper';
 
 interface PopupProps extends ComponentCommonProps {
     isVisible: boolean
     onChangeVisible?: FnActionProps
+    title?: string
 }
 
 const block = bem('popup');
@@ -21,6 +23,7 @@ export const Popup: FC<PopupProps> = memo(
         isVisible,
         onChangeVisible,
         children,
+        title,
     }) => (
         <Modal
             aria-labelledby="transition-modal-title"
@@ -35,7 +38,16 @@ export const Popup: FC<PopupProps> = memo(
             }}
         >
             <Fade in={isVisible}>
-                <Paper sizes="small" className={block('body')}>
+                <Paper
+                    title={title}
+                    sizes="small"
+                    className={block('body')}
+                >
+                    <div className={block('close')}>
+                        <CloseIcon
+                            onClick={onChangeVisible}
+                        />
+                    </div>
                     {children}
                 </Paper>
             </Fade>

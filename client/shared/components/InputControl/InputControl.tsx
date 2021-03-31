@@ -10,6 +10,9 @@ export interface InputDataProps {
     pattern?: PatternProps;
     type?: string;
     required?: boolean;
+    multiline?: boolean;
+    rows?: number
+    rowsMax?: number
 }
 
 type InputControlProps = InputDataProps & OutlinedTextFieldProps;
