@@ -12,9 +12,10 @@ export const Routing: React.FC<RoutingProps> = React.memo(({ routes = ROUTES }) 
         component: Page,
         title,
         path,
+        params = '',
         exact,
     }) => (
-        <Route key={path} exact={exact} path={path}>
+        <Route key={path} exact={exact} path={`${path}${params}`}>
             <Page title={title} />
         </Route>
     ));

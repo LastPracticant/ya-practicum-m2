@@ -4,9 +4,9 @@ import { useForm } from 'react-hook-form';
 import { GRID_SPACE, LOCAL } from 'client/shared/consts';
 import { Button, Grid } from '@material-ui/core';
 import { InputControl } from 'client/shared/components';
-import { ADD_TOPIK_FORM_CONTROLS } from './AddTopikForm.config';
+import { ADD_TOPIC_FORM_CONTROLS } from './AddTopicForm.config';
 
-export const AddTopikForm: React.FC = React.memo(() => {
+export const AddTopicForm: React.FC = React.memo(() => {
     const {
         control,
         handleSubmit,
@@ -18,7 +18,7 @@ export const AddTopikForm: React.FC = React.memo(() => {
     };
 
     const controls = useMemo(
-        () => ADD_TOPIK_FORM_CONTROLS.map((inputConfig) => {
+        () => ADD_TOPIC_FORM_CONTROLS.map((inputConfig) => {
             const { name } = inputConfig;
             const error = errors[name as keyof typeof errors]?.message;
 

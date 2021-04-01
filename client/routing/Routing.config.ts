@@ -75,6 +75,7 @@ export const ROUTES: RoutesProps = {
         children: {
             TOPIC: {
                 path: '/forum/topic',
+                params: '/:id',
                 title: 'Форум: тема',
                 component: ForumTopic,
             },

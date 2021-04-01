@@ -1,6 +1,6 @@
 import { InputDataProps } from 'client/shared/components';
 
-export const ADD_TOPIK_FORM_CONTROLS: InputDataProps[] = [
+export const ADD_TOPIC_FORM_CONTROLS: InputDataProps[] = [
     {
         name: 'name',
         label: 'Тема',

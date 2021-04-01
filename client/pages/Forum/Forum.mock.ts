@@ -1,6 +1,6 @@
 import arrayToTree from 'array-to-tree';
 
-interface ForumTopikProps {
+interface ForumTopicProps {
     id: number
     topic: string
     reviews: number
@@ -8,7 +8,7 @@ interface ForumTopikProps {
     autor: string
 }
 
-export const TOPIKS: ForumTopikProps[] = [{
+export const TOPICS: ForumTopicProps[] = [{
     id: 1, topic: 'Progressive user-facing groupware', reviews: 46, answers: 95, autor: 'Aube Danielski',
 },
 {
@@ -309,13 +309,13 @@ export const TOPIKS: ForumTopikProps[] = [{
     id: 100, topic: 'Polarised value-added system engine', reviews: 33, answers: 97, autor: 'Jacki Corsor',
 }];
 
-interface ForumTopikCommentProps {
+interface ForumTopicCommentProps {
     id: number
     description: string
     parentId: number
 }
 
-const COMMENTS: ForumTopikCommentProps[] = [
+const COMMENTS: ForumTopicCommentProps[] = [
     {
         id: 1, description: 'hey', parentId: 0,
     },

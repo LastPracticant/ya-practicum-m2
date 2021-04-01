@@ -9,8 +9,9 @@ import { useParams } from 'react-router-dom';
 import { withCheckAuth } from 'client/core/HOCs';
 import { block } from './Forum.config';
 import { COMMENTS_TREE } from './Forum.mock';
+import { AddCommentForm } from './components';
 
-export const ForumTopicComponent: React.FC<PageComponentProps> = ({ title }) => {
+export const ForumTopicComponent: React.FC<PageComponentProps> = React.memo(({ title }) => {
     const params = useParams<UrlCommonProps>();
 
     return (
@@ -18,10 +19,12 @@ export const ForumTopicComponent: React.FC<PageComponentProps> = ({ title }) => 
             <Meta title={title} />
             <Paper title={title}>
                 {`topic ${params.id}`}
+                <AddCommentForm />
+                {console.log(params)}
                 {console.log(COMMENTS_TREE)}
             </Paper>
         </PageLayout>
     );
-};
+});
 
 export const ForumTopic = withCheckAuth(ForumTopicComponent);
