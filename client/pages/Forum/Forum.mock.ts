@@ -1,4 +1,14 @@
-export const rows = [{
+import arrayToTree from 'array-to-tree';
+
+interface ForumTopikProps {
+    id: number
+    topic: string
+    reviews: number
+    answers: number
+    autor: string
+}
+
+export const TOPIKS: ForumTopikProps[] = [{
     id: 1, topic: 'Progressive user-facing groupware', reviews: 46, answers: 95, autor: 'Aube Danielski',
 },
 {
@@ -298,3 +308,42 @@ export const rows = [{
 {
     id: 100, topic: 'Polarised value-added system engine', reviews: 33, answers: 97, autor: 'Jacki Corsor',
 }];
+
+interface ForumTopikCommentProps {
+    id: number
+    description: string
+    parentId: number
+}
+
+const COMMENTS: ForumTopikCommentProps[] = [
+    {
+        id: 1, description: 'hey', parentId: 0,
+    },
+    {
+        id: 5, description: 'hey', parentId: 1,
+    },
+    {
+        id: 6, description: 'hey', parentId: 1,
+    },
+    {
+        id: 7, description: 'hey', parentId: 1,
+    },
+    {
+        id: 8, description: 'hey', parentId: 1,
+    },
+    {
+        id: 9, description: 'hey', parentId: 8,
+    },
+    {
+        id: 10, description: 'hey', parentId: 8,
+    },
+    {
+        id: 2, description: 'hey', parentId: 0,
+    },
+];
+
+export const COMMENTS_TREE = arrayToTree(
+    COMMENTS, {
+        parentProperty: 'parentId',
+    },
+);

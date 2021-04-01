@@ -11,7 +11,7 @@ import { Button } from '@material-ui/core';
 import { withCheckAuth } from 'client/core/HOCs';
 import { useElementVisible } from 'client/core/hooks';
 import { LOCAL } from 'client/shared/consts';
-import { rows } from './Forum.mock';
+import { TOPIKS } from './Forum.mock';
 import { columns, block } from './Forum.config';
 import { AddTopikForm } from './components';
 
@@ -43,7 +43,7 @@ export const ForumBoardComponent: React.FC<PageComponentProps> = React.memo(({ t
                     </Popup>
                 </ButtonsToolbar>
                 <DataGrid
-                    rows={rows}
+                    rows={TOPIKS}
                     columns={columns}
                     pageSize={10}
                     autoHeight

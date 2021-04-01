@@ -8,6 +8,7 @@ import { Paper } from 'client/shared/components';
 import { useParams } from 'react-router-dom';
 import { withCheckAuth } from 'client/core/HOCs';
 import { block } from './Forum.config';
+import { COMMENTS_TREE } from './Forum.mock';
 
 export const ForumTopicComponent: React.FC<PageComponentProps> = ({ title }) => {
     const params = useParams<UrlCommonProps>();
@@ -17,6 +18,7 @@ export const ForumTopicComponent: React.FC<PageComponentProps> = ({ title }) => 
             <Meta title={title} />
             <Paper title={title}>
                 {`topic ${params.id}`}
+                {console.log(COMMENTS_TREE)}
             </Paper>
         </PageLayout>
     );

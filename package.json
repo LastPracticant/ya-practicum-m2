@@ -93,6 +93,7 @@
     "@material-ui/icons": "4.11.2",
     "@material-ui/lab": "4.0.0-alpha.57",
     "@material-ui/styles": "4.11.3",
+    "array-to-tree": "^3.3.2",
     "babel-loader": "8.2.2",
     "bem-cn": "3.0.1",
     "connected-react-router": "^6.9.1",
