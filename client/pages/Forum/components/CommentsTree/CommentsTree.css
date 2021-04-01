@@ -1,0 +1,5 @@
+.comments-tree {
+    margin-top: var(--space-unit);
+    border: 1px solid gray;
+    border-radius: var(--space-xxxs);
+}

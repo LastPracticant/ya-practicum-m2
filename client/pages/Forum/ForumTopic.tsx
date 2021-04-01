@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom';
 import { withCheckAuth } from 'client/core/HOCs';
 import { block } from './Forum.config';
 import { COMMENTS_TREE } from './Forum.mock';
-import { AddCommentForm } from './components';
+import { AddCommentForm, CommentsTree } from './components';
 
 export const ForumTopicComponent: React.FC<PageComponentProps> = React.memo(({ title }) => {
     const params = useParams<UrlCommonProps>();
@@ -20,6 +20,7 @@ export const ForumTopicComponent: React.FC<PageComponentProps> = React.memo(({ t
             <Paper title={title}>
                 {`topic ${params.id}`}
                 <AddCommentForm />
+                <CommentsTree comments={COMMENTS_TREE} />
                 {console.log(params)}
                 {console.log(COMMENTS_TREE)}
             </Paper>

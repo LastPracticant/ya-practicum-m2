@@ -1,4 +1,5 @@
 import arrayToTree from 'array-to-tree';
+import { ForumTopicCommentProps } from './Forum.types';
 
 interface ForumTopicProps {
     id: number
@@ -309,40 +310,34 @@ export const TOPICS: ForumTopicProps[] = [{
     id: 100, topic: 'Polarised value-added system engine', reviews: 33, answers: 97, autor: 'Jacki Corsor',
 }];
 
-interface ForumTopicCommentProps {
-    id: number
-    description: string
-    parentId: number
-}
-
 const COMMENTS: ForumTopicCommentProps[] = [
     {
-        id: 1, description: 'hey', parentId: 0,
+        id: 1, description: 'hey', date: '01.04.21', author: 'Pro.100.chel', parentId: 0,
     },
     {
-        id: 5, description: 'hey', parentId: 1,
+        id: 5, description: 'hey', date: '01.04.21', author: 'Pro.100.chel', parentId: 1,
     },
     {
-        id: 6, description: 'hey', parentId: 1,
+        id: 6, description: 'hey', date: '01.04.21', author: 'Pro.100.chel', parentId: 1,
     },
     {
-        id: 7, description: 'hey', parentId: 1,
+        id: 7, description: 'hey', date: '01.04.21', author: 'Pro.100.chel', parentId: 1,
     },
     {
-        id: 8, description: 'hey', parentId: 1,
+        id: 8, description: 'hey', date: '01.04.21', author: 'Pro.100.chel', parentId: 1,
     },
     {
-        id: 9, description: 'hey', parentId: 8,
+        id: 9, description: 'hey', date: '01.04.21', author: 'Pro.100.chel', parentId: 8,
     },
     {
-        id: 10, description: 'hey', parentId: 8,
+        id: 10, description: 'hey', date: '01.04.21', author: 'Pro.100.chel', parentId: 8,
     },
     {
-        id: 2, description: 'hey', parentId: 0,
+        id: 2, description: 'hey', date: '01.04.21', author: 'Pro.100.chel', parentId: 0,
     },
 ];
 
-export const COMMENTS_TREE = arrayToTree(
+export const COMMENTS_TREE: ForumTopicCommentProps[] = arrayToTree(
     COMMENTS, {
         parentProperty: 'parentId',
     },
