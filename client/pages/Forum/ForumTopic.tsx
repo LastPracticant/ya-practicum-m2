@@ -21,8 +21,6 @@ export const ForumTopicComponent: React.FC<PageComponentProps> = React.memo(({ t
                 {`topic ${params.id}`}
                 <AddCommentForm />
                 <CommentsTree comments={COMMENTS_TREE} />
-                {console.log(params)}
-                {console.log(COMMENTS_TREE)}
             </Paper>
         </PageLayout>
     );

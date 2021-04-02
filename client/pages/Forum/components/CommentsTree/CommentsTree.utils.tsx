@@ -3,6 +3,7 @@ import {
 } from '@material-ui/core';
 import React from 'react';
 import { ForumTopicCommentProps } from '../../Forum.types';
+import { block } from './CommentsTree.config';
 
 export const mapCommentsToTree = (
     comments: ForumTopicCommentProps[],
@@ -22,9 +23,13 @@ export const mapCommentsToTree = (
                                 {comment.author}
                             </Typography>
                             {` " — ${comment.description}"`}
+                            <div className={block('reply')}>
+                                <a href="#s">Ответить</a>
+                            </div>
                         </>
                     )}
                 />
+
             </ListItem>
 
             {comment.children && (

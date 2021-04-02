@@ -1,5 +1,22 @@
 .comments-tree {
     margin-top: var(--space-unit);
-    border: 1px solid gray;
+    border: 1px solid #ffffff3b;
     border-radius: var(--space-xxxs);
+
+    ul li ul {
+        padding-top: 0;
+        padding-bottom: 0;
+
+        li:first-child {
+            padding-top: 0;
+        }
+        
+        li:last-child {
+            padding-bottom: 0;
+        }
+    }
+
+    &__reply a {
+        color: #fff;
+    }
 }

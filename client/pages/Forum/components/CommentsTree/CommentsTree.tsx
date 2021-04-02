@@ -1,11 +1,10 @@
 import './CommentsTree.css';
 
 import React, { useMemo } from 'react';
-import bem from 'bem-cn';
+
 import { ForumTopicCommentProps } from '../../Forum.types';
 import { mapCommentsToTree } from './CommentsTree.utils';
-
-const block = bem('comments-tree');
+import { block } from './CommentsTree.config';
 
 interface CommentsTreeProps {
     comments: ForumTopicCommentProps[]
