@@ -38,9 +38,17 @@ https://last-practicant.herokuapp.com/
 ```
 | -- client
     | -- core
-        | -- components - корневые компоненты (header и т.д.) и их логика
-        | -- context - корневые контексты (авторизация, настройки)
         | -- api - API для работы с бэком и его конфиги
+        | -- components - корневые компоненты (header и т.д.) и их логика
+        | -- HOCs - хоки приложения
+        | -- hooks - кастомные хуки
+        | -- context - корневые контексты (авторизация, настройки)
+        | -- store - redux и его инфраструктура
+            | -- actions
+            | -- reducers
+            | -- selectors
+            | -- store.ts
+            | -- store.types.ts
     | -- shared
         | -- components - общие переиспользуемые компоненты (инпуты и т.д.) и их логика
             | -- MyPageComponent - директория с компонентом страницы
@@ -56,10 +64,16 @@ https://last-practicant.herokuapp.com/
         | -- styles - общие стили
     | -- pages - компоненты страницы
     | -- routing - роутинг приложения
-    | -- store
     | -- App.css
     | -- App.tsx
 | -- server
+    | -- api - BFF
+    | -- middlewares
+    | -- routing - роутинг сервера
+    | -- store - инфраструктура redux для ssr
+    | -- types - типизация для сервера
+    | -- server.utils.ts - утилиты сервера
+    | -- start.ts - настройки и запуск сервера
 | -- mocks - моковые данные для тестов
 ```
 **Все сущности (компоненты, интерфейсы, контексты, провайдеры) пишем в отдельных файлах.**
