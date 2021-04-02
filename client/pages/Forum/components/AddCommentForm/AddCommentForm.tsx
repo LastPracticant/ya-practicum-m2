@@ -11,15 +11,23 @@ import { ADD_COMMENT_FORM_CONTROLS } from './AddCommentForm.config';
 
 const block = bem('add-comment-form');
 
-export const AddCommentForm: React.FC = React.memo(() => {
+interface AddCommentFormProps {
+    parentId?: number
+}
+
+export const AddCommentForm: React.FC<AddCommentFormProps> = React.memo(({
+    parentId,
+}) => {
+    // TODO: контракт будет реализован тут LP-110 (как заглушка пока SigninProps)
     const {
         control,
         handleSubmit,
         errors,
     } = useForm<SigninProps>();
 
+    // TODO: контракт будет реализован тут LP-110 (как заглушка пока SigninProps)
     const onSubmit = (data: SigninProps) => {
-        console.log(data);
+        console.log({ ...data, parentId });
     };
 
     const controls = useMemo(

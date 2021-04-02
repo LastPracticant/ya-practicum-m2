@@ -1,13 +1,22 @@
 import {
     List, ListItem, ListItemText, Typography,
 } from '@material-ui/core';
-import React from 'react';
+import { FnActionRequiredProps } from 'client/shared/types';
+import React, { MouseEvent } from 'react';
 import { ForumTopicCommentProps } from '../../Forum.types';
 import { block } from './CommentsTree.config';
 
 export const mapCommentsToTree = (
     comments: ForumTopicCommentProps[],
+    onAddComment: FnActionRequiredProps<number>,
 ) => {
+    const handleAddComment = (parendId: number) => (
+        e: MouseEvent,
+    ) => {
+        e.preventDefault();
+        onAddComment(parendId);
+    };
+
     const commentsMapped = comments.map((comment) => (
         <React.Fragment key={comment.id}>
             <ListItem alignItems="flex-start">
@@ -24,7 +33,12 @@ export const mapCommentsToTree = (
                             </Typography>
                             {` " — ${comment.description}"`}
                             <div className={block('reply')}>
-                                <a href="#s">Ответить</a>
+                                <a
+                                    onClick={handleAddComment(comment.id)}
+                                    href="#s"
+                                >
+                                    Ответить
+                                </a>
                             </div>
                         </>
                     )}
@@ -34,13 +48,13 @@ export const mapCommentsToTree = (
 
             {comment.children && (
                 <ListItem alignItems="flex-start">
-                    {mapCommentsToTree(comment.children)}
+                    {mapCommentsToTree(comment.children, onAddComment)}
                 </ListItem>
             )}
         </React.Fragment>
     ));
 
-    return (
+    return commentsMapped.length && (
         <List>
             {commentsMapped}
         </List>

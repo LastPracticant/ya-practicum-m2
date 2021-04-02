@@ -2,4 +2,11 @@
     &__topic-link {
         color: #fff;
     }
+
+    &__comments-divider {
+        margin: var(--space-unit) 0;
+        background: #ffffff3b;
+        height: 1px;
+        border: 0;
+    }
 }

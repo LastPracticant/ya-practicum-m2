@@ -7,12 +7,14 @@ import { InputControl } from 'client/shared/components';
 import { ADD_TOPIC_FORM_CONTROLS } from './AddTopicForm.config';
 
 export const AddTopicForm: React.FC = React.memo(() => {
+    // TODO: контракт будет реализован тут LP-110 (как заглушка пока SigninProps)
     const {
         control,
         handleSubmit,
         errors,
     } = useForm<SigninProps>();
 
+    // TODO: контракт будет реализован тут LP-110 (как заглушка пока SigninProps)
     const onSubmit = (data: SigninProps) => {
         console.log(data);
     };

@@ -15,6 +15,8 @@ export const LOCAL = {
     RECORD: 'Рекорд',
     EXIT: 'Выйти',
     FORUM_COLUMN_TOPIC: 'Тема',
+    FORUM_COLUMN_COMMENT: 'Комментарий',
+    FORUM_COLUMN_COMMENT_EMPTY: 'Комментарии отсутствуют...',
     FORUM_COLUMN_REVIEWS: 'Просмотры',
     FORUM_COLUMN_ANSWERS: 'Ответы',
     FORUM_COLUMN_AUTOR: 'Автор',
