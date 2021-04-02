@@ -58,7 +58,7 @@ export const AddCommentForm: React.FC = React.memo(() => {
                 <Grid container item xs={12} justify="center" spacing={1}>
                     <Grid item>
                         <Button color="primary" type="submit">
-                            {LOCAL.COMMON_PREFIX.ADD}
+                            {LOCAL.COMMON_PREFIXES.ADD}
                         </Button>
                     </Grid>
                 </Grid>

@@ -1,5 +1,5 @@
 export const LOCAL = {
-    COMMON_PREFIX: {
+    COMMON_PREFIXES: {
         SEND: 'Отправить',
         ADD: 'Добавить',
         SAVE: 'Сохранить',
@@ -10,7 +10,6 @@ export const LOCAL = {
     NO_ACCOUNT: 'Нет пароля?',
     CHANGE_PROFILE_DATA: 'Изменить данные',
     CHANGE_PROFILE_PASSWORD: 'Изменить пароль',
-    SAVE: 'Сохранить',
     BACK: 'Назад',
     AVATAR_DEFAULT: 'LP',
     RECORD: 'Рекорд',

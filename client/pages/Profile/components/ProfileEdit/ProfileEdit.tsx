@@ -85,7 +85,7 @@ export const ProfileEdit: React.FC = React.memo(() => {
                             type="submit"
                             variant="contained"
                         >
-                            {LOCAL.SAVE}
+                            {LOCAL.COMMON_PREFIXES.SAVE}
                         </Button>
                     </Grid>
                     <Grid item>
