@@ -11,18 +11,18 @@ services:
     networks:
       - app-network
     command: ./wait-for.sh mongo:27017 -- node ./dist/server.js 
-  
-  lp-mongo:
+
+  mongo:
     image: mongo
     environment:
-        MONGO_INITDB_ROOT_USERNAME: user
-        MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_ROOT_USERNAME: user
+      MONGO_INITDB_ROOT_PASSWORD: password
     volumes:
       - ./mongo:/data/db
     ports:
       - "27017:27017"
     networks:
-        - app-network
+      - app-network
 
 networks:
     app-network:

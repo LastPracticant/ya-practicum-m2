@@ -8,6 +8,7 @@ import { MongoClient } from 'mongodb';
 import { renderBundle } from './middlewares/renderBundle';
 import { routing } from './routing';
 import webpackConfig from '../webpack.config.client';
+import { IS_DEV } from '../env';
 
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
@@ -17,7 +18,7 @@ const compiler = webpack(webpackConfig as Configuration);
 // У nodejs нет FormData, необходимо для нормальной работы POST запросов а API Express
 (global as any).FormData = FormData;
 
-const MONGO_HOST = 'mongodb://mongo:27017';
+const MONGO_HOST = `mongodb://${IS_DEV ? 'localhost' : 'mongo'}:27017`;
 const DB_NAME = 'docker-lesson';
 const client = new MongoClient(MONGO_HOST);
 

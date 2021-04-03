@@ -1,13 +1,19 @@
-FROM ubuntu:18.04
+FROM alpine
 
-RUN apt update && apt install -y nodejs && apt install -y npm && apt install -y netcat
+RUN apk add --update nodejs npm
 
 WORKDIR /var/www
 
-COPY . /var/www/
-COPY ./utils/wait-for.sh wait-for.sh
-
-RUN chmod +x wait-for.sh
+COPY package*.json ./
 RUN npm install
 
+COPY ./utils/wait-for.sh wait-for.sh
+RUN chmod +x wait-for.sh
+
+COPY . .
+
+RUN npm run build
+
 EXPOSE 5000
+
+#CMD npm run heroku-start
