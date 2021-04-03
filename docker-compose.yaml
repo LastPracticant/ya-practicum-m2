@@ -11,6 +11,10 @@ services:
     networks:
       - app-network
     command: ./wait-for.sh mongo:27017 -- node ./dist/server.js 
+    environment:
+      - MONGO_HOST=mongo
+    env_file:
+      - ./dev.env
 
   mongo:
     image: mongo

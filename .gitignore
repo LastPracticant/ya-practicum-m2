@@ -9,6 +9,7 @@ $RECYCLE.BIN/
 .settings/
 .vscode/
 /static
+dev.env
 
 dist
 mongo
