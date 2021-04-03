@@ -5,16 +5,13 @@ import devMiddleware from 'webpack-dev-middleware';
 import hotMiddleware from 'webpack-hot-middleware';
 import webpack, { Configuration } from 'webpack';
 import { MongoClient } from 'mongodb';
-import dotenv from 'dotenv';
+import { IS_DEV } from '../env';
 import { renderBundle } from './middlewares/renderBundle';
 import { routing } from './routing';
 import webpackConfig from '../webpack.config.client';
-import { IS_DEV } from '../env';
 
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
-
-dotenv.config();
 
 const compiler = webpack(webpackConfig as Configuration);
 
@@ -24,9 +21,6 @@ const compiler = webpack(webpackConfig as Configuration);
 const MONGO_HOST = `mongodb://${IS_DEV ? 'localhost' : 'mongo'}:27017`;
 const DB_NAME = 'docker-lesson';
 const client = new MongoClient(MONGO_HOST);
-
-console.log('------------------- process.env.MONGO_HOST - ', process.env.MONGO_HOST);
-console.log('------------------- process.env.MONGO_PASSWORD - ', process.env.MONGO_PASSWORD);
 
 const PORT = process.env.PORT || 5000;
 const app: Express = express();
@@ -44,16 +38,18 @@ routing(app);
 
 client.connect((err) => {
     if (err) {
-        console.error('Can not connect to MongoDB.');
+        console.error('--------------- Can not connect to MongoDB. ---------------');
         throw err;
     }
 
-    console.info('Connected successfully to server.');
+    console.info('--------------- Connected successfully to server. ---------------');
 
     const db = client.db(DB_NAME);
 
     app.listen(PORT, () => {
-        console.info(`The server started on port: ${PORT}!`);
+        console.info(`--------------- The server started on port: ${PORT}! ---------------`);
+        console.info('---------------');
         console.info('Database: ', db);
+        console.info('---------------');
     });
 });
