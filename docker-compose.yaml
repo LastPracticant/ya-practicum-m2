@@ -8,9 +8,11 @@ services:
       - "5555:5000"
     depends_on:
       - mongo
+      - postgres
     networks:
       - app-network
     command: ./wait-for.sh mongo:27017 -- npm run heroku-start
+    restart: always
 
   mongo:
     image: mongo
@@ -23,6 +25,19 @@ services:
       - "27017:27017"
     networks:
       - app-network
+    restart: always
+
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USERNAME}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes: 
+      - ./postgresdata:/var/lib/postgresql/data
+      - ./src/migrations/dbinit.sql:/docker-entrypoint-initdb.d/dbinit.sql
+    ports:
+      - "5432:5432"
+    restart: always
 
 networks:
     app-network:
