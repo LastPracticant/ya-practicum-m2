@@ -13,3 +13,4 @@ dev.env
 .env
 dist
 mongo
+postgresdata
