@@ -1,4 +1,5 @@
 import express from 'express';
+// TODO: раскоментировать во время выполнения задачки LP-109
 // import { Pool } from 'pg';
 import devMiddleware from 'webpack-dev-middleware';
 import hotMiddleware from 'webpack-hot-middleware';
@@ -13,9 +14,10 @@ import { routing } from './routing';
 
 const compiler = webpack(webpackConfig as Configuration);
 
+// TODO: раскоментировать во время выполнения задачки LP-109
 // const postgres = new Pool({
 //     max: 20,
-//     connectionString: 'postgres://postgres:newPassword@postgres:5432/todo-db',
+//     connectionString: 'postgres://user:password@postgres:5432/db-name',
 //     idleTimeoutMillis: 30000,
 // });
 
@@ -43,6 +45,7 @@ export class Server {
     }
 
     private dbConnect() {
+        // TODO: раскоментировать во время выполнения задачки LP-109
         // postgres.connect((err) => {
         //     if (err) throw err;
 
