@@ -1,6 +1,7 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 const { IS_DEV } = require('./env');
 const babelLoader = require('./webpack.babel.loader');
 
@@ -39,4 +40,7 @@ module.exports = {
             },
         ],
     },
+    plugins: [
+        new Dotenv(),
+    ],
 };

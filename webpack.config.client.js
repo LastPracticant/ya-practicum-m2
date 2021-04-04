@@ -2,6 +2,7 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
+const Dotenv = require('dotenv-webpack');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const { IS_DEV } = require('./env');
@@ -64,6 +65,7 @@ module.exports = {
         ],
     },
     plugins: [
+        new Dotenv(),
         new ForkTsCheckerWebpackPlugin(),
         new MiniCssExtractPlugin(),
         new CopyPlugin({

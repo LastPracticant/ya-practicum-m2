@@ -20,7 +20,7 @@ services:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER_NAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
     volumes:
-      - ./mongo:/data/db
+      - lp-mongo:/data/db
     ports:
       - "27017:27017"
     networks:
@@ -28,20 +28,26 @@ services:
     restart: always
 
   postgres:
-    image: postgres
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER_NAME}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB_NAME}
-      PGDATA: /tmp
-    volumes: 
-      - ./postgresdata:/var/lib/postgresql/data
+    build:
+      context: .
+      dockerfile: Dockerfile.postgres
     ports:
-      - "5432:5432"
+      - '5436:5432'
+    volumes:
+      - lp-postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      PGDATA: /var/lib/postgresql/data
     networks:
       - app-network
-    restart: always 
+    restart: always
 
 networks:
     app-network:
         driver: bridge 
+
+volumes:
+  lp-postgres:
+    driver: local
+  lp-mongo:
+    driver: local

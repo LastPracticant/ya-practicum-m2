@@ -12,5 +12,3 @@ $RECYCLE.BIN/
 dev.env
 .env
 dist
-mongo
-postgresdata
