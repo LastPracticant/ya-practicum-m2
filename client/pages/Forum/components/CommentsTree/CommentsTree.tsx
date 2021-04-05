@@ -17,18 +17,20 @@ export const CommentsTree: React.FC<CommentsTreeProps> = React.memo(({
     comments,
     onAddComment,
 }) => {
+    const emptyCommentsStub = (
+        <div className={block('empty')}>
+            {LOCAL.FORUM_COLUMN_COMMENT_EMPTY}
+        </div>
+    );
+
     const tree = useMemo(() => mapCommentsToTree(
         comments,
         onAddComment,
-    ), [comments]);
+    ) || emptyCommentsStub, [comments]);
 
     return (
         <div className={block()}>
-            {tree || (
-                <div className={block('empty')}>
-                    {LOCAL.FORUM_COLUMN_COMMENT_EMPTY}
-                </div>
-            )}
+            {tree}
         </div>
     );
 });
