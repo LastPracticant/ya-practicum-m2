@@ -13,10 +13,11 @@ import {
 import webpackConfig from '../webpack.config.client';
 import { renderBundle } from './middlewares/renderBundle';
 import { routing } from './routing';
+import { connectToUsers } from './models/users';
 
-const sequelizeOptions = POSTGRES_CONNECT_OPTIONS as SequelizeOptions;
 const compiler = webpack(webpackConfig as Configuration);
 const mongo = new MongoClient(MONGO_HOST);
+const sequelize = new Sequelize(POSTGRES_CONNECT_OPTIONS as SequelizeOptions);
 
 export class Server {
     private app;
@@ -40,8 +41,7 @@ export class Server {
     }
 
     private dbConnect() {
-        const sequelize = new Sequelize(sequelizeOptions);
-
+        connectToUsers(sequelize);
         sequelize.sync({ force: true }).then(() => {
             console.info('--------------- Postgres connected. ---------------');
         })
