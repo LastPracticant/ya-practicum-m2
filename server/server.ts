@@ -1,27 +1,21 @@
 import express from 'express';
-import { Pool } from 'pg';
 import devMiddleware from 'webpack-dev-middleware';
 import hotMiddleware from 'webpack-hot-middleware';
 import cookieParser from 'cookie-parser';
 import webpack, { Configuration } from 'webpack';
 import { MongoClient } from 'mongodb';
+import { Sequelize, SequelizeOptions } from 'sequelize-typescript';
 
 import {
     MONGO_HOST,
-    POSTGRES_HOST,
+    POSTGRES_CONNECT_OPTIONS,
 } from '../env';
 import webpackConfig from '../webpack.config.client';
 import { renderBundle } from './middlewares/renderBundle';
 import { routing } from './routing';
 
+const sequelizeOptions = POSTGRES_CONNECT_OPTIONS as SequelizeOptions;
 const compiler = webpack(webpackConfig as Configuration);
-
-const postgres = new Pool({
-    max: 20,
-    connectionString: POSTGRES_HOST,
-    idleTimeoutMillis: 30000,
-});
-
 const mongo = new MongoClient(MONGO_HOST);
 
 export class Server {
@@ -46,15 +40,12 @@ export class Server {
     }
 
     private dbConnect() {
-        postgres.connect((err) => {
-            if (err) {
-                console.error('--------------- Postgres connection error. ---------------');
+        const sequelize = new Sequelize(sequelizeOptions);
 
-                throw err;
-            }
-
+        sequelize.sync({ force: true }).then(() => {
             console.info('--------------- Postgres connected. ---------------');
-        });
+        })
+            .catch(console.error);
 
         mongo.connect((err) => {
             if (err) {

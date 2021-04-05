@@ -24,7 +24,8 @@
         "paths": {
             "client/*": ["./client/*"],
             "server/*": ["./server/*"],
-        }
+        },
+        "emitDecoratorMetadata": true, 
     },
     "include": ["./client", "./server"],
 }
