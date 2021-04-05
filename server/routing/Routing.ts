@@ -10,7 +10,6 @@ export function routing(app: Express) {
     app.get('/api/v2/auth/user', AuthController.checkAuth);
     app.get('/api/v2/oauth/yandex/service-id', AuthController.OAuthGetServiceId);
     app.post('/api/v2/oauth/yandex', jsonParser, AuthController.OAuth);
-    // TODO: сломалась авторизация
     app.post('/api/v2/auth/signin', jsonParser, AuthController.Signin);
     app.post('/api/v2/auth/signup', jsonParser, AuthController.Signup);
     app.post('/api/v2/auth/logout', jsonParser, AuthController.logout);

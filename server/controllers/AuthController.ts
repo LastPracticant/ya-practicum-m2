@@ -44,7 +44,7 @@ export class AuthController {
     public static Signin(req: Request, res: Response) {
         if (!req.body) return res.sendStatus(400);
 
-        ExpressOAuthAPI.signinWithYandex(req.body)
+        ExpressAuthAPI.signin(req.body)
             .then(async (fetchResponse) => {
                 setCookies(fetchResponse, res);
 
