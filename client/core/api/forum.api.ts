@@ -9,7 +9,7 @@ type UpdateCommentProps = Pick<CommentModelProps, 'id' | 'description' | 'userId
 
 export class ForumAPI extends BaseAPI {
     static getAllTopics() {
-        return ExpressForumAPI.get<{}, TopicModelProps>('/topic');
+        return ExpressForumAPI.get<{}, TopicModelProps[]>('/topic');
     }
 
     static updateTopic(data: UpdateTopicProps) {
@@ -17,7 +17,7 @@ export class ForumAPI extends BaseAPI {
     }
 
     static getAllComments() {
-        return ExpressForumAPI.get<{}, TopicModelProps>('/comment');
+        return ExpressForumAPI.get<{}, TopicModelProps[]>('/comment');
     }
 
     static updateComment(data: UpdateCommentProps) {

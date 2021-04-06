@@ -1,5 +1,6 @@
 import { SnackBarDataProps } from 'client/shared/components';
 import { RouterState } from 'connected-react-router';
+import { CommentModelProps, TopicModelProps } from 'server/models/models.types';
 import { CurrentUserInfoProps } from '../api';
 
 export interface StoreGameProps {
@@ -7,6 +8,11 @@ export interface StoreGameProps {
     isPause?: boolean
     score?: number
     currentLevel?: number
+}
+
+export interface StoreForumProps {
+    topics?: TopicModelProps[]
+    comments?: CommentModelProps[]
 }
 
 export interface StoreSnackBarProps extends SnackBarDataProps {
@@ -21,4 +27,5 @@ export interface StoreProps {
     auth: boolean | null
     oauth: number | null
     snackbar: StoreSnackBarProps
+    forum: StoreForumProps
 }

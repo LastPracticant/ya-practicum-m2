@@ -1,5 +1,5 @@
 import { Sequelize } from 'sequelize-typescript';
-import { DataTypes } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import { TopicModelProps } from './models.types';
 
 export class TopicModel {
@@ -14,7 +14,7 @@ export class TopicModel {
     }
 
     init() {
-        return this.sequelize.define<TopicModelProps>('topic', {
+        return this.sequelize.define<TopicModelProps & Model>('topic', {
             name: {
                 type: DataTypes.STRING,
             },

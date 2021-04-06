@@ -1,5 +1,5 @@
 import { Sequelize } from 'sequelize-typescript';
-import { DataTypes } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import { CommentModelProps } from './models.types';
 
 export class CommentModel {
@@ -14,7 +14,7 @@ export class CommentModel {
     }
 
     init() {
-        return this.sequelize.define<CommentModelProps>('comment', {
+        return this.sequelize.define<CommentModelProps & Model>('comment', {
             description: {
                 type: DataTypes.TEXT,
             },

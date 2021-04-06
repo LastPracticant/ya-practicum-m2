@@ -24,7 +24,7 @@ export const setCurrentUserInfoAction = (payload: CurrentUserInfoProps) => ({
 });
 
 export const getCurrentUserInfoThunk = (): ThunkAction<void, StoreProps, unknown, Action<string>> => (dispatch) => {
-    AuthAPI.getCurrentUserInfo().then(async (response) => {
+    AuthAPI.getCurrentUserInfo().then((response) => {
         dispatch(
             setCurrentUserInfoAction({
                 ...response,

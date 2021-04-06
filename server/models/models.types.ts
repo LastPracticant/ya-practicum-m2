@@ -1,6 +1,4 @@
-import { Model } from 'sequelize';
-
-export interface TopicModelProps extends Model {
+export interface TopicModelProps {
     id: number;
     name: string;
     description: string;
@@ -9,7 +7,7 @@ export interface TopicModelProps extends Model {
     updatedAt: Date;
 }
 
-export interface CommentModelProps extends Model {
+export interface CommentModelProps {
     id: number;
     description: string;
     userId: number;

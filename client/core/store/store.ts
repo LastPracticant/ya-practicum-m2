@@ -8,6 +8,7 @@ import {
     profileReducers,
     authReducers,
     oauthReducers,
+    forumReducers,
 } from './reducers';
 import { gameReducers } from './reducers/game.reducers';
 import { snackbarReducers } from './reducers/snackbar.reducers';
@@ -38,6 +39,7 @@ export const rootReducer = combineReducers<StoreProps>({
     snackbar: snackbarReducers,
     auth: authReducers,
     oauth: oauthReducers,
+    forum: forumReducers,
 });
 
 export const composeStore = (initialState: StoreProps) => createStore(

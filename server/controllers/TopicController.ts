@@ -3,6 +3,8 @@ import { Response, Request } from 'express';
 import { postgres } from '../models';
 
 export class TopicController {
+    // TODO: необходимо реализовать контроллер getById для странички конкретного топика,
+    // за счет этого тут контракт легче будет (без description)
     public static getAll(req: Request, res: Response) {
         postgres.topics.table.findAll()
             .then((dbResult) => res.status(200).send(dbResult))
