@@ -1,14 +1,6 @@
 import { Sequelize } from 'sequelize-typescript';
-import { Model, DataTypes } from 'sequelize';
-
-export interface TopicModelProps extends Model {
-    id: number;
-    name: string;
-    description: string;
-    userId: number;
-    createdAt: Date;
-    updatedAt: Date;
-}
+import { DataTypes } from 'sequelize';
+import { TopicModelProps } from './models.types';
 
 export class TopicModel {
     sequelize: Sequelize;

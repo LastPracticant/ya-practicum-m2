@@ -1,6 +1,6 @@
 import './Forum.css';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { PageComponentProps } from 'client/shared/types';
 import AddIcon from '@material-ui/icons/Add';
 import { DataGrid } from '@material-ui/data-grid';
@@ -11,15 +11,23 @@ import { Button } from '@material-ui/core';
 import { withCheckAuth } from 'client/core/HOCs';
 import { useElementVisible } from 'client/core/hooks';
 import { LOCAL } from 'client/shared/consts';
+import { getTopicsThunk } from 'client/core/store';
+import { useDispatch } from 'react-redux';
 import { TOPICS } from './Forum.mock';
 import { columns, block } from './Forum.config';
 import { AddTopicForm } from './components';
 
 export const ForumBoardComponent: React.FC<PageComponentProps> = React.memo(({ title }) => {
+    const dispatch = useDispatch();
+
     const {
         elementVisible,
         handleChangeElementVisible,
     } = useElementVisible();
+
+    useEffect(() => {
+        dispatch(getTopicsThunk());
+    }, []);
 
     return (
         <PageLayout goBackLink={ROUTES.HOME.path} className={block()}>
