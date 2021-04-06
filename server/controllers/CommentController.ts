@@ -1,6 +1,7 @@
 import { Response, Request } from 'express';
 
 import { postgres } from '../models';
+import { RESPONSES_MESSAGES } from './controllers.consts';
 
 export class CommentController {
     public static getAll(req: Request, res: Response) {
@@ -17,7 +18,7 @@ export class CommentController {
             .then((course) => {
                 if (!course) {
                     return res.status(404).send({
-                        message: 'Comment not found',
+                        message: RESPONSES_MESSAGES['404'],
                     });
                 }
                 return course

@@ -1,6 +1,7 @@
 import { Response, Request } from 'express';
 
 import { postgres } from '../models';
+import { RESPONSES_MESSAGES } from './controllers.consts';
 
 export class TopicController {
     // TODO: необходимо реализовать контроллер getById для странички конкретного топика,
@@ -19,7 +20,7 @@ export class TopicController {
             .then((course) => {
                 if (!course) {
                     return res.status(404).send({
-                        message: 'Topic not found',
+                        message: RESPONSES_MESSAGES['404'],
                     });
                 }
                 return course

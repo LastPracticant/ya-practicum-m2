@@ -15,7 +15,7 @@ export const setTopicsAction = (payload: TopicModelProps[]) => ({
     payload,
 });
 
-// TODO: будет доработано в LP-110, также необходимо сделать предзапрос данных на бэке для SSR
+// TODO: необходимо сделать предзапрос данных на бэке для SSR
 export const getTopicsThunk = (): ThunkAction<void, StoreProps, unknown, Action<string>> => (dispatch) => {
     dispatch(showLoaderAction());
 
