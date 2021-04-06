@@ -7,6 +7,7 @@ import { LOCAL } from 'client/shared/consts';
 
 export const block = bem('forum');
 
+// TODO: вернуть колонку reviews, если останется время (необходимо сделать соответствующие методы на бэке и инфр-ру в БД)
 export const columns: Columns = [
     {
         field: 'topic',
@@ -18,14 +19,6 @@ export const columns: Columns = [
                 {params.value}
             </Link>
         ),
-    },
-    {
-        field: 'reviews',
-        headerName: LOCAL.FORUM_COLUMN_REVIEWS,
-        width: 150,
-        align: 'center',
-        headerAlign: 'center',
-        sortable: false,
     },
     {
         field: 'answers',

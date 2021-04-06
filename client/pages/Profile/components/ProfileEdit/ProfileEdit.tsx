@@ -1,14 +1,14 @@
-import React, { useMemo, useCallback, useEffect } from 'react';
+import React, { useMemo, useEffect } from 'react';
 import { Grid, Button } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
 import { ChangeProfileProps, CurrentUserInfoProps } from 'client/core/api';
 import { GRID_SPACE, LOCAL } from 'client/shared/consts';
-import { InputControl, AvatarUpload } from 'client/shared/components';
+import { InputControl } from 'client/shared/components';
 import { Link } from 'react-router-dom';
 import { ROUTES } from 'client/routing';
 import { useSelector, useDispatch } from 'react-redux';
 import { profileSelector } from 'client/core/store/selectors';
-import { editProfileThunk, editAvatarThunk } from 'client/core/store';
+import { editProfileThunk } from 'client/core/store';
 import { PROFILE_EDIT_CONTROLS } from './ProfileEdit.config';
 
 export const ProfileEdit: React.FC = React.memo(() => {
@@ -23,19 +23,6 @@ export const ProfileEdit: React.FC = React.memo(() => {
     } = useForm<CurrentUserInfoProps>();
 
     const onSubmit = (data: ChangeProfileProps) => dispatch(editProfileThunk(data));
-
-    const onChangeAvatar = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        const blob = e.target.files?.item(0);
-
-        if (!blob) {
-            return;
-        }
-
-        const formData = new FormData();
-
-        formData.append('avatar', blob);
-        dispatch(editAvatarThunk(formData));
-    }, []);
 
     const controls = useMemo(
         () => PROFILE_EDIT_CONTROLS.map((inputConfig) => {
@@ -71,11 +58,6 @@ export const ProfileEdit: React.FC = React.memo(() => {
                     direction="column"
                     alignItems="center"
                 >
-                    <AvatarUpload
-                        onChange={onChangeAvatar}
-                        name="avatar"
-                        src={profile?.avatar}
-                    />
                     {controls}
                 </Grid>
                 <Grid container item xs={12} justify="center" spacing={1}>

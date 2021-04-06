@@ -4,7 +4,7 @@ import React, { useMemo } from 'react';
 import { PageComponentProps } from 'client/shared/types';
 import { ButtonsToolbar, NivelatorXY, Paper } from 'client/shared/components';
 import {
-    Button, Divider, List, ListItem, Avatar,
+    Button, Divider, List, ListItem,
 } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import bem from 'bem-cn';
@@ -48,7 +48,6 @@ const HomeComponent: React.FC<PageComponentProps> = React.memo(({ title }) => {
             <Logo />
             <Paper className={block('paper')} sizes="small">
                 <div className={block('userdata')}>
-                    <Avatar src={profile.avatar} />
                     <p className={block('username')}>{profile.first_name}</p>
                     <p className={block('user-result')}>
                         {/* TODO: будет доработано, когда реализуем АПИ для leaderboard, LP-82 */}

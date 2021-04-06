@@ -57,6 +57,8 @@ export const ForumBoardComponent: React.FC<PageComponentProps> = React.memo(({ t
                     autoHeight
                     disableColumnMenu
                     disableColumnReorder
+                    // TODO: необходима доработка на бэке (нужен контракт с пагинацией), пока скрываем
+                    hideFooterPagination
                 />
             </Paper>
         </PageLayout>

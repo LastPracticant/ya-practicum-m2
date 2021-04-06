@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from 'react';
-import { Grid, Button, Avatar } from '@material-ui/core';
+import { Grid, Button } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
 import { CurrentUserInfoProps } from 'client/core/api';
 import {
@@ -49,7 +49,6 @@ export const ProfileForm: React.FC = React.memo(() => {
                     direction="column"
                     alignItems="center"
                 >
-                    <Avatar src={profile?.avatar}>{LOCAL.AVATAR_DEFAULT}</Avatar>
                     {controls}
                 </Grid>
                 <Grid container item xs={12} justify="center" spacing={1}>
