@@ -3,7 +3,6 @@ import { Response, Request } from 'express';
 import { ExpressOAuthAPI } from '../api/oauth.api';
 import { ExpressAuthAPI } from '../api/auth.api';
 import { getHeadersWithCookies, setCookies } from '../server.utils';
-import { postgres } from '../models';
 
 export class AuthController {
     public static checkAuth(req: Request, res: Response) {
@@ -12,12 +11,6 @@ export class AuthController {
         })
             .then(async (response) => {
                 res.send(await response.json());
-                postgres.topics.table.findAll().then((dbResult) => {
-                    // TODO: для теста
-                    console.log('---------------------');
-                    console.log(dbResult);
-                    console.log('---------------------');
-                });
             })
             .catch((error) => {
                 res.status(error.status).send(error.statusText);
@@ -48,7 +41,7 @@ export class AuthController {
             });
     }
 
-    public static Signin(req: Request, res: Response) {
+    public static signin(req: Request, res: Response) {
         if (!req.body) return res.sendStatus(400);
 
         ExpressAuthAPI.signin(req.body)
@@ -62,7 +55,7 @@ export class AuthController {
             });
     }
 
-    public static Signup(req: Request, res: Response) {
+    public static signup(req: Request, res: Response) {
         if (!req.body) return res.sendStatus(400);
 
         ExpressAuthAPI.signup(req.body)

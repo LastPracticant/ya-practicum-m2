@@ -1,6 +1,6 @@
 import express, { Express } from 'express';
 import path from 'path';
-import { AuthController, ProfileController } from '../controllers';
+import { AuthController, ProfileController, TopicController } from '../controllers';
 
 export function routing(app: Express) {
     const jsonParser = express.json();
@@ -11,9 +11,12 @@ export function routing(app: Express) {
     app.get('/api/v2/auth/user', AuthController.checkAuth);
     app.get('/api/v2/oauth/yandex/service-id', AuthController.OAuthGetServiceId);
     app.post('/api/v2/oauth/yandex', jsonParser, AuthController.OAuth);
-    app.post('/api/v2/auth/signin', jsonParser, AuthController.Signin);
-    app.post('/api/v2/auth/signup', jsonParser, AuthController.Signup);
+    app.post('/api/v2/auth/signin', jsonParser, AuthController.signin);
+    app.post('/api/v2/auth/signup', jsonParser, AuthController.signup);
     app.post('/api/v2/auth/logout', jsonParser, AuthController.logout);
+
+    /** Форум */
+    app.get('/api/v2/internal/forum/topic', TopicController.getAll);
 
     /** Профайл */
     app.put('/api/v2/user/profile', jsonParser, ProfileController.change);
