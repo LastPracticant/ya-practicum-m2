@@ -1,6 +1,11 @@
 import express, { Express } from 'express';
 import path from 'path';
-import { AuthController, ProfileController, TopicController } from '../controllers';
+import {
+    AuthController,
+    CommentController,
+    ProfileController,
+    TopicController,
+} from '../controllers';
 
 export function routing(app: Express) {
     const jsonParser = express.json();
@@ -17,6 +22,9 @@ export function routing(app: Express) {
 
     /** Форум */
     app.get('/api/v2/internal/forum/topic', TopicController.getAll);
+    app.put('/api/v2/internal/forum/topic', TopicController.update);
+    app.get('/api/v2/internal/forum/comment', CommentController.getAll);
+    app.put('/api/v2/internal/forum/comment', CommentController.update);
 
     /** Профайл */
     app.put('/api/v2/user/profile', jsonParser, ProfileController.change);

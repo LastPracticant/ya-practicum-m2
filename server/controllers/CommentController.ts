@@ -2,9 +2,9 @@ import { Response, Request } from 'express';
 
 import { postgres } from '../models';
 
-export class TopicController {
+export class CommentController {
     public static getAll(req: Request, res: Response) {
-        postgres.topics.table.findAll()
+        postgres.comments.table.findAll()
             .then((dbResult) => res.status(200).send(dbResult))
             .catch((error) => {
                 res.status(400).send(error);
@@ -12,12 +12,12 @@ export class TopicController {
     }
 
     public static update(req: Request, res: Response) {
-        postgres.topics.table
+        postgres.comments.table
             .findByPk(req.params.id)
             .then((course) => {
                 if (!course) {
                     return res.status(404).send({
-                        message: 'Topic not found',
+                        message: 'Comment not found',
                     });
                 }
                 return course

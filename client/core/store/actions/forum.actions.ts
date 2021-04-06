@@ -5,9 +5,9 @@ import { Action } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import { StoreProps } from '../store.types';
 
-// TODO: будет доработано в LP-110
+// TODO: будет доработано в LP-110, также необходимо сделать предзапрос данных на бэке для SSR
 export const getTopicsThunk = (): ThunkAction<void, StoreProps, unknown, Action<string>> => () => {
-    ForumAPI.getAll().then(async (response) => {
+    ForumAPI.getAllTopics().then(async (response) => {
         console.log(response);
     }).catch(console.error);
 };
