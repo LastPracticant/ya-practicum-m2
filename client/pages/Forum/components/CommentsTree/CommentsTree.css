@@ -3,7 +3,7 @@
     border: 1px solid #ffffff3b;
     border-radius: var(--space-xxxs);
 
-    ul li ul {
+    ul > li > ul {
         padding-top: 0;
         padding-bottom: 0;
 

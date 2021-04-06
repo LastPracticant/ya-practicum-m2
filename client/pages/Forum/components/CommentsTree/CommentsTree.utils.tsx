@@ -1,10 +1,13 @@
 import {
     List, ListItem, ListItemText, Typography,
 } from '@material-ui/core';
+import { LOCAL } from 'client/shared/consts';
 import { FnActionRequiredProps } from 'client/shared/types';
 import React, { MouseEvent } from 'react';
 import { ForumTopicCommentProps } from '../../Forum.types';
 import { block } from './CommentsTree.config';
+
+const formatCommentDescription = (description: string) => ` " — ${description}"`;
 
 export const mapCommentsToTree = (
     comments: ForumTopicCommentProps[],
@@ -31,13 +34,13 @@ export const mapCommentsToTree = (
                             >
                                 {comment.author}
                             </Typography>
-                            {` " — ${comment.description}"`}
+                            {formatCommentDescription(comment.description)}
                             <div className={block('reply')}>
                                 <a
                                     onClick={handleAddComment(comment.id)}
                                     href="#s"
                                 >
-                                    Ответить
+                                    {LOCAL.COMMON_PREFIXES.REPLY}
                                 </a>
                             </div>
                         </>

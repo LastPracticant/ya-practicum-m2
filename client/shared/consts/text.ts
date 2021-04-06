@@ -3,6 +3,7 @@ export const LOCAL = {
         SEND: 'Отправить',
         ADD: 'Добавить',
         SAVE: 'Сохранить',
+        REPLY: 'Ответить',
     },
     AUTHORIZE: 'Авторизоваться',
     AUTHORIZE_YANDEX: 'Войти через Яндекс',
