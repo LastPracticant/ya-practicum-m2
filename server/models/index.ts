@@ -1,21 +1,21 @@
 import { Sequelize, SequelizeOptions } from 'sequelize-typescript';
 
 import { POSTGRES_CONNECT_OPTIONS } from '../../env';
-import { CompanyModel } from './CompanyModel';
-import { UserModel } from './UserModel';
+import { TopicModel } from './TopicModel';
+import { CommentModel } from './CommentModel';
 
 class PostgresConnector {
     sequelize: Sequelize;
 
-    users: UserModel;
+    comments: CommentModel;
 
-    companies: CompanyModel;
+    topics: TopicModel;
 
     constructor() {
         this.sequelize = new Sequelize(POSTGRES_CONNECT_OPTIONS as SequelizeOptions);
-        this.users = new UserModel(this.sequelize);
-        this.companies = new CompanyModel(this.sequelize);
-        this.companies.table.hasMany(this.users.table, { onDelete: 'cascade' });
+        this.comments = new CommentModel(this.sequelize);
+        this.topics = new TopicModel(this.sequelize);
+        this.topics.table.hasMany(this.comments.table, { onDelete: 'cascade' });
     }
 
     sync() {
