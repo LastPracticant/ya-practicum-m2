@@ -7,6 +7,7 @@ export function routing(app: Express) {
 
     app.use(express.static(path.join(__dirname, './dist')));
 
+    /** Аутентификация */
     app.get('/api/v2/auth/user', AuthController.checkAuth);
     app.get('/api/v2/oauth/yandex/service-id', AuthController.OAuthGetServiceId);
     app.post('/api/v2/oauth/yandex', jsonParser, AuthController.OAuth);
@@ -14,6 +15,7 @@ export function routing(app: Express) {
     app.post('/api/v2/auth/signup', jsonParser, AuthController.Signup);
     app.post('/api/v2/auth/logout', jsonParser, AuthController.logout);
 
+    /** Профайл */
     app.put('/api/v2/user/profile', jsonParser, ProfileController.change);
     app.put('/api/v2/user/password', jsonParser, ProfileController.changePassword);
 

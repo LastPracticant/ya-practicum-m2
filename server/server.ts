@@ -4,20 +4,15 @@ import hotMiddleware from 'webpack-hot-middleware';
 import cookieParser from 'cookie-parser';
 import webpack, { Configuration } from 'webpack';
 import { MongoClient } from 'mongodb';
-import { Sequelize, SequelizeOptions } from 'sequelize-typescript';
 
-import {
-    MONGO_HOST,
-    POSTGRES_CONNECT_OPTIONS,
-} from '../env';
+import { MONGO_HOST } from '../env';
 import webpackConfig from '../webpack.config.client';
 import { renderBundle } from './middlewares/renderBundle';
 import { routing } from './routing';
-import { connectToUsers } from './models/users';
+import { postgres } from './models';
 
 const compiler = webpack(webpackConfig as Configuration);
 const mongo = new MongoClient(MONGO_HOST);
-const sequelize = new Sequelize(POSTGRES_CONNECT_OPTIONS as SequelizeOptions);
 
 export class Server {
     private app;
@@ -41,11 +36,7 @@ export class Server {
     }
 
     private dbConnect() {
-        connectToUsers(sequelize);
-        sequelize.sync({ force: true }).then(() => {
-            console.info('--------------- Postgres connected. ---------------');
-        })
-            .catch(console.error);
+        postgres.sync();
 
         mongo.connect((err) => {
             if (err) {
