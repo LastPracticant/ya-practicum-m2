@@ -20,7 +20,7 @@ export class ForumAPI extends BaseAPI {
     }
 
     static getAllComments(data: GetAllCommentsProps) {
-        return ExpressForumAPI.get<{}, CommentModelProps[]>('/comment', { data });
+        return ExpressForumAPI.get<{}, CommentModelProps[]>(`/comment/${data.topicId}`);
     }
 
     static updateComment(data: UpdateCommentProps) {

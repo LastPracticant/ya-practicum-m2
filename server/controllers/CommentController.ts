@@ -5,7 +5,11 @@ import { RESPONSES_MESSAGES } from './controllers.consts';
 
 export class CommentController {
     public static getAll(req: Request, res: Response) {
-        postgres.comments.table.findAll()
+        postgres.comments.table.findAll({
+            where: {
+                topicId: req.params.topicId,
+            },
+        })
             .then((dbResult) => res.status(200).send(dbResult))
             .catch((error) => {
                 res.status(400).send(error);

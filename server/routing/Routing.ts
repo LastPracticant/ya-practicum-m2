@@ -23,7 +23,7 @@ export function routing(app: Express) {
     /** Форум */
     app.get('/api/v2/internal/forum/topic', TopicController.getAll);
     app.put('/api/v2/internal/forum/topic', TopicController.update);
-    app.get('/api/v2/internal/forum/comment', CommentController.getAll);
+    app.get('/api/v2/internal/forum/comment/:topicId', CommentController.getAll);
     app.put('/api/v2/internal/forum/comment', CommentController.update);
 
     /** Профайл */

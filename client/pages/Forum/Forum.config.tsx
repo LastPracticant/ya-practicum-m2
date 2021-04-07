@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import bem from 'bem-cn';
 import { ROUTES } from 'client/routing';
 import { LOCAL } from 'client/shared/consts';
+import { formatDate } from 'client/shared/utils';
 
 export const block = bem('forum');
 
@@ -19,6 +20,20 @@ export const columns: Columns = [
                 {params.value}
             </Link>
         ),
+    },
+    {
+        field: 'updatedAt',
+        headerName: LOCAL.DATE_UPDATE,
+        width: 200,
+        sortable: false,
+        renderCell: (params: CellParams) => <>{formatDate(params.value as Date)}</>,
+    },
+    {
+        field: 'createdAt',
+        headerName: LOCAL.DATE_CREATE,
+        width: 200,
+        sortable: false,
+        renderCell: (params: CellParams) => <>{formatDate(params.value as Date)}</>,
     },
     // TODO: необходимо будет тут выводить замапленного юзера (нужно доставать из АПИ Яндекса), пока пусть userId выводится
     {

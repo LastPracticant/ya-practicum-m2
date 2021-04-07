@@ -21,6 +21,8 @@ export const LOCAL = {
     FORUM_COLUMN_REVIEWS: 'Просмотры',
     FORUM_COLUMN_ANSWERS: 'Ответы',
     FORUM_COLUMN_AUTOR: 'Автор',
+    DATE_UPDATE: 'Дата обновление',
+    DATE_CREATE: 'Дата создания',
     LEADERBOARD_COLUMN_PLAYER: 'Игрок',
     LEADERBOARD_COLUMN_SCORE: 'Счет',
     GAME_NAME: 'Last Practicant',
