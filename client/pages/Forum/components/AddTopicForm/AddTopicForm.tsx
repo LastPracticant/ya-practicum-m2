@@ -1,4 +1,4 @@
-import { SigninProps } from 'client/core/api';
+import { AddTopicProps } from 'client/core/api';
 import React, { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { GRID_SPACE, LOCAL } from 'client/shared/consts';
@@ -7,15 +7,13 @@ import { InputControl } from 'client/shared/components';
 import { ADD_TOPIC_FORM_CONTROLS } from './AddTopicForm.config';
 
 export const AddTopicForm: React.FC = React.memo(() => {
-    // TODO: контракт будет реализован тут LP-110 (как заглушка пока SigninProps)
     const {
         control,
         handleSubmit,
         errors,
-    } = useForm<SigninProps>();
+    } = useForm<AddTopicProps>();
 
-    // TODO: контракт будет реализован тут LP-110 (как заглушка пока SigninProps)
-    const onSubmit = (data: SigninProps) => {
+    const onSubmit = (data: AddTopicProps) => {
         console.log(data);
     };
 

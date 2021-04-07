@@ -48,3 +48,5 @@ export const getCommentsThunk = (topicId: number): ThunkAction<void, StoreProps,
             dispatch(hideLoaderAction());
         });
 };
+
+// TODO: делаем тут экшены для добавления топика и комментария
