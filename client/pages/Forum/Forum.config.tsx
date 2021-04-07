@@ -7,10 +7,10 @@ import { LOCAL } from 'client/shared/consts';
 
 export const block = bem('forum');
 
-// TODO: вернуть колонку reviews, если останется время (необходимо сделать соответствующие методы на бэке и инфр-ру в БД)
+// TODO: вернуть колонки reviews и answers, если останется время (необходимо сделать соответствующие методы на бэке и инфр-ру в БД)
 export const columns: Columns = [
     {
-        field: 'topic',
+        field: 'name',
         headerName: LOCAL.FORUM_COLUMN_TOPIC,
         flex: 1,
         sortable: false,
@@ -20,16 +20,9 @@ export const columns: Columns = [
             </Link>
         ),
     },
+    // TODO: необходимо будет тут выводить замапленного юзера (нужно доставать из АПИ Яндекса), пока пусть userId выводится
     {
-        field: 'answers',
-        headerName: LOCAL.FORUM_COLUMN_ANSWERS,
-        width: 150,
-        align: 'center',
-        headerAlign: 'center',
-        sortable: false,
-    },
-    {
-        field: 'autor',
+        field: 'userId',
         headerName: LOCAL.FORUM_COLUMN_AUTOR,
         width: 200,
         sortable: false,

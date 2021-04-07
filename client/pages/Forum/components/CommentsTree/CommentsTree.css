@@ -18,6 +18,7 @@
 
     &__reply a {
         color: #fff;
+        display: block;
     }
 
     &__empty {

@@ -35,14 +35,14 @@ export const mapCommentsToTree = (
                                 {comment.author}
                             </Typography>
                             {formatCommentDescription(comment.description)}
-                            <div className={block('reply')}>
+                            <span className={block('reply')}>
                                 <a
                                     onClick={handleAddComment(comment.id)}
                                     href="#s"
                                 >
                                     {LOCAL.COMMON_PREFIXES.REPLY}
                                 </a>
-                            </div>
+                            </span>
                         </>
                     )}
                 />
