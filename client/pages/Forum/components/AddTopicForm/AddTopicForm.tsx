@@ -1,4 +1,4 @@
-import { AddTopicProps } from 'client/core/api';
+import { AddTopicRequestProps } from 'client/core/api';
 import React, { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { GRID_SPACE, LOCAL } from 'client/shared/consts';
@@ -20,12 +20,12 @@ export const AddTopicForm: React.FC<AddTopicFormProps> = React.memo(({
         control,
         handleSubmit,
         errors,
-    } = useForm<AddTopicProps>();
+    } = useForm<AddTopicRequestProps>();
 
     const dispatch = useDispatch();
     const profile = useSelector(profileSelector);
 
-    const onSubmit = (data: AddTopicProps) => {
+    const onSubmit = (data: AddTopicRequestProps) => {
         dispatch(addTopicThunk({ ...data, userId: profile.id }));
         closeModal();
     };

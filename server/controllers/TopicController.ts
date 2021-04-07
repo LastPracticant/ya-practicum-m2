@@ -11,11 +11,11 @@ export class TopicController {
             order: [
                 ['updatedAt', 'ASC'],
             ],
-            // include: [
-            //     {
-            //         model: postgres.users.table,
-            //     },
-            // ],
+            include: [
+                {
+                    model: postgres.users.table,
+                },
+            ],
         })
             .then((topics) => res.status(200).send(topics))
             .catch((error) => {
