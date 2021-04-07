@@ -7,7 +7,13 @@ export class TopicController {
     // TODO: необходимо реализовать контроллер getById для странички конкретного топика,
     // за счет этого тут контракт легче будет (без description)
     public static getAll(req: Request, res: Response) {
-        postgres.topics.table.findAll()
+        postgres.topics.table.findAll({
+            include: [
+                {
+                    model: postgres.comments.table,
+                },
+            ],
+        })
             .then((dbResult) => res.status(200).send(dbResult))
             .catch((error) => {
                 res.status(400).send(error);
