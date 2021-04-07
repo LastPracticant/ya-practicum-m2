@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-globals */
 /* eslint-disable no-undef */
 const STATIC_CACHE_NAME = 's-v1';
-const DINAMIC_CACHE_NAME = 'd-v1';
+const DINAMIC_CACHE_NAME = 'd-v2';
 const CACHE_FIRST_STRATEGY_URLS = [
     '/app.png',
     '/bgs.png',
@@ -16,6 +16,7 @@ const CACHE_FIRST_STRATEGY_URLS = [
 ];
 
 const NETWORK_ONLY_STRATEGY_URLS = [
+    'api/v2/internal',
     'auth/signin',
     'auth/signup',
     'auth/user',
