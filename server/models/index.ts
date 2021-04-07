@@ -3,6 +3,7 @@ import { Sequelize, SequelizeOptions } from 'sequelize-typescript';
 import { POSTGRES_CONNECT_OPTIONS } from '../../env';
 import { TopicModel } from './TopicModel';
 import { CommentModel } from './CommentModel';
+import { UserModel } from './UserModel';
 
 class PostgresConnector {
     sequelize: Sequelize;
@@ -11,10 +12,16 @@ class PostgresConnector {
 
     topics: TopicModel;
 
+    users: UserModel;
+
     constructor() {
         this.sequelize = new Sequelize(POSTGRES_CONNECT_OPTIONS as SequelizeOptions);
         this.comments = new CommentModel(this.sequelize);
         this.topics = new TopicModel(this.sequelize);
+        this.users = new UserModel(this.sequelize);
+
+        this.users.table.hasMany(this.topics.table);
+        this.users.table.hasMany(this.comments.table);
         this.topics.table.hasMany(this.comments.table, { onDelete: 'cascade' });
     }
 

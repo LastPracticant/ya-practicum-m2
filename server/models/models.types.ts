@@ -15,3 +15,11 @@ export interface CommentModelProps {
     createdAt: Date;
     updatedAt: Date;
 }
+
+export interface UserModelProps {
+    id: number;
+    userExternalId: number;
+    name: string;
+    createdAt: Date;
+    updatedAt: Date;
+}
