@@ -8,3 +8,7 @@ export function getRandomIntInclusive(min: number, max: number) {
 export function cloneDeep<T>(obj: T): T {
     return JSON.parse(JSON.stringify(obj));
 }
+
+export function formatDate(date: Date) {
+    return new Date(date).toLocaleString();
+}

@@ -1,6 +1,6 @@
 import './Forum.css';
 
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { PageComponentProps, UrlCommonProps } from 'client/shared/types';
 import { Meta, PageLayout } from 'client/core';
 import { ROUTES } from 'client/routing';
@@ -11,12 +11,16 @@ import { useElementVisible } from 'client/core/hooks';
 import { LOCAL } from 'client/shared/consts';
 import { Button } from '@material-ui/core';
 import { AddIcon } from '@material-ui/data-grid';
+import { useDispatch, useSelector } from 'react-redux';
+import { commentsSelector, getCommentsThunk } from 'client/core/store';
 import { block } from './Forum.config';
-import { COMMENTS_TREE } from './Forum.mock';
 import { AddCommentForm, CommentsTree } from './components';
+import { composeCommentsArrayTree } from './Forum.utils';
 
 export const ForumTopicComponent: React.FC<PageComponentProps> = React.memo(({ title }) => {
     const params = useParams<UrlCommonProps>();
+    const comments = useSelector(commentsSelector);
+    const dispatch = useDispatch();
 
     const {
         elementVisible,
@@ -32,6 +36,12 @@ export const ForumTopicComponent: React.FC<PageComponentProps> = React.memo(({ t
 
     const handleStartConversation = useCallback(() => {
         handleAddComment(0);
+    }, []);
+
+    useEffect(() => {
+        if (params.id) {
+            dispatch(getCommentsThunk(Number(params.id)));
+        }
     }, []);
 
     return (
@@ -56,7 +66,7 @@ export const ForumTopicComponent: React.FC<PageComponentProps> = React.memo(({ t
                     <AddCommentForm parentId={commentParentId} />
                 </Popup>
                 <CommentsTree
-                    comments={COMMENTS_TREE}
+                    comments={composeCommentsArrayTree(comments)}
                     onAddComment={handleAddComment}
                 />
             </Paper>

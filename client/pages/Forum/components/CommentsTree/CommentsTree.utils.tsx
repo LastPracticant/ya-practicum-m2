@@ -3,6 +3,7 @@ import {
 } from '@material-ui/core';
 import { LOCAL } from 'client/shared/consts';
 import { FnActionRequiredProps } from 'client/shared/types';
+import { formatDate } from 'client/shared/utils';
 import React, { MouseEvent } from 'react';
 import { ForumTopicCommentProps } from '../../Forum.types';
 import { block } from './CommentsTree.config';
@@ -24,7 +25,7 @@ export const mapCommentsToTree = (
         <React.Fragment key={comment.id}>
             <ListItem alignItems="flex-start">
                 <ListItemText
-                    primary={comment.date}
+                    primary={formatDate(comment.createdAt)}
                     secondary={(
                         <>
                             <Typography
@@ -32,7 +33,8 @@ export const mapCommentsToTree = (
                                 variant="body2"
                                 color="textPrimary"
                             >
-                                {comment.author}
+                                {/* TODO: пока оставим так, необходимо замапить данные из АПИ Яндекса */}
+                                {comment.userId}
                             </Typography>
                             {formatCommentDescription(comment.description)}
                             <span className={block('reply')}>

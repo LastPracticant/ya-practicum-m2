@@ -6,6 +6,9 @@ const ExpressForumAPI = new HTTP('/internal/forum');
 
 type UpdateTopicProps = Pick<TopicModelProps, 'id' | 'name' | 'description' | 'userId'>;
 type UpdateCommentProps = Pick<CommentModelProps, 'id' | 'description' | 'userId' | 'parentId'>;
+type GetAllCommentsProps = {
+    topicId: number
+};
 
 export class ForumAPI extends BaseAPI {
     static getAllTopics() {
@@ -16,8 +19,8 @@ export class ForumAPI extends BaseAPI {
         return ExpressForumAPI.put<UpdateTopicProps, Response>('/topic', { data });
     }
 
-    static getAllComments() {
-        return ExpressForumAPI.get<{}, TopicModelProps[]>('/comment');
+    static getAllComments(data: GetAllCommentsProps) {
+        return ExpressForumAPI.get<{}, CommentModelProps[]>('/comment', { data });
     }
 
     static updateComment(data: UpdateCommentProps) {

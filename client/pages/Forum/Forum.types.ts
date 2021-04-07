@@ -1,8 +1,5 @@
-export interface ForumTopicCommentProps {
-    id: number
-    description: string
-    date: string
-    author: string
-    parentId: number
+import { CommentModelProps } from 'server/models/models.types';
+
+export interface ForumTopicCommentProps extends CommentModelProps {
     children?: ForumTopicCommentProps[]
 }

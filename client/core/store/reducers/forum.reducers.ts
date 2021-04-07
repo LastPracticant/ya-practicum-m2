@@ -1,5 +1,4 @@
-import { TopicModelProps } from 'server/models/models.types';
-import { SET_TOPICS } from '../actions';
+import { SET_COMMENTS, SET_TOPICS } from '../actions';
 import { ActionProps } from '../actions/actions.types';
 import { StoreForumProps } from '../store.types';
 
@@ -10,13 +9,18 @@ const initialStateProfile = {
 
 export const forumReducers = (
     state: StoreForumProps = initialStateProfile,
-    action: Required<ActionProps<TopicModelProps[]>>,
+    action: Required<ActionProps<StoreForumProps>>,
 ) => {
     switch (action.type) {
     case SET_TOPICS:
         return {
             ...state,
-            topics: action.payload,
+            topics: action.payload.topics,
+        };
+    case SET_COMMENTS:
+        return {
+            ...state,
+            comments: action.payload.comments,
         };
     default:
         return state;
