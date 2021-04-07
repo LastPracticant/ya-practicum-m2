@@ -17,7 +17,7 @@ export class AuthController {
                 postgres.users.table
                     .findOne({
                         where: {
-                            userExternalId: userDataFromExternalApi.id,
+                            id: userDataFromExternalApi.id,
                         },
                     })
                     .then((responseFromInternalApi) => {
@@ -25,7 +25,7 @@ export class AuthController {
                             postgres.users.table
                                 .create({
                                     name: userDataFromExternalApi.login,
-                                    userExternalId: userDataFromExternalApi.id,
+                                    id: userDataFromExternalApi.id,
                                 });
                         } else {
                             responseFromInternalApi

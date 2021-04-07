@@ -22,9 +22,11 @@ export function routing(app: Express) {
 
     /** Форум */
     app.get('/api/v2/internal/forum/topic', TopicController.getAll);
-    app.put('/api/v2/internal/forum/topic', TopicController.update);
+    app.post('/api/v2/internal/forum/topic', jsonParser, TopicController.add);
+    app.put('/api/v2/internal/forum/topic', jsonParser, TopicController.update);
     app.get('/api/v2/internal/forum/comment/:topicId', CommentController.getAll);
-    app.put('/api/v2/internal/forum/comment', CommentController.update);
+    app.post('/api/v2/internal/forum/comment', jsonParser, CommentController.add);
+    app.put('/api/v2/internal/forum/comment', jsonParser, CommentController.update);
 
     /** Профайл */
     app.put('/api/v2/user/profile', jsonParser, ProfileController.change);

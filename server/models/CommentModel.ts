@@ -18,9 +18,6 @@ export class CommentModel {
             description: {
                 type: DataTypes.TEXT,
             },
-            userId: {
-                type: DataTypes.INTEGER,
-            },
             parentId: {
                 type: DataTypes.INTEGER,
                 defaultValue: 0,

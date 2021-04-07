@@ -47,7 +47,7 @@ export const ForumBoardComponent: React.FC<PageComponentProps> = React.memo(({ t
                         onChangeVisible={handleChangeElementVisible}
                         title={LOCAL.FORUM_COLUMN_TOPIC}
                     >
-                        <AddTopicForm />
+                        <AddTopicForm closeModal={handleChangeElementVisible} />
                     </Popup>
                 </ButtonsToolbar>
                 <DataGrid

@@ -20,13 +20,13 @@ class PostgresConnector {
         this.topics = new TopicModel(this.sequelize);
         this.users = new UserModel(this.sequelize);
 
-        this.users.table.hasMany(this.topics.table);
-        this.users.table.hasMany(this.comments.table);
+        this.topics.table.belongsTo(this.users.table);
+        this.comments.table.belongsTo(this.users.table);
         this.topics.table.hasMany(this.comments.table, { onDelete: 'cascade' });
     }
 
     sync() {
-        this.sequelize.sync().then(() => {
+        this.sequelize.sync({ force: true }).then(() => {
             console.info('--------------- Postgres sync successful. ---------------');
         })
             .catch(console.error);

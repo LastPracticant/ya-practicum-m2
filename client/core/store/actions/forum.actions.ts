@@ -1,4 +1,5 @@
 import {
+    AddTopicProps,
     ForumAPI,
 } from 'client/core/api';
 import { Action } from 'redux';
@@ -50,3 +51,17 @@ export const getCommentsThunk = (topicId: number): ThunkAction<void, StoreProps,
 };
 
 // TODO: делаем тут экшены для добавления топика и комментария
+export const addTopicThunk = (
+    data: AddTopicProps,
+): ThunkAction<void, StoreProps, unknown, Action<string>> => (dispatch) => {
+    dispatch(showLoaderAction());
+
+    ForumAPI.addTopic(data)
+        .then(() => {
+            dispatch(getTopicsThunk());
+        })
+        .catch(console.error)
+        .finally(() => {
+            dispatch(hideLoaderAction());
+        });
+};

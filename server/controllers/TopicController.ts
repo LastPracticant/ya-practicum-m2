@@ -8,30 +8,42 @@ export class TopicController {
     // за счет этого тут контракт легче будет (без description)
     public static getAll(req: Request, res: Response) {
         postgres.topics.table.findAll({
-            include: [
-                {
-                    model: postgres.comments.table,
-                },
+            order: [
+                ['updatedAt', 'ASC'],
             ],
+            // include: [
+            //     {
+            //         model: postgres.users.table,
+            //     },
+            // ],
         })
-            .then((dbResult) => res.status(200).send(dbResult))
+            .then((topics) => res.status(200).send(topics))
             .catch((error) => {
                 res.status(400).send(error);
             });
     }
 
+    public static add(req: Request, res: Response) {
+        if (!req.body) return res.sendStatus(400);
+
+        postgres.topics.table
+            .create(req.body)
+            .then((topic) => res.status(201).send(topic))
+            .catch((error) => res.status(400).send(error));
+    }
+
     public static update(req: Request, res: Response) {
         postgres.topics.table
             .findByPk(req.params.id)
-            .then((course) => {
-                if (!course) {
+            .then((topic) => {
+                if (!topic) {
                     return res.status(404).send({
                         message: RESPONSES_MESSAGES['404'],
                     });
                 }
-                return course
+                return topic
                     .update(req.body)
-                    .then(() => res.status(200).send(course))
+                    .then(() => res.status(200).send(topic))
                     .catch((error) => res.status(400).send(error));
             })
             .catch((error) => res.status(400).send(error));

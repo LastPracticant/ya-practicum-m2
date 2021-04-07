@@ -13,14 +13,13 @@ import { ROUTES } from 'client/routing';
 import { Link } from 'react-router-dom';
 
 import { logoutThunk, profileSelector } from 'client/core/store';
-import { CurrentUserInfoProps } from 'client/core/api';
 import { withCheckAuth } from 'client/core/HOCs';
 import { Meta, Logo } from 'client/core';
 
 const block = bem('home');
 
 const HomeComponent: React.FC<PageComponentProps> = React.memo(({ title }) => {
-    const profile = useSelector(profileSelector) as CurrentUserInfoProps;
+    const profile = useSelector(profileSelector);
     const dispatch = useDispatch();
 
     const handleLogout = () => {

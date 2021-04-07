@@ -15,11 +15,12 @@ export class UserModel {
 
     init() {
         return this.sequelize.define<UserModelProps & Model>('user', {
+            id: {
+                type: DataTypes.INTEGER,
+                primaryKey: true,
+            },
             name: {
                 type: DataTypes.STRING,
-            },
-            userExternalId: {
-                type: DataTypes.INTEGER,
             },
         });
     }

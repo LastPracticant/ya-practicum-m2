@@ -10,24 +10,31 @@ export class CommentController {
                 topicId: req.params.topicId,
             },
         })
-            .then((dbResult) => res.status(200).send(dbResult))
+            .then((comments) => res.status(200).send(comments))
             .catch((error) => {
                 res.status(400).send(error);
             });
     }
 
+    public static add(req: Request, res: Response) {
+        postgres.comments.table
+            .create(req.body)
+            .then((comment) => res.status(201).send(comment))
+            .catch((error) => res.status(400).send(error));
+    }
+
     public static update(req: Request, res: Response) {
         postgres.comments.table
             .findByPk(req.params.id)
-            .then((course) => {
-                if (!course) {
+            .then((comment) => {
+                if (!comment) {
                     return res.status(404).send({
                         message: RESPONSES_MESSAGES['404'],
                     });
                 }
-                return course
+                return comment
                     .update(req.body)
-                    .then(() => res.status(200).send(course))
+                    .then(() => res.status(200).send(comment))
                     .catch((error) => res.status(400).send(error));
             })
             .catch((error) => res.status(400).send(error));

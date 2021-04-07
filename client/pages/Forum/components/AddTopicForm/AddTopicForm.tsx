@@ -4,17 +4,30 @@ import { useForm } from 'react-hook-form';
 import { GRID_SPACE, LOCAL } from 'client/shared/consts';
 import { Button, Grid } from '@material-ui/core';
 import { InputControl } from 'client/shared/components';
+import { useDispatch, useSelector } from 'react-redux';
+import { addTopicThunk, profileSelector } from 'client/core/store';
+import { FnActionProps } from 'client/shared/types';
 import { ADD_TOPIC_FORM_CONTROLS } from './AddTopicForm.config';
 
-export const AddTopicForm: React.FC = React.memo(() => {
+interface AddTopicFormProps {
+    closeModal: FnActionProps
+}
+
+export const AddTopicForm: React.FC<AddTopicFormProps> = React.memo(({
+    closeModal,
+}) => {
     const {
         control,
         handleSubmit,
         errors,
     } = useForm<AddTopicProps>();
 
+    const dispatch = useDispatch();
+    const profile = useSelector(profileSelector);
+
     const onSubmit = (data: AddTopicProps) => {
-        console.log(data);
+        dispatch(addTopicThunk({ ...data, userId: profile.id }));
+        closeModal();
     };
 
     const controls = useMemo(
