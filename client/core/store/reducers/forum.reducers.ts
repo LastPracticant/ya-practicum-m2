@@ -1,4 +1,4 @@
-import { SET_COMMENTS, SET_TOPICS } from '../actions';
+import { SET_COMMENTS, SET_CURRENT_TOPIC, SET_TOPICS } from '../actions';
 import { ActionProps } from '../actions/actions.types';
 import { StoreForumProps } from '../store.types';
 
@@ -16,6 +16,11 @@ export const forumReducers = (
         return {
             ...state,
             topics: action.payload.topics,
+        };
+    case SET_CURRENT_TOPIC:
+        return {
+            ...state,
+            currentTopic: action.payload.currentTopic,
         };
     case SET_COMMENTS:
         return {

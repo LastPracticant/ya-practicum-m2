@@ -10,9 +10,15 @@ import { hideLoaderAction, showLoaderAction } from './loader.actions';
 
 export const SET_TOPICS = 'SET_TOPICS';
 export const SET_COMMENTS = 'SET_COMMENTS';
+export const SET_CURRENT_TOPIC = 'SET_CURRENT_TOPIC';
 
 export const setTopicsAction = (payload: StoreForumProps) => ({
     type: SET_TOPICS,
+    payload,
+});
+
+export const setCurrentTopicAction = (payload: StoreForumProps) => ({
+    type: SET_CURRENT_TOPIC,
     payload,
 });
 
@@ -21,7 +27,7 @@ export const setCommentsAction = (payload: StoreForumProps) => ({
     payload,
 });
 
-// TODO: необходимо сделать предзапрос данных на бэке для SSR, если время останется
+// TODO: сделать предзапрос данных на бэке для SSR, если время останется
 export const getTopicsThunk = (): ThunkAction<void, StoreProps, unknown, Action<string>> => (dispatch) => {
     dispatch(showLoaderAction());
 
@@ -36,7 +42,20 @@ export const getTopicsThunk = (): ThunkAction<void, StoreProps, unknown, Action<
         });
 };
 
-// TODO: необходимо сделать предзапрос данных на бэке для SSR, если время останется
+export const getTopicByIdThunk = (topicId: number): ThunkAction<void, StoreProps, unknown, Action<string>> => (dispatch) => {
+    dispatch(showLoaderAction());
+
+    ForumAPI.getTopicById({ topicId }).then((currentTopic) => {
+        dispatch(
+            setCurrentTopicAction({ currentTopic }),
+        );
+    })
+        .catch(console.error)
+        .finally(() => {
+            dispatch(hideLoaderAction());
+        });
+};
+
 export const getCommentsThunk = (topicId: number): ThunkAction<void, StoreProps, unknown, Action<string>> => (dispatch) => {
     dispatch(showLoaderAction());
 

@@ -4,10 +4,9 @@ import { postgres } from '../models';
 import { RESPONSES_MESSAGES } from './controllers.consts';
 
 export class TopicController {
-    // TODO: необходимо реализовать контроллер getById для странички конкретного топика,
-    // за счет этого тут контракт легче будет (без description)
     public static getAll(req: Request, res: Response) {
         postgres.topics.table.findAll({
+            attributes: { exclude: ['description'] },
             order: [
                 ['updatedAt', 'ASC'],
             ],
@@ -21,6 +20,19 @@ export class TopicController {
             .catch((error) => {
                 res.status(400).send(error);
             });
+    }
+
+    public static getById(req: Request, res: Response) {
+        postgres.topics.table.findByPk(req.params.topicId)
+            .then((topic) => {
+                if (!topic) {
+                    return res.status(404).send({
+                        message: RESPONSES_MESSAGES['404'],
+                    });
+                }
+                return res.status(200).send(topic);
+            })
+            .catch((error) => res.status(400).send(error));
     }
 
     public static add(req: Request, res: Response) {

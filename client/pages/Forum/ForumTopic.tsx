@@ -12,7 +12,9 @@ import { LOCAL } from 'client/shared/consts';
 import { Button } from '@material-ui/core';
 import { AddIcon } from '@material-ui/data-grid';
 import { useDispatch, useSelector } from 'react-redux';
-import { commentsSelector, getCommentsThunk } from 'client/core/store';
+import {
+    commentsSelector, currentTopicSelector, getCommentsThunk, getTopicByIdThunk,
+} from 'client/core/store';
 import { block } from './Forum.config';
 import { AddCommentForm, CommentsTree } from './components';
 import { composeCommentsArrayTree } from './Forum.utils';
@@ -20,6 +22,7 @@ import { composeCommentsArrayTree } from './Forum.utils';
 export const ForumTopicComponent: React.FC<PageComponentProps> = React.memo(({ title }) => {
     const params = useParams<UrlCommonProps>();
     const comments = useSelector(commentsSelector);
+    const currentTopic = useSelector(currentTopicSelector);
     const dispatch = useDispatch();
 
     const {
@@ -39,16 +42,19 @@ export const ForumTopicComponent: React.FC<PageComponentProps> = React.memo(({ t
     }, []);
 
     useEffect(() => {
-        if (params.id) {
-            dispatch(getCommentsThunk(Number(params.id)));
+        const topicId = Number(params.id);
+
+        if (topicId) {
+            dispatch(getTopicByIdThunk(topicId));
+            dispatch(getCommentsThunk(topicId));
         }
     }, []);
 
     return (
         <PageLayout goBackLink={ROUTES.FORUM.children?.BOARD.path} className={block()}>
             <Meta title={title} />
-            <Paper title={title}>
-                {`topic ${params.id}`}
+            <Paper title={currentTopic?.name}>
+                <div>{currentTopic?.description}</div>
                 <hr className={block('comments-divider')} />
                 <Button
                     variant="contained"

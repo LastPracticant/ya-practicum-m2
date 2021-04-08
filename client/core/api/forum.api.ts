@@ -26,6 +26,10 @@ export class ForumAPI extends BaseAPI {
         return ExpressForumAPI.get<{}, GetAllTopicsResponseProps[]>('/topic');
     }
 
+    static getTopicById(data: GetAllCommentsRequestProps) {
+        return ExpressForumAPI.get<{}, GetAllTopicsResponseProps>(`/topic/${data.topicId}`);
+    }
+
     static addTopic(data: AddTopicRequestProps) {
         return ExpressForumAPI.post<AddTopicRequestProps, Response>('/topic', { data });
     }

@@ -11,6 +11,7 @@ export interface StoreGameProps {
 
 export interface StoreForumProps {
     topics?: GetAllTopicsResponseProps[]
+    currentTopic?: GetAllTopicsResponseProps
     comments?: GetAllCommentsResponseProps[]
 }
 

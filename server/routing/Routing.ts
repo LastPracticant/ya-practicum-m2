@@ -22,6 +22,7 @@ export function routing(app: Express) {
 
     /** Форум */
     app.get('/api/v2/internal/forum/topic', TopicController.getAll);
+    app.get('/api/v2/internal/forum/topic/:topicId', TopicController.getById);
     app.post('/api/v2/internal/forum/topic', jsonParser, TopicController.add);
     app.put('/api/v2/internal/forum/topic', jsonParser, TopicController.update);
     app.get('/api/v2/internal/forum/comment/:topicId', CommentController.getAll);
