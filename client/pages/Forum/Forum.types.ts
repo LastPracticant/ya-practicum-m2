@@ -1,5 +1,5 @@
-import { CommentModelProps } from 'server/models/models.types';
+import { GetAllCommentsResponseProps } from 'client/core/api';
 
-export interface ForumTopicCommentProps extends CommentModelProps {
+export interface ForumTopicCommentProps extends GetAllCommentsResponseProps {
     children?: ForumTopicCommentProps[]
 }

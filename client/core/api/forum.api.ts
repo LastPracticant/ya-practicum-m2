@@ -4,16 +4,21 @@ import { BaseAPI } from './base.api';
 
 const ExpressForumAPI = new HTTP('/internal/forum');
 
+type UserInfoProps = {
+    id: number
+    name: string
+};
+
 export type AddTopicRequestProps = Omit<TopicModelProps, 'createdAt' | 'updatedAt'>;
 export type AddCommentRequestProps = Omit<CommentModelProps, 'createdAt' | 'updatedAt'>;
 export type GetAllCommentsRequestProps = {
     topicId: number
 };
 export interface GetAllTopicsResponseProps extends TopicModelProps {
-    user: {
-        id: number
-        name: string
-    }
+    user: UserInfoProps
+}
+export interface GetAllCommentsResponseProps extends CommentModelProps {
+    user: UserInfoProps
 }
 
 export class ForumAPI extends BaseAPI {
@@ -30,7 +35,7 @@ export class ForumAPI extends BaseAPI {
     }
 
     static getAllComments(data: GetAllCommentsRequestProps) {
-        return ExpressForumAPI.get<{}, CommentModelProps[]>(`/comment/${data.topicId}`);
+        return ExpressForumAPI.get<{}, GetAllCommentsResponseProps[]>(`/comment/${data.topicId}`);
     }
 
     static addComment(data: AddCommentRequestProps) {

@@ -9,6 +9,14 @@ export class CommentController {
             where: {
                 topicId: req.params.topicId,
             },
+            include: [
+                {
+                    model: postgres.users.table,
+                },
+            ],
+            order: [
+                ['updatedAt', 'ASC'],
+            ],
         })
             .then((comments) => res.status(200).send(comments))
             .catch((error) => {

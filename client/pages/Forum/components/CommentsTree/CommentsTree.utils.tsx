@@ -33,8 +33,7 @@ export const mapCommentsToTree = (
                                 variant="body2"
                                 color="textPrimary"
                             >
-                                {/* TODO: пока оставим так, необходимо замапить данные из АПИ Яндекса */}
-                                {comment.userId}
+                                {comment.user.name}
                             </Typography>
                             {formatCommentDescription(comment.description)}
                             <span className={block('reply')}>
