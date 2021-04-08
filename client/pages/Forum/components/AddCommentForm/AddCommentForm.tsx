@@ -1,33 +1,49 @@
 import './AddCommentForm.css';
 
-import { SigninProps } from 'client/core/api';
+import { AddCommentRequestProps } from 'client/core/api';
 import React, { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { GRID_SPACE, LOCAL } from 'client/shared/consts';
 import { Button, Grid } from '@material-ui/core';
 import { InputControl } from 'client/shared/components';
 import bem from 'bem-cn';
+import { FnActionProps } from 'client/shared/types';
+import { useDispatch, useSelector } from 'react-redux';
+import { addCommentThunk, profileSelector } from 'client/core/store';
 import { ADD_COMMENT_FORM_CONTROLS } from './AddCommentForm.config';
 
 const block = bem('add-comment-form');
 
 interface AddCommentFormProps {
+    closeModal: FnActionProps
+    topicId?: string
     parentId?: number
 }
 
 export const AddCommentForm: React.FC<AddCommentFormProps> = React.memo(({
+    closeModal,
+    topicId,
     parentId,
 }) => {
-    // TODO: контракт будет реализован тут LP-110 (как заглушка пока SigninProps)
     const {
         control,
         handleSubmit,
         errors,
-    } = useForm<SigninProps>();
+    } = useForm<AddCommentRequestProps>();
 
-    // TODO: контракт будет реализован тут LP-110 (как заглушка пока SigninProps)
-    const onSubmit = (data: SigninProps) => {
-        console.log({ ...data, parentId });
+    const dispatch = useDispatch();
+    const profile = useSelector(profileSelector);
+
+    const onSubmit = (data: AddCommentRequestProps) => {
+        if (!topicId) return;
+
+        dispatch(addCommentThunk({
+            ...data,
+            parentId,
+            userId: profile.id,
+            topicId: Number(topicId),
+        }));
+        closeModal();
     };
 
     const controls = useMemo(

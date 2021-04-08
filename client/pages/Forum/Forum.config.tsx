@@ -42,9 +42,9 @@ export const columns: Columns = [
         width: 200,
         sortable: false,
         renderCell: (params) => {
-            const user = params.getValue('user') as GetAllTopicsResponseProps['user'];
+            const { name } = params.getValue('user') as GetAllTopicsResponseProps['user'];
 
-            return <>{user?.name}</>;
+            return <>{name}</>;
         },
     },
 ];

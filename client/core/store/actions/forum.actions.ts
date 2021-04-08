@@ -1,4 +1,5 @@
 import {
+    AddCommentRequestProps,
     AddTopicRequestProps,
     ForumAPI,
 } from 'client/core/api';
@@ -20,7 +21,7 @@ export const setCommentsAction = (payload: StoreForumProps) => ({
     payload,
 });
 
-// TODO: необходимо сделать предзапрос данных на бэке для SSR
+// TODO: необходимо сделать предзапрос данных на бэке для SSR, если время останется
 export const getTopicsThunk = (): ThunkAction<void, StoreProps, unknown, Action<string>> => (dispatch) => {
     dispatch(showLoaderAction());
 
@@ -35,7 +36,7 @@ export const getTopicsThunk = (): ThunkAction<void, StoreProps, unknown, Action<
         });
 };
 
-// TODO: необходимо сделать предзапрос данных на бэке для SSR
+// TODO: необходимо сделать предзапрос данных на бэке для SSR, если время останется
 export const getCommentsThunk = (topicId: number): ThunkAction<void, StoreProps, unknown, Action<string>> => (dispatch) => {
     dispatch(showLoaderAction());
 
@@ -50,7 +51,6 @@ export const getCommentsThunk = (topicId: number): ThunkAction<void, StoreProps,
         });
 };
 
-// TODO: делаем тут экшены для добавления топика и комментария
 export const addTopicThunk = (
     data: AddTopicRequestProps,
 ): ThunkAction<void, StoreProps, unknown, Action<string>> => (dispatch) => {
@@ -59,6 +59,21 @@ export const addTopicThunk = (
     ForumAPI.addTopic(data)
         .then(() => {
             dispatch(getTopicsThunk());
+        })
+        .catch(console.error)
+        .finally(() => {
+            dispatch(hideLoaderAction());
+        });
+};
+
+export const addCommentThunk = (
+    data: AddCommentRequestProps,
+): ThunkAction<void, StoreProps, unknown, Action<string>> => (dispatch) => {
+    dispatch(showLoaderAction());
+
+    ForumAPI.addComment(data)
+        .then(() => {
+            dispatch(getCommentsThunk(data.topicId));
         })
         .catch(console.error)
         .finally(() => {

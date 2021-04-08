@@ -63,7 +63,11 @@ export const ForumTopicComponent: React.FC<PageComponentProps> = React.memo(({ t
                     onChangeVisible={handleChangeElementVisible}
                     title={LOCAL.FORUM_COLUMN_COMMENT}
                 >
-                    <AddCommentForm parentId={commentParentId} />
+                    <AddCommentForm
+                        closeModal={handleChangeElementVisible}
+                        topicId={params.id}
+                        parentId={commentParentId}
+                    />
                 </Popup>
                 <CommentsTree
                     comments={composeCommentsArrayTree(comments)}

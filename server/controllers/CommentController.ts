@@ -17,6 +17,8 @@ export class CommentController {
     }
 
     public static add(req: Request, res: Response) {
+        if (!req.body) return res.sendStatus(400);
+
         postgres.comments.table
             .create(req.body)
             .then((comment) => res.status(201).send(comment))
