@@ -17,6 +17,13 @@ export interface CommentModelProps {
     parentId?: number
 }
 
+export interface EmojiModelProps {
+    id: number
+    userId: number
+    commentId: number
+    emoji: string
+}
+
 export interface UserModelProps {
     id: number
     userExternalId: number

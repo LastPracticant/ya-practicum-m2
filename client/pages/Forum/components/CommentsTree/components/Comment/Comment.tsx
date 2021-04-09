@@ -6,7 +6,7 @@ import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import { Emoji } from 'emoji-mart';
 
 import { LOCAL } from 'client/shared/consts';
-import { FnActionProps, FnActionRequiredProps } from 'client/shared/types';
+import { FnActionRequiredProps } from 'client/shared/types';
 import { formatDate } from 'client/shared/utils';
 import { ForumTopicCommentProps } from '../../../../Forum.types';
 import { block } from '../../CommentsTree.config';
@@ -14,7 +14,7 @@ import { block } from '../../CommentsTree.config';
 interface CommentProps {
     comment: ForumTopicCommentProps
     onAddComment: FnActionRequiredProps<number>
-    onAddEmoji: FnActionProps
+    onAddEmoji: FnActionRequiredProps<number>
 }
 
 const formatCommentDescription = (description: string) => ` " — ${description}"`;
@@ -24,19 +24,14 @@ export const Comment: React.FC<CommentProps> = React.memo(({
     onAddComment,
     onAddEmoji,
 }) => {
-    const handleAddComment = (parendId: number) => (
-        e: MouseEvent,
-    ) => {
+    const handleAddComment = (e: MouseEvent) => {
         e.preventDefault();
-        onAddComment(parendId);
+        onAddComment(comment.id);
     };
 
-    const handleAddEmoji = (commentId: number) => (
-        e: MouseEvent,
-    ) => {
+    const handleAddEmoji = (e: MouseEvent) => {
         e.preventDefault();
-        console.log(commentId);
-        onAddEmoji();
+        onAddEmoji(comment.id);
     };
 
     return (
@@ -55,13 +50,13 @@ export const Comment: React.FC<CommentProps> = React.memo(({
                         {formatCommentDescription(comment.description)}
                         <span className={block('reply')}>
                             <a
-                                onClick={handleAddComment(comment.id)}
+                                onClick={handleAddComment}
                                 href="#s"
                             >
                                 {LOCAL.COMMON_PREFIXES.REPLY}
                             </a>
                             <a
-                                onClick={handleAddEmoji(comment.id)}
+                                onClick={handleAddEmoji}
                                 href="#s"
                             >
                                 <InsertEmoticonIcon />

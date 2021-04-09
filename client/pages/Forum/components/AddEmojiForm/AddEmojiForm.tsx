@@ -7,15 +7,18 @@ import { NivelatorXY } from 'client/shared/components';
 
 interface AddEmojiFormProps {
     closeModal: FnActionProps
+    parentId?: number
 }
 
 export const block = bem('add-emoji-form');
 
 export const AddEmojiForm: React.FC<AddEmojiFormProps> = React.memo(({
     closeModal,
+    parentId,
 }) => {
     const handleEmojiSelect = (emojiObject: EmojiData) => {
         console.log(emojiObject);
+        console.log(parentId);
 
         closeModal();
     };

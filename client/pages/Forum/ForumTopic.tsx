@@ -42,7 +42,8 @@ export const ForumTopicComponent: React.FC<PageComponentProps> = React.memo(({ t
         handleSetCommentFormVisible();
     }, []);
 
-    const handleAddEmoji = useCallback(() => {
+    const handleAddEmoji = useCallback((commentId: number) => {
+        setCommentParentId(commentId);
         handleSetEmojiFormVisible();
     }, []);
 
@@ -91,6 +92,7 @@ export const ForumTopicComponent: React.FC<PageComponentProps> = React.memo(({ t
                 >
                     <AddEmojiForm
                         closeModal={handleSetEmojiFormVisible}
+                        parentId={commentParentId}
                     />
                 </Popup>
                 <CommentsTree

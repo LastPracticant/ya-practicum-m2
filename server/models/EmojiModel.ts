@@ -1,8 +1,8 @@
 import { Sequelize } from 'sequelize-typescript';
 import { DataTypes, Model } from 'sequelize';
-import { CommentModelProps } from './models.types';
+import { EmojiModelProps } from './models.types';
 
-export class CommentModel {
+export class EmojiModel {
     sequelize: Sequelize;
 
     table;
@@ -14,15 +14,14 @@ export class CommentModel {
     }
 
     init() {
-        return this.sequelize.define<CommentModelProps & Model>('comment', {
-            description: {
-                type: DataTypes.TEXT,
-            },
-            parentId: {
+        return this.sequelize.define<EmojiModelProps & Model>('emoji', {
+            commentId: {
                 type: DataTypes.INTEGER,
-                defaultValue: 0,
             },
-            commentEmoji: {
+            userId: {
+                type: DataTypes.INTEGER,
+            },
+            userEmoji: {
                 type: DataTypes.JSONB,
             },
         });
