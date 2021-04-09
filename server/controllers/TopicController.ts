@@ -40,7 +40,7 @@ export class TopicController {
 
         postgres.topics.table
             .create(req.body)
-            .then((topic) => res.status(201).send(topic))
+            .then((topic) => res.status(200).send(topic))
             .catch((error) => res.status(400).send(error));
     }
 

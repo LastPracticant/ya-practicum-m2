@@ -29,7 +29,7 @@ export class CommentController {
 
         postgres.comments.table
             .create(req.body)
-            .then((comment) => res.status(201).send(comment))
+            .then((comment) => res.status(200).send(comment))
             .catch((error) => res.status(400).send(error));
     }
 

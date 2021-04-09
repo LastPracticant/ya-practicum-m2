@@ -48,7 +48,7 @@ export const ForumTopicComponent: React.FC<PageComponentProps> = React.memo(({ t
             dispatch(getTopicByIdThunk(topicId));
             dispatch(getCommentsThunk(topicId));
         }
-    }, []);
+    }, [params.id]);
 
     return (
         <PageLayout goBackLink={ROUTES.FORUM.children?.BOARD.path} className={block()}>

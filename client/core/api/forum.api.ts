@@ -4,19 +4,23 @@ import { BaseAPI } from './base.api';
 
 const ExpressForumAPI = new HTTP('/internal/forum');
 
-type UserInfoProps = {
+interface UserInfoProps {
     id: number
     name: string
-};
+}
 
-export type AddTopicRequestProps = Omit<TopicModelProps, 'createdAt' | 'updatedAt'>;
-export type AddCommentRequestProps = Omit<CommentModelProps, 'createdAt' | 'updatedAt'>;
-export type GetAllCommentsRequestProps = {
+export interface AddTopicRequestProps extends Omit<TopicModelProps, 'createdAt' | 'updatedAt'> {}
+
+export interface AddCommentRequestProps extends Omit<CommentModelProps, 'createdAt' | 'updatedAt'> {}
+
+export interface GetAllCommentsRequestProps {
     topicId: number
-};
+}
+
 export interface GetAllTopicsResponseProps extends TopicModelProps {
     user: UserInfoProps
 }
+
 export interface GetAllCommentsResponseProps extends CommentModelProps {
     user: UserInfoProps
 }
