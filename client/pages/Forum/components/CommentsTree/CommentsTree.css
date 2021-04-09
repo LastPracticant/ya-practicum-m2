@@ -30,6 +30,11 @@
         }
     }
 
+    &__emoji{ 
+        display: flex;
+        align-items: center;
+    }
+
     &__empty {
         padding: var(--space-unit);
     }

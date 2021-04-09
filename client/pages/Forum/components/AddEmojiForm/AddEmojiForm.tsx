@@ -26,6 +26,9 @@ export const AddEmojiForm: React.FC<AddEmojiFormProps> = React.memo(({
                 set="google"
                 onSelect={handleEmojiSelect}
                 perLine={8}
+                theme="dark"
+                showPreview={false}
+                showSkinTones={false}
             />
         </NivelatorXY>
     );

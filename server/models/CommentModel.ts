@@ -22,6 +22,9 @@ export class CommentModel {
                 type: DataTypes.INTEGER,
                 defaultValue: 0,
             },
+            emoji: {
+                type: DataTypes.JSONB,
+            },
         });
     }
 }
