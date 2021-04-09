@@ -13,10 +13,10 @@ import { Button } from '@material-ui/core';
 import { AddIcon } from '@material-ui/data-grid';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    commentsSelector, currentTopicSelector, getCommentsThunk, getTopicByIdThunk, isServer,
+    commentsSelector, currentTopicSelector, getCommentsThunk, getTopicByIdThunk,
 } from 'client/core/store';
 import { block } from './Forum.config';
-import { AddCommentForm, CommentsTree } from './components';
+import { AddCommentForm, AddEmojiForm, CommentsTree } from './components';
 import { composeCommentsArrayTree } from './Forum.utils';
 
 export const ForumTopicComponent: React.FC<PageComponentProps> = React.memo(({ title }) => {
@@ -84,15 +84,15 @@ export const ForumTopicComponent: React.FC<PageComponentProps> = React.memo(({ t
                         parentId={commentParentId}
                     />
                 </Popup>
-                {!isServer && (
-                    <Popup
-                        isVisible={emojiFormVisible}
-                        onChangeVisible={handleSetEmojiFormVisible}
-                        title={LOCAL.FORUM_COLUMN_COMMENT}
-                    >
-                        ddddd
-                    </Popup>
-                )}
+                <Popup
+                    isVisible={emojiFormVisible}
+                    onChangeVisible={handleSetEmojiFormVisible}
+                    title={`${LOCAL.COMMON_PREFIXES.ADD} emoji`}
+                >
+                    <AddEmojiForm
+                        closeModal={handleSetEmojiFormVisible}
+                    />
+                </Popup>
                 <CommentsTree
                     comments={composeCommentsArrayTree(comments)}
                     onAddComment={handleAddComment}
