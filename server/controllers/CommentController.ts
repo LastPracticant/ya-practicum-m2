@@ -9,11 +9,12 @@ export class CommentController {
             where: {
                 topicId: req.params.topicId,
             },
-            include: [
-                {
-                    model: postgres.users.table,
-                },
-            ],
+            include: [{
+                model: postgres.users.table,
+                include: [{
+                    model: postgres.emojis.table,
+                }],
+            }],
             order: [
                 ['updatedAt', 'ASC'],
             ],

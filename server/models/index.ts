@@ -27,11 +27,12 @@ class PostgresConnector {
         this.emojis.table.belongsTo(this.users.table);
         this.topics.table.belongsTo(this.users.table);
         this.comments.table.belongsTo(this.users.table);
+        this.users.table.hasMany(this.emojis.table);
         this.topics.table.hasMany(this.comments.table, { onDelete: 'cascade' });
     }
 
     sync() {
-        this.sequelize.sync().then(() => {
+        this.sequelize.sync({ force: true }).then(() => {
             console.info('--------------- Postgres sync successful. ---------------');
         })
             .catch(console.error);
