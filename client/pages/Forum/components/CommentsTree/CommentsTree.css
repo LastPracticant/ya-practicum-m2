@@ -16,9 +16,18 @@
         }
     }
 
-    &__reply a {
-        color: #fff;
-        display: block;
+    &__reply{ 
+        display: flex;
+        align-items: center;
+
+        a {
+            color: #fff;
+            margin-right: 10px;
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
     }
 
     &__empty {

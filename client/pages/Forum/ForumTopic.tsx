@@ -13,7 +13,7 @@ import { Button } from '@material-ui/core';
 import { AddIcon } from '@material-ui/data-grid';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    commentsSelector, currentTopicSelector, getCommentsThunk, getTopicByIdThunk,
+    commentsSelector, currentTopicSelector, getCommentsThunk, getTopicByIdThunk, isServer,
 } from 'client/core/store';
 import { block } from './Forum.config';
 import { AddCommentForm, CommentsTree } from './components';
@@ -26,15 +26,24 @@ export const ForumTopicComponent: React.FC<PageComponentProps> = React.memo(({ t
     const dispatch = useDispatch();
 
     const {
-        elementVisible,
-        handleChangeElementVisible,
+        elementVisible: commentFormVisible,
+        handleChangeElementVisible: handleSetCommentFormVisible,
+    } = useElementVisible();
+
+    const {
+        elementVisible: emojiFormVisible,
+        handleChangeElementVisible: handleSetEmojiFormVisible,
     } = useElementVisible();
 
     const [commentParentId, setCommentParentId] = useState(0);
 
     const handleAddComment = useCallback((parendId: number) => {
         setCommentParentId(parendId);
-        handleChangeElementVisible();
+        handleSetCommentFormVisible();
+    }, []);
+
+    const handleAddEmoji = useCallback(() => {
+        handleSetEmojiFormVisible();
     }, []);
 
     const handleStartConversation = useCallback(() => {
@@ -65,19 +74,29 @@ export const ForumTopicComponent: React.FC<PageComponentProps> = React.memo(({ t
                     {LOCAL.COMMON_PREFIXES.ADD} {LOCAL.FORUM_COLUMN_COMMENT}
                 </Button>
                 <Popup
-                    isVisible={elementVisible}
-                    onChangeVisible={handleChangeElementVisible}
+                    isVisible={commentFormVisible}
+                    onChangeVisible={handleSetCommentFormVisible}
                     title={LOCAL.FORUM_COLUMN_COMMENT}
                 >
                     <AddCommentForm
-                        closeModal={handleChangeElementVisible}
+                        closeModal={handleSetCommentFormVisible}
                         topicId={params.id}
                         parentId={commentParentId}
                     />
                 </Popup>
+                {!isServer && (
+                    <Popup
+                        isVisible={emojiFormVisible}
+                        onChangeVisible={handleSetEmojiFormVisible}
+                        title={LOCAL.FORUM_COLUMN_COMMENT}
+                    >
+                        ddddd
+                    </Popup>
+                )}
                 <CommentsTree
                     comments={composeCommentsArrayTree(comments)}
                     onAddComment={handleAddComment}
+                    onAddEmoji={handleAddEmoji}
                 />
             </Paper>
         </PageLayout>
