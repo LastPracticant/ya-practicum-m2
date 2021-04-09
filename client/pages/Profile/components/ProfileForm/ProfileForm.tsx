@@ -16,7 +16,9 @@ import { PROFILE_FORM_CONTROLS } from './ProfileForm.config';
 export const ProfileForm: React.FC = React.memo(() => {
     const profile = useSelector(profileSelector);
 
-    const { control, reset } = useForm<CurrentUserInfoProps>();
+    const { control, reset } = useForm<CurrentUserInfoProps>({
+        defaultValues: profile,
+    });
 
     const controls = useMemo(
         () => PROFILE_FORM_CONTROLS.map((inputConfig) => (
@@ -32,7 +34,7 @@ export const ProfileForm: React.FC = React.memo(() => {
                     {...inputConfig}
                 />
         )),
-        [profile],
+        [],
     );
 
     useEffect(() => {

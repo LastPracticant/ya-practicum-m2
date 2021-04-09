@@ -39,7 +39,7 @@ export const InputControl: React.FC<InputControlProps> = React.memo((props) => {
                 <TextField
                     type={type}
                     onChange={onChange}
-                    value={value}
+                    value={value || ''}
                     {...props}
                 />
             )}

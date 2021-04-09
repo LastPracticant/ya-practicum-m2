@@ -25,8 +25,10 @@ export const ProfileEditPassword: React.FC = React.memo(() => {
         () => PROFILE_EDIT_PASSWORD_CONTROLS.map((inputConfig) => {
             const { name } = inputConfig;
             const error = errors[name as keyof typeof errors]?.message;
+
             return (
                     <InputControl
+                        key={inputConfig.name}
                         fullWidth
                         margin="dense"
                         error={Boolean(error)}
