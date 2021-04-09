@@ -1,5 +1,6 @@
 import {
     AddCommentRequestProps,
+    AddEmojiRequestProps,
     AddTopicRequestProps,
     ForumAPI,
 } from 'client/core/api';
@@ -93,6 +94,22 @@ export const addCommentThunk = (
     ForumAPI.addComment(data)
         .then(() => {
             dispatch(getCommentsThunk(data.topicId));
+        })
+        .catch(console.error)
+        .finally(() => {
+            dispatch(hideLoaderAction());
+        });
+};
+
+export const addEmojiThunk = (
+    data: AddEmojiRequestProps,
+    topicId: number,
+): ThunkAction<void, StoreProps, unknown, Action<string>> => (dispatch) => {
+    dispatch(showLoaderAction());
+
+    ForumAPI.addEmoji(data)
+        .then(() => {
+            dispatch(getCommentsThunk(topicId));
         })
         .catch(console.error)
         .finally(() => {

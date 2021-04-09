@@ -1,5 +1,6 @@
 import express, { Express } from 'express';
 import path from 'path';
+import { EmojiController } from 'server/controllers/EmojiController';
 import { checkAuth } from 'server/middlewares';
 import {
     AuthController,
@@ -29,6 +30,7 @@ export function routing(app: Express) {
     app.get('/api/v2/internal/forum/comment/:topicId', checkAuth, CommentController.getAll);
     app.post('/api/v2/internal/forum/comment', checkAuth, jsonParser, CommentController.add);
     app.put('/api/v2/internal/forum/comment', checkAuth, jsonParser, CommentController.update);
+    app.post('/api/v2/internal/forum/emoji', checkAuth, jsonParser, EmojiController.add);
 
     /** Профайл */
     app.put('/api/v2/user/profile', jsonParser, ProfileController.change);

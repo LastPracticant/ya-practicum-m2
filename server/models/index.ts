@@ -24,14 +24,14 @@ class PostgresConnector {
         this.users = new UserModel(this.sequelize);
         this.emojis = new EmojiModel(this.sequelize);
 
-        this.users.table.belongsTo(this.emojis.table);
+        this.emojis.table.belongsTo(this.users.table);
         this.topics.table.belongsTo(this.users.table);
         this.comments.table.belongsTo(this.users.table);
         this.topics.table.hasMany(this.comments.table, { onDelete: 'cascade' });
     }
 
     sync() {
-        this.sequelize.sync({ force: true }).then(() => {
+        this.sequelize.sync().then(() => {
             console.info('--------------- Postgres sync successful. ---------------');
         })
             .catch(console.error);

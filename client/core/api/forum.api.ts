@@ -1,4 +1,4 @@
-import { CommentModelProps, TopicModelProps } from 'server/models/models.types';
+import { CommentModelProps, EmojiModelProps, TopicModelProps } from 'server/models/models.types';
 import { HTTP } from './api';
 import { BaseAPI } from './base.api';
 
@@ -10,6 +10,8 @@ interface UserInfoProps {
 }
 
 export interface AddTopicRequestProps extends Omit<TopicModelProps, 'createdAt' | 'updatedAt'> {}
+
+export interface AddEmojiRequestProps extends Omit<EmojiModelProps, 'createdAt' | 'updatedAt' | 'id'> {}
 
 export interface AddCommentRequestProps extends Omit<CommentModelProps, 'createdAt' | 'updatedAt'> {}
 
@@ -52,5 +54,9 @@ export class ForumAPI extends BaseAPI {
 
     static updateComment(data: AddCommentRequestProps) {
         return ExpressForumAPI.put<AddCommentRequestProps, Response>('/comment', { data });
+    }
+
+    static addEmoji(data: AddEmojiRequestProps) {
+        return ExpressForumAPI.post<AddEmojiRequestProps, Response>('/emoji', { data });
     }
 }

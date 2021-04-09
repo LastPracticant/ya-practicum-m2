@@ -92,6 +92,7 @@ export const ForumTopicComponent: React.FC<PageComponentProps> = React.memo(({ t
                 >
                     <AddEmojiForm
                         closeModal={handleSetEmojiFormVisible}
+                        topicId={params.id}
                         parentId={commentParentId}
                     />
                 </Popup>
