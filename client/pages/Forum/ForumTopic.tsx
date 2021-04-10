@@ -42,7 +42,7 @@ export const ForumTopicComponent: React.FC<PageComponentProps> = React.memo(({ t
         handleSetCommentFormVisible();
     }, []);
 
-    const handleAddEmoji = useCallback((commentId: number) => {
+    const handleSetEmoji = useCallback((commentId: number) => {
         setCommentParentId(commentId);
         handleSetEmojiFormVisible();
     }, []);
@@ -99,7 +99,7 @@ export const ForumTopicComponent: React.FC<PageComponentProps> = React.memo(({ t
                 <CommentsTree
                     comments={composeCommentsArrayTree(comments)}
                     onAddComment={handleAddComment}
-                    onAddEmoji={handleAddEmoji}
+                    onSetEmoji={handleSetEmoji}
                 />
             </Paper>
         </PageLayout>

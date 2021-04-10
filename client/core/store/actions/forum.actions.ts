@@ -1,8 +1,8 @@
 import {
     AddCommentRequestProps,
-    AddEmojiRequestProps,
     AddTopicRequestProps,
     ForumAPI,
+    UpdateCommentRequestProps,
 } from 'client/core/api';
 import { Action } from 'redux';
 import { ThunkAction } from 'redux-thunk';
@@ -101,15 +101,14 @@ export const addCommentThunk = (
         });
 };
 
-export const addEmojiThunk = (
-    data: AddEmojiRequestProps,
-    topicId: number,
+export const updateCommentThunk = (
+    data: UpdateCommentRequestProps,
 ): ThunkAction<void, StoreProps, unknown, Action<string>> => (dispatch) => {
     dispatch(showLoaderAction());
 
-    ForumAPI.addEmoji(data)
+    ForumAPI.updateComment(data)
         .then(() => {
-            dispatch(getCommentsThunk(topicId));
+            dispatch(getCommentsThunk(data.topicId));
         })
         .catch(console.error)
         .finally(() => {

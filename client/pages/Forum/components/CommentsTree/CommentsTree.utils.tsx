@@ -10,19 +10,19 @@ import { Comment } from './components';
 export const mapCommentsToTree = (
     comments: ForumTopicCommentProps[],
     onAddComment: FnActionRequiredProps<number>,
-    onAddEmoji: FnActionProps,
+    onSetEmoji: FnActionProps,
 ) => {
     const commentsMapped = comments.map((comment) => (
         <React.Fragment key={comment.id}>
             <Comment
                 comment={comment}
                 onAddComment={onAddComment}
-                onAddEmoji={onAddEmoji}
+                onSetEmoji={onSetEmoji}
             />
 
             {comment.children && (
                 <ListItem alignItems="flex-start">
-                    {mapCommentsToTree(comment.children, onAddComment, onAddEmoji)}
+                    {mapCommentsToTree(comment.children, onAddComment, onSetEmoji)}
                 </ListItem>
             )}
         </React.Fragment>

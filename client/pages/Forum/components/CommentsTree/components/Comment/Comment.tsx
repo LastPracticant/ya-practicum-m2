@@ -14,7 +14,7 @@ import { block } from '../../CommentsTree.config';
 interface CommentProps {
     comment: ForumTopicCommentProps
     onAddComment: FnActionRequiredProps<number>
-    onAddEmoji: FnActionRequiredProps<number>
+    onSetEmoji: FnActionRequiredProps<number>
 }
 
 const formatCommentDescription = (description: string) => ` " — ${description}"`;
@@ -22,16 +22,16 @@ const formatCommentDescription = (description: string) => ` " — ${description}
 export const Comment: React.FC<CommentProps> = React.memo(({
     comment,
     onAddComment,
-    onAddEmoji,
+    onSetEmoji,
 }) => {
     const handleAddComment = (e: MouseEvent) => {
         e.preventDefault();
         onAddComment(comment.id);
     };
 
-    const handleAddEmoji = (e: MouseEvent) => {
+    const handleSetEmoji = (e: MouseEvent) => {
         e.preventDefault();
-        onAddEmoji(comment.id);
+        onSetEmoji(comment.id);
     };
 
     return (
@@ -56,7 +56,7 @@ export const Comment: React.FC<CommentProps> = React.memo(({
                                 {LOCAL.COMMON_PREFIXES.REPLY}
                             </a>
                             <a
-                                onClick={handleAddEmoji}
+                                onClick={handleSetEmoji}
                                 href="#s"
                             >
                                 <InsertEmoticonIcon />

@@ -5,7 +5,8 @@ import { EmojiData, Picker } from 'emoji-mart';
 import { FnActionProps } from 'client/shared/types';
 import { NivelatorXY } from 'client/shared/components';
 import { useDispatch, useSelector } from 'react-redux';
-import { addEmojiThunk, profileSelector } from 'client/core/store';
+import { updateCommentThunk, profileSelector } from 'client/core/store';
+import { EmojiParsedProps } from 'server/models/models.types';
 
 interface AddEmojiFormProps {
     closeModal: FnActionProps
@@ -26,20 +27,17 @@ export const AddEmojiForm: React.FC<AddEmojiFormProps> = React.memo(({
     const handleEmojiSelect = (emojiObject: EmojiData) => {
         if (!topicId || !parentId || !emojiObject.id) return;
 
-        const userEmoji = JSON.stringify({
-            [emojiObject.id]: 1,
-        });
+        const emoji: EmojiParsedProps = {
+            [emojiObject.id]: [profile.id],
+        };
 
-        dispatch(
-            addEmojiThunk(
-                {
-                    commentId: parentId,
-                    userId: profile.id,
-                    userEmoji,
-                },
-                Number(topicId),
-            ),
-        );
+        dispatch(updateCommentThunk({
+            description: '',
+            id: parentId,
+            userId: profile.id,
+            topicId: Number(topicId),
+            emoji: JSON.stringify(emoji),
+        }));
 
         closeModal();
     };
