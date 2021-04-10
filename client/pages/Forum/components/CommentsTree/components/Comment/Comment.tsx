@@ -3,21 +3,19 @@ import {
 } from '@material-ui/core';
 import React, { MouseEvent } from 'react';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
-import { Emoji } from 'emoji-mart';
 
 import { LOCAL } from 'client/shared/consts';
 import { FnActionRequiredProps } from 'client/shared/types';
 import { formatDate } from 'client/shared/utils';
 import { ForumTopicCommentProps } from '../../../../Forum.types';
 import { block } from '../../CommentsTree.config';
+import { formatCommentDescription, parseEmoji } from './Comment.utils';
 
 interface CommentProps {
     comment: ForumTopicCommentProps
     onAddComment: FnActionRequiredProps<number>
     onSetEmoji: FnActionRequiredProps<number>
 }
-
-const formatCommentDescription = (description: string) => ` " — ${description}"`;
 
 export const Comment: React.FC<CommentProps> = React.memo(({
     comment,
@@ -62,13 +60,8 @@ export const Comment: React.FC<CommentProps> = React.memo(({
                                 <InsertEmoticonIcon />
                             </a>
                         </span>
-                        <span className={block('emoji')}>
-                            <Emoji
-                                emoji="santa"
-                                set="google"
-                                size={16}
-                                onClick={console.log}
-                            />
+                        <span className={block('all-emojis')}>
+                            {parseEmoji(comment.emoji)}
                         </span>
                     </>
                 )}

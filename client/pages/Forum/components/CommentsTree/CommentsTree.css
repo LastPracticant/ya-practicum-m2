@@ -30,6 +30,15 @@
         }
     }
 
+    &__all-emojis{ 
+        display: flex;
+        align-items: center;
+
+        & > span:not(:last-child) {
+            margin-right: 5px;
+        }
+    }
+
     &__emoji{ 
         display: flex;
         align-items: center;
