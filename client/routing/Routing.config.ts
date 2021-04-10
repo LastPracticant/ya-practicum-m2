@@ -10,6 +10,7 @@ import {
     ForumTopic,
     ForumBoard,
     ErrorPage,
+    Settings,
 } from 'client/pages';
 import { ProfileEdit, ProfileEditPassword, ProfileForm } from 'client/pages/Profile/components';
 import { PageComponentProps } from 'client/shared/types';
@@ -105,6 +106,11 @@ export const ROUTES: RoutesProps = {
         path: '/leaderboard',
         title: 'Таблица лидеров',
         component: Leaderboard,
+    },
+    SETTINGS: {
+        path: '/settings',
+        title: 'Настройки',
+        component: Settings,
     },
     NOT_FOUND: {
         path: '/*',

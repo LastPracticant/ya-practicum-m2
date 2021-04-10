@@ -31,6 +31,7 @@ const HomeComponent: React.FC<PageComponentProps> = React.memo(({ title }) => {
         ROUTES.PROFILE,
         ROUTES.LEADERBOARD,
         ROUTES.FORUM,
+        ROUTES.SETTINGS,
     ];
     const controls = useMemo(
         () => routes.map((route) => (
