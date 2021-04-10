@@ -25,8 +25,9 @@ export const composeEmojisToSend = ({
     if (emojiSet[emojiObject.id]?.includes(userId)) {
         emojiSet[emojiObject.id] = emojiSet[emojiObject.id].filter((id) => id !== userId);
     } else {
+        const currentSet = emojiSet[emojiObject.id];
         emojiSet[emojiObject.id] = [
-            ...emojiSet[emojiObject.id],
+            ...(currentSet || []),
             userId,
         ];
     }
