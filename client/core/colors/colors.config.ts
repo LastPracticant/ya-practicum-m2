@@ -1,14 +1,15 @@
 import { PaletteOptions } from '@material-ui/core/styles/createPalette';
+import { ColorThemes } from '../context/ColorTheme';
 
 export const DARK_THEME: PaletteOptions = {
-    type: 'dark',
+    type: ColorThemes.Dark,
     primary: {
         main: '#fff',
     },
 };
 
 export const LIGHT_THEME: PaletteOptions = {
-    type: 'light',
+    type: ColorThemes.Light,
     primary: {
         main: '#000',
     },
