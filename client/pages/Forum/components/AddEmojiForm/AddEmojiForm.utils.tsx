@@ -25,8 +25,10 @@ export const composeEmojisToSend = ({
     if (emojiSet[emojiObject.id]?.includes(userId)) {
         emojiSet[emojiObject.id] = emojiSet[emojiObject.id].filter((id) => id !== userId);
     } else {
-        emojiSet[emojiObject.id] = [];
-        emojiSet[emojiObject.id].push(userId);
+        emojiSet[emojiObject.id] = [
+            ...emojiSet[emojiObject.id],
+            userId,
+        ];
     }
 
     if (!emojiSet[emojiObject.id].length) {
