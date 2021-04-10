@@ -17,23 +17,25 @@ export const composeEmojisToSend = ({
     comments,
     userId,
 }: ComposeEmojisToSendProps) => {
-    if (!topicId || !parentId || !emojiObject.id) return;
+    const key = emojiObject.id;
+
+    if (!topicId || !parentId || !key) return;
 
     const currentComment = comments?.find((comment) => comment.id === parentId);
     const emojiSet = parseEmoji(currentComment?.emoji);
 
-    if (emojiSet[emojiObject.id]?.includes(userId)) {
-        emojiSet[emojiObject.id] = emojiSet[emojiObject.id].filter((id) => id !== userId);
+    if (emojiSet[key]?.includes(userId)) {
+        emojiSet[key] = emojiSet[key].filter((id) => id !== userId);
     } else {
-        const currentSet = emojiSet[emojiObject.id];
-        emojiSet[emojiObject.id] = [
+        const currentSet = emojiSet[key];
+        emojiSet[key] = [
             ...(currentSet || []),
             userId,
         ];
     }
 
-    if (!emojiSet[emojiObject.id].length) {
-        delete emojiSet[emojiObject.id];
+    if (!emojiSet[key].length) {
+        delete emojiSet[key];
     }
 
     return JSON.stringify(emojiSet);
