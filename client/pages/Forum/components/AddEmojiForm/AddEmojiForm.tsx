@@ -6,7 +6,7 @@ import { FnActionProps } from 'client/shared/types';
 import { NivelatorXY } from 'client/shared/components';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateCommentThunk, profileSelector, commentsSelector } from 'client/core/store';
-import { parseEmoji } from '../CommentsTree/components/Emojis/Emojis.utils';
+import { composeEmojisToSend } from './AddEmojiForm.utils';
 
 interface AddEmojiFormProps {
     closeModal: FnActionProps
@@ -26,28 +26,22 @@ export const AddEmojiForm: React.FC<AddEmojiFormProps> = React.memo(({
     const comments = useSelector(commentsSelector);
 
     const handleEmojiSelect = (emojiObject: EmojiData) => {
-        if (!topicId || !parentId || !emojiObject.id) return;
+        const emoji = composeEmojisToSend({
+            emojiObject,
+            topicId,
+            parentId,
+            comments,
+            userId: profile.id,
+        });
 
-        const currentComment = comments?.find((comment) => comment.id === Number(topicId));
-        const emojiSet = parseEmoji(currentComment?.emoji);
-
-        if (emojiSet[emojiObject.id]?.includes(profile.id)) {
-            emojiSet[emojiObject.id] = emojiSet[emojiObject.id].filter((userId) => userId !== profile.id);
-        } else {
-            emojiSet[emojiObject.id] = [];
-            emojiSet[emojiObject.id].push(profile.id);
-        }
-
-        if (!emojiSet[emojiObject.id].length) {
-            delete emojiSet[emojiObject.id];
-        }
+        if (!emoji || !parentId) return;
 
         dispatch(updateCommentThunk({
             description: '',
             id: parentId,
             userId: profile.id,
             topicId: Number(topicId),
-            emoji: JSON.stringify(emojiSet),
+            emoji,
         }));
 
         closeModal();
