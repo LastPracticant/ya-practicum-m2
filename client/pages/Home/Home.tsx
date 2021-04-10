@@ -4,13 +4,13 @@ import React, { useMemo } from 'react';
 import { PageComponentProps } from 'client/shared/types';
 import { ButtonsToolbar, NivelatorXY, Paper } from 'client/shared/components';
 import {
-    Button, Divider, List, ListItem,
+    Button, Divider, Link, List, ListItem,
 } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import bem from 'bem-cn';
 import { LOCAL } from 'client/shared/consts';
 import { ROUTES } from 'client/routing';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 
 import { logoutThunk, profileSelector } from 'client/core/store';
 import { withCheckAuth } from 'client/core/HOCs';
@@ -36,7 +36,12 @@ const HomeComponent: React.FC<PageComponentProps> = React.memo(({ title }) => {
     const controls = useMemo(
         () => routes.map((route) => (
             <ListItem key={route.title}>
-                <Link to={route.path}>{route.title}</Link>
+                <Link
+                    to={route.path}
+                    component={RouterLink}
+                >
+                    {route.title}
+                </Link>
             </ListItem>
         )),
         [],

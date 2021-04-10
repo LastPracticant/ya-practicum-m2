@@ -17,6 +17,5 @@
 
     &__go-back {
         transform: rotate(180deg);
-        background-color: #f44336 !important;
     }
 }

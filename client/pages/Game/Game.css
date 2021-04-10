@@ -21,7 +21,6 @@
             line-height: 24px;
             letter-spacing: 0.15px;
             text-decoration-line: underline;
-            color: #fff;
             margin-bottom: var(--space-sm);
         }
 
@@ -53,10 +52,6 @@
     &.is-active {
         opacity: 1;
         visibility: visible;
-    }
-
-    &__help a {
-        color: #fff;
     }
 
     &__banner img {

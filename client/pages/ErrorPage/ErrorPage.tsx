@@ -1,5 +1,3 @@
-import './ErrorPage.css';
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import bem from 'bem-cn';

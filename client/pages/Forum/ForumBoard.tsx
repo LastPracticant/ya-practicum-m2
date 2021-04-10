@@ -53,11 +53,9 @@ export const ForumBoardComponent: React.FC<PageComponentProps> = React.memo(({ t
                 <DataGrid
                     rows={topics || []}
                     columns={columns}
-                    pageSize={10}
                     autoHeight
                     disableColumnMenu
                     disableColumnReorder
-                    // TODO: необходима доработка на бэке (нужен контракт с пагинацией), пока скрываем
                     hideFooterPagination
                 />
             </Paper>

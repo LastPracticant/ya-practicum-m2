@@ -1,14 +1,4 @@
 .home {
-    &__avatar {
-        &_small {
-            height: 40px;
-            width: 40px;
-            border-radius: 50%;
-            background-color: #cfcfcf;
-            margin-bottom: var(--space-sm);
-        }
-    }
-
     &__navigation-items {
         padding: var(--space-md) 0 var(--space-sm);
 
@@ -18,13 +8,11 @@
             a {
                 padding: var(--space-xs) 0;
                 text-decoration: none;
-                color: #fff;
                 width: 100%;
             }
         }
 
         li:hover {
-            background-color: #ffffff1a;
             cursor: pointer;
         }
     }

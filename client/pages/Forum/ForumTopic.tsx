@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom';
 import { withCheckAuth } from 'client/core/HOCs';
 import { useElementVisible } from 'client/core/hooks';
 import { LOCAL } from 'client/shared/consts';
-import { Button } from '@material-ui/core';
+import { Button, Divider } from '@material-ui/core';
 import { AddIcon } from '@material-ui/data-grid';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -65,7 +65,9 @@ export const ForumTopicComponent: React.FC<PageComponentProps> = React.memo(({ t
             <Meta title={title} />
             <Paper title={currentTopic?.name}>
                 <div>{currentTopic?.description}</div>
-                <hr className={block('comments-divider')} />
+                <div className={block('comments-divider')}>
+                    <Divider />
+                </div>
                 <Button
                     variant="contained"
                     color="secondary"

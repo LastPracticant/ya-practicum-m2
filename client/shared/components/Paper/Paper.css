@@ -8,7 +8,6 @@
         font-size: 24px;
         line-height: 24px;
         letter-spacing: 0.18px;
-        color: #fff;
     }
 
     &_sizes_full {
@@ -18,11 +17,5 @@
 
     &_sizes_small {
         width: 340px;
-    }
-
-    &_theme_dark {
-        background-color: #444444d4;
-        color: #fff;
-        box-shadow: 0 2px 7px #000;
     }
 }

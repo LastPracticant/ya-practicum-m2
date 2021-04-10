@@ -1,4 +1,5 @@
 import {
+    Link,
     ListItem, ListItemText, Typography,
 } from '@material-ui/core';
 import React, { MouseEvent } from 'react';
@@ -48,18 +49,18 @@ export const Comment: React.FC<CommentProps> = React.memo(({
                         </Typography>
                         {formatCommentDescription(comment.description)}
                         <span className={block('reply')}>
-                            <a
+                            <Link
                                 onClick={handleAddComment}
                                 href="#s"
                             >
                                 {LOCAL.COMMON_PREFIXES.REPLY}
-                            </a>
-                            <a
+                            </Link>
+                            <Link
                                 onClick={handleSetEmoji}
                                 href="#s"
                             >
                                 <InsertEmoticonIcon />
-                            </a>
+                            </Link>
                         </span>
                         <Emojis comment={comment} />
                     </>

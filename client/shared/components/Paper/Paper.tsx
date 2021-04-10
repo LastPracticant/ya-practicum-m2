@@ -1,6 +1,7 @@
 import './Paper.css';
 
 import React, { FC, memo } from 'react';
+import { Paper as MUIPaper } from '@material-ui/core';
 import bem from 'bem-cn';
 
 interface PaperProps extends React.HtmlHTMLAttributes<HTMLElement> {
@@ -20,8 +21,8 @@ export const Paper: FC<PaperProps> = memo(
         theme = 'dark',
         ...props
     }) => (
-        <div
-            className={block({ sizes, theme }).mix(className)}
+        <MUIPaper
+            className={block({ sizes, theme }).mix(className).toString()}
             {...props}
         >
             {title ? (
@@ -32,6 +33,6 @@ export const Paper: FC<PaperProps> = memo(
                     </section>
                 </>
             ) : children}
-        </div>
+        </MUIPaper>
     ),
 );
