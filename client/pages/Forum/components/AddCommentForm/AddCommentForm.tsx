@@ -43,7 +43,6 @@ export const AddCommentForm: React.FC<AddCommentFormProps> = React.memo(({
             userId: profile.id,
             topicId: Number(topicId),
         }));
-
         closeModal();
     };
 
