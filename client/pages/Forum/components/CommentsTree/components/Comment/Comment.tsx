@@ -9,7 +9,8 @@ import { FnActionRequiredProps } from 'client/shared/types';
 import { formatDate } from 'client/shared/utils';
 import { ForumTopicCommentProps } from '../../../../Forum.types';
 import { block } from '../../CommentsTree.config';
-import { formatCommentDescription, parseEmoji } from './Comment.utils';
+import { formatCommentDescription } from './Comment.utils';
+import { Emojis } from '../Emojis';
 
 interface CommentProps {
     comment: ForumTopicCommentProps
@@ -60,9 +61,7 @@ export const Comment: React.FC<CommentProps> = React.memo(({
                                 <InsertEmoticonIcon />
                             </a>
                         </span>
-                        <span className={block('all-emojis')}>
-                            {parseEmoji(comment.emoji)}
-                        </span>
+                        <Emojis comment={comment} />
                     </>
                 )}
             />
