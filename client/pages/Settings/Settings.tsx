@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
 import { PageComponentProps } from 'client/shared/types';
 import { Paper } from 'client/shared/components';
 import { ROUTES } from 'client/routing';
@@ -6,10 +6,18 @@ import { Meta, PageLayout } from 'client/core';
 import { withCheckAuth } from 'client/core/HOCs';
 import { FormControlLabel, Switch } from '@material-ui/core';
 import { LOCAL } from 'client/shared/consts';
+import { ColorThemeContext, ColorThemes } from 'client/core/context';
+import { isThemeColorDark } from 'client/core/context/ColorTheme/ColorTheme.utils';
+
+interface SettingsState {
+    isColorThemeDark: boolean
+}
 
 const SettingsComponent: React.FC<PageComponentProps> = ({ title }) => {
-    const [settings, setSettings] = React.useState({
-        isColorThemeDark: true,
+    const { updateTheme, theme } = useContext(ColorThemeContext);
+
+    const [settings, setSettings] = React.useState<SettingsState>({
+        isColorThemeDark: isThemeColorDark(theme),
     });
 
     const handleSettingsChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,8 +28,7 @@ const SettingsComponent: React.FC<PageComponentProps> = ({ title }) => {
     }, []);
 
     useEffect(() => {
-        // TODO: необходимо хранить в localStorage на первое время
-        console.log(settings);
+        updateTheme(settings.isColorThemeDark ? ColorThemes.Dark : ColorThemes.Light);
     }, [settings]);
 
     return (
