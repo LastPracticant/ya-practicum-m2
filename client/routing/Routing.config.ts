@@ -13,6 +13,7 @@ import {
     Settings,
 } from 'client/pages';
 import { ProfileEdit, ProfileEditPassword, ProfileForm } from 'client/pages/Profile/components';
+import { LOCAL } from 'client/shared/consts';
 import { PageComponentProps } from 'client/shared/types';
 import React from 'react';
 
@@ -33,56 +34,56 @@ export interface RouteValueProps {
 export const ROUTES: RoutesProps = {
     HOME: {
         path: '/',
-        title: 'Главная',
+        title: LOCAL.PAGES.HOME,
         component: Home,
         exact: true,
     },
     SIGNIN: {
         path: '/signin',
-        title: 'Вход',
+        title: LOCAL.PAGES.SIGNIN,
         component: Signin,
     },
     SIGNUP: {
         path: '/signup',
-        title: 'Регистрация',
+        title: LOCAL.PAGES.SIGNUP,
         component: Signup,
     },
     PROFILE: {
         path: '/profile',
-        title: 'Профиль',
+        title: LOCAL.PAGES.PROFILE,
         component: Profile,
         children: {
             PASSWORD: {
                 path: '/profile/password',
-                title: 'Изменение пароля',
+                title: LOCAL.PAGES.PROFILE_PASSWORD,
                 component: ProfileEditPassword,
             },
             DATA: {
                 path: '/profile/data',
-                title: 'Изменение данных',
+                title: LOCAL.PAGES.PROFILE_DATA,
                 component: ProfileEdit,
             },
             VIEW: {
                 path: '/profile',
-                title: 'Профиль',
+                title: LOCAL.PAGES.PROFILE,
                 component: ProfileForm,
             },
         },
     },
     FORUM: {
         path: '/forum',
-        title: 'Форум',
+        title: LOCAL.PAGES.FORUM,
         component: Forum,
         children: {
             TOPIC: {
                 path: '/forum/topic',
                 params: '/:id',
-                title: 'Форум: тема',
+                title: LOCAL.PAGES.TOPIC,
                 component: ForumTopic,
             },
             BOARD: {
                 path: '/forum',
-                title: 'Форум',
+                title: LOCAL.PAGES.FORUM,
                 component: ForumBoard,
             },
             NOT_FOUND: {
@@ -94,22 +95,22 @@ export const ROUTES: RoutesProps = {
     },
     GAME: {
         path: '/game',
-        title: 'Игра',
+        title: LOCAL.PAGES.GAME,
         component: Game,
     },
     GAME_START: {
         path: '/game-start',
-        title: 'Начать игру',
+        title: LOCAL.PAGES.GAME_START,
         component: GameStart,
     },
     LEADERBOARD: {
         path: '/leaderboard',
-        title: 'Таблица лидеров',
+        title: LOCAL.PAGES.LEADERBOARD,
         component: Leaderboard,
     },
     SETTINGS: {
         path: '/settings',
-        title: 'Настройки',
+        title: LOCAL.PAGES.SETTINGS,
         component: Settings,
     },
     NOT_FOUND: {
