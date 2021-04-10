@@ -19,7 +19,7 @@ export const composeEmojisToSend = ({
 }: ComposeEmojisToSendProps) => {
     if (!topicId || !parentId || !emojiObject.id) return;
 
-    const currentComment = comments?.find((comment) => comment.id === Number(topicId));
+    const currentComment = comments?.find((comment) => comment.id === parentId);
     const emojiSet = parseEmoji(currentComment?.emoji);
 
     if (emojiSet[emojiObject.id]?.includes(userId)) {
