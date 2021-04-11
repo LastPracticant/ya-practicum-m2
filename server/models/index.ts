@@ -1,4 +1,6 @@
-import { Sequelize, SequelizeOptions } from 'sequelize-typescript';
+import {
+    Sequelize,
+} from 'sequelize-typescript';
 
 import { POSTGRES_CONNECT_OPTIONS } from '../../env';
 import { TopicModel } from './TopicModel';
@@ -15,7 +17,16 @@ class PostgresConnector {
     users: UserModel;
 
     constructor() {
-        this.sequelize = new Sequelize(POSTGRES_CONNECT_OPTIONS as SequelizeOptions);
+        this.sequelize = new Sequelize(POSTGRES_CONNECT_OPTIONS || '', {
+            dialect: 'postgres',
+            protocol: 'postgres',
+            dialectOptions: {
+                ssl: {
+                    require: true,
+                    rejectUnauthorized: false,
+                },
+            },
+        });
         this.comments = new CommentModel(this.sequelize);
         this.topics = new TopicModel(this.sequelize);
         this.users = new UserModel(this.sequelize);

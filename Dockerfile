@@ -15,3 +15,9 @@ COPY . .
 RUN npm run build
 
 EXPOSE 5000
+
+# TODO: если останется время, сделать раздел "Обратная связь", 
+# в таком случае будет подкючен Mongo, старт сервиса будет перенесен
+# в docker-compose.yaml, в сервис lp-app нужно будет добавить команду:
+# command: ./wait-for.sh mongo:27017 -- npm run heroku-start
+CMD npm run heroku-start
