@@ -1,7 +1,7 @@
 import './App.css';
 import './shared/styles/theme.css';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routing } from 'client/routing/Routing';
 import { CssBaseline } from '@material-ui/core';
 import { useSelector } from 'react-redux';
@@ -12,6 +12,12 @@ import { ColorThemeContextProvider } from './core/context';
 export const App: React.FC = () => {
     const loader = useSelector(loaderSelector);
     const snackBar = useSelector(snackbarSelector);
+
+    useEffect(() => {
+        const jssStyles = document.querySelector('#jss-server-side');
+
+        jssStyles?.parentElement?.removeChild(jssStyles);
+    }, []);
 
     return (
         <ColorThemeContextProvider>

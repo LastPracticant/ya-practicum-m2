@@ -1,3 +1,4 @@
+import { ServerStyleSheets } from '@material-ui/core';
 import { App } from 'client/App';
 import { StoreProps } from 'client/core/store';
 import React from 'react';
@@ -11,9 +12,12 @@ interface PageHtmlProps {
     html: string;
     state: StoreProps
     helmet: HelmetData;
+    css: string
 }
 
-function getPageHtml({ html, state, helmet }: PageHtmlProps) {
+function getPageHtml({
+    html, state, helmet, css,
+}: PageHtmlProps) {
     const staticMarkup = renderToStaticMarkup(
         <html lang="ru">
             <base href="/" />
@@ -23,6 +27,7 @@ function getPageHtml({ html, state, helmet }: PageHtmlProps) {
                 {helmet.link.toComponent()}
                 {helmet.script.toComponent()}
                 <link rel="icon" type="image/png" href="./idea.png" />
+                <style id="jss-server-side">${css}</style>
                 <link rel="stylesheet" href="/main.css" type="text/css" />
             </head>
 
@@ -44,18 +49,27 @@ function getPageHtml({ html, state, helmet }: PageHtmlProps) {
 
 export const renderHtml = (reqUrl: string, state: StoreProps, store: Store) => {
     const context = {};
+    const sheets = new ServerStyleSheets();
 
     const html = renderToString(
-        <ReduxProvider store={store}>
-            <StaticRouter context={context} location={reqUrl}>
-                <App />
-            </StaticRouter>
-        </ReduxProvider>,
+        sheets.collect(
+            <ReduxProvider store={store}>
+                <StaticRouter context={context} location={reqUrl}>
+                    <App />
+                </StaticRouter>
+            </ReduxProvider>,
+        ),
     );
 
     const helmet = Helmet.rewind();
+    const css = sheets.toString();
 
     return {
-        html: getPageHtml({ html, state, helmet }),
+        html: getPageHtml({
+            html,
+            state,
+            helmet,
+            css,
+        }),
     };
 };
