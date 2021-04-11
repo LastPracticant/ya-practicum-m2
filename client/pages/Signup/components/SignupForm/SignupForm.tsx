@@ -61,7 +61,7 @@ export const SignupForm: React.FC = React.memo(() => {
                     {controls}
                 </Grid>
                 <Grid container item xs={12} justify="center" spacing={1}>
-                    <Button color="primary" type="submit" variant="contained">
+                    <Button color="secondary" type="submit">
                         {LOCAL.REGISTER}
                     </Button>
                     <Button

@@ -52,7 +52,7 @@ export const SigninForm: React.FC = React.memo(() => {
                 </Grid>
                 <Grid container item xs={12} justify="center" spacing={1}>
                     <Grid item>
-                        <Button color="primary" type="submit" variant="contained">
+                        <Button color="secondary" type="submit">
                             {LOCAL.AUTHORIZE}
                         </Button>
                     </Grid>
