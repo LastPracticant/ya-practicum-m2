@@ -5,6 +5,7 @@ import { hot } from 'react-hot-loader/root';
 import { ConnectedRouter } from 'connected-react-router';
 import { App } from './App';
 import { composeStore, history, rootReducer } from './core/store';
+import { IS_DEV } from '../env';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
@@ -25,12 +26,14 @@ const RootComponent = () => (
 const RootComponentWithHot = hot(RootComponent);
 
 ReactDOM.hydrate(
-    <RootComponentWithHot />,
+    IS_DEV ? (<RootComponentWithHot />) : (<RootComponent />),
     document.getElementById('root'),
 );
 
-if ((module as any).hot) {
-    (module as any).hot.accept('./core/store/store', () => {
-        store.replaceReducer(rootReducer);
-    });
+if (IS_DEV) {
+    if ((module as any).hot) {
+        (module as any).hot.accept('./core/store/store', () => {
+            store.replaceReducer(rootReducer);
+        });
+    }
 }

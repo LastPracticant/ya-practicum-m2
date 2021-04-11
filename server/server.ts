@@ -8,8 +8,7 @@ import webpackConfig from '../webpack.config.client';
 import { renderBundle } from './middlewares/renderBundle';
 import { routing } from './routing';
 import { postgres } from './models';
-
-const compiler = webpack(webpackConfig as Configuration);
+import { IS_DEV } from '../env';
 
 export class Server {
     private app;
@@ -23,12 +22,18 @@ export class Server {
 
     private config() {
         this.app.use(cookieParser());
-        this.app.use(devMiddleware(compiler, {
-            serverSideRender: true,
-            writeToDisk: true,
-            publicPath: webpackConfig.output.publicPath,
-        }));
-        this.app.use(hotMiddleware(compiler));
+
+        if (IS_DEV) {
+            const compiler = webpack(webpackConfig as Configuration);
+
+            this.app.use(devMiddleware(compiler, {
+                serverSideRender: true,
+                writeToDisk: true,
+                publicPath: webpackConfig.output.publicPath,
+            }));
+            this.app.use(hotMiddleware(compiler));
+        }
+
         this.app.use(renderBundle);
     }
 

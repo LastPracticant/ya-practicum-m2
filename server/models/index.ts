@@ -17,7 +17,7 @@ class PostgresConnector {
     users: UserModel;
 
     constructor() {
-        this.sequelize = new Sequelize(POSTGRES_CONNECT_URL || '', {
+        this.sequelize = new Sequelize(POSTGRES_CONNECT_URL as string, {
             dialect: 'postgres',
             protocol: 'postgres',
             ...POSTGRES_CONNECT_OPTIONS,
