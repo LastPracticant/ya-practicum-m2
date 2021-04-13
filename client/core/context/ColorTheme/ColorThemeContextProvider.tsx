@@ -7,7 +7,7 @@ import { DARK_THEME, LIGHT_THEME } from 'client/core/colors';
 import { isServer } from 'client/core/store';
 import { ColorThemeContext } from './ColorTheme.context';
 import { ColorThemes } from './ColorTheme.types';
-import { isThemeColorDark } from './ColorTheme.utils';
+import { isThemeColorDark, isThemeColorLight } from './ColorTheme.utils';
 
 const storageKey = 'color-theme';
 
@@ -22,7 +22,7 @@ export const ColorThemeContextProvider: FC = React.memo(({ children }) => {
     }), [theme]);
 
     const changeTheme = useCallback(
-        () => updateTheme((prevTheme) => (isThemeColorDark(prevTheme) ? ColorThemes.Dark : ColorThemes.Light)),
+        () => updateTheme((prevTheme) => (isThemeColorLight(prevTheme) ? ColorThemes.Dark : ColorThemes.Light)),
         [updateTheme],
     );
 

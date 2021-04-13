@@ -2,7 +2,7 @@ import {
     Sequelize,
 } from 'sequelize-typescript';
 
-import { POSTGRES_CONNECT_URL, POSTGRES_CONNECT_OPTIONS } from '../../env';
+import { POSTGRES_CONNECT_OPTIONS } from '../../env';
 import { TopicModel } from './TopicModel';
 import { CommentModel } from './CommentModel';
 import { UserModel } from './UserModel';
@@ -17,11 +17,16 @@ class PostgresConnector {
     users: UserModel;
 
     constructor() {
-        this.sequelize = new Sequelize(POSTGRES_CONNECT_URL as string, {
-            dialect: 'postgres',
-            protocol: 'postgres',
-            ...POSTGRES_CONNECT_OPTIONS,
-        });
+        this.sequelize = new Sequelize(
+            process.env.POSTGRES_DATABASE as string,
+            process.env.POSTGRES_USERNAME as string,
+            process.env.POSTGRES_PASSWORD as string,
+            {
+                host: 'localhost',
+                dialect: 'postgres',
+                ...POSTGRES_CONNECT_OPTIONS,
+            },
+        );
         this.comments = new CommentModel(this.sequelize);
         this.topics = new TopicModel(this.sequelize);
         this.users = new UserModel(this.sequelize);
