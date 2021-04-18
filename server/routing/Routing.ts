@@ -8,7 +8,7 @@ import {
     TopicController,
 } from '../controllers';
 
-export function routing(app: Express) {
+export const routing = (app: Express) => {
     const jsonParser = express.json();
 
     app.get('*.(js|json|css|png|jpe?g|gif)$', (req, res) => {
@@ -39,4 +39,4 @@ export function routing(app: Express) {
     app.get('*', (req, res) => {
         res.renderBundle(req.url);
     });
-}
+};
