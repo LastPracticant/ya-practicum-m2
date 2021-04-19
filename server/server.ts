@@ -6,7 +6,7 @@ import webpack, { Configuration } from 'webpack';
 
 import webpackConfig from '../webpack.config.client';
 import { renderBundle } from './middlewares/renderBundle';
-import { routing } from './routing/routing';
+import { routing } from './routing';
 import { postgres } from './models';
 import { IS_DEV } from '../env';
 import { addCSP, generateNonce } from './middlewares';

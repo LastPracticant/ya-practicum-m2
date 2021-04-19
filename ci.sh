@@ -1,9 +1,11 @@
 #!/bin/bash
 
-docker build -t cr.yandex/crpasb6c8g98nppq2f2v/lp-app:v$1 .
-docker push cr.yandex/crpasb6c8g98nppq2f2v/lp-app:v$1
-
-# TODO: если хватит времени автоматизировать в LP-130
+# ----
+# Manual deploy - пример на случай, если потребуется делать deploy вручную
+# ----
+# docker build -t cr.yandex/crpasb6c8g98nppq2f2v/lp-app:v$1 .
+# docker push cr.yandex/crpasb6c8g98nppq2f2v/lp-app:v$1
+# ----
 # docker build -t lp-app .
 # docker tag lp-app cr.yandex/crpasb6c8g98nppq2f2v/lp-app:v$1
 # docker push cr.yandex/crpasb6c8g98nppq2f2v/lp-app:v$1

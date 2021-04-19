@@ -24,7 +24,7 @@ jobs:
           docker login --username oauth --password ${{secrets.YC_OAUTH_TOKEN}} cr.yandex
           docker build -t ${DEPLOY_IMAGE_NAME} .
           docker push ${DEPLOY_IMAGE_NAME}
-  
+
   deploy:
     runs-on: ubuntu-latest
     needs: [build]
@@ -37,9 +37,11 @@ jobs:
           key: ${{secrets.SSH_KEY}}
           script: |
             whoami
+            docker run hello-world
             docker stop $(docker ps -a -q)
             docker rm $(docker ps -a -q)
             docker rmi $(docker images -q)
+            echo "${{DEPLOY_IMAGE_NAME}}"
             docker pull ${DEPLOY_IMAGE_NAME}
             docker run -p 8066:5000 -d --name lp-app -e POSTGRES_USERNAME=${{secrets.POSTGRES_USERNAME}} -e POSTGRES_PASSWORD=${{secrets.POSTGRES_PASSWORD}} -e POSTGRES_DATABASE=${{secrets.POSTGRES_DATABASE}} ${DEPLOY_IMAGE_NAME}
 
