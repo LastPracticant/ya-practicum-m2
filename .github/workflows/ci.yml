@@ -18,24 +18,37 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+#   # This workflow contains a single job called "build"
+#   build:
+#     # The type of runner that the job will run on
+#     runs-on: ubuntu-latest
+
+#     # Steps represent a sequence of tasks that will be executed as part of the job
+#     steps:
+#       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+#       - uses: actions/checkout@v2
+
+#       # Runs a single command using the runners shell
+#       - name: Run a one-line script
+#         run: | 
+#           curl https://storage.yandexcloud.net/yandexcloud-yc/install.sh | bash -s -- -i /opt/yandex-cloud -n
+#           ${YC_PATH} config set token ${YC_OAUTH_TOKEN}
+#           ${YC_PATH} config profile create batia
+#           ${YC_PATH} config set folder-id b1gb6olmron2khu1fqf4
+#           ${YC_PATH} config set cloud-id b1g1k4hfma98vqpph1mh
+#           docker login --username oauth --password ${YC_OAUTH_TOKEN} cr.yandex
+#           docker build -t ${DEPLOY_IMAGE_NAME} .
+#           docker push ${DEPLOY_IMAGE_NAME}
+  
+  yc-deploy:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: | 
-          curl https://storage.yandexcloud.net/yandexcloud-yc/install.sh | bash -s -- -i /opt/yandex-cloud -n
-          ${YC_PATH} config set token ${YC_OAUTH_TOKEN}
-          ${YC_PATH} config profile create batia
-          ${YC_PATH} config set folder-id b1gb6olmron2khu1fqf4
-          ${YC_PATH} config set cloud-id b1g1k4hfma98vqpph1mh
-          docker login --username oauth --password ${YC_OAUTH_TOKEN} cr.yandex
-          docker build -t ${DEPLOY_IMAGE_NAME} .
-          docker push ${DEPLOY_IMAGE_NAME}
+      - name: executing remote ssh commands using ssh key
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.USER_NAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            whoami
+            ls -a
