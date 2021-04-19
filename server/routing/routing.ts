@@ -8,7 +8,7 @@ import {
     TopicController,
 } from '../controllers';
 
-export const Her = (app: Express) => {
+export const routing = (app: Express) => {
     const jsonParser = express.json();
 
     app.get('*.(js|json|css|png|jpe?g|gif)$', (req, res) => {

@@ -6,7 +6,7 @@ import webpack, { Configuration } from 'webpack';
 
 import webpackConfig from '../webpack.config.client';
 import { renderBundle } from './middlewares/renderBundle';
-import { Her } from './routing/Her';
+import { routing } from './routing/routing';
 import { postgres } from './models';
 import { IS_DEV } from '../env';
 import { addCSP, generateNonce } from './middlewares';
@@ -45,7 +45,7 @@ export class Server {
     }
 
     private routerConfig() {
-        Her(this.app);
+        routing(this.app);
     }
 
     public start = (port: number) => new Promise((resolve, reject) => {
