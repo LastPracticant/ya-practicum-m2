@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Run a one-line script
+      - name: Building and pushing docker image to hub
         run: | 
           curl https://storage.yandexcloud.net/yandexcloud-yc/install.sh | bash -s -- -i /opt/yandex-cloud -n
           ${{ env.YC_PATH }} config set token ${{ secrets.YC_OAUTH_TOKEN }}
@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build]
     steps:
-      - name: executing remote ssh commands using ssh key
+      - name: Creating and starting app container
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.DEPLOY_HOST }}
