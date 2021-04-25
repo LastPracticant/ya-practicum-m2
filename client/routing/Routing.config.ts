@@ -26,7 +26,6 @@ export interface RouteValueProps {
     title: string
     component: React.FC<PageComponentProps>
     params?: string
-    fetchData?: Function
     exact?: boolean
     children?: RoutesProps
 }

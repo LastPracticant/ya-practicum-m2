@@ -1,5 +1,6 @@
 # Deploy
-https://last-practicant.herokuapp.com/
+https://reykjavik-last-practicant-3.ya-praktikum.tech (Yandex Cloud - актуальная версия)
+https://last-practicant.herokuapp.com/ (Heroku - старая версия, больше не обновляется)
 
 # Сборка + БД (последовательность действий)
 Перед началом разработки необходимо поднять контейнеры с БД. Это можно сделать следующим образом (из корневой директории проекта):
@@ -15,6 +16,15 @@ https://last-practicant.herokuapp.com/
 2) npm run ssr-start
 
 # Об игре
+
+## Поддержка браузерами
+- Chrome 40+ (основная платформа)
+- Edge 79+
+- Safari 10+
+- Opera 27+
+
+PS. Firefox не поддерживается, в первую очередь из за плохой поддержки `nonce` (требовается для нормальной работы инлайновых стилей Material UI в связи с Content Security Policy)
+
 ## Название игры
 Последний практикант
 

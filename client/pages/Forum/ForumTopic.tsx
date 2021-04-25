@@ -54,7 +54,8 @@ export const ForumTopicComponent: React.FC<PageComponentProps> = React.memo(({ t
     useEffect(() => {
         const topicId = Number(params.id);
 
-        if (topicId) {
+        if (!topicId) return;
+        if (!currentTopic) {
             dispatch(getTopicByIdThunk(topicId));
             dispatch(getCommentsThunk(topicId));
         }

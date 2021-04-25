@@ -1,6 +1,7 @@
 import { Response, Request } from 'express';
 
 import { postgres } from '../models';
+import { users } from './controllers.mixins';
 
 export class LeaderboardController {
     public static getPlayersScores(req: Request, res: Response) {
@@ -9,11 +10,7 @@ export class LeaderboardController {
             order: [
                 ['score', 'DESC'],
             ],
-            include: [
-                {
-                    model: postgres.users.table,
-                },
-            ],
+            include: [users],
         })
             .then((playersScores) => res.status(200).send(playersScores))
             .catch((error) => {

@@ -20,7 +20,7 @@ export const columns: Columns = [
             <Link
                 component={RouterLink}
                 to={`${ROUTES.FORUM.children?.TOPIC.path}/${params.getValue('id')}`}
-                className={block('topic-link')}
+                className={block('topic-link').toString()}
                 color="error"
             >
                 {params.value}

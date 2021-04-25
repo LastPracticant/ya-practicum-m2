@@ -6,7 +6,8 @@ import { NextFunction, Request, Response } from 'express';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import fetch from 'node-fetch';
-import { getCurrentUserInfoThunk } from 'server/store/actions';
+import { getCurrentUserInfoThunk, getUserSettingsThunk } from 'server/store/actions';
+import { prepareStoreForClient } from 'server/store/store.utils';
 import { defaultState } from '../store/initialState';
 import { renderHtml } from './renderHtml';
 
@@ -21,6 +22,8 @@ export function renderBundle(req: Request, res: Response, next: NextFunction) {
         const dispatch = store.dispatch as ThunkDispatch<StoreProps, void, AnyAction>;
 
         await dispatch(getCurrentUserInfoThunk(req));
+        await dispatch(getUserSettingsThunk(store.getState().profile.id));
+        await prepareStoreForClient(dispatch, req);
 
         const state = store.getState();
         const { html } = renderHtml(url, state, store, res.locals.styleNonce);

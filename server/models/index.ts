@@ -34,7 +34,7 @@ class PostgresConnector {
     }
 
     sync() {
-        this.sequelize.sync().then(() => {
+        this.sequelize.sync({ force: true }).then(() => {
             console.info('--------------- Postgres sync successful. ---------------');
         })
             .catch(console.error);

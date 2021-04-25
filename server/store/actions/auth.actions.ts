@@ -1,6 +1,3 @@
-import {
-    API_SERVER_HOST,
-} from 'client/core/api';
 import { Request } from 'express';
 import { Action } from 'redux';
 import { ThunkAction } from 'redux-thunk';
@@ -14,15 +11,9 @@ export const getCurrentUserInfoThunk = (req: Request): ThunkAction<void, StorePr
     }).then(async (response) => {
         const payload = await response.json();
 
-        dispatch(
-            setCurrentUserInfoAction({
-                ...payload,
-                avatar: payload.avatar && API_SERVER_HOST + payload.avatar,
-            }),
-        );
+        dispatch(setCurrentUserInfoAction(payload));
         dispatch(changeAuth(true));
-    })
-        .catch(() => {
-            dispatch(changeAuth(false));
-        });
+    }).catch(() => {
+        dispatch(changeAuth(false));
+    });
 };

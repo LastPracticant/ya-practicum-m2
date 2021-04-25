@@ -2,10 +2,7 @@ import { SET_COMMENTS, SET_CURRENT_TOPIC, SET_TOPICS } from '../actions';
 import { ActionProps } from '../actions/actions.types';
 import { StoreForumProps } from '../store.types';
 
-const initialStateProfile = {
-    topics: [],
-    comments: [],
-} as StoreForumProps;
+const initialStateProfile = {} as StoreForumProps;
 
 export const forumReducers = (
     state: StoreForumProps = initialStateProfile,

@@ -2,20 +2,11 @@ import { Response, Request } from 'express';
 
 import { postgres } from '../models';
 import { RESPONSES_MESSAGES } from './controllers.consts';
+import { fetchTopicComments } from './controllers.utils';
 
 export class CommentController {
     public static getAll(req: Request, res: Response) {
-        postgres.comments.table.findAll({
-            where: {
-                topicId: req.params.topicId,
-            },
-            include: [{
-                model: postgres.users.table,
-            }],
-            order: [
-                ['updatedAt', 'ASC'],
-            ],
-        })
+        fetchTopicComments(req.params.topicId)
             .then((comments) => res.status(200).send(comments))
             .catch((error) => {
                 res.status(400).send(error);

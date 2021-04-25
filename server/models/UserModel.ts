@@ -22,6 +22,9 @@ export class UserModel {
             name: {
                 type: DataTypes.STRING,
             },
+            settings: {
+                type: DataTypes.JSONB,
+            },
         });
     }
 }

@@ -7,6 +7,7 @@ import {
     ProfileController,
     TopicController,
     LeaderboardController,
+    UserController,
 } from '../controllers';
 
 export const routing = (app: Express) => {
@@ -25,11 +26,11 @@ export const routing = (app: Express) => {
     app.post('/api/v2/auth/logout', jsonParser, AuthController.logout);
 
     /** Форум */
-    app.get('/api/v2/internal/forum/topic', checkAuth, TopicController.getAll);
+    app.get('/api/v2/internal/forum/topics', checkAuth, TopicController.getAll);
     app.get('/api/v2/internal/forum/topic/:topicId', checkAuth, TopicController.getById);
     app.post('/api/v2/internal/forum/topic', checkAuth, jsonParser, TopicController.add);
     app.put('/api/v2/internal/forum/topic', checkAuth, jsonParser, TopicController.update);
-    app.get('/api/v2/internal/forum/comment/:topicId', checkAuth, CommentController.getAll);
+    app.get('/api/v2/internal/forum/comments/:topicId', checkAuth, CommentController.getAll);
     app.post('/api/v2/internal/forum/comment', checkAuth, jsonParser, CommentController.add);
     app.put('/api/v2/internal/forum/comment', checkAuth, jsonParser, CommentController.update);
 
@@ -37,6 +38,10 @@ export const routing = (app: Express) => {
     app.get('/api/v2/internal/leaderboard', checkAuth, LeaderboardController.getPlayersScores);
     app.get('/api/v2/internal/leaderboard/:playerId', checkAuth, LeaderboardController.getScoreByPlayerId);
     app.post('/api/v2/internal/leaderboard', checkAuth, jsonParser, LeaderboardController.addPlayerScore);
+
+    /** Настройки */
+    app.get('/api/v2/internal/settings/:userId', checkAuth, UserController.getUserSettings);
+    app.put('/api/v2/internal/settings', checkAuth, jsonParser, UserController.updateUserSettings);
 
     /** Профайл */
     app.put('/api/v2/user/profile', jsonParser, ProfileController.change);

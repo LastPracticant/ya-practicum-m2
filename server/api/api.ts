@@ -1,13 +1,15 @@
 import {
-    API_SERVER_HOST, METHOD, OptionsType, OptionsWithoutMethodType, queryStringify,
+    METHOD, OptionsType, OptionsWithoutMethodType, queryStringify,
 } from 'client/core/api';
 import fetch, { Response } from 'node-fetch';
+
+const EXTERNAL_API_HOST = 'https://ya-praktikum.tech';
 
 export class ExpressHTTP {
     _path: string;
 
     constructor(path = '') {
-        this._path = `${API_SERVER_HOST}/api/v2${path}`;
+        this._path = `${EXTERNAL_API_HOST}/api/v2${path}`;
     }
 
     get<Req>(url: string, options: OptionsWithoutMethodType = {}) {

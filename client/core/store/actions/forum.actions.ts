@@ -28,7 +28,6 @@ export const setCommentsAction = (payload: StoreForumProps) => ({
     payload,
 });
 
-// TODO: сделать предзапрос данных на бэке для SSR, если время останется
 export const getTopicsThunk = (): ThunkAction<void, StoreProps, unknown, Action<string>> => (dispatch) => {
     dispatch(showLoaderAction());
 

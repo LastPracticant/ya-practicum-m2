@@ -6,3 +6,4 @@ export * from './oauth.selectors';
 export * from './snackbar.selectors';
 export * from './forum.selectors';
 export * from './leaderboard.selectors';
+export * from './settings.selectors';

@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { PageComponentProps } from 'client/shared/types';
 import { Paper } from 'client/shared/components';
 import { ROUTES } from 'client/routing';
@@ -6,30 +6,28 @@ import { Meta, PageLayout } from 'client/core';
 import { withCheckAuth } from 'client/core/HOCs';
 import { FormControlLabel, Switch } from '@material-ui/core';
 import { LOCAL } from 'client/shared/consts';
-import { ColorThemeContext, ColorThemes } from 'client/core/context';
-import { isThemeColorDark } from 'client/core/context/ColorTheme/ColorTheme.utils';
-
-interface SettingsState {
-    isColorThemeDark: boolean
-}
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    profileSelector, settingsSelector, setUserSettingsAction, updateUserSettingsThunk,
+} from 'client/core/store';
+import { ColorThemes } from './Settings.config';
 
 const SettingsComponent: React.FC<PageComponentProps> = ({ title }) => {
-    const { updateTheme, theme } = useContext(ColorThemeContext);
+    const dispatch = useDispatch();
+    const userSettings = useSelector(settingsSelector);
+    const profile = useSelector(profileSelector);
 
-    const [settings, setSettings] = React.useState<SettingsState>({
-        isColorThemeDark: isThemeColorDark(theme),
-    });
+    const handleChangeColorTheme = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+        const settings = {
+            colorTheme: event.target.checked ? ColorThemes.Dark : ColorThemes.Light,
+        };
 
-    const handleSettingsChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-        setSettings((prevSettings) => ({
-            ...prevSettings,
-            [event.target.name]: event.target.checked,
+        dispatch(setUserSettingsAction(settings));
+        dispatch(updateUserSettingsThunk({
+            id: profile.id,
+            settings: JSON.stringify(settings),
         }));
     }, []);
-
-    useEffect(() => {
-        updateTheme(settings.isColorThemeDark ? ColorThemes.Dark : ColorThemes.Light);
-    }, [settings]);
 
     return (
         <PageLayout goBackLink={ROUTES.HOME.path}>
@@ -38,8 +36,8 @@ const SettingsComponent: React.FC<PageComponentProps> = ({ title }) => {
                 <FormControlLabel
                     control={(
                         <Switch
-                            checked={settings.isColorThemeDark}
-                            onChange={handleSettingsChange}
+                            checked={userSettings.colorTheme !== ColorThemes.Light}
+                            onChange={handleChangeColorTheme}
                             name="isColorThemeDark"
                             inputProps={{ 'aria-label': 'secondary checkbox' }}
                         />

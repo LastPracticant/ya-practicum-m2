@@ -18,9 +18,6 @@ export interface ResponseProps<T> extends Omit<XMLHttpRequest, 'response'> {
     response: T
 }
 
-export const API_SERVER_HOST = 'https://ya-praktikum.tech';
-export const API_EXPRESS_HOST = '';
-
 export function queryStringify<T extends object>(data: T): string {
     if (!data) {
         return '';
@@ -31,11 +28,13 @@ export function queryStringify<T extends object>(data: T): string {
     return `?${queryArr.join('&')}`;
 }
 
+export const INTERNAL_API_HOST = '';
+
 export class HTTP {
     _path: string;
 
     constructor(path = '') {
-        this._path = `${API_EXPRESS_HOST}/api/v2${path}`;
+        this._path = `${INTERNAL_API_HOST}/api/v2${path}`;
     }
 
     get<Req, Res>(url: string, options: OptionsWithoutMethodType = {}): Promise<Res> {

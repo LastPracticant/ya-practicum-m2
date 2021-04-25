@@ -30,7 +30,7 @@ export const ForumBoardComponent: React.FC<PageComponentProps> = React.memo(({ t
     }, []);
 
     return (
-        <PageLayout goBackLink={ROUTES.HOME.path} className={block()}>
+        <PageLayout goBackLink={ROUTES.HOME.path} className={block().toString()}>
             <Meta title={title} />
             <Paper title={title}>
                 <ButtonsToolbar justify="flex-end">

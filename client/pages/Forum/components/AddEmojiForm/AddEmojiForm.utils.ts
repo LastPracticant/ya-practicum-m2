@@ -1,5 +1,5 @@
-import { GetAllCommentsResponseProps } from 'client/core/api';
 import { EmojiData } from 'emoji-mart';
+import { CommentModelProps } from 'server/models/models.types';
 import { parseEmoji } from '../CommentsTree/components/Emojis/Emojis.utils';
 
 interface ComposeEmojisToSendProps {
@@ -7,7 +7,7 @@ interface ComposeEmojisToSendProps {
     topicId?: string
     parentId?: number
     userId: number
-    comments?: GetAllCommentsResponseProps[]
+    comments?: CommentModelProps[]
 }
 
 export const composeEmojisToSend = ({

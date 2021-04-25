@@ -2,20 +2,11 @@ import { Response, Request } from 'express';
 
 import { postgres } from '../models';
 import { RESPONSES_MESSAGES } from './controllers.consts';
+import { fetchTopicById, fetchTopics } from './controllers.utils';
 
 export class TopicController {
     public static getAll(req: Request, res: Response) {
-        postgres.topics.table.findAll({
-            attributes: { exclude: ['description'] },
-            order: [
-                ['updatedAt', 'ASC'],
-            ],
-            include: [
-                {
-                    model: postgres.users.table,
-                },
-            ],
-        })
+        fetchTopics()
             .then((topics) => res.status(200).send(topics))
             .catch((error) => {
                 res.status(400).send(error);
@@ -23,7 +14,7 @@ export class TopicController {
     }
 
     public static getById(req: Request, res: Response) {
-        postgres.topics.table.findByPk(req.params.topicId)
+        fetchTopicById(req.params.topicId)
             .then((topic) => {
                 if (!topic) {
                     return res.status(404).send({

@@ -1,5 +1,5 @@
 import { PaletteOptions } from '@material-ui/core/styles/createPalette';
-import { ColorThemes } from '../context/ColorTheme/ColorTheme.types';
+import { ColorThemes } from 'client/pages/Settings/Settings.config';
 
 export const DARK_THEME: PaletteOptions = {
     type: ColorThemes.Dark,

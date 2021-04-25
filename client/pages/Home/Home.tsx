@@ -13,7 +13,7 @@ import { ROUTES } from 'client/routing';
 import { Link as RouterLink } from 'react-router-dom';
 
 import {
-    currentPlayerScoreSelector, getScoreByPlayerIdThunk, logoutThunk, profileSelector,
+    currentPlayerScoreSelector, getScoreByPlayerIdThunk, getUserSettingsThunk, logoutThunk, profileSelector,
 } from 'client/core/store';
 import { withCheckAuth } from 'client/core/HOCs';
 import { Meta, Logo } from 'client/core';
@@ -52,6 +52,7 @@ const HomeComponent: React.FC<PageComponentProps> = React.memo(({ title }) => {
 
     useEffect(() => {
         dispatch(getScoreByPlayerIdThunk(profile.id));
+        dispatch(getUserSettingsThunk(profile.id));
     }, []);
 
     return (

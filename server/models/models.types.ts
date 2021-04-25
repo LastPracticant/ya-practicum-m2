@@ -1,3 +1,5 @@
+import { UserInfoProps } from 'client/core/api';
+
 export interface CommonModelProps {
     id: number
     createdAt: Date
@@ -13,6 +15,7 @@ export interface TopicModelProps extends CommonModelProps {
     name: string
     description: string
     userId: number
+    user: UserInfoProps
 }
 
 export interface CommentModelProps extends CommonModelProps {
@@ -21,6 +24,7 @@ export interface CommentModelProps extends CommonModelProps {
     topicId: number
     emoji?: string
     parentId?: number
+    user: UserInfoProps
 }
 
 export interface EmojiParsedProps {
@@ -30,4 +34,5 @@ export interface EmojiParsedProps {
 export interface UserModelProps extends CommonModelProps {
     userExternalId: number
     name: string
+    settings: string
 }
