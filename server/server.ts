@@ -35,8 +35,11 @@ export class Server {
             this.app.use(hotMiddleware(compiler));
         }
 
-        this.app.use(generateNonce);
-        this.app.use(addCSP);
+        if (!IS_DEV) {
+            this.app.use(generateNonce);
+            this.app.use(addCSP);
+        }
+
         this.app.use(renderBundle);
     }
 

@@ -40,7 +40,7 @@ const GameStartComponent: React.FC<PageComponentProps> = React.memo(({ title }) 
                                 variant="contained"
                                 color="secondary"
                                 onClick={handleGameStart}
-                                className={block('toggle')}
+                                className={block('toggle').toString()}
                             >
                                 {LOCAL.GAME_START}
                             </Button>

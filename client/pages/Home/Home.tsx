@@ -1,6 +1,6 @@
 import './Home.css';
 
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { PageComponentProps } from 'client/shared/types';
 import { ButtonsToolbar, NivelatorXY, Paper } from 'client/shared/components';
 import {
@@ -12,7 +12,9 @@ import { LOCAL } from 'client/shared/consts';
 import { ROUTES } from 'client/routing';
 import { Link as RouterLink } from 'react-router-dom';
 
-import { logoutThunk, profileSelector } from 'client/core/store';
+import {
+    currentPlayerScoreSelector, getScoreByPlayerIdThunk, logoutThunk, profileSelector,
+} from 'client/core/store';
 import { withCheckAuth } from 'client/core/HOCs';
 import { Meta, Logo } from 'client/core';
 
@@ -20,6 +22,7 @@ const block = bem('home');
 
 const HomeComponent: React.FC<PageComponentProps> = React.memo(({ title }) => {
     const profile = useSelector(profileSelector);
+    const currentPlayerScore = useSelector(currentPlayerScoreSelector);
     const dispatch = useDispatch();
 
     const handleLogout = () => {
@@ -47,6 +50,10 @@ const HomeComponent: React.FC<PageComponentProps> = React.memo(({ title }) => {
         [],
     );
 
+    useEffect(() => {
+        dispatch(getScoreByPlayerIdThunk(profile.id));
+    }, []);
+
     return (
         <NivelatorXY className={block()}>
             <Meta title={title} />
@@ -55,8 +62,7 @@ const HomeComponent: React.FC<PageComponentProps> = React.memo(({ title }) => {
                 <div className={block('userdata')}>
                     <p className={block('username')}>{profile.first_name}</p>
                     <p className={block('user-result')}>
-                        {/* TODO: будет доработано, когда реализуем АПИ для leaderboard, LP-82 */}
-                        {LOCAL.RECORD}: 33
+                        {LOCAL.RECORD}: {currentPlayerScore?.score || 0}
                     </p>
                 </div>
                 <Divider />

@@ -28,7 +28,6 @@ services:
       - "27017:27017"
     networks:
       - app-network
-    restart: always
 
   postgres:
     build:
@@ -39,6 +38,8 @@ services:
     volumes:
       - lp-postgres:/var/lib/postgresql/data
     environment:
+      POSTGRES_USER: ${POSTGRES_USERNAME}
+      POSTGRES_DB: ${POSTGRES_DATABASE}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       PGDATA: /var/lib/postgresql/data
     networks:

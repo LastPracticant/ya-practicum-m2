@@ -1,18 +1,23 @@
-export interface TopicModelProps {
+export interface CommonModelProps {
     id: number
-    name: string
-    description: string
-    userId: number
     createdAt: Date
     updatedAt: Date
 }
 
-export interface CommentModelProps {
-    id: number
+export interface LeaderboardModelProps extends CommonModelProps {
+    userId: number
+    score: number
+}
+
+export interface TopicModelProps extends CommonModelProps {
+    name: string
     description: string
     userId: number
-    createdAt: Date
-    updatedAt: Date
+}
+
+export interface CommentModelProps extends CommonModelProps {
+    description: string
+    userId: number
     topicId: number
     emoji?: string
     parentId?: number
@@ -22,10 +27,7 @@ export interface EmojiParsedProps {
     [key: string]: number[]
 }
 
-export interface UserModelProps {
-    id: number
+export interface UserModelProps extends CommonModelProps {
     userExternalId: number
     name: string
-    createdAt: Date
-    updatedAt: Date
 }

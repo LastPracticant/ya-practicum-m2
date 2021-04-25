@@ -5,7 +5,7 @@ import bem from 'bem-cn';
 import { ROUTES } from 'client/routing';
 import { LOCAL } from 'client/shared/consts';
 import { formatDate } from 'client/shared/utils';
-import { GetAllTopicsResponseProps } from 'client/core/api';
+import { UserInfoProps } from 'client/core/api';
 import { Link } from '@material-ui/core';
 
 export const block = bem('forum');
@@ -47,7 +47,7 @@ export const columns: Columns = [
         width: 200,
         sortable: false,
         renderCell: (params) => {
-            const { name } = params.getValue('user') as GetAllTopicsResponseProps['user'];
+            const { name } = params.getValue('user') as UserInfoProps;
 
             return <>{name}</>;
         },

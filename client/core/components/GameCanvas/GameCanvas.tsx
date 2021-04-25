@@ -22,7 +22,7 @@ export const GameCanvas: React.FC<GameCanvasProps> = ({
     const { game: gameState } = useSelector(gameSelector);
 
     useEffect(() => {
-        if (gameState.isOver || gameState.isPause) {
+        if (document.fullscreenElement && (gameState.isOver || gameState.isPause)) {
             document.exitFullscreen();
         }
     }, [gameState]);

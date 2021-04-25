@@ -27,6 +27,11 @@ export interface CurrentUserInfoProps {
     avatar: string
 }
 
+export interface UserInfoProps {
+    id: number
+    name: string
+}
+
 const ExpressAuthAPI = new HTTP('/auth');
 
 export class AuthAPI extends BaseAPI {

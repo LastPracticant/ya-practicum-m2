@@ -1,13 +1,9 @@
 import { CommentModelProps, TopicModelProps } from 'server/models/models.types';
 import { HTTP } from './api';
+import { UserInfoProps } from './auth.api';
 import { BaseAPI } from './base.api';
 
 const ExpressForumAPI = new HTTP('/internal/forum');
-
-interface UserInfoProps {
-    id: number
-    name: string
-}
 
 export interface AddTopicRequestProps extends Omit<TopicModelProps, 'createdAt' | 'updatedAt'> {}
 
