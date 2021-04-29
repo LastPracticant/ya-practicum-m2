@@ -1,4 +1,3 @@
-import { ColorThemes } from 'client/pages/Settings/Settings.config';
 import { SnackBarDataProps } from 'client/shared/components';
 import { RouterState } from 'connected-react-router';
 import { CommentModelProps, TopicModelProps } from 'server/models/models.types';
@@ -29,7 +28,9 @@ export interface StoreSnackBarProps extends SnackBarDataProps {
 }
 
 export interface UserSettingsProps {
-    colorTheme: ColorThemes
+    isColorThemeLight?: boolean
+    isMusicEnabled?: boolean
+    musicTheme?: 'intro' | 'game'
 }
 
 export interface StoreProps {

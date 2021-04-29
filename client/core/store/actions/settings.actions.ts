@@ -31,9 +31,16 @@ export const getUserSettingsThunk = (userId: number): ThunkAction<void, StorePro
 };
 
 export const updateUserSettingsThunk = (
-    data: UpdateUserSettingsRequestProps,
+    profileId: number,
+    settings: UserSettingsProps,
 ): ThunkAction<void, StoreProps, unknown, Action<string>> => (dispatch) => {
     dispatch(showLoaderAction());
+    dispatch(setUserSettingsAction(settings));
+
+    const data: UpdateUserSettingsRequestProps = {
+        id: profileId,
+        settings: JSON.stringify(settings),
+    };
 
     SettingsAPI.updateUserSettings(data)
         .catch(console.error)

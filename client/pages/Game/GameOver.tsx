@@ -3,7 +3,9 @@ import { PageComponentProps } from 'client/shared/types';
 import { NivelatorXY, Paper } from 'client/shared/components';
 import { ROUTES } from 'client/routing';
 import bem from 'bem-cn';
-import { addResultToLeaderboardThunk, profileSelector, StoreGameProps } from 'client/core/store';
+import {
+    addResultToLeaderboardThunk, profileSelector, setUserSettingsAction, StoreGameProps,
+} from 'client/core/store';
 import { LOCAL } from 'client/shared/consts';
 import { useDispatch, useSelector } from 'react-redux';
 import { gameResetAction } from 'client/core/store/actions/game.actions';
@@ -32,7 +34,9 @@ export const GameOver: React.FC<GameOverProps> = React.memo(({
             userId: profile.id,
             score,
         }));
-    }, [score]);
+
+        if (isOver) dispatch(setUserSettingsAction({ musicTheme: 'intro' }));
+    }, [score, isOver]);
 
     return (
         <Paper className={block.state({ active: Boolean(isOver) })}>

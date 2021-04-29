@@ -54,5 +54,6 @@ export const LOCAL = {
     ERROR_PAGE_DESC: 'Вы можете перейти на',
     ERROR_PAGE_LINK: 'Главную',
     ERROR_SIGNIN: 'Не удалось авторизоваться, проверьте правильность введенных данных',
-    SETTINGS_THEME: 'Темная тема',
+    SETTINGS_THEME: 'Светлая тема',
+    MUSIC: 'Музыка',
 };

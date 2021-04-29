@@ -1,6 +1,8 @@
 import './Game.css';
 
-import React from 'react';
+import React, {
+    useEffect,
+} from 'react';
 import { PageComponentProps } from 'client/shared/types';
 import { Meta, PageLayout } from 'client/core';
 import { NivelatorXY, Paper } from 'client/shared/components';
@@ -10,15 +12,22 @@ import { useHistory } from 'react-router-dom';
 import bem from 'bem-cn';
 import { LOCAL } from 'client/shared/consts';
 import { withCheckAuth } from 'client/core/HOCs';
+import { setUserSettingsAction } from 'client/core/store';
+import { useDispatch } from 'react-redux';
 
 const block = bem('game-start');
 
 const GameStartComponent: React.FC<PageComponentProps> = React.memo(({ title }) => {
     const history = useHistory();
+    const dispatch = useDispatch();
 
     const handleGameStart = () => {
         history.push(ROUTES.GAME.path);
     };
+
+    useEffect(() => {
+        dispatch(setUserSettingsAction({ musicTheme: 'intro' }));
+    });
 
     return (
         <PageLayout className={block()}>

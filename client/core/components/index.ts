@@ -4,3 +4,4 @@ export * from './PageLayout';
 export * from './Logo';
 export * from './Meta';
 export * from './OAuth';
+export * from './GameSoundTheme';

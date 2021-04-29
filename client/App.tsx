@@ -3,12 +3,15 @@ import './shared/styles/theme.css';
 
 import React, { useEffect, useMemo } from 'react';
 import { Routing } from 'client/routing/Routing';
-import { createMuiTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
+import {
+    createMuiTheme, CssBaseline, NoSsr, ThemeProvider,
+} from '@material-ui/core';
 import { useSelector } from 'react-redux';
+
 import { Loader, SnackBar, NivelatorXY } from './shared/components';
 import { loaderSelector, settingsSelector, snackbarSelector } from './core/store/selectors';
-import { ColorThemes } from './pages/Settings/Settings.config';
 import { DARK_THEME, LIGHT_THEME } from './core/colors';
+import { GameSoundTheme } from './core/components';
 
 export const App: React.FC = () => {
     const loader = useSelector(loaderSelector);
@@ -16,7 +19,7 @@ export const App: React.FC = () => {
     const userSettings = useSelector(settingsSelector);
 
     const themeSettings = useMemo(() => createMuiTheme({
-        palette: userSettings.colorTheme === ColorThemes.Light ? LIGHT_THEME : DARK_THEME,
+        palette: userSettings.isColorThemeLight ? LIGHT_THEME : DARK_THEME,
     }), [userSettings]);
 
     useEffect(() => {
@@ -33,6 +36,10 @@ export const App: React.FC = () => {
                 <Loader isVisible={loader.isVisible} />
                 <SnackBar open={snackBar.isVisible} {...snackBar} />
             </NivelatorXY>
+
+            <NoSsr>
+                <GameSoundTheme />
+            </NoSsr>
         </ThemeProvider>
     );
 };

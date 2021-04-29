@@ -17,6 +17,7 @@ import {
     isHaveBulletEncounter,
     isHaveHeroEncounter,
 } from './GameCanvas.utils';
+import { SoundsProps } from './GameSound';
 import { ResourcesProps } from './ResourcesLoader';
 
 export interface DrawCanvasProps {
@@ -25,6 +26,7 @@ export interface DrawCanvasProps {
     shift: number
     keyPress?: string | null
     resources?: ResourcesProps
+    sounds?: SoundsProps
 }
 
 export interface DrawCanvasPartProps extends DrawCanvasProps {}
@@ -207,6 +209,7 @@ export class GamePainter {
     checkEncounters(
         gameOverFn: FnActionRequiredProps<StoreGameProps>,
         gamePauseFn: FnActionRequiredProps<StoreGameProps>,
+        options: DrawCanvasPartProps,
     ) {
         const anemyExplosionShiftY = 30;
         const heroExplosionShiftY = 5;
@@ -226,6 +229,7 @@ export class GamePainter {
                     });
                     this.enemies.army.splice(i, 1);
                     this.hero.shots.splice(j, 1);
+                    options.sounds?.enemyDamage.trigger();
 
                     if (enemy.type === 'reviewer') {
                         levelComplite = true;
@@ -243,6 +247,7 @@ export class GamePainter {
                 this.enemies.army.splice(i, 1);
 
                 this.hero.lifes--;
+                options.sounds?.heroDamage.trigger();
 
                 if (enemy.type === 'reviewer') {
                     isBossWin = true;
@@ -418,7 +423,7 @@ export class GamePainter {
 
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
-        this.checkEncounters(gameOverFn, gamePauseFn);
+        this.checkEncounters(gameOverFn, gamePauseFn, options);
         this.drawBg(options);
         this.drawHero(options);
         this.drawLifes(options);

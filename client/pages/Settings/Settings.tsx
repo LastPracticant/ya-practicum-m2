@@ -8,26 +8,24 @@ import { FormControlLabel, Switch } from '@material-ui/core';
 import { LOCAL } from 'client/shared/consts';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    profileSelector, settingsSelector, setUserSettingsAction, updateUserSettingsThunk,
+    profileSelector, settingsSelector, updateUserSettingsThunk, UserSettingsProps,
 } from 'client/core/store';
-import { ColorThemes } from './Settings.config';
 
 const SettingsComponent: React.FC<PageComponentProps> = ({ title }) => {
     const dispatch = useDispatch();
     const userSettings = useSelector(settingsSelector);
     const profile = useSelector(profileSelector);
 
-    const handleChangeColorTheme = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-        const settings = {
-            colorTheme: event.target.checked ? ColorThemes.Dark : ColorThemes.Light,
-        };
-
-        dispatch(setUserSettingsAction(settings));
-        dispatch(updateUserSettingsThunk({
-            id: profile.id,
-            settings: JSON.stringify(settings),
-        }));
+    const updateSettings = useCallback((settings: UserSettingsProps) => {
+        dispatch(updateUserSettingsThunk(profile.id, settings));
     }, []);
+
+    const handleSettingsChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+        updateSettings({
+            ...userSettings,
+            [event.target.name]: event.target.checked,
+        });
+    }, [userSettings]);
 
     return (
         <PageLayout goBackLink={ROUTES.HOME.path}>
@@ -36,13 +34,25 @@ const SettingsComponent: React.FC<PageComponentProps> = ({ title }) => {
                 <FormControlLabel
                     control={(
                         <Switch
-                            checked={userSettings.colorTheme !== ColorThemes.Light}
-                            onChange={handleChangeColorTheme}
-                            name="isColorThemeDark"
+                            checked={userSettings.isColorThemeLight}
+                            onChange={handleSettingsChange}
+                            name="isColorThemeLight"
                             inputProps={{ 'aria-label': 'secondary checkbox' }}
                         />
                       )}
                     label={LOCAL.SETTINGS_THEME}
+                />
+
+                <FormControlLabel
+                    control={(
+                        <Switch
+                            checked={userSettings.isMusicEnabled}
+                            onChange={handleSettingsChange}
+                            name="isMusicEnabled"
+                            inputProps={{ 'aria-label': 'secondary checkbox' }}
+                        />
+                      )}
+                    label={LOCAL.MUSIC}
                 />
             </Paper>
         </PageLayout>

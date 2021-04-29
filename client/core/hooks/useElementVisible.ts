@@ -6,6 +6,7 @@ import {
 export interface UseElementVisibleResultProps {
     elementVisible: boolean
     handleChangeElementVisible: FnActionProps
+    setElementVisible: React.Dispatch<React.SetStateAction<boolean>>
     toggleElementVisibleRef: RefObject<HTMLDivElement>
     elementRef: RefObject<HTMLDivElement>
 }
@@ -14,8 +15,8 @@ export interface UseElementVisibleResultProps {
  * Хук для переключения видимости элемента, с учетом клика за пределами
  * переключателя, а также самого элемента
  */
-export function useElementVisible(): UseElementVisibleResultProps {
-    const [elementVisible, setElementVisible] = useState(false);
+export function useElementVisible(initialState = false): UseElementVisibleResultProps {
+    const [elementVisible, setElementVisible] = useState(initialState);
     const toggleElementVisibleRef = useRef<HTMLDivElement>(null);
     const elementRef = useRef<HTMLDivElement>(null);
 
@@ -70,6 +71,7 @@ export function useElementVisible(): UseElementVisibleResultProps {
     return {
         elementVisible,
         handleChangeElementVisible,
+        setElementVisible,
         toggleElementVisibleRef,
         elementRef,
     };

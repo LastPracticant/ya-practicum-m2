@@ -13,7 +13,7 @@ import {
 export const routing = (app: Express) => {
     const jsonParser = express.json();
 
-    app.get('*.(js|json|css|png|jpe?g|gif)$', (req, res) => {
+    app.get('*.(js|json|css|png|jpe?g|gif|mp3)$', (req, res) => {
         res.sendFile(path.join(__dirname, req.path));
     });
 

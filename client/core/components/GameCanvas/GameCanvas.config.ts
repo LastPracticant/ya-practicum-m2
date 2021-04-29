@@ -212,7 +212,7 @@ export const GAME_OPTIONS: GameOptionProps = {
             {
                 // TODO: для демонстрации выставлено 15 сек, чтобы можно было
                 // походить по всем уровням
-                duration: 15,
+                duration: 45,
                 bg: {
                     sx: 0, sy: 0, sWidth: 2134, sHeight: 600,
                 },
@@ -221,7 +221,7 @@ export const GAME_OPTIONS: GameOptionProps = {
                 isBossReached: false,
             },
             {
-                duration: 15,
+                duration: 45,
                 bg: {
                     sx: 0, sy: 600, sWidth: 2134, sHeight: 600,
                 },
@@ -230,7 +230,7 @@ export const GAME_OPTIONS: GameOptionProps = {
                 isBossReached: false,
             },
             {
-                duration: 15,
+                duration: 45,
                 bg: {
                     sx: 0, sy: 1200, sWidth: 2134, sHeight: 600,
                 },
@@ -239,7 +239,7 @@ export const GAME_OPTIONS: GameOptionProps = {
                 isBossReached: false,
             },
             {
-                duration: 15,
+                duration: 45,
                 bg: {
                     sx: 0, sy: 1800, sWidth: 2134, sHeight: 600,
                 },
@@ -248,7 +248,7 @@ export const GAME_OPTIONS: GameOptionProps = {
                 isBossReached: false,
             },
             {
-                duration: 15,
+                duration: 45,
                 bg: {
                     sx: 0, sy: 2400, sWidth: 2134, sHeight: 600,
                 },
@@ -257,7 +257,7 @@ export const GAME_OPTIONS: GameOptionProps = {
                 isBossReached: false,
             },
             {
-                duration: 15,
+                duration: 45,
                 bg: {
                     sx: 0, sy: 3000, sWidth: 2134 * 2, sHeight: 600,
                 },
@@ -266,7 +266,7 @@ export const GAME_OPTIONS: GameOptionProps = {
                 isBossReached: false,
             },
             {
-                duration: 15,
+                duration: 45,
                 bg: {
                     sx: 0, sy: 3600, sWidth: 2134, sHeight: 600,
                 },
@@ -275,7 +275,7 @@ export const GAME_OPTIONS: GameOptionProps = {
                 isBossReached: false,
             },
             {
-                duration: 15,
+                duration: 45,
                 bg: {
                     sx: 0, sy: 4200, sWidth: 2134, sHeight: 600,
                 },

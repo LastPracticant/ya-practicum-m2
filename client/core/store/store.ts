@@ -15,12 +15,7 @@ import {
 import { gameReducers } from './reducers/game.reducers';
 import { snackbarReducers } from './reducers/snackbar.reducers';
 import { StoreProps } from './store.types';
-
-export const isServer = !(
-    typeof window !== 'undefined'
-    && window.document
-    && window.document.createElement
-);
+import { isServer } from './store.consts';
 
 export const history = !isServer
     ? createBrowserHistory()

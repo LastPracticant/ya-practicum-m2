@@ -1,5 +1,6 @@
-import { gameSelector, StoreGameProps } from 'client/core/store';
+import { gameSelector, setUserSettingsAction, StoreGameProps } from 'client/core/store';
 import { gameOverAction, gamePauseAction } from 'client/core/store/actions/game.actions';
+import { setGameSounds } from 'client/pages/Game/Game.config';
 import { FnActionRequiredProps } from 'client/shared/types';
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -29,8 +30,11 @@ export const useCanvas = (drawCanvas: DrawCanvasFn, resources?: CanvasResourcesP
     useEffect(() => {
         if (gameState.isOver || gameState.isPause) return;
 
+        dispatch(setUserSettingsAction({ musicTheme: 'game' }));
+
         const canvas = canvasRef.current;
         const ctx = canvas?.getContext('2d');
+        const sounds = setGameSounds?.();
 
         if (!ctx) return;
 
@@ -61,6 +65,7 @@ export const useCanvas = (drawCanvas: DrawCanvasFn, resources?: CanvasResourcesP
                 resources: loadedResources,
                 keyPress,
                 frameCount,
+                sounds,
             }, handleGameOver, handleGamePause);
 
             keyPress = null;
@@ -80,6 +85,12 @@ export const useCanvas = (drawCanvas: DrawCanvasFn, resources?: CanvasResourcesP
         return () => {
             window.cancelAnimationFrame(animationFrameId);
             document.removeEventListener('keydown', handleHeroAction, false);
+
+            if (sounds) {
+                Object.values(sounds).forEach((sound) => {
+                    sound.remove();
+                });
+            }
         };
     }, [gameState]);
 
