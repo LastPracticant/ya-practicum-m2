@@ -16,6 +16,7 @@ module.exports = {
         IS_DEV && 'css-hot-loader/hotModuleReplacement',
         './client/index.tsx',
     ].filter(Boolean),
+    devtool: false,
     output: {
         filename: '[name].js',
         path: IS_DEV ? __dirname : path.join(__dirname, './dist'),
@@ -65,6 +66,7 @@ module.exports = {
         ],
     },
     plugins: [
+        new webpack.SourceMapDevToolPlugin(),
         new Dotenv(),
         new ForkTsCheckerWebpackPlugin(),
         new MiniCssExtractPlugin(),

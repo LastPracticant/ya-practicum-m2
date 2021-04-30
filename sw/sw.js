@@ -28,6 +28,10 @@ const NETWORK_ONLY_STRATEGY_URLS = [
     'oauth/yandex',
     'hot-update',
     '__webpack_hmr',
+    '/start-sw.js',
+    '/signin',
+    '/signup',
+    '/settings',
 ];
 
 self.addEventListener('install', async () => {
